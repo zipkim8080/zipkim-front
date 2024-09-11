@@ -38,7 +38,7 @@ export default {
       formData.append('images', property.images); // 파일 첨부
     }
 
-    const { data } = await axios.post(BASE_URL, formData, { headers });
+    const { data } = await axios.post(BASE_URL, formData, headers);
 
     console.log('PROPERTY POST: ', data);
     return data;
