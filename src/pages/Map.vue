@@ -4,7 +4,7 @@ const router = useRouter();
 // 단순 페이지 이동 //
 const regi = () => {
   router.push({
-    path: '/regi',
+    path: '/add',
   });
 };
 </script>
