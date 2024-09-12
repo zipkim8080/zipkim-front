@@ -12,8 +12,9 @@
       guideMessage
     }}</span
     ><br />
-    <input type="text" v-model="detailAddress" placeholder="상세주소" />
     <input type="text" v-model="extraAddress" placeholder="참고항목" />
+    <input type="hidden" v-model="bcode" />
+    <input type="hidden" v-model="bname" />
   </div>
 </template>
 
@@ -24,10 +25,11 @@ export default {
       postcode: '',
       roadAddress: '',
       jibunAddress: '',
-      detailAddress: '',
       extraAddress: '',
       guideMessage: '',
       guideVisible: false,
+      bcode: '',
+      bname: '',
     };
   },
   mounted() {
@@ -74,10 +76,22 @@ export default {
             extraRoadAddr = ` (${extraRoadAddr})`;
           }
 
+          // 주소 정보를 부모 컴포넌트로 전달
+          this.$emit('addressSelected', {
+            postcode: data.zonecode,
+            roadAddress: roadAddr,
+            jibunAddress: data.jibunAddress,
+            extraAddress: extraRoadAddr,
+            bcode: data.bcode,
+            bname: data.bname,
+          });
+
           this.postcode = data.zonecode;
           this.roadAddress = roadAddr;
           this.jibunAddress = data.jibunAddress;
           this.extraAddress = roadAddr ? extraRoadAddr : '';
+          this.bcode = data.bcode;
+          this.bname = data.bname;
 
           if (data.autoRoadAddress) {
             this.guideMessage = `(예상 도로명 주소 : ${
@@ -97,5 +111,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

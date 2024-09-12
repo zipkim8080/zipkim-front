@@ -8,12 +8,13 @@ export default {
     // 아바타 파일 업로드 - multipart 인코딩 필요 -> FormData 객체 사용
 
     const formData = new FormData(); // DTO property 명
-    formData.append('zipcode', property.postcode); // 우편번호
-    formData.append('roadName', property.roadAddress); // 도로명주소
-    formData.append('bgdCd', property.bgdCd); // 법정동 코드 _ api 요청해서 받아오기
-    formData.append('addressName', property.detailAddress); // 상세주소
-    formData.append('mainAddressNo', property.jibunAddress); // 본번
-    formData.append('subAddressNo', property.extraAddress); // 부번
+    formData.append('zipcode', property.zipcode); // 우편번호
+    formData.append('roadName', property.roadName); // 도로명주소
+    formData.append('bgdCd', property.bgdCd); // 법정동 코드
+    formData.append('dong', property.dong); // 법정동명
+    formData.append('addressName', property.addressName); // 상세주소
+    formData.append('mainAddressNo', property.mainAddressNo); // 본번
+    formData.append('subAddressNo', property.subAddressNo); // 부번
     formData.append('longitude', property.longitude); // 경도 _ api 요청해서 받아오기
     formData.append('latitude', property.latitude); // 위도 _ api 요청해서 받아오기
     formData.append('amount', property.amount); //매매가

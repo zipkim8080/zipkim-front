@@ -10,10 +10,11 @@ const images = ref(null);
 // const disableSubmit = ref(true); // 필수 사항 입력 전 까지 submit 못하게
 
 const property = reactive({
-  brokerId: 1,
+  brokerId: 0,
   zipcode: '',
   roadName: '',
   bgdCd: '',
+  dong: '',
   addressName: '',
   mainAddressNo: '',
   subAddressNo: '',
@@ -23,13 +24,13 @@ const property = reactive({
   deposit: '',
   roomNo: '',
   bathNo: '',
-  hasEv: false,
+  hasEv: '',
   porch: '',
   images: null,
-  floor: 1,
-  totalFloor: 1,
+  floor: 0,
+  totalFloor: 0,
   description: '',
-  parking: false,
+  parking: '',
   recentAmount: '',
   recentDeposit: '',
   hugNumber: '',
@@ -38,6 +39,17 @@ const property = reactive({
   registerUniqueNum: '',
 });
 
+const handleAddressSelected = (addressData) => {
+  // Address 컴포넌트에서 emit된 데이터를 property에 저장
+  property.zipcode = addressData.postcode;
+  property.roadName = addressData.roadAddress;
+  property.mainAddressNo = addressData.jibunAddress;
+  property.subAddressNo = addressData.extraAddress;
+  property.addressName = addressData.detailAddress;
+  property.bgdCd = addressData.bcode;
+  property.dong = addressData.bname;
+};
+
 const register = async () => {
   // 첨부파일
   if (images.value.files.length > 0) {
@@ -45,9 +57,8 @@ const register = async () => {
   }
 
   try {
-    console.log(property);
-
     await propertyApi.create(property); // 매물 등록
+    console.log(property);
     router.push({ name: 'Map' }); // 매물 등록 성공
   } catch (e) {
     console.error(e);
@@ -64,7 +75,12 @@ const register = async () => {
         <div>
           <div class="mb-3">
             HUG 인증 번호
-            <input type="text" name="hugNumber" id="hugNumber" />
+            <input
+              type="text"
+              name="hugNumber"
+              id="hugNumber"
+              v-model="property.hugNumber"
+            />
           </div>
           <div class="mb-3">
             건물등기
@@ -72,23 +88,38 @@ const register = async () => {
               type="text"
               name="registerUniqueNum"
               id="registerUniqueNum"
+              v-model="property.registerUniqueNum"
             />
           </div>
           <!-- OCR 처리후 등기 고유번호 가져오기 -->
           <div class="mb-3">
             가격
-            <input type="text" name="amount" id="amount" placeholder="매매" />
+            <input
+              type="text"
+              name="amount"
+              id="amount"
+              placeholder="매매"
+              v-model="property.amount"
+            />
             <span class="me-4"></span
             ><input
               type="text"
               name="deposit"
               id="deposit"
               placeholder="전세"
+              v-model="property.deposit"
             />
           </div>
           <div class="mb-3">
             주소
-            <Address />
+            <Address @addressSelected="handleAddressSelected" />
+            <input
+              type="text"
+              id="addressName"
+              name="addressName"
+              v-model="property.addressName"
+              placeholder="상세주소"
+            />
           </div>
 
           <!-- <div class="mb-3">
@@ -103,72 +134,102 @@ const register = async () => {
               name="images"
               ref="images"
               id="images"
+              accept="image/png, image/jpeg"
               multiple
             />
           </div>
           <div class="mb-3">
             방/욕실갯수
-            <input type="text" name="roomNo" id="roomNo" placeholder="방" />
+            <input
+              type="text"
+              name="roomNo"
+              id="roomNo"
+              placeholder="방"
+              v-model="property.roomNo"
+            />
             <span class="me-4"></span
-            ><input type="text" name="bathNo" id="bathNo" placeholder="욕실" />
+            ><input
+              type="text"
+              name="bathNo"
+              id="bathNo"
+              placeholder="욕실"
+              v-model="property.bathNo"
+            />
           </div>
           <div class="mb-3">
             해당층/전체층
-            <input type="text" name="floor" id="floor" placeholder="해당층" />
+            <input
+              type="text"
+              name="floor"
+              id="floor"
+              placeholder="해당층"
+              v-model="property.floor"
+            />
             <span class="me-4"></span
             ><input
               type="text"
               name="totalFloor"
               id="totalFloor"
               placeholder="전체층"
+              v-model="property.totalFloor"
             />
           </div>
         </div>
         <!-- 오른쪽 -->
         <div class="">
           <div class="mb-3">
-            건물주차대수
-            <input type="text" name="amount" id="amount" placeholder="" />
-          </div>
-          <!-- 주차가능여부 -->
-          <div class="mb-3">
             주차가능여부
-            <label class="form-check-label ms-5 me-3" for="parking"> 유 </label>
+            <label class="form-check-label ms-5 me-3" for="parkingY">
+              유
+            </label>
             <input
               class="form-check-input me-5"
               type="radio"
               name="parking"
-              id="parking"
+              id="parkingY"
+              value="true"
+              v-model="property.parking"
             />
-            <label class="form-check-label me-3" for="parking0"> 무 </label>
+            <label class="form-check-label me-3" for="parkingN"> 무 </label>
             <input
               class="form-check-input"
               type="radio"
               name="parking"
-              id="parking0"
+              id="parkingN"
+              value="false"
+              v-model="property.parking"
             />
           </div>
           <!--  -->
           <div class="mb-3">
             엘리베이터 유무
-            <label class="form-check-label ms-5 me-3" for="hasEv"> 유 </label>
+            <label class="form-check-label ms-5 me-3" for="hasEvY"> 유 </label>
             <input
               class="form-check-input me-5"
               type="radio"
               name="hasEv"
-              id="hasEv"
+              id="hasEvY"
+              value="true"
+              v-model="property.hasEv"
             />
-            <label class="form-check-label me-3" for="hasEv0"> 무 </label>
+            <label class="form-check-label me-3" for="hasEvN"> 무 </label>
             <input
               class="form-check-input"
               type="radio"
               name="hasEv"
-              id="hasEv0"
+              id="hasEvN"
+              value="false"
+              v-model="property.hasEv"
             />
           </div>
           <div class="mb-3">
             현관 유형
-            <input type="text" name="porch" id="porch" placeholder="" />
+            <input
+              type="text"
+              name="porch"
+              id="porch"
+              v-model="property.porch"
+            />
           </div>
           <!-- checkBox -->
           <div class="mb-3">
@@ -181,6 +242,7 @@ const register = async () => {
                   name="hasConvenience"
                   value="hasConvenience"
                   id="hasConvenience"
+                  v-model="property.hasConvenience"
                 />
                 <label class="form-check-label" for="hasConvenience">
                   편의점
@@ -193,6 +255,7 @@ const register = async () => {
                   name="hasSchool"
                   value="hasSchool"
                   id="hasSchool"
+                  v-model="property.hasSchool"
                 />
                 <label class="form-check-label" for="hasSchool"> 학교 </label>
               </div>
@@ -204,6 +267,7 @@ const register = async () => {
               name="description"
               id="description"
               placeholder="내용을 입력해 주세요."
+              v-model="property.description"
             ></textarea>
           </div>
           <div>
