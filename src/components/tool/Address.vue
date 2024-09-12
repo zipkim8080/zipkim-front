@@ -1,27 +1,8 @@
-<template>
-  <div>
-    <input type="text" v-model="postcode" placeholder="우편번호" />
-    <input
-      type="button"
-      @click="execDaumPostcode"
-      value="우편번호 찾기"
-    /><br />
-    <input type="text" v-model="roadAddress" placeholder="도로명주소" />
-    <input type="text" v-model="jibunAddress" placeholder="지번주소" />
-    <span v-if="guideVisible" id="guide" style="color: #999">{{
-      guideMessage
-    }}</span
-    ><br />
-    <input type="text" v-model="extraAddress" placeholder="참고항목" />
-    <input type="hidden" v-model="bcode" />
-    <input type="hidden" v-model="bname" />
-  </div>
-</template>
-
 <script>
 export default {
   data() {
     return {
+      //주소 입력 부분
       postcode: '',
       roadAddress: '',
       jibunAddress: '',
@@ -111,3 +92,23 @@ export default {
   },
 };
 </script>
+
+<template>
+  <div>
+    <input type="text" v-model="postcode" placeholder="우편번호" />
+    <input
+      type="button"
+      @click="execDaumPostcode"
+      value="우편번호 찾기"
+    /><br />
+    <input type="text" v-model="roadAddress" placeholder="도로명주소" />
+    <input type="text" v-model="jibunAddress" placeholder="지번주소" />
+    <span v-if="guideVisible" id="guide" style="color: #999">{{
+      guideMessage
+    }}</span
+    ><br />
+    <input type="text" v-model="extraAddress" placeholder="참고항목" />
+    <input type="hidden" v-model="bcode" />
+    <input type="hidden" v-model="bname" />
+  </div>
+</template>

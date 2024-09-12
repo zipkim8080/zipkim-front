@@ -1,5 +1,5 @@
 <script setup>
-import Address from '../components/tool/Address.vue';
+import AddressSearch from '../components/tool/AddressSearch.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import propertyApi from '@/api/Property';
@@ -49,6 +49,8 @@ const handleAddressSelected = (addressData) => {
   property.addressName = addressData.detailAddress;
   property.bgdCd = addressData.bcode;
   property.dong = addressData.bname;
+  property.longitude = addressData.longitude;
+  property.latitude = addressData.latitude;
 };
 
 const register = async () => {
@@ -113,7 +115,7 @@ const register = async () => {
           </div>
           <div class="mb-3">
             주소
-            <Address @addressSelected="handleAddressSelected" />
+            <AddressSearch @addressSelected="handleAddressSelected" />
             <input
               type="text"
               id="addressName"
