@@ -21,6 +21,7 @@ const property = reactive({
   longitude: '',
   latitude: '',
   amount: '',
+  type: '',
   deposit: '',
   roomNo: '',
   bathNo: '',
