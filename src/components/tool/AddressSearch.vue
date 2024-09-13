@@ -14,7 +14,10 @@
     ><br />
     <input type="text" v-model="extraAddress" placeholder="참고항목" />
     <input type="hidden" v-model="bcode" />
-    <input type="hidden" v-model="bname" />
+    <input type="hidden" v-model="longitude" />
+    <input type="hidden" v-model="latitude" />
+    <input type="hidden" v-model="buildingMainAddressNo" />
+    <input type="hidden" v-model="buildingSubAddressNo" />
   </div>
 </template>
 
@@ -29,19 +32,20 @@ export default {
       guideMessage: '',
       guideVisible: false,
       bcode: '',
-      bname: '',
+      longitude: '',
+      latitude: '',
+      buildingMainAddressNo: '',
+      buildingSubAddressNo: '',
     };
   },
   mounted() {
     this.loadScript(
       '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js'
     )
-      .then(() => {
-        console.log('Daum Postcode script loaded');
-      })
-      .catch((error) => {
-        console.error('Failed to load Daum Postcode script:', error);
-      });
+      .then(() => console.log('Daum Postcode script loaded'))
+      .catch((error) =>
+        console.error('Failed to load Daum Postcode script:', error)
+      );
   },
   methods: {
     loadScript(src) {
@@ -76,37 +80,60 @@ export default {
             extraRoadAddr = ` (${extraRoadAddr})`;
           }
 
-          // 주소 정보를 부모 컴포넌트로 전달
-          this.$emit('addressSelected', {
-            postcode: data.zonecode,
-            roadAddress: roadAddr,
-            jibunAddress: data.jibunAddress,
-            extraAddress: extraRoadAddr,
-            bcode: data.bcode,
-            bname: data.bname,
-          });
-
           this.postcode = data.zonecode;
           this.roadAddress = roadAddr;
           this.jibunAddress = data.jibunAddress;
           this.extraAddress = roadAddr ? extraRoadAddr : '';
           this.bcode = data.bcode;
-          this.bname = data.bname;
 
-          if (data.autoRoadAddress) {
-            this.guideMessage = `(예상 도로명 주소 : ${
-              data.autoRoadAddress + extraRoadAddr
-            })`;
-            this.guideVisible = true;
-          } else if (data.autoJibunAddress) {
-            this.guideMessage = `(예상 지번 주소 : ${data.autoJibunAddress})`;
-            this.guideVisible = true;
-          } else {
-            this.guideMessage = '';
-            this.guideVisible = false;
-          }
+          // 주소가 변경될 때 좌표를 가져옴
+          this.fetchCoordinates();
         },
       }).open();
+    },
+    fetchCoordinates() {
+      const query = this.roadAddress;
+      if (query) {
+        const apiKey = 'KakaoAK 609c68dddc59d91ca2017c852a101b1b'; // 여기에 API 키를 넣으세요
+        const apiUrl = `https://dapi.kakao.com/v2/local/search/address.json?query=${query}`;
+
+        fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            Authorization: apiKey,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.documents.length > 0) {
+              const { x, y, main_building_no, sub_building_no } =
+                data.documents[0].road_address;
+              this.longitude = x;
+              this.latitude = y;
+              this.buildingMainAddressNo = main_building_no;
+              this.buildingSubAddressNo = sub_building_no;
+              console.log(
+                `Longitude: ${this.longitude}, Latitude: ${this.latitude}`
+              );
+
+              // 좌표를 부모 컴포넌트로 전달
+              this.$emit('addressSelected', {
+                postcode: this.postcode,
+                roadAddress: this.roadAddress,
+                jibunAddress: this.jibunAddress,
+                extraAddress: this.extraAddress,
+                bcode: this.bcode,
+                longitude: this.longitude,
+                latitude: this.latitude,
+                buildingMainAddressNo: this.buildingMainAddressNo,
+                buildingSubAddressNo: this.buildingSubAddressNo,
+              });
+            }
+          })
+          .catch((error) =>
+            console.error('Error fetching coordinates:', error)
+          );
+      }
     },
   },
 };

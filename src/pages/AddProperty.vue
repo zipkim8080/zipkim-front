@@ -1,8 +1,8 @@
 <script setup>
-import Address from '../components/tool/Address.vue';
+import AddressSearch from '../components/tool/AddressSearch.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import propertyApi from '@/api/Property';
+import propertyApi from '../api/RequestBack';
 
 const router = useRouter();
 const images = ref(null);
@@ -14,21 +14,22 @@ const property = reactive({
   zipcode: '',
   roadName: '',
   bgdCd: '',
-  dong: '',
   addressName: '',
   mainAddressNo: '',
   subAddressNo: '',
   longitude: '',
   latitude: '',
   amount: '',
+  type: '',
+  complexName: '',
   deposit: '',
   roomNo: '',
   bathNo: '',
   hasEv: '',
   porch: '',
   images: null,
-  floor: 0,
-  totalFloor: 0,
+  floor: '',
+  totalFloor: '',
   description: '',
   parking: '',
   recentAmount: '',
@@ -37,6 +38,9 @@ const property = reactive({
   hasSchool: false,
   hasConvenience: false,
   registerUniqueNum: '',
+  //
+  buildingMainAddressNo: '',
+  buildingSubAddressNo: '',
 });
 
 const handleAddressSelected = (addressData) => {
@@ -47,7 +51,10 @@ const handleAddressSelected = (addressData) => {
   property.subAddressNo = addressData.extraAddress;
   property.addressName = addressData.detailAddress;
   property.bgdCd = addressData.bcode;
-  property.dong = addressData.bname;
+  property.longitude = addressData.longitude;
+  property.latitude = addressData.latitude;
+  property.buildingMainAddressNo = addressData.buildingMainAddressNo;
+  property.buildingSubAddressNo = addressData.buildingSubAddressNo;
 };
 
 const register = async () => {
@@ -98,21 +105,21 @@ const register = async () => {
               type="text"
               name="amount"
               id="amount"
-              placeholder="매매"
+              placeholder="테스트시 int형태로 필수입력!!"
               v-model="property.amount"
             />
-            <span class="me-4"></span
+            <span class="ms-2">(만원)</span
             ><input
               type="text"
               name="deposit"
               id="deposit"
-              placeholder="전세"
+              placeholder="테스트시 int형태로 필수입력!!"
               v-model="property.deposit"
-            />
+            /><span class="ms-2">(만원)</span>
           </div>
           <div class="mb-3">
             주소
-            <Address @addressSelected="handleAddressSelected" />
+            <AddressSearch @addressSelected="handleAddressSelected" />
             <input
               type="text"
               id="addressName"
@@ -139,7 +146,7 @@ const register = async () => {
             />
           </div>
           <div class="mb-3">
-            방/욕실갯수
+            방/욕실개수
             <input
               type="text"
               name="roomNo"

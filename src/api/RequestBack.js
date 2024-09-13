@@ -17,6 +17,8 @@ export default {
     formData.append('subAddressNo', property.subAddressNo); // 부번
     formData.append('longitude', property.longitude); // 경도 _ api 요청해서 받아오기
     formData.append('latitude', property.latitude); // 위도 _ api 요청해서 받아오기
+    formData.append('type', property.type); // 단지(건물) 유형 _
+    formData.append('complexName', property.complexName); // 단지(건물) 이름
     formData.append('amount', property.amount); //매매가
     formData.append('deposit', property.deposit); //전세가
     formData.append('roomNo', property.roomNo); // 방개수
