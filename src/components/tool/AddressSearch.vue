@@ -14,9 +14,10 @@
     ><br />
     <input type="text" v-model="extraAddress" placeholder="참고항목" />
     <input type="hidden" v-model="bcode" />
-    <input type="hidden" v-model="bname" />
     <input type="hidden" v-model="longitude" />
     <input type="hidden" v-model="latitude" />
+    <input type="hidden" v-model="buildingMainAddressNo" />
+    <input type="hidden" v-model="buildingSubAddressNo" />
   </div>
 </template>
 
@@ -31,9 +32,10 @@ export default {
       guideMessage: '',
       guideVisible: false,
       bcode: '',
-      bname: '',
       longitude: '',
       latitude: '',
+      buildingMainAddressNo: '',
+      buildingSubAddressNo: '',
     };
   },
   mounted() {
@@ -83,7 +85,6 @@ export default {
           this.jibunAddress = data.jibunAddress;
           this.extraAddress = roadAddr ? extraRoadAddr : '';
           this.bcode = data.bcode;
-          this.bname = data.bname;
 
           // 주소가 변경될 때 좌표를 가져옴
           this.fetchCoordinates();
@@ -105,9 +106,12 @@ export default {
           .then((response) => response.json())
           .then((data) => {
             if (data.documents.length > 0) {
-              const { x, y } = data.documents[0];
+              const { x, y, main_building_no, sub_building_no } =
+                data.documents[0].road_address;
               this.longitude = x;
               this.latitude = y;
+              this.buildingMainAddressNo = main_building_no;
+              this.buildingSubAddressNo = sub_building_no;
               console.log(
                 `Longitude: ${this.longitude}, Latitude: ${this.latitude}`
               );
@@ -119,9 +123,10 @@ export default {
                 jibunAddress: this.jibunAddress,
                 extraAddress: this.extraAddress,
                 bcode: this.bcode,
-                bname: this.bname,
                 longitude: this.longitude,
                 latitude: this.latitude,
+                buildingMainAddressNo: this.buildingMainAddressNo,
+                buildingSubAddressNo: this.buildingSubAddressNo,
               });
             }
           })

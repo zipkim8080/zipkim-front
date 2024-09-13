@@ -14,7 +14,6 @@ const property = reactive({
   zipcode: '',
   roadName: '',
   bgdCd: '',
-  dong: '',
   addressName: '',
   mainAddressNo: '',
   subAddressNo: '',
@@ -39,6 +38,9 @@ const property = reactive({
   hasSchool: false,
   hasConvenience: false,
   registerUniqueNum: '',
+  //
+  buildingMainAddressNo: '',
+  buildingSubAddressNo: '',
 });
 
 const handleAddressSelected = (addressData) => {
@@ -49,9 +51,10 @@ const handleAddressSelected = (addressData) => {
   property.subAddressNo = addressData.extraAddress;
   property.addressName = addressData.detailAddress;
   property.bgdCd = addressData.bcode;
-  property.dong = addressData.bname;
   property.longitude = addressData.longitude;
   property.latitude = addressData.latitude;
+  property.buildingMainAddressNo = addressData.buildingMainAddressNo;
+  property.buildingSubAddressNo = addressData.buildingSubAddressNo;
 };
 
 const register = async () => {
@@ -102,7 +105,7 @@ const register = async () => {
               type="text"
               name="amount"
               id="amount"
-              placeholder="매매"
+              placeholder="테스트시 int형태로 필수입력!!"
               v-model="property.amount"
             />
             <span class="ms-2">(만원)</span
@@ -110,7 +113,7 @@ const register = async () => {
               type="text"
               name="deposit"
               id="deposit"
-              placeholder="전세"
+              placeholder="테스트시 int형태로 필수입력!!"
               v-model="property.deposit"
             /><span class="ms-2">(만원)</span>
           </div>
@@ -143,7 +146,7 @@ const register = async () => {
             />
           </div>
           <div class="mb-3">
-            방/욕실갯수
+            방/욕실개수
             <input
               type="text"
               name="roomNo"
