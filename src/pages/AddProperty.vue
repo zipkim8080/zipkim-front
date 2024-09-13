@@ -2,7 +2,7 @@
 import AddressSearch from '../components/tool/AddressSearch.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import propertyApi from '@/api/Property';
+import propertyApi from '../api/RequestBack';
 
 const router = useRouter();
 const images = ref(null);
@@ -22,14 +22,15 @@ const property = reactive({
   latitude: '',
   amount: '',
   type: '',
+  complexName: '',
   deposit: '',
   roomNo: '',
   bathNo: '',
   hasEv: '',
   porch: '',
   images: null,
-  floor: 0,
-  totalFloor: 0,
+  floor: '',
+  totalFloor: '',
   description: '',
   parking: '',
   recentAmount: '',
@@ -104,14 +105,14 @@ const register = async () => {
               placeholder="매매"
               v-model="property.amount"
             />
-            <span class="me-4"></span
+            <span class="ms-2">(만원)</span
             ><input
               type="text"
               name="deposit"
               id="deposit"
               placeholder="전세"
               v-model="property.deposit"
-            />
+            /><span class="ms-2">(만원)</span>
           </div>
           <div class="mb-3">
             주소

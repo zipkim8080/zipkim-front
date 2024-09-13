@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import KakaoMap from '../components/tool/KakaoMap.vue';
+import KakaoMap from '../components/tool/KaKaoMap.vue';
 const router = useRouter();
 // 단순 페이지 이동 //
 const regi = () => {
