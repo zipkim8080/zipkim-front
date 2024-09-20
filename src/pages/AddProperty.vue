@@ -15,6 +15,7 @@ const property = reactive({
   roadName: '',
   bgdCd: '',
   addressName: '',
+  detailAddress: '',
   mainAddressNo: '',
   subAddressNo: '',
   longitude: '',
@@ -47,9 +48,9 @@ const handleAddressSelected = (addressData) => {
   // Address 컴포넌트에서 emit된 데이터를 property에 저장
   property.zipcode = addressData.postcode;
   property.roadName = addressData.roadAddress;
-  property.mainAddressNo = addressData.jibunAddress;
+  property.addressName = addressData.jibunAddress;
   property.subAddressNo = addressData.extraAddress;
-  property.addressName = addressData.detailAddress;
+  property.detailAddress = addressData.detailAddress;
   property.bgdCd = addressData.bcode;
   property.longitude = addressData.longitude;
   property.latitude = addressData.latitude;
@@ -126,9 +127,9 @@ const register = async () => {
             <AddressSearch @addressSelected="handleAddressSelected" />
             <input
               type="text"
-              id="addressName"
-              name="addressName"
-              v-model="property.addressName"
+              id="detailAddress"
+              name="detailAddress"
+              v-model="property.detailAddress"
               placeholder="상세주소"
             />
           </div>

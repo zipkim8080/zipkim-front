@@ -77,10 +77,12 @@ export default {
           if (data.documents.length > 0) {
             const { x, y, main_address_no, sub_address_no } =
               data.documents[0].address;
+            const { building_name } = data.documents[0].road_address;
             this.longitude = x;
             this.latitude = y;
             this.mainAddressNo = main_address_no;
             this.subAddressNo = sub_address_no;
+            this.complexName = building_name;
 
             this.emitAddressData();
           } else {
@@ -137,6 +139,8 @@ export default {
           this.extraAddress = roadAddr ? extraRoadAddr : '';
           this.bcode = data.bcode;
 
+          this.emitAddressData();
+
           try {
             // 주소가 변경될 때 좌표, 본번 부번을 가져옴
             await this.fetchCoordinates();
@@ -168,10 +172,9 @@ export default {
           data.tbLnOpendataRentV.row &&
           data.tbLnOpendataRentV.row.length > 0
         ) {
-          const { BLDG_NM, BLDG_USG, GRFE } = data.tbLnOpendataRentV.row[0];
-          console.log(BLDG_NM, BLDG_USG, GRFE, apiUrl);
+          const { BLDG_USG, GRFE } = data.tbLnOpendataRentV.row[0];
+          console.log(BLDG_USG, GRFE, apiUrl);
 
-          this.complexName = BLDG_NM;
           this.type = BLDG_USG;
           this.recentDeposit = GRFE;
 
