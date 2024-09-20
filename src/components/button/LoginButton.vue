@@ -1,33 +1,24 @@
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import KakaoMap from '../components/tool/KaKaoMap.vue';
 import loginPage from '@/pages/auth/LoginPage.vue';
-
-const router = useRouter();
-// 단순 페이지 이동 //
-const regi = () => {
-  router.push({
-    path: '/add',
-  });
-};
 
 const loginModal = ref(false);
 const loginModalOpen = () => {
   loginModal.value = !loginModal.value;
 };
 </script>
+
 <template>
-  <h1>Map이 메인</h1>
-  <input class="float float-end btn btn-primary" type="button" value="매물 등록" @click="regi()" />
-  <button @click="loginModalOpen">로그인 이미지~</button>
-  <div class="modal-wrap" v-show="loginModal">
-    <div class="modal-container">
-      <loginPage @close="loginModalOpen" />
+  <div class="login-overlay">
+    <button class="btn btn-lg btn-secondary" @click="loginModalOpen">
+      <i class="fa-solid fa-user"></i>
+    </button>
+    <div class="modal-wrap" v-show="loginModal">
+      <div class="modal-container">
+        <loginPage @close="loginModalOpen" />
+      </div>
     </div>
   </div>
-
-  <KakaoMap />
 </template>
 
 <style scoped>
@@ -46,12 +37,18 @@ const loginModalOpen = () => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 300px;
+  width: 320px;
   height: 400px;
   background: #fff;
   border-radius: 10px;
   padding: 20px;
   box-sizing: border-box;
   z-index: 1000;
+}
+.login-overlay {
+  position: absolute;
+  right: 2%;
+  top: 3%;
+  z-index: 10; /* 지도보다 높은 값을 설정 */
 }
 </style>
