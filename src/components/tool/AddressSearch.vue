@@ -81,6 +81,8 @@ export default {
             this.latitude = y;
             this.mainAddressNo = main_address_no;
             this.subAddressNo = sub_address_no;
+
+            this.emitAddressData();
           } else {
             throw new Error('주소를 찾을 수 없습니다.');
           }
