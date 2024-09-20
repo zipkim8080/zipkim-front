@@ -12,7 +12,8 @@ export default {
     formData.append('roadName', property.roadName); // 도로명주소
     formData.append('bgdCd', property.bgdCd); // 법정동 코드
     formData.append('dong', property.dong); // 법정동명
-    formData.append('addressName', property.addressName); // 상세주소
+    formData.append('addressName', property.addressName); // 지번주소
+    formData.append('detailAddress', property.detailAddress); // 상세주소
     formData.append('mainAddressNo', property.mainAddressNo); // 본번
     formData.append('subAddressNo', property.subAddressNo); // 부번
     formData.append('longitude', property.longitude); // 경도 _ api 요청해서 받아오기
