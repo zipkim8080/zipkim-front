@@ -70,7 +70,7 @@ const register = async () => {
   try {
     await propertyApi.create(property); // 매물 등록
     console.log(property);
-    router.push({ name: 'Map' }); // 매물 등록 성공
+    router.push({ name: 'Main' }); // 매물 등록 성공
   } catch (e) {
     console.error(e);
   }
