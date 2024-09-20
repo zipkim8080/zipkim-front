@@ -32,15 +32,15 @@ const property = reactive({
   totalFloor: '',
   description: '',
   parking: '',
-  recentAmount: '',
-  recentDeposit: '',
+  recentAmount: 0,
+  recentDeposit: 0,
   hugNumber: '',
   hasSchool: false,
   hasConvenience: false,
   registerUniqueNum: '',
   //
-  buildingMainAddressNo: '',
-  buildingSubAddressNo: '',
+  mainAddressNo: '',
+  subAddressNo: '',
 });
 
 const handleAddressSelected = (addressData) => {
@@ -53,8 +53,12 @@ const handleAddressSelected = (addressData) => {
   property.bgdCd = addressData.bcode;
   property.longitude = addressData.longitude;
   property.latitude = addressData.latitude;
-  property.buildingMainAddressNo = addressData.buildingMainAddressNo;
-  property.buildingSubAddressNo = addressData.buildingSubAddressNo;
+  property.mainAddressNo = addressData.mainAddressNo;
+  property.subAddressNo = addressData.subAddressNo;
+  property.complexName = addressData.complexName;
+  property.type = addressData.type;
+  property.recentDeposit = addressData.recentDeposit;
+  property.recentAmount = addressData.recentAmount;
 };
 
 const register = async () => {

@@ -25,7 +25,9 @@ const kakaoLogin = () => {
   <div class="title-box">
     <div class="title">
       <h1 class="login-title">로그인</h1>
-      <button class="close-btn" @click="$emit('close')">X</button>
+      <button class="close-btn" @click="$emit('close')">
+        <i class="fa-solid fa-x"></i>
+      </button>
     </div>
     <p class="text">로그인 하면 모든 서비스를 이용할 수 있어요!</p>
   </div>

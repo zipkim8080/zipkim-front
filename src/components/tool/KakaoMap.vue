@@ -1,5 +1,5 @@
 <template>
-  <div id="map"></div>
+  <div id="map" class="kakao-map"></div>
 </template>
 
 <script setup>
@@ -31,6 +31,7 @@ function loadMarker() {
   const markerPosition = new window.kakao.maps.LatLng(37.548138, 127.073397);
   const marker = new window.kakao.maps.Marker({
     position: markerPosition,
+    text: '로그인 안한 사용자(recentDeposit)',
   });
 
   marker.setMap(map.value);
@@ -52,6 +53,11 @@ onUnmounted(() => {
 <style scoped>
 #map {
   width: 100%;
-  height: 919px;
+  height: 100vh;
+}
+.kakao-map {
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
 }
 </style>

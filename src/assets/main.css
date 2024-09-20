@@ -1,13 +1,13 @@
 @font-face {
-  font-family: 'Ownglyph_kimkonghae';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408@1.0/Ownglyph_kimkonghae.woff2')
+  font-family: 'Paperlogy-4Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2')
     format('woff2');
-  font-weight: normal;
+  font-weight: 400;
   font-style: normal;
 }
 
 * {
-  font-family: 'Ownglyph_kimkonghae';
+  font-family: 'Paperlogy-4Regular';
 }
 .avatar {
   border-radius: 50%;
