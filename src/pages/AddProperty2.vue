@@ -24,6 +24,7 @@ export default {
             openDate: '', // 열람일시
             address: '', // 주소
             loan: '', // 근저당액 총액
+            leaseAmount: '', // 전세권 총액
         };
     },
     methods: {
@@ -46,10 +47,12 @@ export default {
                 this.openDate = result.openDate;
                 this.address = result.address;
                 this.loan = result.loan;
+                this.leaseAmount = result.leaseAmount;
                 console.log('고유번호:', this.uniqueNumber);
                 console.log('열람일시:', this.openDate);
                 console.log('주소:', this.address);
                 console.log('근저당총액', this.loan);
+                console.log('전세권총액', this.leaseAmount);
             } catch (error) {
                 console.error('OCR 처리 중 오류 발생:', error);
             }
