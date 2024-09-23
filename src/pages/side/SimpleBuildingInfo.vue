@@ -1,9 +1,25 @@
-<script setup></script>
+<script setup>
+import PropertyList from '@/components/detail/propertyList.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+function closeModal() {
+  router.back(); // 이전 페이지로 돌아가 모달 닫기
+}
+</script>
 
 <template>
   <div class="cInfo-overlay">
-    <h1 class="text text-center">간략한 건물정보</h1>
-    <ProductList />
+    <div class="title-box">
+      <div class="title">
+        <h1 class="login-title">간략한 건물정보</h1>
+        <button class="close-btn" @click="closeModal">
+          <i class="fa-solid fa-x"></i>
+        </button>
+      </div>
+    </div>
+    <PropertyList />
   </div>
 </template>
 
@@ -18,5 +34,25 @@
   border-radius: 5px;
   width: 478px;
   height: 700px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.close-btn {
+  border: none;
+  background: none;
+  margin-right: 10px;
+  padding: 0px;
+}
+
+.login-title {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  padding-left: 30px;
 }
 </style>

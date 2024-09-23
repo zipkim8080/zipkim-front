@@ -47,4 +47,10 @@ export default {
     console.log('PROPERTY POST: ', data);
     return data;
   },
+
+  // async get(no) {
+  //   const { data } = await api.get(`${BASE_URL}/${no}`);
+  //   console.log('BOARD GET', data);
+  //   return data;
+  // },
 };
