@@ -1,33 +1,22 @@
 <template>
   <!-- XX동 매물 보기 버튼 -->
-  <KakaoMap ref="kakaoMapRef" />
   <div class="xxDong-overlay">
     <input
       class="btn btn-secondary btn-lg"
       type="button"
       value="XX동 전세가율 확인"
-      @click="handleClick"
+      @click="xxDongClick"
     />
   </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
+import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 
-import KakaoMap from '@/components/tool/KakaoMap.vue';
-const kakaoMapRef = ref(null);
+const kakaoMapStore = useKakaoMapStore();
 
-watch(kakaoMapRef, (newValue) => {
-  if (newValue) {
-    console.log('KakaoMap is ready.');
-  }
-});
-
-function handleClick() {
-  if (!kakaoMapRef.value) {
-    console.error('KakaoMap component is not ready yet.');
-    return;
-  }
-  kakaoMapRef.value.xxDongEvent();
+function xxDongClick() {
+  kakaoMapStore.xxDongEvent();
 }
 </script>
 <style>
