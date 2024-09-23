@@ -48,8 +48,8 @@ export default {
     return data;
   },
 
-  // async get(no) {
-  //   const { data } = await api.get(`${BASE_URL}/${no}`);
+  // async getNearComplexes(no) {
+  //   const { data } = await api.get(`/api/map/${type}`);
   //   console.log('BOARD GET', data);
   //   return data;
   // },

@@ -3,8 +3,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref, defineExpose } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -29,7 +28,18 @@ function loadMap() {
   };
 
   map.value = new window.kakao.maps.Map(container, options);
+  getCenter();
   loadMarker();
+}
+// XX동 다시보기 이벤트
+function xxDongEvent() {
+  if (!map.value) {
+    console.error('Map is not initialized yet.');
+    return;
+  }
+  map.value.setLevel(3);
+  const newCenter = new window.kakao.maps.LatLng(37.548138, 127.073397);
+  map.value.setCenter(newCenter);
 }
 
 // 카카오맵 marker 불러오기 (이미지 설정)
@@ -55,12 +65,28 @@ function loadMarker() {
   window.kakao.maps.event.addListener(marker, 'click', function () {
     const markerMPosition = new window.kakao.maps.LatLng(
       37.548138, // 위도는 그대로 유지
-      127.073397 - 0.0012 // 경도를 조금 줄여서 왼쪽으로 중심 이동 (숫자를 조정해 위치를 실험 가능)
+      127.073397 - 0.0012 // 경도를 조금 줄여서 왼쪽으로 중심 이동
     );
     map.value.panTo(markerMPosition);
+    // 간략한 상세정보 주소이동(화면은 모달로 변경)
     router.push({ name: 'SBInfo' });
   });
 }
+
+// 지도 이동시 이동된 지도의 중심 좌표 전달
+function getCenter() {
+  window.kakao.maps.event.addListener(map.value, 'dragend', function () {
+    const center = map.value.getCenter();
+    const level = map.value.getLevel();
+    const lat = center.getLat();
+    const lng = center.getLng();
+    console.log(`위도: ${lat} 경도: ${lng} 반경:${level}`);
+  });
+}
+
+defineExpose({
+  xxDongEvent,
+});
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
