@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import LoginButton from '../components/button/LoginButton.vue';
+import TestButton from '../components/button/TestButton.vue';
 import SearchFilter from '../pages/side/SearchFilter.vue';
 import KakaoMap from '../components/tool/KaKaoMap.vue';
 import XXDongButton from '../components/button/xxDongButton.vue';
@@ -18,16 +19,14 @@ const regi = () => {
   <div class="search-overlay">
     <SearchFilter />
   </div>
-  <LoginButton />
+  <div>
+    <LoginButton />
+    <TestButton />
+  </div>
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
-    <input
-      class="btn btn-success btn-lg"
-      type="button"
-      value="매물 등록"
-      @click="regi()"
-    />
+    <input class="btn btn-success btn-lg" type="button" value="매물 등록" @click="regi()" />
   </div>
   <KakaoMap class="kakao-map" />
 </template>
