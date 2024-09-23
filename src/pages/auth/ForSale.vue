@@ -10,7 +10,7 @@ const handleClose = () => {
 
 <template>
   <div class="title">
-    <h1 class="login-title">개인정보 야미~</h1>
+    <h1>내가 등록한 매물</h1>
     <button class="close-btn" @click="handleClose">
       <i class="fa-solid fa-x"></i>
     </button>
@@ -21,20 +21,18 @@ const handleClose = () => {
 .title {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0px;
-}
-
-.login-title {
-  flex: 1;
-  text-align: center;
   margin: 0;
-  padding-left: 30px;
 }
 
 .close-btn {
   border: none;
   background: none;
-  margin-right: 20px;
+  margin-right: 10px;
   padding: 0px;
+  cursor: pointer; /* 커서가 클릭 가능한 상태임을 표시 */
+}
+
+.close-btn i {
+  font-size: 20px; /* 아이콘 크기 조정 */
 }
 </style>

@@ -10,7 +10,7 @@ const handleClose = () => {
 
 <template>
   <div class="title">
-    <h1 class="login-title">개인정보 야미~</h1>
+    <h1>최근 본 매물</h1>
     <button class="close-btn" @click="handleClose">
       <i class="fa-solid fa-x"></i>
     </button>
@@ -21,14 +21,6 @@ const handleClose = () => {
 .title {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0px;
-}
-
-.login-title {
-  flex: 1;
-  text-align: center;
-  margin: 0;
-  padding-left: 30px;
 }
 
 .close-btn {

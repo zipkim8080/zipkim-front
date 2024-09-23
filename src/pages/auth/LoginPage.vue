@@ -49,7 +49,7 @@ const kakaoLogin = () => {
   <a @click="infoModalOpen" href="#">
     <p class="info">개인정보 처리방침</p>
     <div class="modal-wrap" v-show="infoModal">
-      <div class="modal-container">
+      <div class="modal-container" @click.stop>
         <infoPage @close="infoModalOpen" />
       </div>
     </div>
@@ -115,7 +115,7 @@ a {
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 2000;
+  z-index: 20;
 }
 
 .modal-container {
@@ -129,6 +129,6 @@ a {
   border-radius: 10px;
   padding: 20px;
   box-sizing: border-box;
-  z-index: 2000;
+  z-index: 20;
 }
 </style>
