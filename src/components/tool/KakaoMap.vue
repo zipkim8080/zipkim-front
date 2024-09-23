@@ -4,8 +4,10 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref, defineExpose } from 'vue';
+import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useRouter } from 'vue-router';
 
+const kakaoMapStore = useKakaoMapStore();
 const router = useRouter();
 const map = ref(null);
 const marker = ref(null);
@@ -28,18 +30,11 @@ function loadMap() {
   };
 
   map.value = new window.kakao.maps.Map(container, options);
+
+  kakaoMapStore.setMap(map.value);
+
   getCenter();
   loadMarker();
-}
-// XX동 다시보기 이벤트
-function xxDongEvent() {
-  if (!map.value) {
-    console.error('Map is not initialized yet.');
-    return;
-  }
-  map.value.setLevel(3);
-  const newCenter = new window.kakao.maps.LatLng(37.548138, 127.073397);
-  map.value.setCenter(newCenter);
 }
 
 // 카카오맵 marker 불러오기 (이미지 설정)
@@ -83,10 +78,6 @@ function getCenter() {
     console.log(`위도: ${lat} 경도: ${lng} 반경:${level}`);
   });
 }
-
-defineExpose({
-  xxDongEvent,
-});
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {

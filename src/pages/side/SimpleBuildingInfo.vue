@@ -1,10 +1,13 @@
 <script setup>
 import PropertyList from '@/components/detail/propertyList.vue';
 import { useRouter } from 'vue-router';
+import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 
+const kakaoMapStore = useKakaoMapStore();
 const router = useRouter();
 
 function closeModal() {
+  kakaoMapStore.closeModal();
   router.back(); // 이전 페이지로 돌아가 모달 닫기
 }
 </script>
