@@ -5,7 +5,6 @@ import LoginButton from '../components/button/LoginButton.vue';
 import SearchFilter from '../pages/side/SearchFilter.vue';
 import KakaoMap from '../components/tool/KaKaoMap.vue';
 import XXDongButton from '../components/button/xxDongButton.vue';
-import SimpleBuildingInfo from './side/SimpleBuildingInfo.vue';
 
 const router = useRouter();
 // 단순 페이지 이동 //
@@ -19,7 +18,6 @@ const regi = () => {
   <div class="search-overlay">
     <SearchFilter />
   </div>
-  <!-- <SimpleBuildingInfo /> -->
   <LoginButton />
   <XXDongButton />
   <!-- 매물 등록 버튼 -->

@@ -3,11 +3,14 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref, defineExpose } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const map = ref(null);
+const marker = ref(null);
 
+// 카카오맵 script 불러오기
 function loadScript() {
   const script = document.createElement('script');
   script.src =
@@ -16,6 +19,7 @@ function loadScript() {
   document.head.appendChild(script);
 }
 
+// 카카오맵 map 로드하기
 function loadMap() {
   const container = document.getElementById('map');
   const options = {
@@ -24,18 +28,65 @@ function loadMap() {
   };
 
   map.value = new window.kakao.maps.Map(container, options);
+  getCenter();
   loadMarker();
 }
+// XX동 다시보기 이벤트
+function xxDongEvent() {
+  if (!map.value) {
+    console.error('Map is not initialized yet.');
+    return;
+  }
+  map.value.setLevel(3);
+  const newCenter = new window.kakao.maps.LatLng(37.548138, 127.073397);
+  map.value.setCenter(newCenter);
+}
 
+// 카카오맵 marker 불러오기 (이미지 설정)
 function loadMarker() {
   const markerPosition = new window.kakao.maps.LatLng(37.548138, 127.073397);
+  const imageSrc = 'public/images/property_gray.png'; // 이미지 주소
+  const imageSize = new kakao.maps.Size(50, 50); // 이미지 크기
+  const imageOption = { offset: new kakao.maps.Point(24, 60) }; // 마커와 이미지 위치 맞추기
+  const markerImage = new kakao.maps.MarkerImage(
+    imageSrc,
+    imageSize,
+    imageOption
+  );
+
   const marker = new window.kakao.maps.Marker({
     position: markerPosition,
-    text: '로그인 안한 사용자(recentDeposit)',
+    image: markerImage,
   });
 
   marker.setMap(map.value);
+
+  // 마커에 클릭 이벤트 설정하기
+  window.kakao.maps.event.addListener(marker, 'click', function () {
+    const markerMPosition = new window.kakao.maps.LatLng(
+      37.548138, // 위도는 그대로 유지
+      127.073397 - 0.0012 // 경도를 조금 줄여서 왼쪽으로 중심 이동
+    );
+    map.value.panTo(markerMPosition);
+    // 간략한 상세정보 주소이동(화면은 모달로 변경)
+    router.push({ name: 'SBInfo' });
+  });
 }
+
+// 지도 이동시 이동된 지도의 중심 좌표 전달
+function getCenter() {
+  window.kakao.maps.event.addListener(map.value, 'dragend', function () {
+    const center = map.value.getCenter();
+    const level = map.value.getLevel();
+    const lat = center.getLat();
+    const lng = center.getLng();
+    console.log(`위도: ${lat} 경도: ${lng} 반경:${level}`);
+  });
+}
+
+defineExpose({
+  xxDongEvent,
+});
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
@@ -45,9 +96,9 @@ onMounted(() => {
   }
 });
 
-onUnmounted(() => {
-  // 필요한 경우 cleanup 코드 추가
-});
+// onUnmounted(() => {
+//   // 필요한 경우 cleanup 코드 추가
+// });
 </script>
 
 <style scoped>

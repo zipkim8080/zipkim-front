@@ -47,4 +47,10 @@ export default {
     console.log('PROPERTY POST: ', data);
     return data;
   },
+
+  // async getNearComplexes(no) {
+  //   const { data } = await api.get(`/api/map/${type}`);
+  //   console.log('BOARD GET', data);
+  //   return data;
+  // },
 };
