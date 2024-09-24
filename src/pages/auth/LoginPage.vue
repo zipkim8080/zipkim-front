@@ -1,8 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useStore } from 'vuex';
 import { defineEmits } from 'vue';
 import infoPage from '@/pages/auth/InfoPage.vue';
+import axios from 'axios';
 
+const isAuthenticated = ref(false);
 const emit = defineEmits(['close']);
 const infoModal = ref(false);
 
@@ -16,8 +19,35 @@ const naverLogin = () => {
 const googleLogin = () => {
   window.location.href = 'http://localhost:8080/oauth2/authorization/google';
 };
-const kakaoLogin = () => {
+const kakaoLogin = async () => {
   window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
+};
+
+const store = useStore();
+
+const checkStatus = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/kakao/login');
+    const accessToken = response.data;
+
+    if(accessToken) {
+      isAuthenticated.value=true;
+      console.log('로그인 완료');
+      saveAccessToken(accessToken);
+    } else {
+      isAuthenticated.value=false;
+      console.log('로그인 실패');
+    }
+  }catch (error) {
+    console.error('로그인 중 오류')
+    isAuthenticated.value=false;
+  }
+};
+onMounted(()=>{
+  checkStatus();
+});
+const saveAccessToken = (token) => {
+  store.dispatch('updateAccessToken', token);
 };
 </script>
 
