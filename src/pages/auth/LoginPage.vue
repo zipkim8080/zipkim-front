@@ -1,10 +1,11 @@
 <script setup>
-import { ref, onMounted, defineEmits } from 'vue';
-import { useStore } from 'vuex';
+import { ref, defineEmits, onMounted } from 'vue';
+import { useLoginStore } from '@/stores/LoginStore';
 import infoPage from '@/pages/auth/InfoPage.vue';
 import axios from 'axios';
 
-const isAuthenticated = ref(false);
+const loginStore = useLoginStore();
+
 const emit = defineEmits(['close']);
 const infoModal = ref(false);
 
@@ -12,7 +13,7 @@ const infoModalOpen = () => {
   infoModal.value = !infoModal.value;
 };
 
-const naverLogin = () => {
+const naverLogin = async () => {
   window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
 };
 const googleLogin = () => {
@@ -22,32 +23,9 @@ const kakaoLogin = () => {
   window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
 };
 
-const store = useStore();
-
-const checkStatus = async () => {
-  try {
-    const response = await axios.get('http://localhost:8080/kakao/login');
-    const accessToken = response.data;
-
-    if (accessToken) {
-      isAuthenticated.value = true;
-      console.log('로그인 완료');
-      saveAccessToken(accessToken);
-    } else {
-      isAuthenticated.value = false;
-      console.log('로그인 실패');
-    }
-  } catch (error) {
-    console.error('로그인 중 오류');
-    isAuthenticated.value = false;
-  }
-};
 onMounted(() => {
-  checkStatus();
+  loginStore.loadTokenFromCookies();
 });
-const saveAccessToken = (token) => {
-  store.dispatch('updateAccessToken', token);
-};
 </script>
 
 <template>
@@ -63,15 +41,15 @@ const saveAccessToken = (token) => {
 
   <div class="container">
     <button @click="naverLogin" class="login-btn">
-      <img src="@/assets/images/naver_login.png" alt="" />
+      <img src="@/assets/images/naver_login.png" />
     </button>
 
     <button @click="googleLogin" class="login-btn">
-      <img src="@/assets/images/google_login.png" alt="" />
+      <img src="@/assets/images/google_login.png" />
     </button>
 
     <button @click="kakaoLogin" class="login-btn">
-      <img src="@/assets/images/kakao_login.png" alt="" />
+      <img src="@/assets/images/kakao_login.png" />
     </button>
   </div>
 
