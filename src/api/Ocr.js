@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const OCR_API_URL = import.meta.env.VITE_OCR_API_URL;
 const OCR_SECRET_KEY = import.meta.env.VITE_OCR_SECRET_KEY;
+
 export async function requestWithFile(file) {
     const message = {
         images: [

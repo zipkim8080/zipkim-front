@@ -9,17 +9,17 @@ const router = useRouter();
 const images = ref(null);
 const selectedFile = ref(null);
 
-const ocrData = reactive({
-    uniqueNumber: '', // 고유번호
-    openDate: '', // 열람일시
-    address: '', // 건물명 주소
-    attachment1: false, // 압류 여부
-    attachment2: false, // 가압류 여부
-    trust: false, // 신탁 여부
-    auction: false, // 경매 여부
-    loan: 0, // 근저당액 총액
-    leaseAmount: 0, // 전세권 총액
-});
+// const ocrData = reactive({
+//     uniqueNumber: '', // 고유번호
+//     openDate: '', // 열람일시
+//     address: '', // 건물명 주소
+//     attachment1: false, // 압류 여부
+//     attachment2: false, // 가압류 여부
+//     trust: false, // 신탁 여부
+//     auction: false, // 경매 여부
+//     loan: 0, // 근저당액 총액
+//     leaseAmount: 0, // 전세권 총액
+// });
 
 // 파일 선택 핸들러
 const handleFileChange = async (event) => {
@@ -43,18 +43,18 @@ const submitFile = async () => {
         // console.timeEnd('OCR 시간 측정');
 
         if (result) {
-            ocrData.uniqueNumber = result.uniqueNumber;
-            ocrData.openDate = result.openDate;
-            ocrData.address = result.address;
-            ocrData.loan = result.loan;
-            ocrData.leaseAmount = result.leaseAmount;
-            ocrData.attachment1 = result.attachment1;
-            ocrData.attachment2 = result.attachment2;
-            ocrData.trust = result.trust;
-            ocrData.auction = result.auction;
+            property.uniqueNumber = result.uniqueNumber;
+            property.openDate = result.openDate;
+            property.address = result.address;
+            property.loan = result.loan;
+            property.leaseAmount = result.leaseAmount;
+            property.attachment1 = result.attachment1;
+            property.attachment2 = result.attachment2;
+            property.trust = result.trust;
+            property.auction = result.auction;
         }
 
-        console.log('OCR 결과: ', ocrData);
+        console.log('OCR 결과: ', property);
     } catch (error) {
         console.error('OCR 처리 중 오류 발생:', error);
     }
@@ -68,6 +68,7 @@ const property = reactive({
     roadName: '',
     bgdCd: '',
     addressName: '',
+    detailAddress: '',
     mainAddressNo: '',
     subAddressNo: '',
     longitude: '',
@@ -85,29 +86,44 @@ const property = reactive({
     totalFloor: '',
     description: '',
     parking: '',
-    recentAmount: '',
-    recentDeposit: '',
+    recentAmount: 0,
+    recentDeposit: 0,
     hugNumber: '',
     hasSchool: false,
     hasConvenience: false,
     registerUniqueNum: '',
     //
-    buildingMainAddressNo: '',
-    buildingSubAddressNo: '',
+    mainAddressNo: '',
+    subAddressNo: '',
+
+    // ocrData
+    uniqueNumber: '', // 고유번호
+    openDate: '', // 열람일시
+    address: '', // 건물명 주소
+    attachment1: false, // 압류 여부
+    attachment2: false, // 가압류 여부
+    trust: false, // 신탁 여부
+    auction: false, // 경매 여부
+    loan: 0, // 근저당액 총액
+    leaseAmount: 0, // 전세권 총액
 });
 
 const handleAddressSelected = (addressData) => {
     // Address 컴포넌트에서 emit된 데이터를 property에 저장
     property.zipcode = addressData.postcode;
     property.roadName = addressData.roadAddress;
-    property.mainAddressNo = addressData.jibunAddress;
+    property.addressName = addressData.jibunAddress;
     property.subAddressNo = addressData.extraAddress;
-    property.addressName = addressData.detailAddress;
+    property.detailAddress = addressData.detailAddress;
     property.bgdCd = addressData.bcode;
     property.longitude = addressData.longitude;
     property.latitude = addressData.latitude;
-    property.buildingMainAddressNo = addressData.buildingMainAddressNo;
-    property.buildingSubAddressNo = addressData.buildingSubAddressNo;
+    property.mainAddressNo = addressData.mainAddressNo;
+    property.subAddressNo = addressData.subAddressNo;
+    property.complexName = addressData.complexName;
+    property.type = addressData.type;
+    property.recentDeposit = addressData.recentDeposit;
+    property.recentAmount = addressData.recentAmount;
 };
 
 const register = async () => {
@@ -118,8 +134,8 @@ const register = async () => {
 
     try {
         await propertyApi.create(property); // 매물 등록
-        // console.log(property);
-        router.push({ name: 'Map' }); // 매물 등록 성공
+        console.log(property);
+        router.push({ name: 'SBInfo' }); // 매물 등록 성공
     } catch (e) {
         console.error(e);
     }
@@ -149,7 +165,6 @@ const register = async () => {
                             <!-- <button type="submit">OCR 분석 요청</button> -->
                         </form>
                     </div>
-
                     <!-- OCR 처리후 등기 고유번호 가져오기 -->
                     <div class="mb-3">
                         가격
