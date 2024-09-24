@@ -3,7 +3,7 @@ import AddressSearch from '../components/tool/AddressSearch.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import propertyApi from '../api/RequestBack';
-import { requestWithFile } from '@/api/Ocr';
+import { requestWithFile } from '@/api/OCR';
 
 const router = useRouter();
 const images = ref(null);
@@ -17,8 +17,8 @@ const ocrData = reactive({
     attachment2: false, // 가압류 여부
     trust: false, // 신탁 여부
     auction: false, // 경매 여부
-    loan: '', // 근저당액 총액
-    leaseAmount: '', // 전세권 총액
+    loan: 0, // 근저당액 총액
+    leaseAmount: 0, // 전세권 총액
 });
 
 // 파일 선택 핸들러
@@ -38,18 +38,21 @@ const submitFile = async () => {
     }
 
     try {
-        console.time('OCR 시간 측정');
+        // console.time('OCR 시간 측정');
         const result = await requestWithFile(selectedFile.value);
-        console.timeEnd('OCR 시간 측정');
-        ocrData.uniqueNumber = result.uniqueNumber;
-        ocrData.openDate = result.openDate;
-        ocrData.address = result.address;
-        ocrData.loan = result.loan;
-        ocrData.leaseAmount = result.leaseAmount;
-        ocrData.attachment1 = result.gabgooList.includes('압류');
-        ocrData.attachment2 = result.gabgooList.includes('가압류');
-        ocrData.trust = result.gabgooList.includes('신탁');
-        ocrData.auction = result.gabgooList.includes('경매개시결정');
+        // console.timeEnd('OCR 시간 측정');
+
+        if (result) {
+            ocrData.uniqueNumber = result.uniqueNumber;
+            ocrData.openDate = result.openDate;
+            ocrData.address = result.address;
+            ocrData.loan = result.loan;
+            ocrData.leaseAmount = result.leaseAmount;
+            ocrData.attachment1 = result.attachment1;
+            ocrData.attachment2 = result.attachment2;
+            ocrData.trust = result.trust;
+            ocrData.auction = result.auction;
+        }
 
         console.log('OCR 결과: ', ocrData);
     } catch (error) {
@@ -115,7 +118,7 @@ const register = async () => {
 
     try {
         await propertyApi.create(property); // 매물 등록
-        console.log(property);
+        // console.log(property);
         router.push({ name: 'Map' }); // 매물 등록 성공
     } catch (e) {
         console.error(e);

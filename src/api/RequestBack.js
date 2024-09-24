@@ -37,6 +37,17 @@ export default {
         formData.append('hasSchool', property.hasSchool); // 학교 여부
         formData.append('hasConvenience', property.hasConvenience); // 편의점 여부
 
+        // OCR 등기정보
+        formData.append('uniqueNumber', ocrData.uniqueNumber); // 고유번호
+        formData.append('openDate', ocrData.openDate); // 열람일시
+        formData.append('address', ocrData.address); // 건물명 주소
+        formData.append('attachment1', ocrData.attachment1); // 압류 여부
+        formData.append('attachment2', ocrData.attachment2); // 가압류 여부
+        formData.append('trust', ocrData.trust); // 신탁 여부
+        formData.append('auction', ocrData.auction); // 경매 여부
+        formData.append('loan', ocrData.loan); // 근저당액 총액
+        formData.append('leaseAmount', ocrData.leaseAmount); // 전세권 총액
+
         if (property.images) {
             formData.append('images', property.images); // 파일 첨부
         }
