@@ -7,8 +7,8 @@ const kakaoMapStore = useKakaoMapStore();
 const router = useRouter();
 
 function closeModal() {
-  kakaoMapStore.closeModal();
-  router.back(); // 이전 페이지로 돌아가 모달 닫기
+  kakaoMapStore.reposition();
+  router.push({ name: 'Main' }); // 메인 페이지로 돌아가 모달 닫기
 }
 </script>
 

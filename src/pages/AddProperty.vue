@@ -2,7 +2,7 @@
 import AddressSearch from '../components/tool/AddressSearch.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import propertyApi from '../api/RequestBack';
+import propertyApi from '../api/PropertyRegiAPI';
 
 const router = useRouter();
 const images = ref(null);
@@ -71,7 +71,7 @@ const register = async () => {
   try {
     await propertyApi.create(property); // 매물 등록
     console.log(property);
-    router.push({ name: 'SBInfo' }); // 매물 등록 성공
+    router.push({ name: 'Main' }); // 매물 등록 성공
   } catch (e) {
     console.error(e);
   }

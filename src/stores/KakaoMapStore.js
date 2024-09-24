@@ -17,7 +17,7 @@ export const useKakaoMapStore = defineStore('kakaoMap', {
         this.map.setCenter(newCenter);
       }
     },
-    closeModal() {
+    reposition() {
       const markerPosition = new window.kakao.maps.LatLng(
         37.548138,
         127.073397
