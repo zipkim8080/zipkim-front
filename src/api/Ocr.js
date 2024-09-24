@@ -390,10 +390,109 @@ function extractUniqueAndOpenDate(responseData) {
         return leaseAmount;
     };
 
+    // 압류, 가압류, 신탁 여부
+    const gabgoo = () => {
+        const list = [];
+
+        for (let i = 0; i < responseData.images.length; i++) {
+            if (responseData.images[i].tables) {
+                for (let x = 0; x < responseData.images[i].tables.length; x++) {
+                    const tableArrays = responseData.images[i].tables[x].cells;
+                    for (let j = 0; j < tableArrays.length; j++) {
+                        if (tableArrays[j].columnIndex == 1) {
+                            const cellTextLines = tableArrays[j].cellTextLines;
+
+                            if (cellTextLines && cellTextLines.length > 0) {
+                                // 각 라인의 텍스트를 연결하여 하나의 문자열로 만듦
+                                const text = cellTextLines
+                                    .map((line) =>
+                                        line.cellWords
+                                            .map((word) => word.inferText)
+                                            .join('')
+                                    )
+                                    .join('');
+
+                                // 조건에 따라 경매개시결정/가압류/압류/신탁 추가
+                                if (
+                                    text.includes('경매개시결정') &&
+                                    !text.includes('말소')
+                                ) {
+                                    list.push('경매개시결정');
+                                    console.log('경매개시결정: ', text, list);
+                                } else if (
+                                    (text.includes('가압류') ||
+                                        text.includes('가업류') ||
+                                        text.includes('거압류') ||
+                                        text.includes('거업류') ||
+                                        text.includes('기압류') ||
+                                        text.includes('기업류')) &&
+                                    !text.includes('말소')
+                                ) {
+                                    list.push('가압류');
+                                    console.log('가압류: ', text, list);
+                                } else if (
+                                    text.includes('압류') &&
+                                    !text.includes('말소')
+                                ) {
+                                    list.push('압류');
+                                    console.log('압류: ', text, list);
+                                } else if (
+                                    text.includes('신탁') &&
+                                    !text.includes('말소')
+                                ) {
+                                    list.push('신탁');
+                                    console.log('신탁: ', text, list);
+                                }
+
+                                // 조건에 따라 경매개시결정/가압류/압류/신탁 제거
+                                if (
+                                    text.includes('경매개시결정등기말소') &&
+                                    list.includes('경매개시결정')
+                                ) {
+                                    list.splice(
+                                        list.indexOf('경매개시결정'),
+                                        1
+                                    );
+                                    console.log(
+                                        '경매개시결정 말소: ',
+                                        text,
+                                        list
+                                    );
+                                } else if (
+                                    text.includes('가압류등기말소') &&
+                                    list.includes('가압류')
+                                ) {
+                                    list.splice(list.indexOf('가압류'), 1);
+                                    console.log('가압류 말소: ', text, list);
+                                } else if (
+                                    text.includes('압류등기말소') &&
+                                    list.includes('압류')
+                                ) {
+                                    list.splice(list.indexOf('압류'), 1);
+                                    console.log('압류 말소: ', text, list);
+                                } else if (
+                                    text.includes('신탁등기말소') &&
+                                    list.includes('신탁')
+                                ) {
+                                    list.splice(list.indexOf('신탁'), 1);
+                                    console.log('신탁 말소: ', text, list);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return list;
+    };
+
+    const gabgooList = gabgoo();
+
     return {
         uniqueNumber,
         openDate,
         address: address(),
+        gabgooList,
         loan: loan(),
         leaseAmount: leaseAmount(),
     };

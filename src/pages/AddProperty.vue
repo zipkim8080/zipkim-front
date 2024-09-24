@@ -7,13 +7,19 @@ import { requestWithFile } from '@/api/Ocr';
 
 const router = useRouter();
 const images = ref(null);
-
 const selectedFile = ref(null);
-const uniqueNumber = ref(''); // 고유번호
-const openDate = ref(''); // 열람일시
-const address = ref(''); // 주소
-const loan = ref(''); // 근저당액 총액
-const leaseAmount = ref(''); // 전세권 총액
+
+const ocrData = reactive({
+    uniqueNumber: '', // 고유번호
+    openDate: '', // 열람일시
+    address: '', // 건물명 주소
+    attachment1: false, // 압류 여부
+    attachment2: false, // 가압류 여부
+    trust: false, // 신탁 여부
+    auction: false, // 경매 여부
+    loan: '', // 근저당액 총액
+    leaseAmount: '', // 전세권 총액
+});
 
 // 파일 선택 핸들러
 const handleFileChange = async (event) => {
@@ -35,16 +41,17 @@ const submitFile = async () => {
         console.time('OCR 시간 측정');
         const result = await requestWithFile(selectedFile.value);
         console.timeEnd('OCR 시간 측정');
-        uniqueNumber.value = result.uniqueNumber;
-        openDate.value = result.openDate;
-        address.value = result.address;
-        loan.value = result.loan;
-        leaseAmount.value = result.leaseAmount;
-        console.log('고유번호:', uniqueNumber.value);
-        console.log('열람일시:', openDate.value);
-        console.log('주소:', address.value);
-        console.log('근저당총액', loan.value);
-        console.log('전세권총액', leaseAmount.value);
+        ocrData.uniqueNumber = result.uniqueNumber;
+        ocrData.openDate = result.openDate;
+        ocrData.address = result.address;
+        ocrData.loan = result.loan;
+        ocrData.leaseAmount = result.leaseAmount;
+        ocrData.attachment1 = result.gabgooList.includes('압류');
+        ocrData.attachment2 = result.gabgooList.includes('가압류');
+        ocrData.trust = result.gabgooList.includes('신탁');
+        ocrData.auction = result.gabgooList.includes('경매개시결정');
+
+        console.log('OCR 결과: ', ocrData);
     } catch (error) {
         console.error('OCR 처리 중 오류 발생:', error);
     }
