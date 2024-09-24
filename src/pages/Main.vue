@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import LoginButton from '../components/button/LoginButton.vue';
-import TestButton from '../components/button/TestButton.vue';
 import SearchFilter from '../pages/side/SearchFilter.vue';
 import KakaoMap from '../components/tool/KaKaoMap.vue';
 import XXDongButton from '../components/button/xxDongButton.vue';
@@ -19,10 +18,7 @@ const regi = () => {
   <div class="search-overlay">
     <SearchFilter />
   </div>
-  <div>
-    <LoginButton />
-    <TestButton />
-  </div>
+  <LoginButton />
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
