@@ -3,7 +3,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
 import { useRouter } from 'vue-router';
@@ -24,10 +24,10 @@ function loadScript() {
 }
 
 // 카카오맵 map 로드하기
-function loadMap() {
+async function loadMap() {
   const container = document.getElementById('map');
   const options = {
-    center: new window.kakao.maps.LatLng(37.5480808046514, 127.06932600099586),
+    center: new window.kakao.maps.LatLng(37.548138, 127.073397),
     level: 2,
   };
 
@@ -35,17 +35,14 @@ function loadMap() {
 
   kakaoMapStore.setMap(map.value);
 
-  // 처음 로드 시 API 호출하여 aptData를 가져옴
-  complexesStore.getApt().then(() => {
-    loadMarkers(); // 데이터를 가져온 후 마커를 그리기
-  });
-
+  await complexesStore.getApt();
+  loadMarkers();
   getCenter();
 }
 
 // 지도 이동시 이동된 지도의 중심 좌표 전달
 function getCenter() {
-  window.kakao.maps.event.addListener(map.value, 'dragend', () => {
+  window.kakao.maps.event.addListener(map.value, 'dragend', async () => {
     const center = map.value.getCenter();
     const level = map.value.getLevel();
     const lat = center.getLat();
@@ -54,21 +51,16 @@ function getCenter() {
     complexesStore.setLevel(level);
     complexesStore.setLat(lat);
     complexesStore.setLon(lng);
-    complexesStore.getApt();
+    await complexesStore.getApt();
     loadMarkers();
   });
 }
 
 // 카카오맵 marker 불러오기 (이미지 설정)
 function loadMarkers() {
-  // const a = [
-  //   { latitude: 37.548459, longitude: 127.069673 },
-  //   { latitude: 37.54799, longitude: 127.068366 },
-  // ];
+  complexesStore.getApt();
   for (let i = 0; i < complexesStore.aptData.length; i++) {
-    // for (let i = 0; i < a.length; i++) {
     const apt = complexesStore.aptData[i];
-    // const apt = a[i];
 
     const markerPosition = new window.kakao.maps.LatLng(
       apt.latitude,
@@ -111,16 +103,6 @@ onMounted(() => {
     loadScript();
   }
 });
-
-watch(
-  () => complexesStore.aptData,
-  (newVal) => {
-    if (Array.isArray(newVal) && newVal.length > 0) {
-      loadMarkers();
-    }
-  },
-  { immediate: true } // 처음 실행될 때도 동작
-);
 </script>
 
 <style scoped>
