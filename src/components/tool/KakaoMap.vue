@@ -36,13 +36,7 @@ async function loadMap() {
   kakaoMapStore.setMap(map.value);
 
   await complexesStore.getApt();
-  loadMarkers();
-  getCenter();
-}
-
-// 지도 이동시 이동된 지도의 중심 좌표 전달
-function getCenter() {
-  window.kakao.maps.event.addListener(map.value, 'dragend', async () => {
+  kakao.maps.event.addListener(map.value, 'bounds_changed', async function () {
     const center = map.value.getCenter();
     const level = map.value.getLevel();
     const lat = center.getLat();
@@ -53,8 +47,12 @@ function getCenter() {
     complexesStore.setLon(lng);
     await complexesStore.getApt();
     loadMarkers();
+
   });
+  loadMarkers();
+  // getCenter();
 }
+
 
 // 카카오맵 marker 불러오기 (이미지 설정)
 function loadMarkers() {
@@ -110,6 +108,7 @@ onMounted(() => {
   width: 100%;
   height: 100vh;
 }
+
 .kakao-map {
   width: 100%;
   height: 100vh;
