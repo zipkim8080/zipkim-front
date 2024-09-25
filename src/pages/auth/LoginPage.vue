@@ -1,7 +1,10 @@
 <script setup>
-import { ref } from 'vue';
-import { defineEmits } from 'vue';
+import { ref, defineEmits, onMounted } from 'vue';
+import { useLoginStore } from '@/stores/LoginStore';
 import infoPage from '@/pages/auth/InfoPage.vue';
+import axios from 'axios';
+
+const loginStore = useLoginStore();
 
 const emit = defineEmits(['close']);
 const infoModal = ref(false);
@@ -10,7 +13,7 @@ const infoModalOpen = () => {
   infoModal.value = !infoModal.value;
 };
 
-const naverLogin = () => {
+const naverLogin = async () => {
   window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
 };
 const googleLogin = () => {
@@ -19,6 +22,10 @@ const googleLogin = () => {
 const kakaoLogin = () => {
   window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
 };
+
+onMounted(() => {
+  loginStore.loadTokenFromCookies();
+});
 </script>
 
 <template>
@@ -34,15 +41,15 @@ const kakaoLogin = () => {
 
   <div class="container">
     <button @click="naverLogin" class="login-btn">
-      <img src="@/assets/images/naver_login.png" alt="" />
+      <img src="@/assets/images/naver_login.png" />
     </button>
 
     <button @click="googleLogin" class="login-btn">
-      <img src="@/assets/images/google_login.png" alt="" />
+      <img src="@/assets/images/google_login.png" />
     </button>
 
     <button @click="kakaoLogin" class="login-btn">
-      <img src="@/assets/images/kakao_login.png" alt="" />
+      <img src="@/assets/images/kakao_login.png" />
     </button>
   </div>
 

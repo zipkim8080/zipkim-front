@@ -3,9 +3,62 @@ import AddressSearch from '../components/tool/AddressSearch.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import propertyApi from '../api/PropertyRegiAPI';
+import { requestWithFile } from '@/api/OCR';
 
 const router = useRouter();
 const images = ref(null);
+const selectedFile = ref(null);
+
+// const ocrData = reactive({
+//     uniqueNumber: '', // 고유번호
+//     openDate: '', // 열람일시
+//     address: '', // 건물명 주소
+//     attachment1: false, // 압류 여부
+//     attachment2: false, // 가압류 여부
+//     trust: false, // 신탁 여부
+//     auction: false, // 경매 여부
+//     loan: 0, // 근저당액 총액
+//     leaseAmount: 0, // 전세권 총액
+// });
+
+// 파일 선택 핸들러
+const handleFileChange = async (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value = file;
+    await submitFile(); // 파일 선택시 OCR 시행
+  }
+};
+
+// OCR 핸들러
+const submitFile = async () => {
+  if (!selectedFile.value) {
+    alert('파일을 선택하세요.');
+    return;
+  }
+
+  try {
+    // console.time('OCR 시간 측정');
+    const result = await requestWithFile(selectedFile.value);
+    // console.timeEnd('OCR 시간 측정');
+
+    if (result) {
+      property.uniqueNumber = result.uniqueNumber;
+      property.openDate = result.openDate;
+      property.address = result.address;
+      property.loan = result.loan;
+      property.leaseAmount = result.leaseAmount;
+      property.attachment1 = result.attachment1;
+      property.attachment2 = result.attachment2;
+      property.trust = result.trust;
+      property.auction = result.auction;
+    }
+
+    console.log('OCR 결과: ', property);
+  } catch (error) {
+    console.error('OCR 처리 중 오류 발생:', error);
+  }
+};
 
 // const disableSubmit = ref(true); // 필수 사항 입력 전 까지 submit 못하게
 
@@ -38,10 +91,20 @@ const property = reactive({
   hugNumber: '',
   hasSchool: false,
   hasConvenience: false,
-  registerUniqueNum: '',
   //
   mainAddressNo: '',
   subAddressNo: '',
+
+  // ocrData
+  uniqueNumber: '', // 고유번호
+  openDate: '', // 열람일시
+  address: '', // 건물명 주소
+  attachment1: false, // 압류 여부
+  attachment2: false, // 가압류 여부
+  trust: false, // 신탁 여부
+  auction: false, // 경매 여부
+  loan: 0, // 근저당액 총액
+  leaseAmount: 0, // 전세권 총액
 });
 
 const handleAddressSelected = (addressData) => {
@@ -96,12 +159,10 @@ const register = async () => {
           </div>
           <div class="mb-3">
             건물등기
-            <input
-              type="text"
-              name="registerUniqueNum"
-              id="registerUniqueNum"
-              v-model="property.registerUniqueNum"
-            />
+            <form @submit.prevent="submitFile">
+              <input type="file" @change="handleFileChange" />
+              <!-- <button type="submit">OCR 분석 요청</button> -->
+            </form>
           </div>
           <!-- OCR 처리후 등기 고유번호 가져오기 -->
           <div class="mb-3">

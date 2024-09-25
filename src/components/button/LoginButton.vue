@@ -1,25 +1,55 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useLoginStore } from '@/stores/LoginStore';
+import sidebar from '@/components/Sidebar.vue';
 import loginPage from '@/pages/auth/LoginPage.vue';
 
+const loginStore = useLoginStore();
+
 const loginModal = ref(false);
+const sidebarModal = ref(false);
+
 const loginModalOpen = () => {
   loginModal.value = !loginModal.value;
 };
+const sidebarModalOpen = () => {
+  sidebarModal.value = !sidebarModal.value;
+};
+
+onMounted(() => {
+  loginStore.loadTokenFromCookies();
+});
 </script>
 
 <template>
   <div class="login-overlay">
-    <button class="btn btn-lg btn-secondary" @click="loginModalOpen">
-      <i class="fa-solid fa-user"></i>
-    </button>
-    <transition name="fade">
-      <div class="modal-wrap" v-show="loginModal">
-        <div class="modal-container">
-          <loginPage @close="loginModalOpen" />
+    <!-- 로그인 상태에 따라 다른 컴포넌트를 렌더링 -->
+    <template v-if="!loginStore.isAuthenticated()">
+      <button class="btn btn-lg btn-secondary" @click="loginModalOpen">
+        <i class="fa-solid fa-user"></i>
+      </button>
+      <transition name="fade">
+        <div class="modal-wrap" v-show="loginModal">
+          <div class="modal-container">
+            <loginPage @close="loginModalOpen" />
+          </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </template>
+
+    <!-- 로그인 상태일 때 Sidebar를 보여줌 -->
+    <template v-else>
+      <button class="btn btn-lg btn-secondary" @click="sidebarModalOpen">
+        <i class="fa-solid fa-user"></i>
+      </button>
+      <transition name="fade">
+        <div class="modal-wrap-mypage" v-show="sidebarModal">
+          <div class="modal-container-mypage">
+            <sidebar @close="sidebarModalOpen" />
+          </div>
+        </div>
+      </transition>
+    </template>
   </div>
 </template>
 
@@ -46,6 +76,16 @@ const loginModalOpen = () => {
   z-index: 10;
 }
 
+.modal-wrap-mypage {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  z-index: 10;
+}
+
 .modal-container {
   position: relative;
   top: 50%;
@@ -58,6 +98,20 @@ const loginModalOpen = () => {
   padding: 20px;
   box-sizing: border-box;
   z-index: 1000;
+}
+
+.modal-container-mypage {
+  position: fixed;
+  top: 53%;
+  right: 15px;
+  transform: translateY(-50%);
+  width: 350px;
+  height: 830px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 10;
 }
 
 .login-overlay {

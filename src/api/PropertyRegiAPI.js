@@ -34,9 +34,19 @@ export default {
     formData.append('recentDeposit', property.recentDeposit); // 최근실거래(전세)
     formData.append('hugNumber', property.hugNumber); // HUG 인증번호
     formData.append('brokerId', property.brokerId); // 중개인 아이디 _ 로그인에서 정보 뽑아오기
-    formData.append('registerUniqueNum', property.registerUniqueNum); // 등기고유번호 _ ocr 처리 어디서 하는지 확인
     formData.append('hasSchool', property.hasSchool); // 학교 여부
     formData.append('hasConvenience', property.hasConvenience); // 편의점 여부
+
+    // OCR 등기정보
+    formData.append('uniqueNumber', property.uniqueNumber); // 고유번호
+    formData.append('openDate', property.openDate); // 열람일시
+    formData.append('address', property.address); // 건물명 주소
+    formData.append('attachment1', property.attachment1); // 압류 여부
+    formData.append('attachment2', property.attachment2); // 가압류 여부
+    formData.append('trust', property.trust); // 신탁 여부
+    formData.append('auction', property.auction); // 경매 여부
+    formData.append('loan', property.loan); // 근저당액 총액
+    formData.append('leaseAmount', property.leaseAmount); // 전세권 총액
 
     if (property.images) {
       formData.append('images', property.images); // 파일 첨부
@@ -47,10 +57,4 @@ export default {
     console.log('PROPERTY POST: ', data);
     return data;
   },
-
-  // async getNearComplexes(no) {
-  //   const { data } = await api.get(`/api/map/${type}`);
-  //   console.log('BOARD GET', data);
-  //   return data;
-  // },
 };
