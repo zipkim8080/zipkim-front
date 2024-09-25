@@ -21,8 +21,18 @@ export const useLoginStore = defineStore('auth', {
         console.error('쿠키에서 토큰을 찾을 수 없습니다.');
       }
     },
+
+    getToken() {
+      return this.accessToken;
+    },
+
     isAuthenticated() {
       return !!this.accessToken;
+    },
+
+    logout() {
+      this.accessToken = null;
+      this.isAuthenticated = false;
     },
   },
 });
