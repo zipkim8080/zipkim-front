@@ -17,8 +17,11 @@ export const useKakaoMapStore = defineStore('kakaoMap', {
         this.map.setCenter(newCenter);
       }
     },
-    closeModal() {
-      const markerPosition = new window.kakao.maps.LatLng(37.548138, 127.073397);
+    reposition() {
+      const markerPosition = new window.kakao.maps.LatLng(
+        37.548138,
+        127.073397
+      );
       this.map.panTo(markerPosition);
     },
   },
