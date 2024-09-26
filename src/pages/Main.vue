@@ -42,7 +42,7 @@ const handleOcrCompleted = (result) => {
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
     <input
-      class="btn btn-success btn-lg"
+      class="btn kb_btn btn-lg me-2"
       type="button"
       value="등기 확인"
       @click="showModal = true"
@@ -53,7 +53,11 @@ const handleOcrCompleted = (result) => {
   <div v-if="showModal" class="modal-backdrop" @click="showModal = false"></div>
 
   <!-- CheckMyDoc 모달 -->
-  <CheckMyDoc v-if="showModal" @ocrCompleted="handleOcrCompleted" @close="showModal = false" />
+  <CheckMyDoc
+    v-if="showModal"
+    @ocrCompleted="handleOcrCompleted"
+    @close="showModal = false"
+  />
 
   <!-- MyDocResultPage 모달 -->
   <MyDocResultPage v-if="ocrData" :ocrData="ocrData" />
