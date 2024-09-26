@@ -11,8 +11,11 @@ instance.interceptors.request.use(
     const token = loginStore.getToken();
 
     if (token) {
+      console.log('axios 인터셉터에서: ', token);
       config.headers['Authorization'] = `Bearer ${token}`;
-      console.log('Authorization 헤더에 추가된 토큰: ', config.headers.Authorization);
+      console.log('Authorization 헤더에 추가된 토큰: ', config.headers['Authorization']);
+    } else {
+      console.warn('토큰이 없습니다.');
     }
     return config;
   },
