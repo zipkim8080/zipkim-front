@@ -2,27 +2,74 @@
   <div ref="autocompleteWrapper" class="input-group mb-3">
     <img src="@\assets\images\zipkimLogo.png" class="imgSize" />
 
-    <input type="text" v-model="searchTerm" class=" searchBox " placeholder="아파트 또는 지역명으로 검색" @input="onInputChange"
-      aria-label="Recipient's username" aria-describedby="button-addon2" />
-    <button class="btn btn-outline-warning kb_btn" type="button" id="button-addon2">
+    <input
+      type="text"
+      v-model="searchTerm"
+      class="searchBox"
+      placeholder="아파트 또는 지역명으로 검색"
+      @input="onInputChange"
+      aria-label="Recipient's username"
+      aria-describedby="button-addon2"
+    />
+    <button
+      class="btn btn-outline-warning kb_btn"
+      type="button"
+      id="button-addon2"
+    >
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
   </div>
   <div>
-    <button class="btn kb_btn btn-lg me-2">아파트</button><button class="btn btn-lg kb_btn me-2">오피스텔</button><button
-      class="btn btn-lg kb_btn me-2">단독다가구</button><button class="btn kb_btn btn-lg">연립다세대</button>
+    <button
+      class="btn btn-lg kb_btn me-2"
+      :class="{ active: selectedValue === 'apt' }"
+      @click="selectType('apt')"
+    >
+      아파트</button
+    ><button
+      class="btn btn-lg kb_btn me-2"
+      :class="{ active: selectedValue === 'opi' }"
+      @click="selectType('opi')"
+    >
+      오피스텔</button
+    ><button
+      class="btn btn-lg kb_btn me-2"
+      :class="{ active: selectedValue === 'dd' }"
+      @click="selectType('dd')"
+    >
+      단독다가구</button
+    ><button
+      class="btn btn-lg kb_btn me-2"
+      :class="{ active: selectedValue === 'yr' }"
+      @click="selectType('yr')"
+    >
+      연립다세대
+    </button>
   </div>
-  <div class="complexSuggestion" v-if="complexSuggestion?.length > 0 && showDropdown">
+  <div
+    class="complexSuggestion"
+    v-if="complexSuggestion?.length > 0 && showDropdown"
+  >
     <h1>단지</h1>
     <ul>
-      <li @click="selectItem(suggestion)" v-for="(suggestion, index) in complexSuggestion" :key="suggestion.complexId">
+      <li
+        @click="selectItem(suggestion)"
+        v-for="(suggestion, index) in complexSuggestion"
+        :key="suggestion.complexId"
+      >
         <div class="suggestion-content">
           <div class="icon">
             <i class="fa-solid fa-location-dot"></i>
           </div>
           <div>
-            <p style="font-size: 20px; font-family: -apple-system" v-html="highlight(suggestion.name)"></p>
-            <p style="font-size: 15px; color: #666; font-weight: 500" v-html="highlight(suggestion.addressName)"></p>
+            <p
+              style="font-size: 20px; font-family: -apple-system"
+              v-html="highlight(suggestion.name)"
+            ></p>
+            <p
+              style="font-size: 15px; color: #666; font-weight: 500"
+              v-html="highlight(suggestion.addressName)"
+            ></p>
           </div>
         </div>
       </li>
@@ -33,8 +80,10 @@
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
+import { useComplexesStore } from '@/stores/ComplexesStore';
 
 const kakaoMapStore = useKakaoMapStore();
+const complexesStore = useComplexesStore();
 const searchTerm = ref(''); // 검색어
 const complexSuggestion = ref([]); // 자동완성 목록
 const timeout = ref(null); // 입력 지연 타이머
@@ -44,12 +93,27 @@ const autocompleteWrapper = ref(null); // 자동완성 기능의 래퍼
 // 다른 곳 클릭 시 드롭다운을 닫는 함수
 const handleClickOutside = (event) => {
   // console.log(autocompleteWrapper.value)
-  if (autocompleteWrapper.value && !autocompleteWrapper.value.contains(event.target)) {
+  if (
+    autocompleteWrapper.value &&
+    !autocompleteWrapper.value.contains(event.target)
+  ) {
     showDropdown.value = false; // 드롭다운 닫기
   } else {
     showDropdown.value = true;
   }
 };
+
+// 버튼 선택시 건물 유형을 api 주소로 전달
+const selectedValue = ref('apt'); // 기본 선택값 '아파트'
+
+function selectType(type) {
+  selectedValue.value = type;
+  complexesStore.setType(type);
+  complexesStore.getApi().then(() => {
+    // API 데이터 갱신 후 마커 로드
+    complexesStore.loadMarkers();
+  });
+}
 
 const highlight = (item) => {
   const regex = new RegExp(`(${searchTerm.value})`, 'gi');
@@ -144,8 +208,13 @@ onMounted(() => {
 
 .kb_btn:hover,
 :focus {
-  background-color: #f2d383;
-  color: white;
+  background-color: #f2d383 !important;
+  color: white !important;
+}
+
+.kb_btn.active {
+  background-color: #f2d383 !important;
+  color: white !important;
 }
 
 mark {

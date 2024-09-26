@@ -22,7 +22,12 @@ const regi = () => {
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
-    <input class="btn btn-success btn-lg" type="button" value="매물 등록" @click="regi()" />
+    <input
+      class="btn kb_btn btn-lg me-2"
+      type="button"
+      value="매물 등록"
+      @click="regi()"
+    />
   </div>
   <KakaoMap class="kakao-map" />
 </template>
@@ -32,6 +37,6 @@ const regi = () => {
   position: absolute;
   bottom: 2%;
   right: 1%;
-  z-index: 10;
+  z-index: 9;
 }
 </style>
