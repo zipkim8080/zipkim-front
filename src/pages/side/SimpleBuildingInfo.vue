@@ -35,10 +35,10 @@ function closeModal() {
   top: 168px;
   left: 20px;
   z-index: 10;
-  background-color: rgb(230, 240, 233);
+  background-color: #ffecb3;
   padding: 10px;
   border-radius: 5px;
-  width: 478px;
+  width: 471px;
   height: 700px;
 }
 
@@ -60,5 +60,6 @@ function closeModal() {
   text-align: center;
   margin: 0;
   padding-left: 30px;
+  color: #955a1f;
 }
 </style>
