@@ -36,23 +36,43 @@ async function loadMap() {
   kakaoMapStore.setMap(map.value);
 
   await complexesStore.getApt();
-  loadMarkers();
-  getCenter();
-}
 
-// 지도 이동시 이동된 지도의 중심 좌표 전달
-function getCenter() {
-  window.kakao.maps.event.addListener(map.value, 'dragend', async () => {
+  let timeoutId = null;
+  let firstLoad = true; // 첫 화면인지 여부를 확인하는 변수
+
+  async function fetchAptData() {
     const center = map.value.getCenter();
     const level = map.value.getLevel();
     const lat = center.getLat();
     const lng = center.getLng();
-    console.log(`위도: ${lat} 경도: ${lng} 반경:${level}`);
+
     complexesStore.setLevel(level);
     complexesStore.setLat(lat);
     complexesStore.setLon(lng);
-    await complexesStore.getApt();
-    loadMarkers();
+
+    await complexesStore.getApt(); // API 호출
+    loadMarkers(); // 마커 로드
+  }
+
+  // 첫 화면 로드 시 바로 호출
+  fetchAptData();
+
+  // 지도 이동이나 확대/축소 시 일정 시간 후에 다시 API 호출
+  kakao.maps.event.addListener(map.value, 'bounds_changed', function () {
+    if (timeoutId) {
+      clearTimeout(timeoutId); // 이전 타이머가 있으면 취소
+    }
+
+    timeoutId = setTimeout(async function () {
+      if (firstLoad) {
+        firstLoad = false; // 첫 호출은 바로 API를 불러왔으므로 이후엔 타이머 적용
+        return;
+      }
+
+      await fetchAptData(); // API 호출 및 마커 로드
+
+      timeoutId = null; // 타이머 초기화
+    }, 200); // 0.2초 지연 (렉 최적화)
   });
 }
 
@@ -66,9 +86,9 @@ function loadMarkers() {
       apt.latitude,
       apt.longitude
     );
-    const imageSrc = '/images/property_gray.png'; // 이미지 주소
-    const imageSize = new kakao.maps.Size(50, 50); // 이미지 크기
-    const imageOption = { offset: new kakao.maps.Point(24, 60) }; // 마커와 이미지 위치 맞추기
+    const imageSrc = '/images/property_KB.png'; // 이미지 주소
+    const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
+    const imageOption = { offset: new kakao.maps.Point(30, 80) }; // 마커와 이미지 위치 맞추기
 
     const markerImage = new window.kakao.maps.MarkerImage(
       imageSrc,
@@ -83,19 +103,36 @@ function loadMarkers() {
 
     marker.setMap(map.value);
 
-    // 마커에 클릭 이벤트 설정하기
-    window.kakao.maps.event.addListener(marker, 'click', function () {
+    const content = document.createElement('div');
+    content.innerHTML = `8.8억`;
+    content.classList.add('imgText');
+
+    const customOverlay = new window.kakao.maps.CustomOverlay({
+      map: map.value,
+      position: markerPosition,
+      content: content,
+      yAnchor: 2.5,
+    });
+
+    const handleClickEvent = () => {
+      complexesStore.saveCurrentState({
+        lat: apt.latitude,
+        lon: apt.longitude,
+        level: complexesStore.level,
+      });
       const markerMPosition = new window.kakao.maps.LatLng(
-        apt.latitude, // 위도는 그대로 유지
+        apt.latitude,
         apt.longitude - 0.0012 // 경도를 조금 줄여서 왼쪽으로 중심 이동
       );
       map.value.panTo(markerMPosition);
-      // 간략한 상세정보 주소이동(화면은 모달로 변경)
       router.push({ name: 'SBInfo' });
-    });
+    };
+    window.kakao.maps.event.addListener(marker, 'click', handleClickEvent);
+
+    const overlayContent = customOverlay.getContent(); // HTML 요소 가져오기
+    overlayContent.addEventListener('click', handleClickEvent);
   }
 }
-
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
     loadMap();
@@ -110,6 +147,7 @@ onMounted(() => {
   width: 100%;
   height: 100vh;
 }
+
 .kakao-map {
   width: 100%;
   height: 100vh;

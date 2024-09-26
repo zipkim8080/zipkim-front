@@ -6,6 +6,7 @@ export const useComplexesStore = defineStore('map', {
     lat: 37.548138,
     lon: 127.073397,
     radius: 0.43,
+    savedState: null, // 상태 저장 객체
     aptData: {
       resultCode: '200',
       data: [
@@ -66,6 +67,15 @@ export const useComplexesStore = defineStore('map', {
     },
     setLon(lon) {
       this.lon = lon;
+    },
+    saveCurrentState(state) {
+      this.savedState = { ...state }; // 현재 상태를 복사하여 저장
+    },
+    restoreState() {
+      if (this.savedState) {
+        // 저장된 상태가 있다면 복원
+        Object.assign(this.$state, this.savedState);
+      }
     },
     async getApt() {
       const url = `http://localhost:8080/api/map/apt?lat=${this.lat}&lon=${this.lon}&radius=${this.radius}`;

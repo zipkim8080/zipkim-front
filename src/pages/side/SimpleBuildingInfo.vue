@@ -2,12 +2,15 @@
 import PropertyList from '@/components/detail/propertyList.vue';
 import { useRouter } from 'vue-router';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
+import { useComplexesStore } from '@/stores/ComplexesStore';
 
 const kakaoMapStore = useKakaoMapStore();
+const complexesStore = useComplexesStore();
 const router = useRouter();
 
 function closeModal() {
-  kakaoMapStore.reposition();
+  complexesStore.restoreState();
+  kakaoMapStore.reposition(complexesStore.lat, complexesStore.lon);
   router.push({ name: 'Main' }); // 메인 페이지로 돌아가 모달 닫기
 }
 </script>
