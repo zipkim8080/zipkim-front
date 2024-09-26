@@ -76,9 +76,16 @@ async function loadMap() {
   });
 }
 
+// 실거래 최근 전세가 형태 변환 메서드
+function convertToEok(num) {
+  let eokValue = num / 10000;
+  let roundedValue = Math.round(eokValue * 10) / 10;
+  return `${roundedValue}억`;
+}
 // 카카오맵 marker 불러오기 (이미지 설정)
 function loadMarkers() {
   complexesStore.getApt();
+
   for (let i = 0; i < complexesStore.aptData.length; i++) {
     const apt = complexesStore.aptData[i];
 
@@ -86,7 +93,14 @@ function loadMarkers() {
       apt.latitude,
       apt.longitude
     );
-    const imageSrc = '/images/property_KB.png'; // 이미지 주소
+
+    let imageSrc = null;
+    if (convertToEok(apt.recentAmount) == '0억') {
+      imageSrc = '/images/property_gray.png';
+    } else {
+      imageSrc = '/images/property_KB.png'; // 이미지 주소
+    }
+
     const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
     const imageOption = { offset: new kakao.maps.Point(30, 80) }; // 마커와 이미지 위치 맞추기
 
@@ -103,8 +117,12 @@ function loadMarkers() {
 
     marker.setMap(map.value);
 
+    // 최근가 형태 변환
+    apt.recentAmount = convertToEok(apt.recentAmount);
+    if (apt.recentAmount == '0억') apt.recentAmount = '';
+
     const content = document.createElement('div');
-    content.innerHTML = `8.8억`;
+    content.innerHTML = `${apt.recentAmount}`;
     content.classList.add('imgText');
 
     const customOverlay = new window.kakao.maps.CustomOverlay({

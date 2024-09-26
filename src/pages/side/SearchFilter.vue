@@ -87,8 +87,8 @@ const fetchcomplexSuggestion = async (query) => {
 </script>
 <style scope>
 .imgSize {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   margin-top: 5px;
   margin-bottom: 3px;
   margin-right: 10px;
