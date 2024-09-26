@@ -1,47 +1,28 @@
 <template>
-  <div class="input-group mb-3">
+  <div ref="autocompleteWrapper" class="input-group mb-3">
     <img src="@\assets\images\zipkimLogo.png" class="imgSize" />
 
-    <input
-      type="text"
-      v-model="searchTerm"
-      class="form-control searchBox"
-      placeholder="아파트 또는 지역명으로 검색"
-      @input="onInputChange"
-      aria-label="Recipient's username"
-      aria-describedby="button-addon2"
-    />
-    <button class="btn btn-outline-warning" type="button" id="button-addon2">
+    <input type="text" v-model="searchTerm" class=" searchBox " placeholder="아파트 또는 지역명으로 검색" @input="onInputChange"
+      aria-label="Recipient's username" aria-describedby="button-addon2" />
+    <button class="btn btn-outline-warning kb_btn" type="button" id="button-addon2">
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
   </div>
   <div>
-    <button class="btn kb_btn btn-lg me-2">아파트</button
-    ><button class="btn btn-lg kb_btn me-2">오피스텔</button
-    ><button class="btn btn-lg kb_btn me-2">단독다가구</button
-    ><button class="btn kb_btn btn-lg">연립다세대</button>
+    <button class="btn kb_btn btn-lg me-2">아파트</button><button class="btn btn-lg kb_btn me-2">오피스텔</button><button
+      class="btn btn-lg kb_btn me-2">단독다가구</button><button class="btn kb_btn btn-lg">연립다세대</button>
   </div>
-  <div class="complexSuggestion" v-if="complexSuggestion?.length > 0">
+  <div class="complexSuggestion" v-if="complexSuggestion?.length > 0 && showDropdown">
     <h1>단지</h1>
     <ul>
-      <li
-        @click="selectItem(suggestion)"
-        v-for="(suggestion, index) in complexSuggestion"
-        :key="suggestion.complexId"
-      >
+      <li @click="selectItem(suggestion)" v-for="(suggestion, index) in complexSuggestion" :key="suggestion.complexId">
         <div class="suggestion-content">
           <div class="icon">
             <i class="fa-solid fa-location-dot"></i>
           </div>
           <div>
-            <p
-              style="font-size: 20px; font-family: -apple-system"
-              v-html="highlight(suggestion.name)"
-            ></p>
-            <p
-              style="font-size: 15px; color: #666; font-weight: 500"
-              v-html="highlight(suggestion.addressName)"
-            ></p>
+            <p style="font-size: 20px; font-family: -apple-system" v-html="highlight(suggestion.name)"></p>
+            <p style="font-size: 15px; color: #666; font-weight: 500" v-html="highlight(suggestion.addressName)"></p>
           </div>
         </div>
       </li>
@@ -49,7 +30,7 @@
   </div>
 </template>
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 
@@ -57,6 +38,18 @@ const kakaoMapStore = useKakaoMapStore();
 const searchTerm = ref(''); // 검색어
 const complexSuggestion = ref([]); // 자동완성 목록
 const timeout = ref(null); // 입력 지연 타이머
+const showDropdown = ref(true);
+const autocompleteWrapper = ref(null); // 자동완성 기능의 래퍼
+
+// 다른 곳 클릭 시 드롭다운을 닫는 함수
+const handleClickOutside = (event) => {
+  // console.log(autocompleteWrapper.value)
+  if (autocompleteWrapper.value && !autocompleteWrapper.value.contains(event.target)) {
+    showDropdown.value = false; // 드롭다운 닫기
+  } else {
+    showDropdown.value = true;
+  }
+};
 
 const highlight = (item) => {
   const regex = new RegExp(`(${searchTerm.value})`, 'gi');
@@ -84,6 +77,10 @@ const fetchcomplexSuggestion = async (query) => {
     return [];
   }
 };
+
+onMounted(() => {
+  document.addEventListener('click', handleClickOutside);
+});
 </script>
 <style scope>
 .imgSize {
@@ -95,8 +92,23 @@ const fetchcomplexSuggestion = async (query) => {
   margin-left: 4px;
 }
 
-.searchBox:focus {
+.searchBox {
   outline: none;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  flex: 1 1 auto;
+}
+
+.searchBox:focus {
+  box-shadow: none;
+  color: var(--bs-body-color);
+  outline: 1px solid #f3b706;
+  background-color: white;
+  /* 그림자 효과 제거 (있을 경우) */
 }
 
 .icon {
@@ -116,6 +128,7 @@ const fetchcomplexSuggestion = async (query) => {
 .complexSuggestion {
   margin-top: 10px;
   background-color: white;
+  border: 1px solid #f3b706;
   max-height: 550px;
   border-radius: 5px;
   width: 100%;
