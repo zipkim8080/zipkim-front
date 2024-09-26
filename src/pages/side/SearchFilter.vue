@@ -64,8 +64,11 @@ const selectItem = (item) => {
 
 const onInputChange = async (e) => {
   searchTerm.value = e.target.value;
+  if (searchTerm.value == '') showDropdown.value = false;
+  else showDropdown.value = true
   complexSuggestion.value = await fetchcomplexSuggestion(searchTerm.value);
 };
+
 const fetchcomplexSuggestion = async (query) => {
   try {
     const response = await axios.get(
