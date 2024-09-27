@@ -21,7 +21,34 @@ const result = computed(() => {
     );
 });
 
+// 기본
 const ocrData = reactive({ ...props.ocrData });
+
+// 모두 보여주기
+// const ocrData = {
+//     address: '서울 광진구 능동로 195-16 5층, 6층', // 주소
+//     uniqueNumber: '1234-1234-1234',
+//     openDate: '2024-09-28',
+//     attachment1: true,
+//     attachment2: true,
+//     trust: true,
+//     auction: true,
+//     loan: 10,
+//     leaseAmount: 10, // 100- 30 50 70
+// };
+
+// 빈페이지
+// const ocrData = {
+//     address: '서울 광진구 능동로 195-16 5층, 6층', // 주소
+//     uniqueNumber: '1234-1234-1234',
+//     openDate: '2024-09-28',
+//     attachment1: false,
+//     attachment2: false,
+//     trust: false,
+//     auction: false,
+//     loan: 0,
+//     leaseAmount: 0,
+// };
 </script>
 
 <template>
@@ -57,7 +84,7 @@ const ocrData = reactive({ ...props.ocrData });
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
-                        <div>
+                        <div class="p-3">
                             <h4 class="text-center">
                                 이 집의 등기는 깨끗해요!
                             </h4>
@@ -215,7 +242,7 @@ const ocrData = reactive({ ...props.ocrData });
                             </div>
                         </div>
 
-                        <div class="text-center p-4">
+                        <div class="text-center p-2">
                             <p>
                                 해당 등기에서는 위의 항목과 관련된 내용이
                                 없어요!
@@ -309,7 +336,7 @@ const ocrData = reactive({ ...props.ocrData });
                             <p class="mb-0">
                                 <span class="fw-bold">신탁 내역 발견!</span>
                                 <br />
-                                관리의 편의를 위해 소유권을 신탁회사로 넘긴 것을
+                                관리 편의를 위해 소유권을 신탁회사로 넘긴 것을
                                 의미해요<br />신탁회사와 계약한다면 문제 없어요
                             </p>
                         </div>
