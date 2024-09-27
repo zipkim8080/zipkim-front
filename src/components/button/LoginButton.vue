@@ -29,7 +29,8 @@ onMounted(() => {
         <i class="fa-solid fa-user"></i>
       </button>
       <transition name="fade">
-        <div class="modal-wrap" v-show="loginModal">
+        <!-- 모달의 바깥을 클릭하면 닫히도록 @click.self 사용 -->
+        <div class="modal-wrap" v-show="loginModal" @click.self="loginModalOpen">
           <div class="modal-container">
             <loginPage @close="loginModalOpen" />
           </div>
@@ -43,7 +44,8 @@ onMounted(() => {
         <i class="fa-solid fa-user"></i>
       </button>
       <transition name="fade">
-        <div class="modal-wrap-mypage" v-show="sidebarModal">
+        <!-- 모달의 바깥을 클릭하면 닫히도록 @click.self 사용 -->
+        <div class="modal-wrap-mypage" v-show="sidebarModal" @click.self="sidebarModalOpen">
           <div class="modal-container-mypage">
             <sidebar @close="sidebarModalOpen" />
           </div>
@@ -109,7 +111,6 @@ onMounted(() => {
   height: 830px;
   background: #fff;
   border-radius: 10px;
-  /* padding: 20px; */
   box-sizing: border-box;
   z-index: 10;
 }
@@ -118,6 +119,6 @@ onMounted(() => {
   position: absolute;
   right: 2%;
   top: 3%;
-  z-index: 10; /* 지도보다 높은 값을 설정 */
+  z-index: 10;
 }
 </style>

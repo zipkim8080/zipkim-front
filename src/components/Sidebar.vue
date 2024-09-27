@@ -170,6 +170,7 @@ const toggleSection = (section) => {
 .menu-button.active {
   font-weight: bold;
   background-color: #f3b706;
+  color: #fff;
   /* color: #333; */
 }
 
@@ -177,7 +178,6 @@ const toggleSection = (section) => {
 .menu-button:active,
 .menu-button:focus {
   background-color: #f3b706;
-  color: #333;
 }
 
 /* 클릭 시 content */

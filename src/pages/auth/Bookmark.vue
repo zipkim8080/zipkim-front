@@ -17,9 +17,10 @@ const handleClose = () => {
           <img src="@/assets/images/img1.png" />
         </div>
         <div class="content">
-          <div class="price">매매 5억</div>
+          <div class="type">오피스텔</div>
+          <div class="price">전세 1.5억</div>
           <div class="where">공항동 · 해태</div>
-          <div class="info">112/84m<sup>2</sup></div>
+          <div class="info">33m<sup>2</sup> · 7층</div>
           <div class="word">역세권 5분 뛰면 1분</div>
         </div>
       </div>
@@ -28,10 +29,11 @@ const handleClose = () => {
           <img src="@/assets/images/img2.png" />
         </div>
         <div class="content">
-          <div class="price">매매 5억</div>
-          <div class="where">공항동 · 해태</div>
-          <div class="info">112/84m<sup>2</sup></div>
-          <div class="word">역세권 5분</div>
+          <div class="type">아파트</div>
+          <div class="price">매매 4억</div>
+          <div class="where">광안동 · 스카이뷰</div>
+          <div class="info">84m<sup>2</sup> · 11층</div>
+          <div class="word">근처에 학교가 많아요</div>
         </div>
       </div>
       <div class="content-box">
@@ -39,10 +41,11 @@ const handleClose = () => {
           <img src="@/assets/images/img3.png" />
         </div>
         <div class="content">
-          <div class="price">매매 5억</div>
+          <div class="type">원룸</div>
+          <div class="price">매매 2억</div>
           <div class="where">공항동 · 해태</div>
-          <div class="info">112/84m<sup>2</sup></div>
-          <div class="word">역세권 5분</div>
+          <div class="info">54m<sup>2</sup> · 2층</div>
+          <div class="word">역세권 3분 뛰면 30초</div>
         </div>
       </div>
       <div class="content-box">
@@ -50,9 +53,10 @@ const handleClose = () => {
           <img src="@/assets/images/img4.png" />
         </div>
         <div class="content">
-          <div class="price">매매 5억</div>
+          <div class="type">원룸</div>
+          <div class="price">전세 1억</div>
           <div class="where">공항동 · 해태</div>
-          <div class="info">112/84m<sup>2</sup></div>
+          <div class="info">39m<sup>2</sup> · 1층</div>
           <div class="word">역세권 5분</div>
         </div>
       </div>
@@ -74,6 +78,10 @@ const handleClose = () => {
   font-weight: bold;
 }
 
+.where {
+  font-size: 1.2rem;
+}
+
 .content {
   margin-left: 15px;
 }
@@ -81,6 +89,10 @@ const handleClose = () => {
 .title {
   display: flex;
   justify-content: space-between;
+}
+
+.word {
+  color: #7f7e7e;
 }
 
 .close-btn {
