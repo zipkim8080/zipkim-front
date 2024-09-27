@@ -86,7 +86,7 @@ const selectItem = (item) => {
 const onInputChange = async (e) => {
   searchTerm.value = e.target.value;
   if (searchTerm.value == '') showDropdown.value = false;
-  else showDropdown.value = true
+  else showDropdown.value = true;
   complexSuggestion.value = await fetchcomplexSuggestion(searchTerm.value);
 };
 

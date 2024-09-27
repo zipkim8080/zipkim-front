@@ -82,6 +82,12 @@ export const useComplexesStore = defineStore('map', {
       return `${roundedValue}억`;
     },
 
+    // 전세가율 계산 함수
+    depositRateCal(dep, amo) {
+      let depositRate = (dep / amo) * 100;
+      return depositRate;
+    },
+
     removeAllMarkersAndOverlays() {
       for (let i = 0; i < this.markers.length; i++) {
         this.markers[i].setMap(null); // 맵에서 마커 제거
@@ -109,10 +115,32 @@ export const useComplexesStore = defineStore('map', {
           apt.longitude
         );
 
-        let imageSrc =
-          this.convertToEok(apt.recentDeposit) === '0억'
-            ? '/images/property_gray.png'
-            : '/images/property_KB.png';
+        let imageSrc = '';
+        // if (this.convertToEok(apt.recentDeposit) === '0억') {
+        //   imageSrc = '/images/property_gray.png';
+        // } else {
+        //   imageSrc = '/images/property_KB.png';
+        // }
+        if (this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 90) {
+          imageSrc = '/images/property_red.png';
+        } else if (
+          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 80
+        ) {
+          imageSrc = '/images/property_orange.png';
+        } else if (
+          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 70
+        ) {
+          imageSrc = '/images/property_yellow.png';
+        } else if (
+          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 60
+        ) {
+          imageSrc = '/images/property_greenL.png';
+        } else if (this.convertToEok(apt.recentDeposit) === '0억') {
+          imageSrc = '/images/property_gray.png';
+        } else {
+          imageSrc = '/images/property_green.png';
+        }
+
         const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
         const imageOption = { offset: new kakao.maps.Point(30, 80) }; // 마커와 이미지 위치 맞추기
 
