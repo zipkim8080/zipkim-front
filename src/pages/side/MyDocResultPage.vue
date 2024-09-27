@@ -29,8 +29,8 @@ const ocrData = reactive({ ...props.ocrData });
         <div class="result-container">
             <div class="mt-5 mx-auto" style="height: 80%; width: 500px">
                 <div>
-                    <div class="text-center">
-                        <h1><strong>등기에서 확인된 내용이에요!</strong></h1>
+                    <div class="fs-1 text-center" style="color: #955a1f">
+                        등기에서 확인된 내용이에요!
                     </div>
                     <br />
                     <div>
@@ -504,9 +504,13 @@ const ocrData = reactive({ ...props.ocrData });
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     max-width: 650px;
-    height: 90%;
+    max-height: 85%;
+    min-height: 50%;
     margin: auto; /* 가운데 정렬 */
     overflow-y: scroll;
+}
+.result-container::-webkit-scrollbar {
+    display: none;
 }
 /* 이미지 컨테이너 */
 .rounded-circle {
