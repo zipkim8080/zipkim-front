@@ -21,7 +21,7 @@ const router = createRouter({
       component: AddProperty,
     },
     {
-      path: '/SB/1',
+      path: '/SB/:complexId',
       name: 'SBInfo',
       component: Main,
     },

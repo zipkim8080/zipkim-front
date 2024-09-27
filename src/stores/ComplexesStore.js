@@ -157,7 +157,7 @@ export const useComplexesStore = defineStore('map', {
             apt.longitude - 0.0012 // 경도를 조금 줄여서 왼쪽으로 중심 이동
           );
           map.panTo(markerMPosition);
-          router.push({ name: 'SBInfo' });
+          router.push({ name: 'SBInfo',params:{complexId: apt.complexId} });
         };
         window.kakao.maps.event.addListener(marker, 'click', handleClickEvent);
         content.addEventListener('click', handleClickEvent);
