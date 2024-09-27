@@ -55,7 +55,7 @@ const handleOcrCompleted = (result) => {
   />
 
   <!-- MyDocResultPage 모달 -->
-  <MyDocResultPage v-if="ocrData" :ocrData="ocrData" />
+  <MyDocResultPage v-if="ocrData" :ocrData="ocrData" @close="ocrData = null" />
 
   <KakaoMap class="kakao-map" />
 </template>

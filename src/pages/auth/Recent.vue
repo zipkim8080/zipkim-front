@@ -11,9 +11,6 @@ const handleClose = () => {
 <template>
   <div class="title">
     <h1>최근 본 매물</h1>
-    <button class="close-btn" @click="handleClose">
-      <i class="fa-solid fa-x"></i>
-    </button>
   </div>
 </template>
 
