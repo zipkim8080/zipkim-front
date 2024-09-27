@@ -16,29 +16,13 @@
     </button>
   </div>
   <div>
-    <button
-      class="btn btn-lg kb_btn me-2"
-      :class="{ active: selectedValue === 'apt' }"
-      @click="selectType('apt')"
-    >
+    <button class="kb_btn" :class="{ active: selectedValue === 'apt' }" @click="selectType('apt')">
       아파트</button
-    ><button
-      class="btn btn-lg kb_btn me-2"
-      :class="{ active: selectedValue === 'opi' }"
-      @click="selectType('opi')"
-    >
+    ><button class="kb_btn" :class="{ active: selectedValue === 'opi' }" @click="selectType('opi')">
       오피스텔</button
-    ><button
-      class="btn btn-lg kb_btn me-2"
-      :class="{ active: selectedValue === 'dd' }"
-      @click="selectType('dd')"
-    >
+    ><button class="kb_btn" :class="{ active: selectedValue === 'dd' }" @click="selectType('dd')">
       단독다가구</button
-    ><button
-      class="btn btn-lg kb_btn me-2"
-      :class="{ active: selectedValue === 'yr' }"
-      @click="selectType('yr')"
-    >
+    ><button class="kb_btn" :class="{ active: selectedValue === 'yr' }" @click="selectType('yr')">
       연립다세대
     </button>
   </div>
@@ -189,23 +173,6 @@ onMounted(() => {
   width: 100%;
   overflow-y: auto;
   /* 세로 방향 스크롤 허용 */
-}
-
-.kb_btn {
-  background-color: #f3b706;
-  border: none;
-  color: white;
-}
-
-.kb_btn:hover,
-:focus {
-  background-color: #f2d383 !important;
-  color: white !important;
-}
-
-.kb_btn.active {
-  background-color: #f2d383;
-  color: white !important;
 }
 
 mark {

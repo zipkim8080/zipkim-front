@@ -1,11 +1,7 @@
 <template>
   <!-- XX동 매물 보기 버튼 -->
   <div class="xxDong-overlay">
-    <button
-      class="btn kb_btn2 btn-lg me-2"
-      @click="xxDongClick"
-      :class="{ visited: isClicked }"
-    >
+    <button class="kb_btn " @click="xxDongClick">
       <!-- {{ dong }} -->
       XX동 전세가율 확인
     </button>
@@ -30,23 +26,5 @@ function xxDongClick() {
   bottom: 2%;
   right: 46%;
   z-index: 9;
-}
-.kb_btn2 {
-  background-color: #f3b706;
-  border: none;
-  color: white;
-}
-.kb_btn2:hover {
-  background-color: #f2d383;
-  color: white;
-}
-.kb_btn2.visited {
-  background-color: #f3b706 !important;
-  border: none !important;
-  color: white !important;
-}
-.kb_btn2.visited:hover {
-  background-color: #f2d383 !important;
-  color: white !important;
 }
 </style>
