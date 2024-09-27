@@ -1,17 +1,42 @@
 <script setup>
 import PropertyList from '@/components/detail/propertyList.vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
-
+import { onMounted, watch } from 'vue';
 const kakaoMapStore = useKakaoMapStore();
 const complexesStore = useComplexesStore();
 const router = useRouter();
+const route = useRoute();
+onMounted(() => {
+  const id = route.params.complexId; // 'id' 파라미터를 가져옵니다.
+  console.log(id); // 가져온 id를 사용할 수 있습니다.
 
+})
+
+watch(() =>
+  route.params.complexId,
+  (newId, oldId) => {
+    console.log(`ID가 변경되었습니다: ${oldId} -> ${newId}`);
+    // 새로운 ID로 작업 수행
+    // fetchData(newId); // 예시: 데이터 가져오기
+  }
+)
 function closeModal() {
   complexesStore.restoreState();
   kakaoMapStore.reposition(complexesStore.lat, complexesStore.lon);
   router.push({ name: 'Main' }); // 메인 페이지로 돌아가 모달 닫기
+}
+
+const complexId = ''
+async function fetchPropertyData() {
+  try {
+    const response = await axios.get(`/api/complex/summary?complexId=${complexId}`); // API 호출
+    console.log(response.data); // 응답 데이터 처리
+    // complexesStore or other stores에 필요한 데이터 저장
+  } catch (error) {
+    console.error('Error fetching property data:', error);
+  }
 }
 </script>
 
