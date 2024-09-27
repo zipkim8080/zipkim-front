@@ -39,18 +39,10 @@ const verifyCode = async () => {
   if (verificationCode.value === generatedCode.value) {
     message.value = '인증에 성공했습니다';
     try {
-      const response = await instance.post(
-        'http://localhost:8080/api/users/addPhone',
-        {
-          username: un,
-          phoneNumber: phoneNumber.value,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await instance.post('http://localhost:8080/api/users/addPhone', {
+        // username: un,
+        phoneNumber: phoneNumber.value,
+      });
       console.log('DB 성공', un);
     } catch (error) {
       console.error('DB 실패', error);
@@ -64,11 +56,78 @@ const verifyCode = async () => {
 <template>
   <div class="title">
     <h1>휴대폰 인증</h1>
-    <button class="close-btn" @click="handleClose">
+    <!-- <button class="close-btn" @click="handleClose">
       <i class="fa-solid fa-x"></i>
-    </button>
+    </button> -->
   </div>
 
+  <div>
+    <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
+    <button @click="requestVerificationCode">본인인증 요청</button>
+
+    <input v-model="verificationCode" placeholder="인증번호를 입력하세요" />
+    <button @click="verifyCode">인증번호 확인</button>
+    <p>{{ message }}</p>
+  </div>
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <div>
+    <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
+    <button @click="requestVerificationCode">본인인증 요청</button>
+
+    <input v-model="verificationCode" placeholder="인증번호를 입력하세요" />
+    <button @click="verifyCode">인증번호 확인</button>
+    <p>{{ message }}</p>
+  </div>
+  <div>
+    <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
+    <button @click="requestVerificationCode">본인인증 요청</button>
+
+    <input v-model="verificationCode" placeholder="인증번호를 입력하세요" />
+    <button @click="verifyCode">인증번호 확인</button>
+    <p>{{ message }}</p>
+  </div>
+  <div>
+    <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
+    <button @click="requestVerificationCode">본인인증 요청</button>
+
+    <input v-model="verificationCode" placeholder="인증번호를 입력하세요" />
+    <button @click="verifyCode">인증번호 확인</button>
+    <p>{{ message }}</p>
+  </div>
+  <div>
+    <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
+    <button @click="requestVerificationCode">본인인증 요청</button>
+
+    <input v-model="verificationCode" placeholder="인증번호를 입력하세요" />
+    <button @click="verifyCode">인증번호 확인</button>
+    <p>{{ message }}</p>
+  </div>
+  <div>
+    <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
+    <button @click="requestVerificationCode">본인인증 요청</button>
+
+    <input v-model="verificationCode" placeholder="인증번호를 입력하세요" />
+    <button @click="verifyCode">인증번호 확인</button>
+    <p>{{ message }}</p>
+  </div>
+  <div>
+    <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
+    <button @click="requestVerificationCode">본인인증 요청</button>
+
+    <input v-model="verificationCode" placeholder="인증번호를 입력하세요" />
+    <button @click="verifyCode">인증번호 확인</button>
+    <p>{{ message }}</p>
+  </div>
+  <div>
+    <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
+    <button @click="requestVerificationCode">본인인증 요청</button>
+
+    <input v-model="verificationCode" placeholder="인증번호를 입력하세요" />
+    <button @click="verifyCode">인증번호 확인</button>
+    <p>{{ message }}</p>
+  </div>
   <div>
     <input v-model="phoneNumber" placeholder="전화번호를 입력하세요" />
     <button @click="requestVerificationCode">본인인증 요청</button>

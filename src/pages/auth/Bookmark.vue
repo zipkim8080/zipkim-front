@@ -10,14 +10,57 @@ const handleClose = () => {
 
 <template>
   <div class="title">
-    <h1>즐겨찾기</h1>
-    <button class="close-btn" @click="handleClose">
-      <i class="fa-solid fa-x"></i>
-    </button>
+    <!-- 나중에 즐겨찾기 리스트에서 쭉 뽑아올 예정 -->
+    <div class="list">
+      <div class="content-box">
+        <div class="img">
+          <img src="@/assets/images/img1.png" />
+        </div>
+        <div class="content">
+          <div class="price">매매 5억</div>
+          <div class="where">공항동 · 해태</div>
+          <div class="info">112/84m<sup>2</sup></div>
+          <div class="word">역세권 5분</div>
+        </div>
+      </div>
+      <div class="content-box">
+        <div class="img">
+          <img src="@/assets/images/img2.png" />
+        </div>
+        <div class="content">
+          <div class="price">매매 5억</div>
+          <div class="where">공항동 · 해태</div>
+          <div class="info">112/84m<sup>2</sup></div>
+          <div class="word">역세권 5분</div>
+        </div>
+      </div>
+      <div class="content-box">
+        <div class="img">
+          <img src="@/assets/images/img3.png" />
+        </div>
+        <div class="content">
+          <div class="price">매매 5억</div>
+          <div class="where">공항동 · 해태</div>
+          <div class="info">112/84m<sup>2</sup></div>
+          <div class="word">역세권 5분</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.content-box {
+  padding: 5px;
+  display: flex;
+  border-top: 0.5px solid #ccc;
+  border-bottom: 0.1px solid #ccc;
+}
+
+.content {
+  margin-left: 10px;
+}
+
 .title {
   display: flex;
   justify-content: space-between;

@@ -4,140 +4,212 @@ import bookmark from '@/pages/auth/Bookmark.vue';
 import forSale from '@/pages/auth/ForSale.vue';
 import recent from '@/pages/auth/Recent.vue';
 import sms from '@/pages/auth/SMS.vue';
+import mypage from '@/pages/auth/MyPage.vue';
 
-const emits = defineEmits(['close']);
+// 현재 열려 있는 항목을 저장하는 변수
+const openSection = ref('mypage');
 
-const bookmarkModal = ref(false);
-const recentModal = ref(false);
-const forSaleModal = ref(false);
-const smsModal = ref(false);
-
-const bookmarkModalOpen = () => {
-  bookmarkModal.value = !bookmarkModal.value;
-};
-const recentModalOpen = () => {
-  recentModal.value = !recentModal.value;
-};
-const forSaleModalOpen = () => {
-  forSaleModal.value = !forSaleModal.value;
-};
-const smsModalOpen = () => {
-  smsModal.value = !smsModal.value;
+// 항목을 열고 닫는 함수
+const toggleSection = (section) => {
+  // 현재 열려 있는 항목과 클릭된 항목이 같으면 닫고, 다르면 새로운 항목을 연다.
+  openSection.value = openSection.value === section ? '' : section;
 };
 </script>
 
 <template>
-  <div class="modal-sidebar">
-    <div class="title">
-      <h1>마이 페이지</h1>
-      <button class="close-btn" @click="$emit('close')">
-        <i class="fa-solid fa-x"></i>
-      </button>
-    </div>
-
-    <div class="menu">
-      <!-- 각 메뉴 항목들 -->
-      <button @click="bookmarkModalOpen" class="menu-item">
-        <span class="text">즐겨찾기</span>
-        <div class="modal-wrap" v-show="bookmarkModal">
-          <div class="modal-container" @click.stop>
-            <bookmark @close="bookmarkModalOpen" />
+  <div class="sidebar">
+    <h1>마이 페이지</h1>
+    <ul class="menu">
+      <!-- 내 정보 항목 -->
+      <li class="menu-item">
+        <button
+          @click="toggleSection('mypage')"
+          class="menu-button"
+          :class="{ active: openSection === 'mypage' }"
+        >
+          <i class="fa-regular fa-user"></i>
+          내 정보
+          <i v-if="openSection === 'mypage'" class="fa-solid fa-chevron-up"></i>
+          <i v-else class="fa-solid fa-chevron-down"></i>
+        </button>
+        <transition name="slide-fade">
+          <div v-show="openSection === 'mypage'" class="menu-content">
+            <mypage @close="toggleSection('mypage')" />
           </div>
-        </div>
-      </button>
+        </transition>
+      </li>
 
-      <button @click="recentModalOpen" class="menu-item">
-        <span class="text">최근 본 매물</span>
-        <div class="modal-wrap" v-if="recentModal">
-          <div class="modal-container" @click.stop>
-            <recent @close="recentModalOpen" />
+      <!-- 즐겨찾기 항목 -->
+      <li class="menu-item">
+        <button
+          @click="toggleSection('bookmark')"
+          class="menu-button"
+          :class="{ active: openSection === 'bookmark' }"
+        >
+          <i class="fa-regular fa-star"></i>
+          즐겨찾기
+          <i v-if="openSection === 'bookmark'" class="fa-solid fa-chevron-up"></i>
+          <i v-else class="fa-solid fa-chevron-down"></i>
+        </button>
+        <transition name="slide-fade">
+          <div v-show="openSection === 'bookmark'" class="menu-content">
+            <bookmark @close="toggleSection('bookmark')" />
           </div>
-        </div>
-      </button>
+        </transition>
+      </li>
 
-      <button @click="forSaleModalOpen" class="menu-item">
-        <span class="text">등록한 매물</span>
-        <div class="modal-wrap" v-if="forSaleModal">
-          <div class="modal-container" @click.stop>
-            <forSale @close="forSaleModalOpen" />
+      <!-- 최근 본 매물 항목 -->
+      <li class="menu-item">
+        <button
+          @click="toggleSection('recent')"
+          class="menu-button"
+          :class="{ active: openSection === 'recent' }"
+        >
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          최근 본 매물
+          <i v-if="openSection === 'recent'" class="fa-solid fa-chevron-up"></i>
+          <i v-else class="fa-solid fa-chevron-down"></i>
+        </button>
+        <transition name="slide-fade">
+          <div v-show="openSection === 'recent'" class="menu-content">
+            <recent @close="toggleSection('recent')" />
           </div>
-        </div>
-      </button>
+        </transition>
+      </li>
 
-      <button @click="smsModalOpen" class="menu-item">
-        <span class="text">휴대폰 본인인증</span>
-        <div class="modal-wrap" v-if="smsModal">
-          <div class="modal-container" @click.stop>
-            <sms @close="smsModalOpen" />
+      <!-- 등록한 매물 항목 -->
+      <li class="menu-item">
+        <button
+          @click="toggleSection('forSale')"
+          class="menu-button"
+          :class="{ active: openSection === 'forSale' }"
+        >
+          <i class="fa-solid fa-house"></i>
+          등록한 매물
+          <i v-if="openSection === 'forSale'" class="fa-solid fa-chevron-up"></i>
+          <i v-else class="fa-solid fa-chevron-down"></i>
+        </button>
+        <transition name="slide-fade">
+          <div v-show="openSection === 'forSale'" class="menu-content">
+            <forSale @close="toggleSection('forSale')" />
           </div>
-        </div>
-      </button>
-    </div>
+        </transition>
+      </li>
+
+      <!-- 휴대폰 본인인증 항목 -->
+      <li class="menu-item">
+        <button
+          @click="toggleSection('sms')"
+          class="menu-button"
+          :class="{ active: openSection === 'sms' }"
+        >
+          <i class="fa-solid fa-mobile-screen"></i>
+          휴대폰 본인인증
+          <i v-if="openSection === 'sms'" class="fa-solid fa-chevron-up"></i>
+          <i v-else class="fa-solid fa-chevron-down"></i>
+        </button>
+        <transition name="slide-fade">
+          <div v-show="openSection === 'sms'" class="menu-content">
+            <sms @close="toggleSection('sms')" />
+          </div>
+        </transition>
+      </li>
+    </ul>
   </div>
 </template>
 
 <style scoped>
-.title {
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
-}
-
-.close-btn {
-  border: none;
-  background: none;
-  margin-right: 10px;
-  padding: 0px;
+/* sidebar 컨테이너 부분 */
+.sidebar {
+  position: fixed;
+  top: 0%;
+  right: 0%;
+  width: 350px;
+  height: 830px;
+  background: #fff;
+  /* padding: 20px; */
+  border-radius: 10px;
+  border: 1px solid #aaa;
 }
 
 .menu {
-  display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  gap: 10px;
+  position: fixed;
+  left: 0%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .menu-item {
+  /* margin-bottom: 10px; */
+  margin-left: 2px;
+  width: 348px;
+}
+
+.menu-button {
+  font-size: 1.2rem;
+  width: 100%;
+  height: 70px;
+  text-align: left;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0);
+  cursor: pointer;
+  transition: background-color 0.3s;
   display: flex;
   align-items: center;
-  padding: 15px;
-  border-radius: 5px;
-  text-decoration: none;
+  justify-content: space-between;
   color: #333;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 마우스를 올렸을 때 색상 변경 */
-.menu-item:hover {
-  background-color: #e0e0e0; /* 배경색 변경 */
-  color: #007bff; /* 글자색 변경 */
+.menu-button:hover {
+  background-color: #e0e0e0;
 }
 
-.text {
-  font-size: 18px; /* 텍스트 크기 조정 */
-  margin-left: 10px;
+.menu-button.active {
+  font-weight: bold;
+  /* color: #333; */
 }
 
-.modal-wrap {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0);
-  z-index: 20;
+/* 버튼 글자 색 */
+.menu-button:active,
+.menu-button:focus {
+  background-color: #ddd;
+  color: #333;
 }
 
-.modal-container {
-  position: fixed;
-  top: 50%;
-  right: 0px;
-  transform: translateY(-50%);
-  width: 350px;
-  height: 828px;
-  background: #fff;
-  border-radius: 10px;
+/* 클릭 시 content */
+.menu-content {
+  max-height: 300px;
+  overflow-y: auto;
   padding: 20px;
-  box-sizing: border-box;
-  z-index: 20;
+  /* border: 1px solid #ddd; */
+  border-top: none;
+  background: #fff;
+}
+
+/* 메뉴 스크롤 바 */
+.menu-content::-webkit-scrollbar {
+  height: auto;
+  width: 6px;
+}
+
+.menu-content::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 3px;
+}
+
+/* 슬라이드와 페이드 효과 추가 */
+.slide-fade-enter-active {
+  transition: 0.7s;
+}
+
+.slide-fade-leave-to,
+.slide-fade-enter-from {
+  max-height: 0;
+  /* opacity: 0; */
+  padding: 0;
+  /* .menu-content의 padding과 동일하게 설정해야 예쁨 */
+  margin-left: 20px;
 }
 </style>

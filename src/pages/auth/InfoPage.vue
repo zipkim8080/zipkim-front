@@ -10,7 +10,7 @@ const handleClose = () => {
 
 <template>
   <div class="title">
-    <h1 class="login-title">개인정보 야미~</h1>
+    <h1 class="login-title">개인정보 처리약관</h1>
     <button class="close-btn" @click="handleClose">
       <i class="fa-solid fa-x"></i>
     </button>
