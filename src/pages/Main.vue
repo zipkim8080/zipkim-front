@@ -32,32 +32,18 @@ const handleOcrCompleted = (result) => {
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
-    <input
-      class="btn kb_btn btn-lg me-2"
-      type="button"
-      value="매물 등록"
-      @click="regi()"
-    />
+    <input class="kb_btn" type="button" value="매물 등록" @click="regi()" />
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
-    <input
-      class="btn kb_btn btn-lg me-2"
-      type="button"
-      value="등기 확인"
-      @click="showModal = true"
-    />
+    <input class="kb_btn" type="button" value="등기 확인" @click="showModal = true" />
   </div>
 
   <!-- 모달 백드롭 -->
   <div v-if="showModal" class="modal-backdrop" @click="showModal = false"></div>
 
   <!-- CheckMyDoc 모달 -->
-  <CheckMyDoc
-    v-if="showModal"
-    @ocrCompleted="handleOcrCompleted"
-    @close="showModal = false"
-  />
+  <CheckMyDoc v-if="showModal" @ocrCompleted="handleOcrCompleted" @close="showModal = false" />
 
   <!-- MyDocResultPage 모달 -->
   <MyDocResultPage v-if="ocrData" :ocrData="ocrData" />
@@ -72,6 +58,7 @@ const handleOcrCompleted = (result) => {
   right: 1%;
   z-index: 9;
 }
+
 .register-overlay2 {
   position: absolute;
   bottom: 2%;
@@ -79,6 +66,7 @@ const handleOcrCompleted = (result) => {
   transform: translateX(-110%);
   z-index: 10;
 }
+
 .modal-backdrop {
   position: fixed;
   left: 0;
