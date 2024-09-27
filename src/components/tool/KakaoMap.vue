@@ -51,6 +51,7 @@ async function loadMap() {
 
     await complexesStore.getApi(); // API 호출
     complexesStore.loadMarkers(router); // 마커 로드
+    complexesStore.xxDongApi();
   }
 
   // 첫 화면 로드 시 바로 호출

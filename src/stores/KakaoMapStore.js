@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useComplexesStore } from '@/stores/ComplexesStore';
 
 export const useKakaoMapStore = defineStore('kakaoMap', {
   state: () => ({
@@ -15,9 +16,14 @@ export const useKakaoMapStore = defineStore('kakaoMap', {
     },
     // XX동 다시보기 이벤트
     xxDongEvent() {
+      const complexesStore = useComplexesStore();
+
       if (this.map) {
-        this.map.setLevel(3);
-        const newCenter = new window.kakao.maps.LatLng(37.548138, 127.073397);
+        this.map.setLevel(4);
+        const newCenter = new window.kakao.maps.LatLng(
+          complexesStore.cenX,
+          complexesStore.cenY
+        );
         this.map.setCenter(newCenter);
       }
     },
