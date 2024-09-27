@@ -12,13 +12,13 @@ export const useLoginStore = defineStore('auth', {
     // 토큰을 상태에 저장하는 액션
     setAccessToken(token) {
       this.accessToken = token;
-      console.log('토큰이 상태에 저장: ', this.accessToken);
+      // console.log('토큰이 상태에 저장: ', this.accessToken);
     },
 
     setEmailAndName(email, name) {
       this.email = email;
       this.name = name;
-      console.log('이메일과 이름 ', email, name);
+      // console.log('이메일과 이름 ', email, name);
     },
 
     // 쿠키에서 JWT 토큰을 읽어와 상태에 저장하는 액션
