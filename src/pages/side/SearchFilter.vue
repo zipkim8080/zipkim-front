@@ -11,11 +11,7 @@
       aria-label="Recipient's username"
       aria-describedby="button-addon2"
     />
-    <button
-      class="btn btn-outline-warning kb_btn"
-      type="button"
-      id="button-addon2"
-    >
+    <button class="btn btn-outline-warning kb_btn" type="button" id="button-addon2">
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
   </div>
@@ -46,10 +42,7 @@
       연립다세대
     </button>
   </div>
-  <div
-    class="complexSuggestion"
-    v-if="complexSuggestion?.length > 0 && showDropdown"
-  >
+  <div class="complexSuggestion" v-if="complexSuggestion?.length > 0 && showDropdown">
     <h1>단지</h1>
     <ul>
       <li
@@ -93,10 +86,7 @@ const autocompleteWrapper = ref(null); // 자동완성 기능의 래퍼
 // 다른 곳 클릭 시 드롭다운을 닫는 함수
 const handleClickOutside = (event) => {
   // console.log(autocompleteWrapper.value)
-  if (
-    autocompleteWrapper.value &&
-    !autocompleteWrapper.value.contains(event.target)
-  ) {
+  if (autocompleteWrapper.value && !autocompleteWrapper.value.contains(event.target)) {
     showDropdown.value = false; // 드롭다운 닫기
   } else {
     showDropdown.value = true;
@@ -129,15 +119,13 @@ const selectItem = (item) => {
 const onInputChange = async (e) => {
   searchTerm.value = e.target.value;
   if (searchTerm.value == '') showDropdown.value = false;
-  else showDropdown.value = true
+  else showDropdown.value = true;
   complexSuggestion.value = await fetchcomplexSuggestion(searchTerm.value);
 };
 
 const fetchcomplexSuggestion = async (query) => {
   try {
-    const response = await axios.get(
-      `http://localhost:8080/api/search?keyword=${query}&size=10`
-    );
+    const response = await axios.get(`http://localhost:8080/api/search?keyword=${query}&size=10`);
     return response.data.content;
   } catch (error) {
     console.error('Error fetching complexSuggestion:', error);
@@ -216,7 +204,7 @@ onMounted(() => {
 }
 
 .kb_btn.active {
-  background-color: #f2d383 !important;
+  background-color: #f2d383;
   color: white !important;
 }
 

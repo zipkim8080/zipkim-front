@@ -18,7 +18,7 @@ const toggleSection = (section) => {
 
 <template>
   <div class="sidebar">
-    <h1>마이 페이지</h1>
+    <!-- <h1>마이 페이지</h1> -->
     <ul class="menu">
       <!-- 내 정보 항목 -->
       <li class="menu-item">
@@ -97,7 +97,7 @@ const toggleSection = (section) => {
       </li>
 
       <!-- 휴대폰 본인인증 항목 -->
-      <li class="menu-item">
+      <!-- <li class="menu-item">
         <button
           @click="toggleSection('sms')"
           class="menu-button"
@@ -113,7 +113,7 @@ const toggleSection = (section) => {
             <sms @close="toggleSection('sms')" />
           </div>
         </transition>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
@@ -124,7 +124,7 @@ const toggleSection = (section) => {
   position: fixed;
   top: 0%;
   right: 0%;
-  width: 350px;
+  width: 450px;
   height: 830px;
   background: #fff;
   /* padding: 20px; */
@@ -143,7 +143,7 @@ const toggleSection = (section) => {
 .menu-item {
   /* margin-bottom: 10px; */
   margin-left: 2px;
-  width: 348px;
+  width: 448px;
 }
 
 .menu-button {
@@ -152,7 +152,7 @@ const toggleSection = (section) => {
   height: 70px;
   text-align: left;
   padding: 10px;
-  background: #fff;
+  background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);
   cursor: pointer;
   transition: background-color 0.3s;
@@ -160,29 +160,31 @@ const toggleSection = (section) => {
   align-items: center;
   justify-content: space-between;
   color: #333;
+  border-radius: 10px;
 }
 
 .menu-button:hover {
-  background-color: #e0e0e0;
+  background-color: #f2d383;
 }
 
 .menu-button.active {
   font-weight: bold;
+  background-color: #f3b706;
   /* color: #333; */
 }
 
 /* 버튼 글자 색 */
 .menu-button:active,
 .menu-button:focus {
-  background-color: #ddd;
+  background-color: #f3b706;
   color: #333;
 }
 
 /* 클릭 시 content */
 .menu-content {
-  max-height: 300px;
+  max-height: 548px;
   overflow-y: auto;
-  padding: 20px;
+  padding: 20px 15px 20px 20px;
   /* border: 1px solid #ddd; */
   border-top: none;
   background: #fff;

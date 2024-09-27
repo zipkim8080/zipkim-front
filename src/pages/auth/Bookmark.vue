@@ -20,7 +20,7 @@ const handleClose = () => {
           <div class="price">매매 5억</div>
           <div class="where">공항동 · 해태</div>
           <div class="info">112/84m<sup>2</sup></div>
-          <div class="word">역세권 5분</div>
+          <div class="word">역세권 5분 뛰면 1분</div>
         </div>
       </div>
       <div class="content-box">
@@ -45,20 +45,37 @@ const handleClose = () => {
           <div class="word">역세권 5분</div>
         </div>
       </div>
+      <div class="content-box">
+        <div class="img">
+          <img src="@/assets/images/img4.png" />
+        </div>
+        <div class="content">
+          <div class="price">매매 5억</div>
+          <div class="where">공항동 · 해태</div>
+          <div class="info">112/84m<sup>2</sup></div>
+          <div class="word">역세권 5분</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .content-box {
-  padding: 5px;
+  padding: 15px 0px;
   display: flex;
+  width: 400px;
   border-top: 0.5px solid #ccc;
   border-bottom: 0.1px solid #ccc;
 }
 
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 .content {
-  margin-left: 10px;
+  margin-left: 15px;
 }
 
 .title {

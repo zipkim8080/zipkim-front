@@ -105,7 +105,7 @@ onMounted(() => {
   top: 53%;
   right: 15px;
   transform: translateY(-50%);
-  width: 350px;
+  width: 450px;
   height: 830px;
   background: #fff;
   border-radius: 10px;
