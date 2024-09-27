@@ -4,7 +4,7 @@
 
     <input type="text" v-model="searchTerm" class="searchBox" placeholder="아파트 또는 지역명으로 검색" @input="onInputChange"
       aria-label="Recipient's username" aria-describedby="button-addon2" />
-    <button class="btn btn-outline-warning kb_btn" type="button" id="button-addon2">
+    <button class="kb_btn" type="button" id="button-addon2">
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
   </div>
