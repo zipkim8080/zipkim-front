@@ -1,18 +1,20 @@
 <template>
   <!-- XX동 매물 보기 버튼 -->
   <div class="xxDong-overlay">
-    <button class="kb_btn " @click="xxDongClick">
-      <!-- {{ dong }} -->
-      XX동 전세가율 확인
+    <button class="kb_btn" @click="xxDongClick">
+      {{ currentDong }} 전세가율 확인
     </button>
   </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
+import { useComplexesStore } from '@/stores/ComplexesStore';
 
 const kakaoMapStore = useKakaoMapStore();
+const complexesStore = useComplexesStore();
 const isClicked = ref(false); // 클릭 여부 상태 저장
+const currentDong = computed(() => complexesStore.dong);
 
 function xxDongClick() {
   kakaoMapStore.xxDongEvent();

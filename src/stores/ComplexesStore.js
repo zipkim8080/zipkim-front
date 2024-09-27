@@ -14,6 +14,9 @@ export const useComplexesStore = defineStore('map', {
     markers: ref([]), // 마커 배열
     overlays: ref([]), // 오버레이 배열
     map: ref(null), // 맵 객체
+    cenX: '',
+    cenY: '',
+    dong: '',
   }),
   actions: {
     setLevel(level) {
@@ -72,6 +75,34 @@ export const useComplexesStore = defineStore('map', {
       } catch (error) {
         console.error('데이터를 가져오는 중 에러 발생:', error);
         this.apiData = []; // aptData 초기화
+      }
+    },
+
+    async xxDongApi() {
+      const curX = this.lon;
+      const curY = this.lat;
+
+      const apiKey = 'KakaoAK 609c68dddc59d91ca2017c852a101b1b';
+      const apiUrl = `https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${curX}&y=${curY}`;
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            Authorization: apiKey,
+          },
+        });
+        const data = await response.json();
+        if (data.documents.length > 0) {
+          const { region_3depth_name, x, y } = data.documents[0];
+          this.cenX = y;
+          this.cenY = x;
+          this.dong = region_3depth_name;
+        } else {
+          throw new Error('동을 찾을 수 없습니다.');
+        }
+      } catch (error) {
+        console.error('동을 가져오는 중 오류 발생:', error);
+        throw error;
       }
     },
 
@@ -185,7 +216,8 @@ export const useComplexesStore = defineStore('map', {
             apt.longitude - 0.0012 // 경도를 조금 줄여서 왼쪽으로 중심 이동
           );
           map.panTo(markerMPosition);
-          router.push({ name: 'SBInfo',params:{complexId: apt.complexId} });
+
+          router.push({ name: 'SBInfo', params: { complexId: apt.complexId } });
         };
         window.kakao.maps.event.addListener(marker, 'click', handleClickEvent);
         content.addEventListener('click', handleClickEvent);
