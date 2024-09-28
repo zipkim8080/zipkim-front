@@ -9,6 +9,7 @@ import CheckMyDoc from '@/pages/side/CheckMyDoc.vue';
 import MyDocResultPage from '@/pages/side/MyDocResultPage.vue';
 
 const router = useRouter();
+//기본
 const ocrData = ref(null);
 const showModal = ref(false);
 
@@ -18,6 +19,32 @@ const regi = () => {
         path: '/add',
     });
 };
+
+// 빈페이지;
+// const ocrData = {
+//     address: '서울 광진구 능동로 195-16 5층, 6층', // 주소
+//     uniqueNumber: '1234-1234-1234',
+//     openDate: '2024-09-28',
+//     attachment1: false,
+//     attachment2: false,
+//     trust: false,
+//     auction: false,
+//     loan: 0,
+//     leaseAmount: 0,
+// };
+
+// 모두 보여주기
+// const ocrData = {
+//     address: '서울 광진구 능동로 195-16 5층, 6층', // 주소
+//     uniqueNumber: '1234-1234-1234',
+//     openDate: '2024-09-28',
+//     attachment1: true,
+//     attachment2: true,
+//     trust: true,
+//     auction: false,
+//     loan: 10,
+//     leaseAmount: 10, // 100- 30 50 70
+// };
 
 const handleOcrCompleted = (result) => {
     ocrData.value = result;
