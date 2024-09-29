@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 const BASE_URL = '/api/property';
 const headers = { 'Content-Type': 'multipart/form-data' }; // 매물 이미지 넘겨야 해서 설정
 

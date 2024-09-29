@@ -2,7 +2,7 @@
 import { defineEmits } from 'vue';
 import { useLoginStore } from '@/stores/LoginStore';
 import { ref } from 'vue';
-import instance from '@/api/index.js';
+import axios from 'axios';
 
 const emit = defineEmits(['close', 'updatePhoneNumber']);
 const handleClose = () => {
@@ -22,7 +22,7 @@ const token = LoginStore.getToken();
 const requestVerificationCode = async () => {
   try {
     // 전화번호를 포함하여 백엔드의 /auth/send API 호출
-    const response = await instance.post('http://localhost:8080/sms/send', {
+    const response = await axios.post('http://localhost:8080/sms/send', {
       phoneNumber: phoneNumber.value,
     });
     generatedCode.value = response.data.split(': ')[1];
@@ -41,7 +41,7 @@ const verifyCode = async () => {
   } else if (verificationCode.value === generatedCode.value) {
     message.value = '인증에 성공했습니다';
     try {
-      await instance.post('http://localhost:8080/api/users/addPhone', {
+      await axios.post('http://localhost:8080/api/users/phone', {
         phoneNumber: phoneNumber.value,
       });
       console.log('DB 성공');
