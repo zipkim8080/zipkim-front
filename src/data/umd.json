@@ -1,0 +1,3273 @@
+{
+  "regionList": [
+    {
+      "cortarNo": "1168010300",
+      "centerLat": 37.482968,
+      "centerLon": 127.0634,
+      "cortarName": "개포동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168010800",
+      "centerLat": 37.513583,
+      "centerLon": 127.031375,
+      "cortarName": "논현동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168010600",
+      "centerLat": 37.49911,
+      "centerLon": 127.065463,
+      "cortarName": "대치동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168011800",
+      "centerLat": 37.488143,
+      "centerLon": 127.04505,
+      "cortarName": "도곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168010500",
+      "centerLat": 37.514792,
+      "centerLon": 127.055387,
+      "cortarName": "삼성동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168011100",
+      "centerLat": 37.46436,
+      "centerLon": 127.1046,
+      "cortarName": "세곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168011500",
+      "centerLat": 37.488856,
+      "centerLon": 127.104886,
+      "cortarName": "수서동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168010700",
+      "centerLat": 37.524142,
+      "centerLon": 127.0229,
+      "cortarName": "신사동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168011000",
+      "centerLat": 37.5291,
+      "centerLon": 127.0236,
+      "cortarName": "압구정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168010100",
+      "centerLat": 37.499776,
+      "centerLon": 127.03895,
+      "cortarName": "역삼동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168011300",
+      "centerLat": 37.4717,
+      "centerLon": 127.1114,
+      "cortarName": "율현동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168011400",
+      "centerLat": 37.487485,
+      "centerLon": 127.081638,
+      "cortarName": "일원동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168011200",
+      "centerLat": 37.4766,
+      "centerLon": 127.101,
+      "cortarName": "자곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1168010400",
+      "centerLat": 37.525492,
+      "centerLon": 127.05235,
+      "cortarName": "청담동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174011000",
+      "centerLat": 37.569397,
+      "centerLon": 127.177814,
+      "cortarName": "강일동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174010200",
+      "centerLat": 37.5653,
+      "centerLon": 127.1561,
+      "cortarName": "고덕동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174010500",
+      "centerLat": 37.5379,
+      "centerLon": 127.14595,
+      "cortarName": "길동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174010600",
+      "centerLat": 37.5263,
+      "centerLon": 127.143,
+      "cortarName": "둔촌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174010100",
+      "centerLat": 37.548692,
+      "centerLon": 127.1497,
+      "cortarName": "명일동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174010300",
+      "centerLat": 37.551582,
+      "centerLon": 127.165516,
+      "cortarName": "상일동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174010800",
+      "centerLat": 37.530483,
+      "centerLon": 127.1289,
+      "cortarName": "성내동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174010700",
+      "centerLat": 37.557925,
+      "centerLon": 127.130838,
+      "cortarName": "암사동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1174010900",
+      "centerLat": 37.543217,
+      "centerLon": 127.12665,
+      "cortarName": "천호동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1130510100",
+      "centerLat": 37.6222,
+      "centerLon": 127.0208,
+      "cortarName": "미아동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1130510200",
+      "centerLat": 37.629215,
+      "centerLon": 127.037013,
+      "cortarName": "번동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1130510300",
+      "centerLat": 37.6371,
+      "centerLon": 127.0046,
+      "cortarName": "수유동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1130510400",
+      "centerLat": 37.6633,
+      "centerLon": 127.002,
+      "cortarName": "우이동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010400",
+      "centerLat": 37.5681,
+      "centerLon": 126.8454,
+      "cortarName": "가양동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150011000",
+      "centerLat": 37.5874,
+      "centerLon": 126.8068,
+      "cortarName": "개화동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010800",
+      "centerLat": 37.558767,
+      "centerLon": 126.810363,
+      "cortarName": "공항동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150011100",
+      "centerLat": 37.5662,
+      "centerLon": 126.7872,
+      "cortarName": "과해동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010600",
+      "centerLat": 37.5535,
+      "centerLon": 126.8354,
+      "cortarName": "내발산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010200",
+      "centerLat": 37.5518,
+      "centerLon": 126.8612,
+      "cortarName": "등촌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010500",
+      "centerLat": 37.5738,
+      "centerLon": 126.8304,
+      "cortarName": "마곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010900",
+      "centerLat": 37.577333,
+      "centerLon": 126.813325,
+      "cortarName": "방화동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010100",
+      "centerLat": 37.55376,
+      "centerLon": 126.87097,
+      "cortarName": "염창동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150011200",
+      "centerLat": 37.5534,
+      "centerLon": 126.784,
+      "cortarName": "오곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150011300",
+      "centerLat": 37.5435,
+      "centerLon": 126.7984,
+      "cortarName": "오쇠동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010700",
+      "centerLat": 37.5494,
+      "centerLon": 126.8207,
+      "cortarName": "외발산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1150010300",
+      "centerLat": 37.5421,
+      "centerLon": 126.844525,
+      "cortarName": "화곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1162010300",
+      "centerLat": 37.474539,
+      "centerLon": 126.977837,
+      "cortarName": "남현동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1162010100",
+      "centerLat": 37.4753,
+      "centerLon": 126.9567,
+      "cortarName": "봉천동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1162010200",
+      "centerLat": 37.4632,
+      "centerLon": 126.9346,
+      "cortarName": "신림동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1121510400",
+      "centerLat": 37.546892,
+      "centerLon": 127.103025,
+      "cortarName": "광장동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1121510300",
+      "centerLat": 37.543983,
+      "centerLon": 127.088337,
+      "cortarName": "구의동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1121510900",
+      "centerLat": 37.555122,
+      "centerLon": 127.075837,
+      "cortarName": "군자동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1121510200",
+      "centerLat": 37.55378,
+      "centerLon": 127.080499,
+      "cortarName": "능동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1121510500",
+      "centerLat": 37.533214,
+      "centerLon": 127.076006,
+      "cortarName": "자양동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1121510100",
+      "centerLat": 37.5631,
+      "centerLon": 127.0876,
+      "cortarName": "중곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1121510700",
+      "centerLat": 37.5465,
+      "centerLon": 127.0713,
+      "cortarName": "화양동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153010300",
+      "centerLat": 37.483351,
+      "centerLon": 126.887738,
+      "cortarName": "가리봉동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153010700",
+      "centerLat": 37.494393,
+      "centerLon": 126.856813,
+      "cortarName": "개봉동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153010600",
+      "centerLat": 37.5024,
+      "centerLon": 126.8598,
+      "cortarName": "고척동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153010200",
+      "centerLat": 37.4937,
+      "centerLon": 126.8823,
+      "cortarName": "구로동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153010900",
+      "centerLat": 37.5009,
+      "centerLon": 126.8277,
+      "cortarName": "궁동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153010100",
+      "centerLat": 37.507766,
+      "centerLon": 126.880583,
+      "cortarName": "신도림동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153010800",
+      "centerLat": 37.492143,
+      "centerLon": 126.838375,
+      "cortarName": "오류동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153011000",
+      "centerLat": 37.4938,
+      "centerLon": 126.8207,
+      "cortarName": "온수동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153011100",
+      "centerLat": 37.4802,
+      "centerLon": 126.8391,
+      "cortarName": "천왕동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1153011200",
+      "centerLat": 37.481,
+      "centerLon": 126.8258,
+      "cortarName": "항동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1154510100",
+      "centerLat": 37.476904,
+      "centerLon": 126.891732,
+      "cortarName": "가산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1154510200",
+      "centerLat": 37.466185,
+      "centerLon": 126.9002,
+      "cortarName": "독산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1154510300",
+      "centerLat": 37.4496,
+      "centerLon": 126.9115,
+      "cortarName": "시흥동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1135010300",
+      "centerLat": 37.6306,
+      "centerLon": 127.0877,
+      "cortarName": "공릉동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1135010500",
+      "centerLat": 37.6669,
+      "centerLon": 127.0724,
+      "cortarName": "상계동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1135010200",
+      "centerLat": 37.629374,
+      "centerLon": 127.054275,
+      "cortarName": "월계동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1135010600",
+      "centerLat": 37.650874,
+      "centerLon": 127.0811,
+      "cortarName": "중계동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1135010400",
+      "centerLat": 37.638249,
+      "centerLon": 127.073575,
+      "cortarName": "하계동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1132010800",
+      "centerLat": 37.6853,
+      "centerLon": 127.0301,
+      "cortarName": "도봉동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1132010600",
+      "centerLat": 37.664774,
+      "centerLon": 127.0337,
+      "cortarName": "방학동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1132010500",
+      "centerLat": 37.6526,
+      "centerLon": 127.0249,
+      "cortarName": "쌍문동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1132010700",
+      "centerLat": 37.64639,
+      "centerLon": 127.044913,
+      "cortarName": "창동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010500",
+      "centerLat": 37.57,
+      "centerLon": 127.0564,
+      "cortarName": "답십리동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010100",
+      "centerLat": 37.573942,
+      "centerLon": 127.024625,
+      "cortarName": "신설동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010200",
+      "centerLat": 37.5758,
+      "centerLon": 127.0362,
+      "cortarName": "용두동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123011000",
+      "centerLat": 37.5996,
+      "centerLon": 127.0624,
+      "cortarName": "이문동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010600",
+      "centerLat": 37.5711,
+      "centerLon": 127.0714,
+      "cortarName": "장안동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010400",
+      "centerLat": 37.5803,
+      "centerLon": 127.0567,
+      "cortarName": "전농동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010300",
+      "centerLat": 37.5847,
+      "centerLon": 127.0371,
+      "cortarName": "제기동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010700",
+      "centerLat": 37.5882,
+      "centerLon": 127.0464,
+      "cortarName": "청량리동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010800",
+      "centerLat": 37.590808,
+      "centerLon": 127.055313,
+      "cortarName": "회기동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1123010900",
+      "centerLat": 37.588574,
+      "centerLon": 127.0627,
+      "cortarName": "휘경동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010100",
+      "centerLat": 37.5115,
+      "centerLon": 126.9416,
+      "cortarName": "노량진동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010800",
+      "centerLat": 37.508133,
+      "centerLon": 126.92635,
+      "cortarName": "대방동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010600",
+      "centerLat": 37.494973,
+      "centerLon": 126.976016,
+      "cortarName": "동작동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010400",
+      "centerLat": 37.513058,
+      "centerLon": 126.956088,
+      "cortarName": "본동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010700",
+      "centerLat": 37.4853,
+      "centerLon": 126.9719,
+      "cortarName": "사당동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010300",
+      "centerLat": 37.506842,
+      "centerLon": 126.951,
+      "cortarName": "상도1동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010200",
+      "centerLat": 37.4991,
+      "centerLon": 126.9437,
+      "cortarName": "상도동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010900",
+      "centerLat": 37.4921,
+      "centerLon": 126.9172,
+      "cortarName": "신대방동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1159010500",
+      "centerLat": 37.5052,
+      "centerLon": 126.9629,
+      "cortarName": "흑석동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010200",
+      "centerLat": 37.547533,
+      "centerLon": 126.952988,
+      "cortarName": "공덕동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011300",
+      "centerLat": 37.545985,
+      "centerLon": 126.932288,
+      "cortarName": "구수동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011000",
+      "centerLat": 37.5541,
+      "centerLon": 126.938,
+      "cortarName": "노고산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011800",
+      "centerLat": 37.543,
+      "centerLon": 126.9193,
+      "cortarName": "당인동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010800",
+      "centerLat": 37.554441,
+      "centerLon": 126.944187,
+      "cortarName": "대흥동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010400",
+      "centerLat": 37.5376,
+      "centerLon": 126.950213,
+      "cortarName": "도화동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144012100",
+      "centerLat": 37.558627,
+      "centerLon": 126.92379,
+      "cortarName": "동교동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010700",
+      "centerLat": 37.537192,
+      "centerLon": 126.943975,
+      "cortarName": "마포동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144012300",
+      "centerLat": 37.5561,
+      "centerLon": 126.9016,
+      "cortarName": "망원동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011500",
+      "centerLat": 37.5469,
+      "centerLon": 126.9241,
+      "cortarName": "상수동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144012700",
+      "centerLat": 37.577606,
+      "centerLon": 126.889111,
+      "cortarName": "상암동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144012000",
+      "centerLat": 37.552458,
+      "centerLon": 126.920925,
+      "cortarName": "서교동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144012500",
+      "centerLat": 37.566067,
+      "centerLon": 126.9055,
+      "cortarName": "성산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010300",
+      "centerLat": 37.542233,
+      "centerLon": 126.955463,
+      "cortarName": "신공덕동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011100",
+      "centerLat": 37.546862,
+      "centerLon": 126.934526,
+      "cortarName": "신수동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011700",
+      "centerLat": 37.543392,
+      "centerLon": 126.930513,
+      "cortarName": "신정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010100",
+      "centerLat": 37.5546,
+      "centerLon": 126.9561,
+      "cortarName": "아현동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144012400",
+      "centerLat": 37.564501,
+      "centerLon": 126.922027,
+      "cortarName": "연남동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010900",
+      "centerLat": 37.547083,
+      "centerLon": 126.94565,
+      "cortarName": "염리동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010500",
+      "centerLat": 37.541833,
+      "centerLon": 126.941625,
+      "cortarName": "용강동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144012600",
+      "centerLat": 37.571725,
+      "centerLon": 126.9055,
+      "cortarName": "중동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011400",
+      "centerLat": 37.5501,
+      "centerLon": 126.93,
+      "cortarName": "창전동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144010600",
+      "centerLat": 37.5385,
+      "centerLon": 126.939688,
+      "cortarName": "토정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011600",
+      "centerLat": 37.543828,
+      "centerLon": 126.927922,
+      "cortarName": "하중동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144012200",
+      "centerLat": 37.549433,
+      "centerLon": 126.905725,
+      "cortarName": "합정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1144011200",
+      "centerLat": 37.5419,
+      "centerLon": 126.9345,
+      "cortarName": "현석동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141012000",
+      "centerLat": 37.576192,
+      "centerLon": 126.921263,
+      "cortarName": "남가좌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010500",
+      "centerLat": 37.5672,
+      "centerLon": 126.9628,
+      "cortarName": "냉천동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011300",
+      "centerLat": 37.559527,
+      "centerLon": 126.9435,
+      "cortarName": "대신동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011200",
+      "centerLat": 37.561,
+      "centerLon": 126.947,
+      "cortarName": "대현동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010400",
+      "centerLat": 37.5634,
+      "centerLon": 126.9673,
+      "cortarName": "미근동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011500",
+      "centerLat": 37.5727,
+      "centerLon": 126.9471,
+      "cortarName": "봉원동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011900",
+      "centerLat": 37.579542,
+      "centerLon": 126.910788,
+      "cortarName": "북가좌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011000",
+      "centerLat": 37.563825,
+      "centerLon": 126.954525,
+      "cortarName": "북아현동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011400",
+      "centerLat": 37.5651,
+      "centerLon": 126.9391,
+      "cortarName": "신촌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011700",
+      "centerLat": 37.572425,
+      "centerLon": 126.93255,
+      "cortarName": "연희동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010800",
+      "centerLat": 37.570583,
+      "centerLon": 126.957866,
+      "cortarName": "영천동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010700",
+      "centerLat": 37.569179,
+      "centerLon": 126.95908,
+      "cortarName": "옥천동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011600",
+      "centerLat": 37.557802,
+      "centerLon": 126.939513,
+      "cortarName": "창천동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010600",
+      "centerLat": 37.567365,
+      "centerLon": 126.95868,
+      "cortarName": "천연동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010100",
+      "centerLat": 37.564842,
+      "centerLon": 126.9638,
+      "cortarName": "충정로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010200",
+      "centerLat": 37.5623,
+      "centerLon": 126.9621,
+      "cortarName": "충정로3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010300",
+      "centerLat": 37.5614,
+      "centerLon": 126.9659,
+      "cortarName": "합동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141010900",
+      "centerLat": 37.574,
+      "centerLon": 126.954,
+      "cortarName": "현저동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011800",
+      "centerLat": 37.5931,
+      "centerLon": 126.9375,
+      "cortarName": "홍은동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1141011100",
+      "centerLat": 37.5872,
+      "centerLon": 126.9468,
+      "cortarName": "홍제동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165010900",
+      "centerLat": 37.454929,
+      "centerLon": 127.06378,
+      "cortarName": "내곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165010700",
+      "centerLat": 37.5047,
+      "centerLon": 127.0019,
+      "cortarName": "반포동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165010100",
+      "centerLat": 37.484265,
+      "centerLon": 126.98864,
+      "cortarName": "방배동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165010800",
+      "centerLat": 37.488518,
+      "centerLon": 127.016437,
+      "cortarName": "서초동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165011100",
+      "centerLat": 37.4448,
+      "centerLon": 127.0641,
+      "cortarName": "신원동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165010200",
+      "centerLat": 37.470101,
+      "centerLon": 127.039888,
+      "cortarName": "양재동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165011000",
+      "centerLat": 37.4632,
+      "centerLon": 127.0539,
+      "cortarName": "염곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165010300",
+      "centerLat": 37.471582,
+      "centerLon": 127.026744,
+      "cortarName": "우면동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165010400",
+      "centerLat": 37.4452,
+      "centerLon": 127.0476,
+      "cortarName": "원지동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1165010600",
+      "centerLat": 37.514951,
+      "centerLon": 127.014219,
+      "cortarName": "잠원동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010900",
+      "centerLat": 37.553,
+      "centerLon": 127.0263,
+      "cortarName": "금호동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120011000",
+      "centerLat": 37.553808,
+      "centerLon": 127.01885,
+      "cortarName": "금호동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120011100",
+      "centerLat": 37.5498,
+      "centerLon": 127.0193,
+      "cortarName": "금호동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120011200",
+      "centerLat": 37.545181,
+      "centerLon": 127.022949,
+      "cortarName": "금호동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010400",
+      "centerLat": 37.563016,
+      "centerLon": 127.034374,
+      "cortarName": "도선동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010500",
+      "centerLat": 37.566325,
+      "centerLon": 127.045388,
+      "cortarName": "마장동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010600",
+      "centerLat": 37.561217,
+      "centerLon": 127.045875,
+      "cortarName": "사근동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010100",
+      "centerLat": 37.568275,
+      "centerLon": 127.0247,
+      "cortarName": "상왕십리동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120011400",
+      "centerLat": 37.543225,
+      "centerLon": 127.041425,
+      "cortarName": "성수동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120011500",
+      "centerLat": 37.539817,
+      "centerLon": 127.056888,
+      "cortarName": "성수동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120011800",
+      "centerLat": 37.554522,
+      "centerLon": 127.0696,
+      "cortarName": "송정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120011300",
+      "centerLat": 37.5419,
+      "centerLon": 127.016,
+      "cortarName": "옥수동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120012200",
+      "centerLat": 37.564062,
+      "centerLon": 127.055552,
+      "cortarName": "용답동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010800",
+      "centerLat": 37.553283,
+      "centerLon": 127.033563,
+      "cortarName": "응봉동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010200",
+      "centerLat": 37.564158,
+      "centerLon": 127.028675,
+      "cortarName": "하왕십리동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010700",
+      "centerLat": 37.559,
+      "centerLon": 127.0348,
+      "cortarName": "행당동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1120010300",
+      "centerLat": 37.56695,
+      "centerLon": 127.031975,
+      "cortarName": "홍익동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013400",
+      "centerLat": 37.608332,
+      "centerLon": 127.0228,
+      "cortarName": "길음동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010300",
+      "centerLat": 37.5974,
+      "centerLon": 127.0207,
+      "cortarName": "돈암동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011600",
+      "centerLat": 37.592307,
+      "centerLon": 127.0184,
+      "cortarName": "동선동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011700",
+      "centerLat": 37.590249,
+      "centerLon": 127.019538,
+      "cortarName": "동선동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011800",
+      "centerLat": 37.593899,
+      "centerLon": 127.020538,
+      "cortarName": "동선동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011900",
+      "centerLat": 37.595109,
+      "centerLon": 127.018781,
+      "cortarName": "동선동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012000",
+      "centerLat": 37.5962,
+      "centerLon": 127.0166,
+      "cortarName": "동선동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010400",
+      "centerLat": 37.590199,
+      "centerLon": 127.007163,
+      "cortarName": "동소문동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010500",
+      "centerLat": 37.588794,
+      "centerLon": 127.00808,
+      "cortarName": "동소문동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010600",
+      "centerLat": 37.590371,
+      "centerLon": 127.011567,
+      "cortarName": "동소문동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010700",
+      "centerLat": 37.591846,
+      "centerLon": 127.010553,
+      "cortarName": "동소문동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010800",
+      "centerLat": 37.59149,
+      "centerLon": 127.015017,
+      "cortarName": "동소문동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010900",
+      "centerLat": 37.59359,
+      "centerLon": 127.014213,
+      "cortarName": "동소문동6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011000",
+      "centerLat": 37.5964,
+      "centerLon": 127.0142,
+      "cortarName": "동소문동7가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013000",
+      "centerLat": 37.586477,
+      "centerLon": 127.019558,
+      "cortarName": "보문동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013100",
+      "centerLat": 37.585828,
+      "centerLon": 127.018186,
+      "cortarName": "보문동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013200",
+      "centerLat": 37.583874,
+      "centerLon": 127.015813,
+      "cortarName": "보문동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012600",
+      "centerLat": 37.582882,
+      "centerLon": 127.021332,
+      "cortarName": "보문동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012700",
+      "centerLat": 37.582588,
+      "centerLon": 127.020107,
+      "cortarName": "보문동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012800",
+      "centerLat": 37.580475,
+      "centerLon": 127.018825,
+      "cortarName": "보문동6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012900",
+      "centerLat": 37.579733,
+      "centerLon": 127.022225,
+      "cortarName": "보문동7가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011100",
+      "centerLat": 37.5845,
+      "centerLon": 127.0082,
+      "cortarName": "삼선동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011200",
+      "centerLat": 37.584,
+      "centerLon": 127.0114,
+      "cortarName": "삼선동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011300",
+      "centerLat": 37.586557,
+      "centerLon": 127.013,
+      "cortarName": "삼선동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011400",
+      "centerLat": 37.589797,
+      "centerLon": 127.013302,
+      "cortarName": "삼선동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129011500",
+      "centerLat": 37.5885,
+      "centerLon": 127.0158,
+      "cortarName": "삼선동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013700",
+      "centerLat": 37.605757,
+      "centerLon": 127.048125,
+      "cortarName": "상월곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013900",
+      "centerLat": 37.608,
+      "centerLon": 127.0611,
+      "cortarName": "석관동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010100",
+      "centerLat": 37.5969,
+      "centerLon": 126.9922,
+      "cortarName": "성북동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129010200",
+      "centerLat": 37.5894,
+      "centerLon": 127.0038,
+      "cortarName": "성북동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012100",
+      "centerLat": 37.588695,
+      "centerLon": 127.022239,
+      "cortarName": "안암동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012200",
+      "centerLat": 37.586732,
+      "centerLon": 127.023,
+      "cortarName": "안암동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012300",
+      "centerLat": 37.583882,
+      "centerLon": 127.0231,
+      "cortarName": "안암동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012400",
+      "centerLat": 37.580392,
+      "centerLon": 127.024663,
+      "cortarName": "안암동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129012500",
+      "centerLat": 37.588815,
+      "centerLon": 127.03005,
+      "cortarName": "안암동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013800",
+      "centerLat": 37.6157,
+      "centerLon": 127.0501,
+      "cortarName": "장위동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013300",
+      "centerLat": 37.6169,
+      "centerLon": 126.9974,
+      "cortarName": "정릉동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013500",
+      "centerLat": 37.5966,
+      "centerLon": 127.0333,
+      "cortarName": "종암동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1129013600",
+      "centerLat": 37.604407,
+      "centerLon": 127.0387,
+      "cortarName": "하월곡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010700",
+      "centerLat": 37.495301,
+      "centerLon": 127.1186,
+      "cortarName": "가락동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171011300",
+      "centerLat": 37.489351,
+      "centerLon": 127.147175,
+      "cortarName": "거여동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171011400",
+      "centerLat": 37.49746,
+      "centerLon": 127.153625,
+      "cortarName": "마천동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010800",
+      "centerLat": 37.4854,
+      "centerLon": 127.1221,
+      "cortarName": "문정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171011100",
+      "centerLat": 37.51506,
+      "centerLon": 127.122999,
+      "cortarName": "방이동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010600",
+      "centerLat": 37.502717,
+      "centerLon": 127.092513,
+      "cortarName": "삼전동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010500",
+      "centerLat": 37.503592,
+      "centerLon": 127.1037,
+      "cortarName": "석촌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010400",
+      "centerLat": 37.504983,
+      "centerLon": 127.11465,
+      "cortarName": "송파동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010200",
+      "centerLat": 37.517425,
+      "centerLon": 127.101844,
+      "cortarName": "신천동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171011200",
+      "centerLat": 37.504774,
+      "centerLon": 127.134595,
+      "cortarName": "오금동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010100",
+      "centerLat": 37.5111,
+      "centerLon": 127.0851,
+      "cortarName": "잠실동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010900",
+      "centerLat": 37.478842,
+      "centerLon": 127.135859,
+      "cortarName": "장지동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1171010300",
+      "centerLat": 37.533267,
+      "centerLon": 127.11485,
+      "cortarName": "풍납동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1147010200",
+      "centerLat": 37.5366,
+      "centerLon": 126.8759,
+      "cortarName": "목동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1147010300",
+      "centerLat": 37.527925,
+      "centerLon": 126.8342,
+      "cortarName": "신월동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1147010100",
+      "centerLat": 37.516433,
+      "centerLon": 126.8632,
+      "cortarName": "신정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011700",
+      "centerLat": 37.5347,
+      "centerLon": 126.9065,
+      "cortarName": "당산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011100",
+      "centerLat": 37.5216,
+      "centerLon": 126.8985,
+      "cortarName": "당산동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011200",
+      "centerLat": 37.5225,
+      "centerLon": 126.8936,
+      "cortarName": "당산동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011300",
+      "centerLat": 37.5261,
+      "centerLon": 126.8971,
+      "cortarName": "당산동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011400",
+      "centerLat": 37.529,
+      "centerLon": 126.8991,
+      "cortarName": "당산동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011500",
+      "centerLat": 37.5323,
+      "centerLon": 126.9009,
+      "cortarName": "당산동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011600",
+      "centerLat": 37.535,
+      "centerLon": 126.9024,
+      "cortarName": "당산동6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156013300",
+      "centerLat": 37.4967,
+      "centerLon": 126.9011,
+      "cortarName": "대림동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011800",
+      "centerLat": 37.5084,
+      "centerLon": 126.8994,
+      "cortarName": "도림동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011900",
+      "centerLat": 37.511847,
+      "centerLon": 126.897857,
+      "cortarName": "문래동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012000",
+      "centerLat": 37.5126,
+      "centerLon": 126.8929,
+      "cortarName": "문래동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012100",
+      "centerLat": 37.517008,
+      "centerLon": 126.895338,
+      "cortarName": "문래동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012200",
+      "centerLat": 37.51455,
+      "centerLon": 126.889875,
+      "cortarName": "문래동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012300",
+      "centerLat": 37.5161,
+      "centerLon": 126.8849,
+      "cortarName": "문래동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012400",
+      "centerLat": 37.5201,
+      "centerLon": 126.8845,
+      "cortarName": "문래동6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156013200",
+      "centerLat": 37.505933,
+      "centerLon": 126.911537,
+      "cortarName": "신길동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156013400",
+      "centerLat": 37.532585,
+      "centerLon": 126.885165,
+      "cortarName": "양평동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012500",
+      "centerLat": 37.5232,
+      "centerLon": 126.8886,
+      "cortarName": "양평동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012600",
+      "centerLat": 37.523067,
+      "centerLon": 126.883563,
+      "cortarName": "양평동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012700",
+      "centerLat": 37.5296,
+      "centerLon": 126.8918,
+      "cortarName": "양평동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012800",
+      "centerLat": 37.53635,
+      "centerLon": 126.89605,
+      "cortarName": "양평동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156012900",
+      "centerLat": 37.539,
+      "centerLon": 126.8925,
+      "cortarName": "양평동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156013000",
+      "centerLat": 37.541883,
+      "centerLon": 126.889838,
+      "cortarName": "양평동6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156013100",
+      "centerLat": 37.5488,
+      "centerLon": 126.8883,
+      "cortarName": "양화동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156011000",
+      "centerLat": 37.52139,
+      "centerLon": 126.931083,
+      "cortarName": "여의도동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010100",
+      "centerLat": 37.5134,
+      "centerLon": 126.9061,
+      "cortarName": "영등포동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010200",
+      "centerLat": 37.517703,
+      "centerLon": 126.912625,
+      "cortarName": "영등포동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010300",
+      "centerLat": 37.5208,
+      "centerLon": 126.9117,
+      "cortarName": "영등포동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010400",
+      "centerLat": 37.518,
+      "centerLon": 126.9082,
+      "cortarName": "영등포동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010500",
+      "centerLat": 37.518,
+      "centerLon": 126.903625,
+      "cortarName": "영등포동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010600",
+      "centerLat": 37.5211,
+      "centerLon": 126.9066,
+      "cortarName": "영등포동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010700",
+      "centerLat": 37.5216,
+      "centerLon": 126.9032,
+      "cortarName": "영등포동6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010800",
+      "centerLat": 37.5242,
+      "centerLon": 126.907,
+      "cortarName": "영등포동7가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1156010900",
+      "centerLat": 37.5289,
+      "centerLon": 126.9053,
+      "cortarName": "영등포동8가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010400",
+      "centerLat": 37.5425,
+      "centerLon": 126.9719,
+      "cortarName": "갈월동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010500",
+      "centerLat": 37.545742,
+      "centerLon": 126.974775,
+      "cortarName": "남영동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012000",
+      "centerLat": 37.5388,
+      "centerLon": 126.9561,
+      "cortarName": "도원동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117013200",
+      "centerLat": 37.5237,
+      "centerLon": 126.9957,
+      "cortarName": "동빙고동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010700",
+      "centerLat": 37.5517,
+      "centerLon": 126.9727,
+      "cortarName": "동자동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012200",
+      "centerLat": 37.537,
+      "centerLon": 126.969088,
+      "cortarName": "문배동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117013600",
+      "centerLat": 37.526342,
+      "centerLon": 127.000175,
+      "cortarName": "보광동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011500",
+      "centerLat": 37.5353,
+      "centerLon": 126.9513,
+      "cortarName": "산천동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010800",
+      "centerLat": 37.5525,
+      "centerLon": 126.9664,
+      "cortarName": "서계동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117013300",
+      "centerLat": 37.520458,
+      "centerLon": 126.994663,
+      "cortarName": "서빙고동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012300",
+      "centerLat": 37.5358,
+      "centerLon": 126.9667,
+      "cortarName": "신계동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011400",
+      "centerLat": 37.5358,
+      "centerLon": 126.9547,
+      "cortarName": "신창동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012100",
+      "centerLat": 37.537511,
+      "centerLon": 126.960325,
+      "cortarName": "용문동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010600",
+      "centerLat": 37.5401,
+      "centerLon": 126.977,
+      "cortarName": "용산동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010200",
+      "centerLat": 37.54295,
+      "centerLon": 126.98405,
+      "cortarName": "용산동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012600",
+      "centerLat": 37.532,
+      "centerLon": 126.9768,
+      "cortarName": "용산동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010300",
+      "centerLat": 37.5306,
+      "centerLon": 126.9854,
+      "cortarName": "용산동4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012700",
+      "centerLat": 37.5257,
+      "centerLon": 126.9747,
+      "cortarName": "용산동5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117013500",
+      "centerLat": 37.5169,
+      "centerLon": 126.984,
+      "cortarName": "용산동6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011200",
+      "centerLat": 37.5398,
+      "centerLon": 126.9673,
+      "cortarName": "원효로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011300",
+      "centerLat": 37.536733,
+      "centerLon": 126.963263,
+      "cortarName": "원효로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011700",
+      "centerLat": 37.5344,
+      "centerLon": 126.9581,
+      "cortarName": "원효로3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011800",
+      "centerLat": 37.5328,
+      "centerLon": 126.9504,
+      "cortarName": "원효로4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012900",
+      "centerLat": 37.5187,
+      "centerLon": 126.9662,
+      "cortarName": "이촌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117013000",
+      "centerLat": 37.5389,
+      "centerLon": 126.9913,
+      "cortarName": "이태원동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117013400",
+      "centerLat": 37.5229,
+      "centerLon": 127.000225,
+      "cortarName": "주성동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011600",
+      "centerLat": 37.534227,
+      "centerLon": 126.946829,
+      "cortarName": "청암동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010900",
+      "centerLat": 37.5488,
+      "centerLon": 126.9674,
+      "cortarName": "청파동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011000",
+      "centerLat": 37.5462,
+      "centerLon": 126.9667,
+      "cortarName": "청파동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011100",
+      "centerLat": 37.5432,
+      "centerLon": 126.9668,
+      "cortarName": "청파동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012400",
+      "centerLat": 37.5362,
+      "centerLon": 126.973488,
+      "cortarName": "한강로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012500",
+      "centerLat": 37.5313,
+      "centerLon": 126.9693,
+      "cortarName": "한강로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117012800",
+      "centerLat": 37.5278,
+      "centerLon": 126.9602,
+      "cortarName": "한강로3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117013100",
+      "centerLat": 37.5375,
+      "centerLon": 127.0061,
+      "cortarName": "한남동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117011900",
+      "centerLat": 37.541683,
+      "centerLon": 126.961325,
+      "cortarName": "효창동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1117010100",
+      "centerLat": 37.548638,
+      "centerLon": 126.978134,
+      "cortarName": "후암동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010400",
+      "centerLat": 37.620974,
+      "centerLon": 126.912925,
+      "cortarName": "갈현동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010500",
+      "centerLat": 37.611746,
+      "centerLon": 126.910389,
+      "cortarName": "구산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010200",
+      "centerLat": 37.60273,
+      "centerLon": 126.93475,
+      "cortarName": "녹번동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010600",
+      "centerLat": 37.614165,
+      "centerLon": 126.920813,
+      "cortarName": "대조동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010300",
+      "centerLat": 37.6192,
+      "centerLon": 126.9354,
+      "cortarName": "불광동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010100",
+      "centerLat": 37.58414,
+      "centerLon": 126.897541,
+      "cortarName": "수색동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010900",
+      "centerLat": 37.596,
+      "centerLon": 126.9083,
+      "cortarName": "신사동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010800",
+      "centerLat": 37.605,
+      "centerLon": 126.9148,
+      "cortarName": "역촌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138010700",
+      "centerLat": 37.5926,
+      "centerLon": 126.9215,
+      "cortarName": "응암동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138011000",
+      "centerLat": 37.584306,
+      "centerLon": 126.90704,
+      "cortarName": "증산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1138011400",
+      "centerLat": 37.638627,
+      "centerLon": 126.91895,
+      "cortarName": "진관동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014600",
+      "centerLat": 37.582583,
+      "centerLon": 126.984525,
+      "cortarName": "가회동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012900",
+      "centerLat": 37.573714,
+      "centerLon": 126.983046,
+      "cortarName": "견지동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013400",
+      "centerLat": 37.575067,
+      "centerLon": 126.98595,
+      "cortarName": "경운동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014800",
+      "centerLat": 37.5804,
+      "centerLon": 126.987,
+      "cortarName": "계동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012700",
+      "centerLat": 37.5711,
+      "centerLon": 126.9828,
+      "cortarName": "공평동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015500",
+      "centerLat": 37.5691,
+      "centerLon": 126.9906,
+      "cortarName": "관수동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013500",
+      "centerLat": 37.569176,
+      "centerLon": 126.985857,
+      "cortarName": "관철동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012800",
+      "centerLat": 37.573917,
+      "centerLon": 126.98465,
+      "cortarName": "관훈동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017600",
+      "centerLat": 37.571867,
+      "centerLon": 126.961998,
+      "cortarName": "교남동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111018000",
+      "centerLat": 37.571407,
+      "centerLon": 126.961257,
+      "cortarName": "교북동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111018200",
+      "centerLat": 37.6179,
+      "centerLon": 126.9574,
+      "cortarName": "구기동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010300",
+      "centerLat": 37.584886,
+      "centerLon": 126.972359,
+      "cortarName": "궁정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013100",
+      "centerLat": 37.576087,
+      "centerLon": 126.991705,
+      "cortarName": "권농동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013700",
+      "centerLat": 37.5725,
+      "centerLon": 126.9885,
+      "cortarName": "낙원동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011800",
+      "centerLat": 37.5733,
+      "centerLon": 126.972,
+      "cortarName": "내수동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011400",
+      "centerLat": 37.5754,
+      "centerLon": 126.9716,
+      "cortarName": "내자동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010900",
+      "centerLat": 37.5804,
+      "centerLon": 126.9623,
+      "cortarName": "누상동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011000",
+      "centerLat": 37.579183,
+      "centerLon": 126.968175,
+      "cortarName": "누하동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011700",
+      "centerLat": 37.571558,
+      "centerLon": 126.973778,
+      "cortarName": "당주동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011600",
+      "centerLat": 37.572704,
+      "centerLon": 126.97463,
+      "cortarName": "도렴동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015300",
+      "centerLat": 37.572011,
+      "centerLon": 126.990594,
+      "cortarName": "돈의동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016800",
+      "centerLat": 37.5813,
+      "centerLon": 127.005,
+      "cortarName": "동숭동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017000",
+      "centerLat": 37.5891,
+      "centerLon": 126.9975,
+      "cortarName": "명륜1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017100",
+      "centerLat": 37.5846,
+      "centerLon": 126.9988,
+      "cortarName": "명륜2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017300",
+      "centerLat": 37.5875,
+      "centerLon": 126.9931,
+      "cortarName": "명륜3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017200",
+      "centerLat": 37.582142,
+      "centerLon": 126.9998,
+      "cortarName": "명륜4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015100",
+      "centerLat": 37.572531,
+      "centerLon": 126.991792,
+      "cortarName": "묘동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111018700",
+      "centerLat": 37.576008,
+      "centerLon": 126.958098,
+      "cortarName": "무악동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015200",
+      "centerLat": 37.572353,
+      "centerLon": 126.992965,
+      "cortarName": "봉익동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111018400",
+      "centerLat": 37.59244,
+      "centerLon": 126.964047,
+      "cortarName": "부암동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014400",
+      "centerLat": 37.577215,
+      "centerLon": 126.980529,
+      "cortarName": "사간동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011500",
+      "centerLat": 37.575363,
+      "centerLon": 126.965777,
+      "cortarName": "사직동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014000",
+      "centerLat": 37.59,
+      "centerLon": 126.9817,
+      "cortarName": "삼청동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012300",
+      "centerLat": 37.569482,
+      "centerLon": 126.98026,
+      "cortarName": "서린동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011900",
+      "centerLat": 37.5795,
+      "centerLon": 126.9768,
+      "cortarName": "세종로",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014200",
+      "centerLat": 37.5795,
+      "centerLon": 126.980775,
+      "cortarName": "소격동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017800",
+      "centerLat": 37.570159,
+      "centerLon": 126.965259,
+      "cortarName": "송월동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014500",
+      "centerLat": 37.5768,
+      "centerLon": 126.9817,
+      "cortarName": "송현동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012400",
+      "centerLat": 37.5737,
+      "centerLon": 126.9806,
+      "cortarName": "수송동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017500",
+      "centerLat": 37.5762,
+      "centerLon": 127.0193,
+      "cortarName": "숭인동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010200",
+      "centerLat": 37.5845,
+      "centerLon": 126.9678,
+      "cortarName": "신교동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012000",
+      "centerLat": 37.570353,
+      "centerLon": 126.974025,
+      "cortarName": "신문로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012100",
+      "centerLat": 37.570792,
+      "centerLon": 126.968813,
+      "cortarName": "신문로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111018600",
+      "centerLat": 37.60294,
+      "centerLon": 126.9621,
+      "cortarName": "신영동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014100",
+      "centerLat": 37.5773,
+      "centerLon": 126.9829,
+      "cortarName": "안국동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016600",
+      "centerLat": 37.5786,
+      "centerLon": 126.9995,
+      "cortarName": "연건동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016000",
+      "centerLat": 37.5737,
+      "centerLon": 127.0002,
+      "cortarName": "연지동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015800",
+      "centerLat": 37.569487,
+      "centerLon": 126.998409,
+      "cortarName": "예지동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011100",
+      "centerLat": 37.5836,
+      "centerLon": 126.9625,
+      "cortarName": "옥인동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013000",
+      "centerLat": 37.582,
+      "centerLon": 126.993,
+      "cortarName": "와룡동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013200",
+      "centerLat": 37.5764,
+      "centerLon": 126.9883,
+      "cortarName": "운니동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015900",
+      "centerLat": 37.5755,
+      "centerLon": 126.9975,
+      "cortarName": "원남동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014900",
+      "centerLat": 37.584162,
+      "centerLon": 126.988034,
+      "cortarName": "원서동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016500",
+      "centerLat": 37.577008,
+      "centerLon": 127.004338,
+      "cortarName": "이화동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013300",
+      "centerLat": 37.574567,
+      "centerLon": 126.9894,
+      "cortarName": "익선동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013600",
+      "centerLat": 37.5717,
+      "centerLon": 126.986,
+      "cortarName": "인사동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015700",
+      "centerLat": 37.5725,
+      "centerLon": 126.9979,
+      "cortarName": "인의동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015400",
+      "centerLat": 37.569216,
+      "centerLon": 126.994201,
+      "cortarName": "장사동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014700",
+      "centerLat": 37.5781,
+      "centerLon": 126.985125,
+      "cortarName": "재동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010700",
+      "centerLat": 37.575264,
+      "centerLon": 126.973889,
+      "cortarName": "적선동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012600",
+      "centerLat": 37.570674,
+      "centerLon": 126.980286,
+      "cortarName": "종로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013800",
+      "centerLat": 37.570741,
+      "centerLon": 126.986256,
+      "cortarName": "종로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015600",
+      "centerLat": 37.570361,
+      "centerLon": 126.99234,
+      "cortarName": "종로3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016100",
+      "centerLat": 37.57067,
+      "centerLon": 126.997927,
+      "cortarName": "종로4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016300",
+      "centerLat": 37.570633,
+      "centerLon": 127.0036,
+      "cortarName": "종로5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016400",
+      "centerLat": 37.5719,
+      "centerLon": 127.0076,
+      "cortarName": "종로6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012500",
+      "centerLat": 37.575174,
+      "centerLon": 126.979904,
+      "cortarName": "중학동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010500",
+      "centerLat": 37.5806,
+      "centerLon": 126.9721,
+      "cortarName": "창성동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017400",
+      "centerLat": 37.5758,
+      "centerLon": 127.012063,
+      "cortarName": "창신동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010100",
+      "centerLat": 37.589008,
+      "centerLon": 126.968465,
+      "cortarName": "청운동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111012200",
+      "centerLat": 37.571515,
+      "centerLon": 126.980246,
+      "cortarName": "청진동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011200",
+      "centerLat": 37.578,
+      "centerLon": 126.9707,
+      "cortarName": "체부동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016700",
+      "centerLat": 37.574842,
+      "centerLon": 127.006125,
+      "cortarName": "충신동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010600",
+      "centerLat": 37.5784,
+      "centerLon": 126.972638,
+      "cortarName": "통의동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010800",
+      "centerLat": 37.579797,
+      "centerLon": 126.970016,
+      "cortarName": "통인동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111013900",
+      "centerLat": 37.582817,
+      "centerLon": 126.9804,
+      "cortarName": "팔판동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017700",
+      "centerLat": 37.567967,
+      "centerLon": 126.9668,
+      "cortarName": "평동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111018300",
+      "centerLat": 37.605364,
+      "centerLon": 126.966884,
+      "cortarName": "평창동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111011300",
+      "centerLat": 37.576859,
+      "centerLon": 126.967655,
+      "cortarName": "필운동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111018100",
+      "centerLat": 37.573608,
+      "centerLon": 126.9621,
+      "cortarName": "행촌동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016900",
+      "centerLat": 37.583383,
+      "centerLon": 127.001369,
+      "cortarName": "혜화동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111018500",
+      "centerLat": 37.6006,
+      "centerLon": 126.9564,
+      "cortarName": "홍지동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111017900",
+      "centerLat": 37.571138,
+      "centerLon": 126.964104,
+      "cortarName": "홍파동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111014300",
+      "centerLat": 37.5806,
+      "centerLon": 126.9828,
+      "cortarName": "화동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111010400",
+      "centerLat": 37.582683,
+      "centerLon": 126.971848,
+      "cortarName": "효자동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111016200",
+      "centerLat": 37.573267,
+      "centerLon": 127.003013,
+      "cortarName": "효제동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1111015000",
+      "centerLat": 37.5742,
+      "centerLon": 126.9943,
+      "cortarName": "훈정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014500",
+      "centerLat": 37.565,
+      "centerLon": 127.0051,
+      "cortarName": "광희동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014600",
+      "centerLat": 37.5641,
+      "centerLon": 127.0084,
+      "cortarName": "광희동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010600",
+      "centerLat": 37.567574,
+      "centerLon": 126.983064,
+      "cortarName": "남대문로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011500",
+      "centerLat": 37.563843,
+      "centerLon": 126.98199,
+      "cortarName": "남대문로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011600",
+      "centerLat": 37.561648,
+      "centerLon": 126.979389,
+      "cortarName": "남대문로3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011700",
+      "centerLat": 37.560671,
+      "centerLon": 126.975325,
+      "cortarName": "남대문로4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011800",
+      "centerLat": 37.5563,
+      "centerLon": 126.9748,
+      "cortarName": "남대문로5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012800",
+      "centerLat": 37.559159,
+      "centerLon": 126.984669,
+      "cortarName": "남산동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012900",
+      "centerLat": 37.558333,
+      "centerLon": 126.9858,
+      "cortarName": "남산동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013000",
+      "centerLat": 37.55998,
+      "centerLon": 126.987333,
+      "cortarName": "남산동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011200",
+      "centerLat": 37.5581,
+      "centerLon": 126.977437,
+      "cortarName": "남창동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014000",
+      "centerLat": 37.560504,
+      "centerLon": 126.99086,
+      "cortarName": "남학동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010200",
+      "centerLat": 37.568133,
+      "centerLon": 126.980913,
+      "cortarName": "다동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114017300",
+      "centerLat": 37.555917,
+      "centerLon": 126.967263,
+      "cortarName": "만리동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114017400",
+      "centerLat": 37.5544,
+      "centerLon": 126.964,
+      "cortarName": "만리동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012600",
+      "centerLat": 37.564432,
+      "centerLon": 126.984421,
+      "cortarName": "명동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012700",
+      "centerLat": 37.562667,
+      "centerLon": 126.985175,
+      "cortarName": "명동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010100",
+      "centerLat": 37.568041,
+      "centerLon": 126.978823,
+      "cortarName": "무교동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016400",
+      "centerLat": 37.564209,
+      "centerLon": 127.015173,
+      "cortarName": "무학동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013600",
+      "centerLat": 37.561308,
+      "centerLon": 127.000525,
+      "cortarName": "묵정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015300",
+      "centerLat": 37.5687,
+      "centerLon": 127.0032,
+      "cortarName": "방산동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011900",
+      "centerLat": 37.558889,
+      "centerLon": 126.972912,
+      "cortarName": "봉래동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012000",
+      "centerLat": 37.5566,
+      "centerLon": 126.971,
+      "cortarName": "봉래동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011300",
+      "centerLat": 37.5623,
+      "centerLon": 126.9783,
+      "cortarName": "북창동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015700",
+      "centerLat": 37.5676,
+      "centerLon": 126.9957,
+      "cortarName": "산림동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010700",
+      "centerLat": 37.567907,
+      "centerLon": 126.984746,
+      "cortarName": "삼각동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016600",
+      "centerLat": 37.563275,
+      "centerLon": 126.973425,
+      "cortarName": "서소문동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011100",
+      "centerLat": 37.562294,
+      "centerLon": 126.977184,
+      "cortarName": "소공동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011000",
+      "centerLat": 37.567317,
+      "centerLon": 126.989225,
+      "cortarName": "수표동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010800",
+      "centerLat": 37.567395,
+      "centerLon": 126.984593,
+      "cortarName": "수하동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016800",
+      "centerLat": 37.562758,
+      "centerLon": 126.970438,
+      "cortarName": "순화동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016200",
+      "centerLat": 37.557025,
+      "centerLon": 127.01315,
+      "cortarName": "신당동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014700",
+      "centerLat": 37.5638,
+      "centerLon": 127.0041,
+      "cortarName": "쌍림동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013500",
+      "centerLat": 37.564062,
+      "centerLon": 126.997989,
+      "cortarName": "예관동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014200",
+      "centerLat": 37.5553,
+      "centerLon": 126.9898,
+      "cortarName": "예장동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015400",
+      "centerLat": 37.564825,
+      "centerLon": 127.000775,
+      "cortarName": "오장동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010400",
+      "centerLat": 37.565882,
+      "centerLon": 126.980523,
+      "cortarName": "을지로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010500",
+      "centerLat": 37.56585,
+      "centerLon": 126.985638,
+      "cortarName": "을지로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015500",
+      "centerLat": 37.566578,
+      "centerLon": 126.99235,
+      "cortarName": "을지로3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015000",
+      "centerLat": 37.5663,
+      "centerLon": 126.9968,
+      "cortarName": "을지로4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015100",
+      "centerLat": 37.56665,
+      "centerLon": 127.002563,
+      "cortarName": "을지로5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014800",
+      "centerLat": 37.567717,
+      "centerLon": 127.006938,
+      "cortarName": "을지로6가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014900",
+      "centerLat": 37.566325,
+      "centerLon": 127.010437,
+      "cortarName": "을지로7가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016900",
+      "centerLat": 37.563646,
+      "centerLon": 126.968443,
+      "cortarName": "의주로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114017200",
+      "centerLat": 37.560645,
+      "centerLon": 126.969464,
+      "cortarName": "의주로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016000",
+      "centerLat": 37.5646,
+      "centerLon": 126.9944,
+      "cortarName": "인현동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013400",
+      "centerLat": 37.564125,
+      "centerLon": 126.996238,
+      "cortarName": "인현동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015600",
+      "centerLat": 37.567708,
+      "centerLon": 126.992717,
+      "cortarName": "입정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010900",
+      "centerLat": 37.567463,
+      "centerLon": 126.987007,
+      "cortarName": "장교동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014300",
+      "centerLat": 37.560758,
+      "centerLon": 127.007688,
+      "cortarName": "장충동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014400",
+      "centerLat": 37.5552,
+      "centerLon": 127.0011,
+      "cortarName": "장충동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013100",
+      "centerLat": 37.56423,
+      "centerLon": 126.987841,
+      "cortarName": "저동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016100",
+      "centerLat": 37.5642,
+      "centerLon": 126.989713,
+      "cortarName": "저동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016700",
+      "centerLat": 37.5664,
+      "centerLon": 126.972925,
+      "cortarName": "정동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015200",
+      "centerLat": 37.568255,
+      "centerLon": 126.998888,
+      "cortarName": "주교동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114014100",
+      "centerLat": 37.560631,
+      "centerLon": 126.989346,
+      "cortarName": "주자동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114017100",
+      "centerLat": 37.554803,
+      "centerLon": 126.964498,
+      "cortarName": "중림동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015900",
+      "centerLat": 37.56465,
+      "centerLon": 126.992325,
+      "cortarName": "초동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012400",
+      "centerLat": 37.560925,
+      "centerLon": 126.982288,
+      "cortarName": "충무로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012500",
+      "centerLat": 37.561461,
+      "centerLon": 126.986308,
+      "cortarName": "충무로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114015800",
+      "centerLat": 37.562228,
+      "centerLon": 126.991911,
+      "cortarName": "충무로3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013200",
+      "centerLat": 37.5622,
+      "centerLon": 126.9956,
+      "cortarName": "충무로4가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013300",
+      "centerLat": 37.562561,
+      "centerLon": 126.999541,
+      "cortarName": "충무로5가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114017000",
+      "centerLat": 37.566841,
+      "centerLon": 126.968041,
+      "cortarName": "충정로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114010300",
+      "centerLat": 37.567545,
+      "centerLon": 126.977336,
+      "cortarName": "태평로1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114011400",
+      "centerLat": 37.563215,
+      "centerLon": 126.976357,
+      "cortarName": "태평로2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013700",
+      "centerLat": 37.5609,
+      "centerLon": 126.9924,
+      "cortarName": "필동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013800",
+      "centerLat": 37.5586,
+      "centerLon": 126.9944,
+      "cortarName": "필동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114013900",
+      "centerLat": 37.557735,
+      "centerLon": 126.997326,
+      "cortarName": "필동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016500",
+      "centerLat": 37.567367,
+      "centerLon": 127.02125,
+      "cortarName": "황학동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012100",
+      "centerLat": 37.5572,
+      "centerLon": 126.9813,
+      "cortarName": "회현동1가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012200",
+      "centerLat": 37.558497,
+      "centerLon": 126.982711,
+      "cortarName": "회현동2가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114012300",
+      "centerLat": 37.560039,
+      "centerLon": 126.984044,
+      "cortarName": "회현동3가",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1114016300",
+      "centerLat": 37.567675,
+      "centerLon": 127.016463,
+      "cortarName": "흥인동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1126010500",
+      "centerLat": 37.600899,
+      "centerLon": 127.1073,
+      "cortarName": "망우동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1126010100",
+      "centerLat": 37.5818,
+      "centerLon": 127.0903,
+      "cortarName": "면목동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1126010400",
+      "centerLat": 37.612607,
+      "centerLon": 127.078325,
+      "cortarName": "묵동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1126010200",
+      "centerLat": 37.600282,
+      "centerLon": 127.090875,
+      "cortarName": "상봉동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1126010600",
+      "centerLat": 37.6103,
+      "centerLon": 127.0934,
+      "cortarName": "신내동",
+      "cortarType": "sec"
+    },
+    {
+      "cortarNo": "1126010300",
+      "centerLat": 37.6004,
+      "centerLon": 127.0792,
+      "cortarName": "중화동",
+      "cortarType": "sec"
+    }
+  ]
+}
