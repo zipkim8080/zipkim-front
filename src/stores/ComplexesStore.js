@@ -112,7 +112,7 @@ export const useComplexesStore = defineStore('map', {
       return `${roundedValue}억`;
     },
 
-    // 전세가율 계산 함수
+    // 전세가율 계산 함수 (전세가 / 매매가 * 100)
     depositRateCal(dep, amo) {
       let depositRate = (dep / amo) * 100;
       return depositRate;

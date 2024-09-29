@@ -17,8 +17,6 @@ export default {
     formData.append('subAddressNo', property.subAddressNo); // 부번
     formData.append('longitude', property.longitude); // 경도 _ api 요청해서 받아오기
     formData.append('latitude', property.latitude); // 위도 _ api 요청해서 받아오기
-    formData.append('type', property.type); // 단지(건물) 유형 _
-    formData.append('complexName', property.complexName); // 단지(건물) 이름
     formData.append('amount', property.amount); //매매가
     formData.append('deposit', property.deposit); //전세가
     formData.append('roomNo', property.roomNo); // 방개수
@@ -29,8 +27,6 @@ export default {
     formData.append('totalFloor', property.totalFloor); // 전체층
     formData.append('description', property.description); // 설명
     formData.append('parking', property.parking); //주차가능여부
-    formData.append('recentAmount', property.recentAmount); // 최근실거래(매매)
-    formData.append('recentDeposit', property.recentDeposit); // 최근실거래(전세)
     formData.append('hugNumber', property.hugNumber); // HUG 인증번호
     formData.append('brokerId', property.brokerId); // 중개인 아이디 _ 로그인에서 정보 뽑아오기
     formData.append('hasSchool', property.hasSchool); // 학교 여부

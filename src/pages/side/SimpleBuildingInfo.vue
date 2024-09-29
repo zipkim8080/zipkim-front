@@ -23,7 +23,7 @@ watch(
     // fetchData(newId); // 예시: 데이터 가져오기
   }
 );
-function closeModal() {
+function close() {
   complexesStore.restoreState();
   kakaoMapStore.reposition(complexesStore.lat, complexesStore.lon);
   router.push({ name: 'Main' }); // 메인 페이지로 돌아가 모달 닫기
@@ -46,7 +46,7 @@ async function fetchPropertyData() {
     <div class="title-box">
       <div class="title">
         <h1 class="login-title">간략한 건물정보</h1>
-        <button class="close-btn" @click="closeModal">
+        <button class="close-btn" @click="close">
           <i class="fa-solid fa-x"></i>
         </button>
       </div>
