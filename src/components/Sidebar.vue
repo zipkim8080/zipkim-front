@@ -95,25 +95,6 @@ const toggleSection = (section) => {
           </div>
         </transition>
       </li>
-
-      <!-- 휴대폰 본인인증 항목 -->
-      <!-- <li class="menu-item">
-        <button
-          @click="toggleSection('sms')"
-          class="menu-button"
-          :class="{ active: openSection === 'sms' }"
-        >
-          <i class="fa-solid fa-mobile-screen"></i>
-          휴대폰 본인인증
-          <i v-if="openSection === 'sms'" class="fa-solid fa-chevron-up"></i>
-          <i v-else class="fa-solid fa-chevron-down"></i>
-        </button>
-        <transition name="slide-fade">
-          <div v-show="openSection === 'sms'" class="menu-content">
-            <sms @close="toggleSection('sms')" />
-          </div>
-        </transition>
-      </li> -->
     </ul>
   </div>
 </template>

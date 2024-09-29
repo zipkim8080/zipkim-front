@@ -4,10 +4,12 @@ import { useRouter, useRoute } from 'vue-router';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
 import { onMounted, watch } from 'vue';
+import axios from 'axios';
 const kakaoMapStore = useKakaoMapStore();
 const complexesStore = useComplexesStore();
 const router = useRouter();
 const route = useRoute();
+
 onMounted(() => {
   const id = route.params.complexId; // 'id' 파라미터를 가져옵니다.
   console.log(id); // 가져온 id를 사용할 수 있습니다.
@@ -30,9 +32,7 @@ function close() {
 const complexId = '';
 async function fetchPropertyData() {
   try {
-    const response = await axios.get(
-      `/api/complex/summary?complexId=${complexId}`
-    ); // API 호출
+    const response = await axios.get(`/api/complex/summary?complexId=${complexId}`); // API 호출
     console.log(response.data); // 응답 데이터 처리
     // complexesStore or other stores에 필요한 데이터 저장
   } catch (error) {

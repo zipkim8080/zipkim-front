@@ -17,7 +17,10 @@ const handleClose = () => {
           <img src="@/assets/images/img1.png" />
         </div>
         <div class="content">
-          <div class="type">오피스텔</div>
+          <div class="type">
+            오피스텔
+            <img class="check" src="@/assets/images/check.png" />
+          </div>
           <div class="price">전세 1.5억</div>
           <div class="where">공항동 · 해태</div>
           <div class="info">33m<sup>2</sup> · 7층</div>
@@ -73,13 +76,22 @@ const handleClose = () => {
   border-bottom: 0.1px solid #ccc;
 }
 
+.check {
+  height: 17px;
+}
+
 .price {
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
+  font-size: 23px;
   font-weight: bold;
 }
 
 .where {
-  font-size: 1.2rem;
+  font-size: 19px;
+}
+
+.word {
+  color: #7f7e7e;
 }
 
 .content {
@@ -89,10 +101,6 @@ const handleClose = () => {
 .title {
   display: flex;
   justify-content: space-between;
-}
-
-.word {
-  color: #7f7e7e;
 }
 
 .close-btn {
