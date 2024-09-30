@@ -1,11 +1,27 @@
 <script setup>
 import { defineEmits } from 'vue';
+import axios from 'axios';
+import {useLoginStore} from "@/stores/LoginStore.js";
 
 const emit = defineEmits(['close']);
 
+const LoginStore = useLoginStore();
+const un = LoginStore.loadUsernameFromToken();
+
+const test = async () => {
+  try {
+    const response = await axios.post('/api/addDB', {
+      username:un,
+      phonenumber:"333",
+    });
+  }catch(error){
+    console.log("에러");
+  }
+}
 const handleClose = () => {
   emit('close');
 };
+
 </script>
 
 <template>
@@ -15,6 +31,11 @@ const handleClose = () => {
     <!-- <button class="close-btn" @click="handleClose">
       <i class="fa-solid fa-x"></i>
     </button> -->
+  </div>
+  <div>
+    <button class="close-btn" @click="test">
+      테스트
+    </button>
   </div>
 </template>
 
