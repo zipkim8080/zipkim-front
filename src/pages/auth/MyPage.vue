@@ -26,9 +26,18 @@ const closeSMSModal = () => {
 };
 
 // 로그아웃 함수
-const handleLogout = () => {
-  loginStore.logout();
-  alert('로그아웃 되었습니다.');
+const handleLogout = async () => {
+  try {
+    const response = await axios.post('/api/logout');
+    if (response.status === 200) {
+      loginStore.logout();
+      window.location.reload(); // 로그아웃 시 새로고침으로 메인화면
+    } else {
+      alert('실패');
+    }
+  } catch (error) {
+    console.log('로그아웃 에러: ', error);
+  }
 };
 
 onMounted(() => {
@@ -55,9 +64,7 @@ onMounted(() => {
       <div class="key">휴대폰번호</div>
       <div class="value">
         <div v-if="!phoneNumber">
-          <button class="certify-button" @click="openSMSModal">
-            휴대폰 본인인증
-          </button>
+          <button class="certify-button" @click="openSMSModal">휴대폰 본인인증</button>
         </div>
         <!-- 휴대폰 번호가 있으면 번호를 표시 -->
         <div v-else>{{ phoneNumber }}</div>
