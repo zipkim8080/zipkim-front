@@ -74,7 +74,7 @@
 </template>
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import axios from 'axios';
+import axios from '@/api/index';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
 
@@ -131,9 +131,7 @@ const onInputChange = async (e) => {
 
 const fetchcomplexSuggestion = async (query) => {
   try {
-    const response = await axios.get(
-      `http://localhost:8080/api/search?keyword=${query}&size=10`
-    );
+    const response = await axios.get(`/api/search?keyword=${query}&size=20`);
     return response.data.content;
   } catch (error) {
     console.error('Error fetching complexSuggestion:', error);

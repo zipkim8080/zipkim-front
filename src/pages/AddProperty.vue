@@ -1,5 +1,6 @@
 <script setup>
 import AddressSearch from '../components/tool/AddressSearch.vue';
+import AptOpiAddress from '../components/AptOpiAddress.vue';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import propertyApi from '../api/PropertyRegiAPI';
@@ -62,7 +63,7 @@ const submitFile = async () => {
 // const disableSubmit = ref(true); // 필수 사항 입력 전 까지 submit 못하게
 
 const property = reactive({
-  brokerId: 0,
+  complexId: '',
   roadName: '',
   bgdCd: '',
   addressName: '',
@@ -86,11 +87,9 @@ const property = reactive({
   hasSchool: false,
   hasConvenience: false,
   //
-  mainAddressNo: '',
-  subAddressNo: '',
-
+  type: 'apt',
   // ocrData
-  uniqueNumber: '', // 고유번호
+  uniqueNumber: '7', // 고유번호
   openDate: '', // 열람일시
   address: '', // 건물명 주소
   attachment1: false, // 압류 여부
@@ -105,14 +104,16 @@ const handleAddressSelected = (addressData) => {
   // Address 컴포넌트에서 emit된 데이터를 property에 저장
   property.roadName = addressData.roadAddress;
   property.addressName = addressData.jibunAddress;
-  property.subAddressNo = addressData.extraAddress;
   property.bgdCd = addressData.bcode;
   property.longitude = addressData.longitude;
   property.latitude = addressData.latitude;
   property.mainAddressNo = addressData.mainAddressNo;
   property.subAddressNo = addressData.subAddressNo;
+  property.detailAddress = addressData.detailAddress;
+  property.complexId = addressData.complexId;
 };
 
+// 등록 버튼 클릭시
 const register = async () => {
   // 첨부파일
   if (images.value.files.length > 0) {
@@ -121,9 +122,11 @@ const register = async () => {
 
   try {
     await propertyApi.create(property); // 매물 등록
-    console.log(property);
     router.push({ name: 'Main' }); // 매물 등록 성공
+    console.log(property);
   } catch (e) {
+    console.log(property);
+
     console.error(e);
   }
 };
@@ -138,7 +141,7 @@ const register = async () => {
     <form @submit.prevent="register">
       <!--  -->
       <div class="cover mb-3">
-        <label for="apt" class="subTitle">매물유형</label>
+        <label class="subTitle">매물유형</label>
         <div>
           <label class="form-check-label me-2" for="apt"> 아파트 </label>
           <input
@@ -146,7 +149,7 @@ const register = async () => {
             type="radio"
             name="type"
             id="apt"
-            value="api"
+            value="apt"
             checked
             v-model="property.type"
           />
@@ -183,15 +186,11 @@ const register = async () => {
       <div class="cover mb-3">
         <label class="subTitle">매물 주소</label>
         <div>
-          <AddressSearch @addressSelected="handleAddressSelected" />
-          <input
-            type="text"
-            class="form-control"
-            id="detailAddress"
-            name="detailAddress"
-            v-model="property.detailAddress"
-            placeholder="상세주소"
+          <AptOpiAddress
+            v-if="property.type === 'apt' || property.type === 'opi'"
+            @addressSelected="handleAddressSelected"
           />
+          <AddressSearch v-else @addressSelected="handleAddressSelected" />
         </div>
       </div>
       <!--  -->
@@ -381,10 +380,11 @@ const register = async () => {
         </div>
       </div>
       <!--  -->
-      <div class="cover mb-3">
+      <!-- 매물 사진 올리는 설명 있으면 좋을듯 -->
+      <div class="cover mb-3 a">
         <label class="subTitle">매물 사진</label>
+        <label class="imgPart me-5" for="images">사진 추가</label>
         <input
-          style="width: 240px"
           type="file"
           name="images"
           ref="images"
@@ -392,8 +392,6 @@ const register = async () => {
           accept="image/png, image/jpeg"
           multiple
         />
-        <div class="imgPart me-5"><p class="plus">+</p></div>
-        <p style="font-size: 40px; text-align: center"><br />...</p>
       </div>
       <!--  -->
       <div class="cover">
@@ -425,7 +423,7 @@ const register = async () => {
 }
 .textarea {
   width: 478px;
-  height: 6.25em;
+  height: 240px;
   resize: none;
 }
 .subTitle {
@@ -439,15 +437,24 @@ const register = async () => {
 .twoText {
   width: 320px;
 }
-.imgPart {
-  border-radius: 10px;
-  width: 150px;
-  height: 150px;
-  background-color: #f3b706;
-}
 .plus {
   font-size: 105px;
   text-align: center;
   padding: -100px;
+}
+.a .imgPart {
+  text-align: center;
+  font-size: 25px;
+  border-radius: 10px;
+  width: 150px;
+  background-color: #f3b706;
+}
+.a input[type='file'] {
+  position: absolute;
+  width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
 }
 </style>

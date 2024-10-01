@@ -2,7 +2,7 @@
 import { defineEmits } from 'vue';
 import { useLoginStore } from '@/stores/LoginStore';
 import { ref } from 'vue';
-import axios from 'axios';
+import axios from '@/api/index';
 
 const emit = defineEmits(['close', 'updatePhoneNumber']);
 const handleClose = () => {
@@ -22,7 +22,7 @@ const token = LoginStore.getToken();
 const requestVerificationCode = async () => {
   try {
     // 전화번호를 포함하여 백엔드의 /auth/send API 호출
-    const response = await axios.post('http://localhost:8080/sms/send', {
+    const response = await axios.post('/api/sms/send', {
       phoneNumber: phoneNumber.value,
     });
     generatedCode.value = response.data.split(': ')[1];
@@ -30,7 +30,9 @@ const requestVerificationCode = async () => {
     message.value = '인증번호가 전송되었습니다. 확인해주세요.';
   } catch (error) {
     // 실패 시 에러 메시지 설정
-    message.value = `인증번호 요청 실패: ${error.response?.data || error.message}`;
+    message.value = `인증번호 요청 실패: ${
+      error.response?.data || error.message
+    }`;
   }
 };
 
@@ -41,7 +43,7 @@ const verifyCode = async () => {
   } else if (verificationCode.value === generatedCode.value) {
     message.value = '인증에 성공했습니다';
     try {
-      await axios.post('http://localhost:8080/api/users/phone', {
+      await axios.post('/api/users/phone', {
         phoneNumber: phoneNumber.value,
       });
       console.log('DB 성공');
@@ -68,8 +70,14 @@ const verifyCode = async () => {
       <p>변경할 휴대폰 번호를 입력하세요.</p>
       <!-- 인증번호 발송 버튼을 입력란 내부에 위치시킴 -->
       <div class="input-group">
-        <input v-model="phoneNumber" type="text" placeholder="휴대폰 번호 입력" />
-        <button class="send-code-btn" @click="requestVerificationCode">인증번호 발송</button>
+        <input
+          v-model="phoneNumber"
+          type="text"
+          placeholder="휴대폰 번호 입력"
+        />
+        <button class="send-code-btn" @click="requestVerificationCode">
+          인증번호 발송
+        </button>
       </div>
       <input
         v-model="verificationCode"
