@@ -1,15 +1,58 @@
 <script setup>
 import { defineEmits } from 'vue';
+import { ref, onMounted } from "vue";
+import axios from 'axios';
+import { useLoginStore } from "@/stores/LoginStore.js";
+
+const LoginStore = useLoginStore();
+const un = LoginStore.loadUsernameFromToken();
+
+const bookMarks = ref([]); //백엔드에서 내보내는 데이터를 저장
 
 const emit = defineEmits(['close']);
+
+const fetchBookMarks = async () => {
+  try {
+    const response = await axios.post('/api/searchDB',{
+      username:un, //유저 이름을 백엔드로 전송
+    });
+    bookMarks.value=response.data;
+    console.log('Username : ', bookMarks.value);
+  }catch (error) {
+    console.log('Error fetch');
+  }
+};
+
+defineExpose({fetchBookMarks});
 
 const handleClose = () => {
   emit('close');
 };
+
+const handleBookmarkClick = () => {
+    fetchBookMarks();
+    console.log('Username : ', bookMarks.value);
+  }
+
+onMounted(() => {
+  fetchBookMarks();
+});
+
 </script>
 
 <template>
   <div class="title">
+    <h1>즐겨찾기</h1>
+    <button class="close-btn" @click="handleClose">
+      <i class="fa-solid fa-x"></i>
+    </button>
+  </div>
+
+  <div v-if="bookMarks.length > 0">
+    <div v-for="(bookMark, index) in bookMarks" :key="index">
+      <p>이름 : {{ bookMark.username }}</p>
+      <p>전화번호 : {{ bookMark.phonenumber}}</p>
+    </div>
     <!-- 나중에 즐겨찾기 리스트에서 쭉 뽑아올 예정 -->
     <div class="list">
       <div class="content-box">

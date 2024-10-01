@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useLoginStore } from '@/stores/LoginStore';
 
-axios.defaults.timeout = 1000;
+axios.defaults.timeout = 100000;
 
 axios.interceptors.request.use(
   (config) => {

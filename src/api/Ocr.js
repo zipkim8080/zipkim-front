@@ -96,7 +96,8 @@ function ocrParse(responseData) {
           else if (list[i] === '경매개시결정') auction = true;
         }
       } else if (currentSection === 'Eulgoo') {
-        const { loan: parsedLoan, leaseAmount: parsedLease } = parse_elgoo_table(table);
+        const { loan: parsedLoan, leaseAmount: parsedLease } =
+          parse_elgoo_table(table);
         loan += parsedLoan;
         leaseAmount += parsedLease;
       }
@@ -140,7 +141,10 @@ function subInformation(responseData) {
         fieldsArray[i].inferText.includes('[건물]')
       ) {
         let j = i;
-        while (j < fieldsArray.length && !fieldsArray[j].inferText.includes('표제부')) {
+        while (
+          j < fieldsArray.length &&
+          !fieldsArray[j].inferText.includes('표제부')
+        ) {
           addr += fieldsArray[j].inferText + ' ';
           j++;
         }
@@ -201,7 +205,10 @@ function parse_gabgoo_table(table) {
       }
 
       // 조건에 따라 경매개시결정/가압류/압류/신탁 제거
-      if (text.includes('경매개시결정등기말소') && list.includes('경매개시결정')) {
+      if (
+        text.includes('경매개시결정등기말소') &&
+        list.includes('경매개시결정')
+      ) {
         list.splice(list.indexOf('경매개시결정'), 1);
       } else if (text.includes('가압류등기말소') && list.includes('가압류')) {
         list.splice(list.indexOf('가압류'), 1);
@@ -338,7 +345,9 @@ function parse_elgoo_table(table) {
         }
 
         // 전세권 말소 처리
-        const leaseIndex = leaseEntries.findIndex((entry) => entry[0] == targetNum);
+        const leaseIndex = leaseEntries.findIndex(
+          (entry) => entry[0] == targetNum
+        );
         if (leaseIndex !== -1) {
           // console.log(`전세권 말소된 순위번호: ${targetNum}번 삭제`);
           leaseEntries.splice(leaseIndex, 1);
