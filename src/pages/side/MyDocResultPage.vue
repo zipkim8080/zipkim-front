@@ -23,32 +23,6 @@ const result = computed(() => {
 
 // 기본
 const ocrData = reactive({ ...props.ocrData });
-
-// 모두 보여주기
-// const ocrData = {
-//     address: '서울 광진구 능동로 195-16 5층, 6층', // 주소
-//     uniqueNumber: '1234-1234-1234',
-//     openDate: '2024-09-28',
-//     attachment1: true,
-//     attachment2: true,
-//     trust: true,
-//     auction: true,
-//     loan: 10,
-//     leaseAmount: 10, // 100- 30 50 70
-// };
-
-// 빈페이지
-// const ocrData = {
-//     address: '서울 광진구 능동로 195-16 5층, 6층', // 주소
-//     uniqueNumber: '1234-1234-1234',
-//     openDate: '2024-09-28',
-//     attachment1: false,
-//     attachment2: false,
-//     trust: false,
-//     auction: false,
-//     loan: 0,
-//     leaseAmount: 0,
-// };
 </script>
 
 <template>
@@ -316,7 +290,9 @@ const ocrData = reactive({ ...props.ocrData });
 
                     <!-- 신탁 내역 -->
                     <div
-                        v-if="ocrData.trust === true"
+                        v-if="
+                            ocrData.trust === true && ocrData.auction !== true
+                        "
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
@@ -375,7 +351,10 @@ const ocrData = reactive({ ...props.ocrData });
 
                     <!-- 전세권 내역 -->
                     <div
-                        v-if="ocrData.leaseAmount !== 0"
+                        v-if="
+                            ocrData.leaseAmount !== 0 &&
+                            ocrData.auction !== true
+                        "
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
@@ -394,7 +373,8 @@ const ocrData = reactive({ ...props.ocrData });
                         <div class="col">
                             <p class="mb-0">
                                 <span class="fw-bold"
-                                    >전세권 {{ ocrData.leaseAmount }}원
+                                    >전세권
+                                    {{ ocrData.leaseAmount.toLocaleString() }}원
                                     발견!</span
                                 >
                                 <br />
@@ -407,7 +387,7 @@ const ocrData = reactive({ ...props.ocrData });
 
                     <!-- 근저당권 내역 -->
                     <div
-                        v-if="ocrData.loan !== 0"
+                        v-if="ocrData.loan !== 0 && ocrData.auction !== true"
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
@@ -427,9 +407,7 @@ const ocrData = reactive({ ...props.ocrData });
                             <p class="mb-0">
                                 <span class="fw-bold"
                                     >근저당액
-                                    {{
-                                        parseInt(ocrData.loan).toLocaleString()
-                                    }}
+                                    {{ ocrData.loan.toLocaleString() }}
                                     원 발견!</span
                                 >
                                 <br />
