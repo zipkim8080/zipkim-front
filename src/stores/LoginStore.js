@@ -37,6 +37,16 @@ export const useLoginStore = defineStore('auth', {
       }
     },
 
+    loadUsernameFromToken() {
+      const token = Cookies.get('Authorization');
+      if (token) {
+        const payload = jwtDecode(token);
+        return payload.username;
+      }
+    return null;
+  },
+
+
     getToken() {
       return this.accessToken;
     },

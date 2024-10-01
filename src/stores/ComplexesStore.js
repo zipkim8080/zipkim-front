@@ -2,7 +2,6 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
-
 export const useComplexesStore = defineStore('map', {
   state: () => ({
     lat: 37.548138,
@@ -113,7 +112,7 @@ export const useComplexesStore = defineStore('map', {
       return `${roundedValue}억`;
     },
 
-    // 전세가율 계산 함수
+    // 전세가율 계산 함수 (전세가 / 매매가 * 100)
     depositRateCal(dep, amo) {
       let depositRate = (dep / amo) * 100;
       return depositRate;
@@ -141,10 +140,7 @@ export const useComplexesStore = defineStore('map', {
       for (let i = 0; i < this.apiData.length; i++) {
         const apt = this.apiData[i];
 
-        const markerPosition = new window.kakao.maps.LatLng(
-          apt.latitude,
-          apt.longitude
-        );
+        const markerPosition = new window.kakao.maps.LatLng(apt.latitude, apt.longitude);
 
         let imageSrc = '';
         // if (this.convertToEok(apt.recentDeposit) === '0억') {
@@ -154,17 +150,11 @@ export const useComplexesStore = defineStore('map', {
         // }
         if (this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 90) {
           imageSrc = '/images/property_red.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 80
-        ) {
+        } else if (this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 80) {
           imageSrc = '/images/property_orange.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 70
-        ) {
+        } else if (this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 70) {
           imageSrc = '/images/property_yellow.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 60
-        ) {
+        } else if (this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 60) {
           imageSrc = '/images/property_greenL.png';
         } else if (this.convertToEok(apt.recentDeposit) === '0억') {
           imageSrc = '/images/property_gray.png';
@@ -175,11 +165,7 @@ export const useComplexesStore = defineStore('map', {
         const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
         const imageOption = { offset: new kakao.maps.Point(30, 80) }; // 마커와 이미지 위치 맞추기
 
-        const markerImage = new window.kakao.maps.MarkerImage(
-          imageSrc,
-          imageSize,
-          imageOption
-        );
+        const markerImage = new window.kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
 
         const marker = new window.kakao.maps.Marker({
           position: markerPosition,
@@ -250,9 +236,7 @@ export const useComplexesStore = defineStore('map', {
           overlay.setMap(null);
         }
       }
-      this.overlays = this.overlays.filter(
-        (overlay) => overlay.getMap() !== null
-      );
+      this.overlays = this.overlays.filter((overlay) => overlay.getMap() !== null);
     },
   },
 });

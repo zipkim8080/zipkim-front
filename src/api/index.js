@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { useLoginStore } from '@/stores/LoginStore';
 
-const instance = axios.create({
-  timeout: 1000,
-});
+axios.defaults.timeout = 1000;
 
-instance.interceptors.request.use(
+axios.interceptors.request.use(
   (config) => {
     const loginStore = useLoginStore();
     const token = loginStore.getToken();
@@ -24,7 +22,7 @@ instance.interceptors.request.use(
   }
 );
 
-instance.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => {
     if (response.status === 200) {
       return response;
@@ -45,4 +43,4 @@ instance.interceptors.response.use(
   }
 );
 
-export default instance;
+export default axios;

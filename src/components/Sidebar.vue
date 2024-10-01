@@ -1,19 +1,35 @@
 <script setup>
-import { ref } from 'vue';
-import bookmark from '@/pages/auth/Bookmark.vue';
+import { ref, watch} from 'vue';
 import forSale from '@/pages/auth/ForSale.vue';
 import recent from '@/pages/auth/Recent.vue';
 import sms from '@/pages/auth/SMS.vue';
 import mypage from '@/pages/auth/MyPage.vue';
+import Bookmark from "@/pages/auth/Bookmark.vue";
 
 // 현재 열려 있는 항목을 저장하는 변수
 const openSection = ref('mypage');
+const bookmarkRef = ref(null);
 
 // 항목을 열고 닫는 함수
 const toggleSection = (section) => {
-  // 현재 열려 있는 항목과 클릭된 항목이 같으면 닫고, 다르면 새로운 항목을 연다.
+      // 현재 열려 있는 항목과 클릭된 항목이 같으면 닫고, 다르면 새로운 항목을 연다.
   openSection.value = openSection.value === section ? '' : section;
 };
+
+watch(openSection, (newSection) => {
+  if(newSection === 'bookmark' && bookmarkRef.value) {
+      console.log("값 존재 : " + bookmarkRef.value);
+      const bookmarkComponent = bookmarkRef.value
+      console.log("Component : " + bookmarkComponent);
+
+      if(typeof bookmarkComponent.fetchBookMarks === 'function') {
+        bookmarkComponent.fetchBookMarks();
+      } else {
+          console.error('fetchBookMarks not function');
+      }
+    }
+});
+
 </script>
 
 <template>
@@ -53,7 +69,7 @@ const toggleSection = (section) => {
         </button>
         <transition name="slide-fade">
           <div v-show="openSection === 'bookmark'" class="menu-content">
-            <bookmark @close="toggleSection('bookmark')" />
+            <bookmark ref="bookmarkRef" @close="toggleSection('bookmark')" />
           </div>
         </transition>
       </li>
@@ -95,25 +111,6 @@ const toggleSection = (section) => {
           </div>
         </transition>
       </li>
-
-      <!-- 휴대폰 본인인증 항목 -->
-      <!-- <li class="menu-item">
-        <button
-          @click="toggleSection('sms')"
-          class="menu-button"
-          :class="{ active: openSection === 'sms' }"
-        >
-          <i class="fa-solid fa-mobile-screen"></i>
-          휴대폰 본인인증
-          <i v-if="openSection === 'sms'" class="fa-solid fa-chevron-up"></i>
-          <i v-else class="fa-solid fa-chevron-down"></i>
-        </button>
-        <transition name="slide-fade">
-          <div v-show="openSection === 'sms'" class="menu-content">
-            <sms @close="toggleSection('sms')" />
-          </div>
-        </transition>
-      </li> -->
     </ul>
   </div>
 </template>

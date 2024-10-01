@@ -1,8 +1,8 @@
 <script setup>
 import { ref, onMounted, defineEmits } from 'vue';
 import { useLoginStore } from '@/stores/LoginStore';
-import instance from '@/api/index.js';
 import SMS from '@/pages/auth/SMS.vue';
+import axios from 'axios';
 
 const loginStore = useLoginStore();
 const phoneNumber = ref(null);
@@ -10,7 +10,7 @@ const showSMSModal = ref(false);
 
 const getPhoneNumber = async () => {
   try {
-    const response = await instance.get('http://localhost:8080/api/users/getPhone');
+    const response = await axios.get('http://localhost:8080/api/users/phone');
     phoneNumber.value = response.data;
   } catch (error) {
     console.log('오루 발생: ', error);
