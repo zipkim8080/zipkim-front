@@ -16,6 +16,8 @@ export const useComplexesStore = defineStore('map', {
     cenX: '',
     cenY: '',
     dong: '',
+    displayType: 'recentDeposit', // 현재 표시 타입을 추적하는 새 변수
+    isActualClicked: true,
   }),
   actions: {
     setLevel(level) {
@@ -146,11 +148,7 @@ export const useComplexesStore = defineStore('map', {
         );
 
         let imageSrc = '';
-        // if (this.convertToEok(apt.recentDeposit) === '0억') {
-        //   imageSrc = '/images/property_gray.png';
-        // } else {
-        //   imageSrc = '/images/property_KB.png';
-        // }
+
         if (this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 90) {
           imageSrc = '/images/property_red.png';
         } else if (
@@ -192,8 +190,15 @@ export const useComplexesStore = defineStore('map', {
         apt.recentDeposit = this.convertToEok(apt.recentDeposit);
         if (apt.recentDeposit === '0억') apt.recentDeposit = '';
 
+        apt.currentAverageAmount = this.convertToEok(apt.currentAverageAmount);
+        if (apt.currentAverageAmount === '0억') apt.currentAverageAmount = '';
+
         const content = document.createElement('div');
-        content.innerHTML = `${apt.recentDeposit}`;
+        const priceToDisplay =
+          this.displayType === 'recentDeposit'
+            ? apt.recentDeposit
+            : apt.currentAverageAmount; // 어떤 가격을 표시할지 결정
+        content.innerHTML = `${this.convertToEok(priceToDisplay)}`;
         content.classList.add('imgText');
 
         const customOverlay = new window.kakao.maps.CustomOverlay({
@@ -218,9 +223,16 @@ export const useComplexesStore = defineStore('map', {
 
           router.push({ name: 'SBInfo', params: { complexId: apt.complexId } });
         };
+
         window.kakao.maps.event.addListener(marker, 'click', handleClickEvent);
         content.addEventListener('click', handleClickEvent);
       }
+    },
+
+    togglePriceType(type) {
+      this.displayType = type; // 표시 타입 변경
+      this.isActualClicked = type === 'recentDeposit';
+      this.loadMarkers(); // 새로운 타입으로 마커 다시 로드
     },
 
     removeOutOfBoundsMarkersAndOverlays() {
