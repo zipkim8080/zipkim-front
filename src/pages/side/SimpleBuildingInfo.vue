@@ -92,7 +92,7 @@ async function fetchPropertyData(complexId) {
         면적아이디: {{ area.id }}, 공급면적: {{ area.supplyArea }}, 평: {{ area.pyeongName }}
       </li>
     </ul>
-    <PropertyList />
+    <PropertyList :complexId="complexInfo.id" />
   </div>
 </template>
 
