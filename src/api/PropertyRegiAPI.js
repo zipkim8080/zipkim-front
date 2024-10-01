@@ -7,10 +7,12 @@ export default {
     // 아바타 파일 업로드 - multipart 인코딩 필요 -> FormData 객체 사용
 
     const formData = new FormData(); // DTO property 명
+    formData.append('complexId', property.complexId); // id
     formData.append('zipcode', property.zipcode); // 우편번호
     formData.append('roadName', property.roadName); // 도로명주소
     formData.append('bgdCd', property.bgdCd); // 법정동 코드
     formData.append('dong', property.dong); // 법정동명
+    formData.append('type', property.type); // 건물유형
     formData.append('addressName', property.addressName); // 지번주소
     formData.append('detailAddress', property.detailAddress); // 상세주소
     formData.append('mainAddressNo', property.mainAddressNo); // 본번
@@ -28,7 +30,6 @@ export default {
     formData.append('description', property.description); // 설명
     formData.append('parking', property.parking); //주차가능여부
     formData.append('hugNumber', property.hugNumber); // HUG 인증번호
-    formData.append('brokerId', property.brokerId); // 중개인 아이디 _ 로그인에서 정보 뽑아오기
     formData.append('hasSchool', property.hasSchool); // 학교 여부
     formData.append('hasConvenience', property.hasConvenience); // 편의점 여부
 

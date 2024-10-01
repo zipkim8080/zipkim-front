@@ -1,4 +1,4 @@
-git <script setup>
+<script setup>
 import { ref } from 'vue';
 import { defineEmits } from 'vue';
 
@@ -45,7 +45,11 @@ const handleClose = () => {
     <h1>최근 본 매물</h1>
   </div>
   <div>
-    <button v-for="num in 7" :key="num" @click="saveToLocalStorage(`매물${num}`)">
+    <button
+      v-for="num in 7"
+      :key="num"
+      @click="saveToLocalStorage(`매물${num}`)"
+    >
       매물{{ num }}
     </button>
     <button @click="clear">초기화</button>

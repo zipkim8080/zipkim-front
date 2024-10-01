@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useLoginStore } from '@/stores/LoginStore';
 
-axios.defaults.timeout = 1000;
+axios.defaults.timeout = 100000;
 
 axios.interceptors.request.use(
   (config) => {
@@ -11,9 +11,12 @@ axios.interceptors.request.use(
     if (token) {
       // console.log('axios 인터셉터에서: ', token);
       config.headers['Authorization'] = `Bearer ${token}`;
-      console.log('Authorization 헤더에 추가된 토큰: ', config.headers['Authorization']);
+      console.log(
+        'Authorization 헤더에 추가된 토큰: ',
+        config.headers['Authorization']
+      );
     } else {
-      console.warn('토큰이 없습니다.');
+      // console.warn('토큰이 없습니다.');
     }
     return config;
   },
