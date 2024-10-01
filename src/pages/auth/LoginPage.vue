@@ -14,13 +14,17 @@ const infoModalOpen = () => {
 };
 
 const naverLogin = async () => {
-  window.location.href = '/oauth2/authorization/naver';
+  // window.location.href = 'http://52.79.206.11/oauth2/authorization/naver';
+  window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
+
 };
 const googleLogin = () => {
-  window.location.href = '/oauth2/authorization/google';
+  // window.location.href = 'http://52.79.206.11/oauth2/authorization/google';
+  window.location.href = 'http://localhost:8080/oauth2/authorization/google';
 };
 const kakaoLogin = () => {
-  window.location.href = '/oauth2/authorization/kakao';
+  // window.location.href = 'http://52.79.206.11/oauth2/authorization/kakao';
+  window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
 };
 
 onMounted(() => {
@@ -92,6 +96,7 @@ a {
   text-align: center;
   margin: 20px 0px;
 }
+
 .info {
   text-align: center;
   margin: 20px 0px;
@@ -111,6 +116,7 @@ a {
   padding: 0;
   outline: none;
 }
+
 .login-btn img {
   width: 180px;
   height: auto;
