@@ -7,14 +7,18 @@ axios.interceptors.request.use(
   (config) => {
     const loginStore = useLoginStore();
     const token = loginStore.getToken();
+    const refresh = loginStore.getRefresh();
 
     if (token) {
       // console.log('axios 인터셉터에서: ', token);
       config.headers['Authorization'] = `Bearer ${token}`;
-      console.log(
-        'Authorization 헤더에 추가된 토큰: ',
-        config.headers['Authorization']
-      );
+      config.headers['Refresh'] = `Bearer ${refresh}`;
+      // console.log(
+      //   'Authorization 헤더에 추가된 토큰: ',
+      //   config.headers['Authorization'],
+      //   'Refresh 헤더: ',
+      //   config.headers['Refresh']
+      // );
     } else {
       // console.warn('토큰이 없습니다.');
     }

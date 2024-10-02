@@ -3,6 +3,8 @@ import { ref, onMounted, defineEmits } from 'vue';
 import { useLoginStore } from '@/stores/LoginStore';
 import SMS from '@/pages/auth/SMS.vue';
 import axios from '@/api/index';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const loginStore = useLoginStore();
 const phoneNumber = ref(null);
@@ -28,7 +30,7 @@ const closeSMSModal = () => {
 // 로그아웃 함수
 const handleLogout = () => {
   loginStore.logout();
-  alert('로그아웃 되었습니다.');
+  window.location.reload();
 };
 
 onMounted(() => {
@@ -55,9 +57,7 @@ onMounted(() => {
       <div class="key">휴대폰번호</div>
       <div class="value">
         <div v-if="!phoneNumber">
-          <button class="certify-button" @click="openSMSModal">
-            휴대폰 본인인증
-          </button>
+          <button class="certify-button" @click="openSMSModal">휴대폰 본인인증</button>
         </div>
         <!-- 휴대폰 번호가 있으면 번호를 표시 -->
         <div v-else>{{ phoneNumber }}</div>
