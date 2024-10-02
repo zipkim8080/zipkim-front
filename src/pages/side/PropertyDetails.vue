@@ -2,6 +2,11 @@
 import { ref, onMounted } from 'vue';
 
 const propInfo = ref(null);
+const isOpen = ref(true); // 모달의 열림 상태 관리
+
+const close = () => {
+  isOpen.value = false; // 모달을 닫는 기능
+};
 
 // onMounted(async () => {
 //   const response = await fetch('/api/prop/{id}');
@@ -10,8 +15,11 @@ const propInfo = ref(null);
 </script>
 
 <template>
-  <div class="modal-backdrop">
+  <div v-if="isOpen" class="modal-backdrop">
     <div class="modal-container">
+      <button class="close-btn" @click="close">
+        <i class="fa-solid fa-x"></i>
+      </button>
       <div class="mt-3 mx-auto" style="height: 500px; width: 1300px">
         <div class="info-container">
           <div class="left-left">
@@ -99,13 +107,22 @@ const propInfo = ref(null);
   z-index: 1001;
   box-shadow: rgba(0, 0, 0, 0.2);
 }
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: none;
+  background: none;
+  margin-right: 10px;
+  padding: 0px;
+}
 .info-container {
   display: flex;
   justify-content: space-between;
 }
 .left,
 .right {
-  width: 48%; /* 각각의 열 너비를 설정 */
+  width: 48%;
 }
 .left-left,
 .right-left {
@@ -114,8 +131,8 @@ const propInfo = ref(null);
 .agent-comment-box {
   border: 1px solid #ccc;
   padding: 10px;
-  height: 100px; /* 원하는 높이 설정 */
-  margin-top: 10px; /* 위쪽 여백 추가 */
-  background: #f9f9f9; /* 배경색 설정 */
+  height: 100px;
+  margin-top: 10px;
+  background: #f9f9f9;
 }
 </style>
