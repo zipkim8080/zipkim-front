@@ -10,7 +10,11 @@ const fileName = ref('');
 
 const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file) {
+    if (file && file.type !== 'application/pdf') {
+        alert('PDF 파일만 업로드 가능합니다.');
+        event.target.value = '';
+        fileName.value = '';
+    } else if (file) {
         selectedFile.value = file;
         fileName.value = file.name;
     }

@@ -12,9 +12,13 @@ const selectedFile = ref(null);
 // 파일 선택 핸들러
 const handleFileChange = async (event) => {
     const file = event.target.files[0];
-    if (file) {
+    if (file && file.type !== 'application/pdf') {
+        alert('PDF 파일만 업로드 가능합니다.');
+        event.target.value = '';
+        fileName.value = '';
+    } else if (file) {
         selectedFile.value = file;
-        await submitFile(); // 파일 선택시 OCR 시행
+        fileName.value = file.name;
     }
 };
 
