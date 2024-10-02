@@ -1,7 +1,5 @@
 <template>
-    <div>
-
-    </div>
+  <div></div>
 </template>
 
 <script setup>
@@ -13,30 +11,30 @@ import Cookies from 'js-cookie';
 const route = useRoute();
 const queryParams = route.query; // 쿼리 파라미터 추출
 
-
 const saveToken = () => {
-    const token = queryParams.token; // 쿼리 파라미터에서 token 추출
-    if (token) {
-        // 쿠키에 token 저장
-        Cookies.set('Authorization', token);
-    } else {
-        console.log('토큰이 쿼리 파라미터에 없습니다.');
-    }
-    window.location.href = '/'
+  const token = queryParams.token; // 쿼리 파라미터에서 token 추출
+  const refresh = queryParams.refresh;
+  if (token) {
+    // 쿠키에 token 저장
+    Cookies.set('Authorization', token, { expires: 1 / 48 });
+    Cookies.set('Refresh', refresh, { expires: 1 / 12 });
+  } else {
+    console.log('토큰이 쿼리 파라미터에 없습니다.');
+  }
+  window.location.href = '/';
 };
 
-saveToken()
-
+saveToken();
 </script>
 
 <style scoped>
 h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 button {
-    padding: 10px 20px;
-    font-size: 16px;
+  padding: 10px 20px;
+  font-size: 16px;
 }
 </style>

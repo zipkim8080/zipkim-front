@@ -7,6 +7,7 @@ import KakaoMap from '../components/tool/KaKaoMap.vue';
 import XXDongButton from '../components/button/xxDongButton.vue';
 import CheckMyDoc from '@/pages/side/CheckMyDoc.vue';
 import MyDocResultPage from '@/pages/side/MyDocResultPage.vue';
+import Timer from '@/pages/auth/Timer.vue';
 import PriceToggle from '../components/button/PriceToggle.vue';
 
 const router = useRouter();
@@ -56,6 +57,7 @@ const handleOcrCompleted = (result) => {
   <div class="search-overlay">
     <SearchFilter />
   </div>
+  <Timer />
   <PriceToggle />
   <LoginButton />
   <XXDongButton />
@@ -65,23 +67,14 @@ const handleOcrCompleted = (result) => {
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
-    <input
-      class="kb_btn"
-      type="button"
-      value="등기 확인"
-      @click="showModal = true"
-    />
+    <input class="kb_btn" type="button" value="등기 확인" @click="showModal = true" />
   </div>
 
   <!-- 모달 백드롭 -->
   <div v-if="showModal" class="modal-backdrop" @click="showModal = false"></div>
 
   <!-- CheckMyDoc 모달 -->
-  <CheckMyDoc
-    v-if="showModal"
-    @ocrCompleted="handleOcrCompleted"
-    @close="showModal = false"
-  />
+  <CheckMyDoc v-if="showModal" @ocrCompleted="handleOcrCompleted" @close="showModal = false" />
 
   <!-- MyDocResultPage 모달 -->
   <MyDocResultPage v-if="ocrData" :ocrData="ocrData" @close="ocrData = null" />
