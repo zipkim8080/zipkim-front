@@ -109,6 +109,9 @@ export const useComplexesStore = defineStore('map', {
 
     // 실거래 기준 최근 전세가 형태 변환
     convertToEok(num) {
+      if (isNaN(num) || num === 0) {
+        return '';
+      }
       let eokValue = num / 10000;
       let roundedValue = Math.round(eokValue * 10) / 10;
       return `${roundedValue}억`;
@@ -149,21 +152,24 @@ export const useComplexesStore = defineStore('map', {
 
         let imageSrc = '';
 
-        if (this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 90) {
+        const deposit =
+          this.displayType === 'recentDeposit'
+            ? apt.recentDeposit
+            : apt.currentDeposit;
+        const amount =
+          this.displayType === 'recentDeposit'
+            ? apt.recentAmount
+            : apt.currentAmount;
+
+        if (this.depositRateCal(deposit, amount) >= 90) {
           imageSrc = '/images/property_red.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 80
-        ) {
+        } else if (this.depositRateCal(deposit, amount) >= 80) {
           imageSrc = '/images/property_orange.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 70
-        ) {
+        } else if (this.depositRateCal(deposit, amount) >= 70) {
           imageSrc = '/images/property_yellow.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 60
-        ) {
+        } else if (this.depositRateCal(deposit, amount) >= 60) {
           imageSrc = '/images/property_greenL.png';
-        } else if (this.convertToEok(apt.recentDeposit) === '0억') {
+        } else if (this.convertToEok(deposit) === '') {
           imageSrc = '/images/property_gray.png';
         } else {
           imageSrc = '/images/property_green.png';
@@ -186,18 +192,12 @@ export const useComplexesStore = defineStore('map', {
         marker.setMap(map); // map에 마커 추가
         this.markers.push(marker); // 마커 배열에 추가
 
-        // 실거래 기준 최근 전세가 형태 변환
-        apt.recentDeposit = this.convertToEok(apt.recentDeposit);
-        if (apt.recentDeposit === '0억') apt.recentDeposit = '';
-
-        apt.currentAverageAmount = this.convertToEok(apt.currentAverageAmount);
-        if (apt.currentAverageAmount === '0억') apt.currentAverageAmount = '';
-
         const content = document.createElement('div');
         const priceToDisplay =
           this.displayType === 'recentDeposit'
             ? apt.recentDeposit
-            : apt.currentAverageAmount; // 어떤 가격을 표시할지 결정
+            : apt.currentAverageDeposit; // 어떤 가격을 표시할지 결정
+
         content.innerHTML = `${this.convertToEok(priceToDisplay)}`;
         content.classList.add('imgText');
 

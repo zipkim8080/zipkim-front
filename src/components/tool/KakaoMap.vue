@@ -59,20 +59,7 @@ async function loadMap() {
 
   // 지도 이동이나 확대/축소 시 일정 시간 후에 다시 API 호출
   kakao.maps.event.addListener(map.value, 'idle', function () {
-    if (timeoutId) {
-      clearTimeout(timeoutId); // 이전 타이머가 있으면 취소
-    }
-
-    timeoutId = setTimeout(async function () {
-      if (firstLoad) {
-        firstLoad = false; // 첫 호출은 바로 API를 불러왔으므로 이후엔 타이머 적용
-        return;
-      }
-
-      await fetchAptData(); // API 호출 및 마커 로드
-
-      timeoutId = null; // 타이머 초기화
-    }, 200); // 0.2초 지연 (렉 최적화)
+    fetchAptData(); // API 호출 및 마커 로드
   });
 }
 
