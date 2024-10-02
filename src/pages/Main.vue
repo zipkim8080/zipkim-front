@@ -10,7 +10,6 @@ import MyDocResultPage from '@/pages/side/MyDocResultPage.vue';
 import startInfoPage from '@/pages/side/StartInfoPage.vue';
 
 const router = useRouter();
-//기본
 const ocrData = ref(null);
 const showModal = ref(false);
 const startModal = ref(true);

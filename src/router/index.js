@@ -8,6 +8,7 @@ import Recent from '@/pages/auth/Recent.vue';
 import ForSale from '@/pages/auth/ForSale.vue';
 import Btn from '@/components/button/Btn.vue';
 import PropertyDetails from '@/pages/side/PropertyDetails.vue';
+import RedirectUri from '@/pages/auth/RedirectUri.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,12 @@ const router = createRouter({
       name: 'PropertyDetails',
       component: PropertyDetails,
     },
+
+    {
+      path: '/redirect-uri',
+      name: 'RedirectUri',
+      component: RedirectUri,
+    }
   ],
 });
 

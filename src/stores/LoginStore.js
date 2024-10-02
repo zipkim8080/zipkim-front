@@ -30,8 +30,8 @@ export const useLoginStore = defineStore('auth', {
 
         this.setEmailAndName(payload.email, payload.name);
 
-        console.log('토큰이 저장되었습니다:', token);
-        console.log(payload);
+        // console.log('토큰이 저장되었습니다:', token);
+        // console.log(payload);
       } else {
         console.error('쿠키에서 토큰을 찾을 수 없습니다.');
       }
@@ -43,9 +43,8 @@ export const useLoginStore = defineStore('auth', {
         const payload = jwtDecode(token);
         return payload.username;
       }
-    return null;
-  },
-
+      return null;
+    },
 
     getToken() {
       return this.accessToken;
