@@ -9,11 +9,13 @@ import CheckMyDoc from '@/pages/side/CheckMyDoc.vue';
 import MyDocResultPage from '@/pages/side/MyDocResultPage.vue';
 import Timer from '@/pages/auth/Timer.vue';
 import PriceToggle from '../components/button/PriceToggle.vue';
+import StartInfoPage from '@/pages/side/StartInfoPage.vue';
 
 const router = useRouter();
 //기본
 const ocrData = ref(null);
 const showModal = ref(false);
+const startModal = ref(true);
 
 // 단순 페이지 이동 //
 const regi = () => {
@@ -21,42 +23,26 @@ const regi = () => {
     path: '/add',
   });
 };
-
-// 빈페이지;
-// const ocrData = {
-//     address: '서울 광진구 능동로 195-16 5층, 6층', // 주소
-//     uniqueNumber: '1234-1234-1234',
-//     openDate: '2024-09-28',
-//     attachment1: false,
-//     attachment2: false,
-//     trust: false,
-//     auction: false,
-//     loan: 0,
-//     leaseAmount: 0,
-// };
-
-// 모두 보여주기
-// const ocrData = {
-//     address: '서울 광진구 능동로 195-16 5층, 6층', // 주소
-//     uniqueNumber: '1234-1234-1234',
-//     openDate: '2024-09-28',
-//     attachment1: true,
-//     attachment2: true,
-//     trust: true,
-//     auction: false,
-//     loan: 10,
-//     leaseAmount: 1000000000, // 100- 30 50 70
-// };
-
+const cloaseStartModal = () => {
+  startModal.value = false;
+};
 const handleOcrCompleted = (result) => {
   ocrData.value = result;
   showModal.value = false;
 };
+const showStartModal = () => {
+  startModal.value = true;
+};
 </script>
 <template>
   <div class="search-overlay">
-    <SearchFilter />
+    <SearchFilter
+      :startModal="startModal"
+      :closeStartModal="cloaseStartModal"
+      :showStartModal="showStartModal"
+    />
   </div>
+  <StartInfoPage v-if="startModal" />
   <Timer />
   <PriceToggle />
   <LoginButton />
@@ -67,14 +53,23 @@ const handleOcrCompleted = (result) => {
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
-    <input class="kb_btn" type="button" value="등기 확인" @click="showModal = true" />
+    <input
+      class="kb_btn"
+      type="button"
+      value="등기 확인"
+      @click="showModal = true"
+    />
   </div>
 
   <!-- 모달 백드롭 -->
   <div v-if="showModal" class="modal-backdrop" @click="showModal = false"></div>
 
   <!-- CheckMyDoc 모달 -->
-  <CheckMyDoc v-if="showModal" @ocrCompleted="handleOcrCompleted" @close="showModal = false" />
+  <CheckMyDoc
+    v-if="showModal"
+    @ocrCompleted="handleOcrCompleted"
+    @close="showModal = false"
+  />
 
   <!-- MyDocResultPage 모달 -->
   <MyDocResultPage v-if="ocrData" :ocrData="ocrData" @close="ocrData = null" />

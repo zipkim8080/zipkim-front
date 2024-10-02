@@ -1,6 +1,10 @@
 <template>
   <div ref="autocompleteWrapper" class="input-group mb-3">
-    <img src="@\assets\images\zipkimLogo.png" class="imgSize" />
+    <img
+      @click="resetSearch"
+      src="@\assets\images\zipkimLogo.png"
+      class="imgSize"
+    />
 
     <input
       type="text"
@@ -73,7 +77,7 @@
   </div>
 </template>
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from '@/api/index';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
@@ -85,6 +89,17 @@ const complexSuggestion = ref([]); // 자동완성 목록
 const timeout = ref(null); // 입력 지연 타이머
 const showDropdown = ref(true);
 const autocompleteWrapper = ref(null); // 자동완성 기능의 래퍼
+
+const props = defineProps({
+  closeStartModal: Function,
+  showStartModal: Function,
+});
+const resetSearch = (event) => {
+  event.stopPropagation();
+  searchTerm.value = ''; // 검색창 리셋
+  props.showStartModal(); // startInfoPage 보이게
+  showDropdown.value = false; // 드롭다운 닫기
+};
 
 // 다른 곳 클릭 시 드롭다운을 닫는 함수
 const handleClickOutside = (event) => {
@@ -124,6 +139,9 @@ const selectItem = (item) => {
 
 const onInputChange = async (e) => {
   searchTerm.value = e.target.value;
+  if (searchTerm.value.length > 0) {
+    props.closeStartModal();
+  }
   if (searchTerm.value == '') showDropdown.value = false;
   else showDropdown.value = true;
   complexSuggestion.value = await fetchcomplexSuggestion(searchTerm.value);
