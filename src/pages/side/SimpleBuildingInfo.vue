@@ -59,7 +59,6 @@ async function fetchPropertyData(complexId) {
     const data = (await axios.get(`/api/complex/summary?complexId=${complexId}`)).data; // API 호출
     const props = await axios.get(`/api/prop-list?complexId=${complexId}`)
     propList.items = props.data.content
-    propData.items = response.data
     complexInfo.id = data.id;
     complexInfo.bgdCd = data.bgdCd;
     complexInfo.addressName = data.addressName;
