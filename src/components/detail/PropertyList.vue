@@ -4,7 +4,7 @@ import PropertyDetails from '@/pages/side/PropertyDetails.vue';
 import axios from 'axios';
 const isModalOpen = ref(false);
 const props = defineProps({
-  propList: Array,
+  propList: Object,
 });
 const openModal = () => {
   isModalOpen.value = true;
@@ -14,25 +14,25 @@ const openModal = () => {
 
 <template>
   <div class="list">
-    <div class="content-box" v-for="(property, index) in propList" :key="property.id">
+    <div class="content-box" v-for="(property, index) in propList.items" :key="property.id">
       <div class="img">
         <img :src="property.imageUrl" />
       </div>
       <div class="content">
         <div class="type">
-          오피스텔
+          {{ property.type }}
           <img class="check" src="@/assets/images/check.png" />
         </div>
         <div class="price">전세 {{ property.deposit }}</div>
         <div class="price">매매 {{ property.amount }}</div>
-        <div class="where">{{ property.detailAddress }}</div>
-        <div class="info">33m<sup>2</sup> · {{ property.floor }}층</div>
+        <div class="where">{{ property.complexName }}</div>
+        <div class="info">{{ property.floor }}층</div>
         <div class="word">{{ property.description }}</div>
       </div>
     </div>
   </div>
   <div>
-    <div v-for="(property, index) in propList" :key="index">
+    <div v-for="(property, index) in propList.items" :key="index">
       <p>매매가: {{ property.amount }}</p>
       <p>전세가: {{ property.deposit }}</p>
       <p>설명: {{ property.description }}</p>
