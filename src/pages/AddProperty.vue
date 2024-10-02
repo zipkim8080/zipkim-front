@@ -86,7 +86,6 @@ const property = reactive({
   hugNumber: '',
   hasSchool: false,
   hasConvenience: false,
-  //
   type: 'apt',
   // ocrData
   uniqueNumber: '7', // 고유번호

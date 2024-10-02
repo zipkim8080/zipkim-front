@@ -16,6 +16,8 @@ export const useComplexesStore = defineStore('map', {
     cenX: '',
     cenY: '',
     dong: '',
+    displayType: 'recentDeposit', // 현재 표시 타입을 추적하는 새 변수
+    isActualClicked: true,
   }),
   actions: {
     setLevel(level) {
@@ -107,6 +109,9 @@ export const useComplexesStore = defineStore('map', {
 
     // 실거래 기준 최근 전세가 형태 변환
     convertToEok(num) {
+      if (isNaN(num) || num === 0) {
+        return '';
+      }
       let eokValue = num / 10000;
       let roundedValue = Math.round(eokValue * 10) / 10;
       return `${roundedValue}억`;
@@ -146,26 +151,25 @@ export const useComplexesStore = defineStore('map', {
         );
 
         let imageSrc = '';
-        // if (this.convertToEok(apt.recentDeposit) === '0억') {
-        //   imageSrc = '/images/property_gray.png';
-        // } else {
-        //   imageSrc = '/images/property_KB.png';
-        // }
-        if (this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 90) {
+
+        const deposit =
+          this.displayType === 'recentDeposit'
+            ? apt.recentDeposit
+            : apt.currentDeposit;
+        const amount =
+          this.displayType === 'recentDeposit'
+            ? apt.recentAmount
+            : apt.currentAmount;
+
+        if (this.depositRateCal(deposit, amount) >= 90) {
           imageSrc = '/images/property_red.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 80
-        ) {
+        } else if (this.depositRateCal(deposit, amount) >= 80) {
           imageSrc = '/images/property_orange.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 70
-        ) {
+        } else if (this.depositRateCal(deposit, amount) >= 70) {
           imageSrc = '/images/property_yellow.png';
-        } else if (
-          this.depositRateCal(apt.recentDeposit, apt.recentAmount) >= 60
-        ) {
+        } else if (this.depositRateCal(deposit, amount) >= 60) {
           imageSrc = '/images/property_greenL.png';
-        } else if (this.convertToEok(apt.recentDeposit) === '0억') {
+        } else if (this.convertToEok(deposit) === '') {
           imageSrc = '/images/property_gray.png';
         } else {
           imageSrc = '/images/property_green.png';
@@ -188,12 +192,13 @@ export const useComplexesStore = defineStore('map', {
         marker.setMap(map); // map에 마커 추가
         this.markers.push(marker); // 마커 배열에 추가
 
-        // 실거래 기준 최근 전세가 형태 변환
-        apt.recentDeposit = this.convertToEok(apt.recentDeposit);
-        if (apt.recentDeposit === '0억') apt.recentDeposit = '';
-
         const content = document.createElement('div');
-        content.innerHTML = `${apt.recentDeposit}`;
+        const priceToDisplay =
+          this.displayType === 'recentDeposit'
+            ? apt.recentDeposit
+            : apt.currentAverageDeposit; // 어떤 가격을 표시할지 결정
+
+        content.innerHTML = `${this.convertToEok(priceToDisplay)}`;
         content.classList.add('imgText');
 
         const customOverlay = new window.kakao.maps.CustomOverlay({
@@ -218,9 +223,16 @@ export const useComplexesStore = defineStore('map', {
 
           router.push({ name: 'SBInfo', params: { complexId: apt.complexId } });
         };
+
         window.kakao.maps.event.addListener(marker, 'click', handleClickEvent);
         content.addEventListener('click', handleClickEvent);
       }
+    },
+
+    togglePriceType(type) {
+      this.displayType = type; // 표시 타입 변경
+      this.isActualClicked = type === 'recentDeposit';
+      this.loadMarkers(); // 새로운 타입으로 마커 다시 로드
     },
 
     removeOutOfBoundsMarkersAndOverlays() {
