@@ -93,7 +93,11 @@ const autocompleteWrapper = ref(null); // 자동완성 기능의 래퍼
 const props = defineProps({
   closeStartModal: Function,
   showStartModal: Function,
+  startModal: Boolean,
+  closeStartModal: Function,
+  showStartModal: Function,
 });
+
 const resetSearch = (event) => {
   event.stopPropagation();
   searchTerm.value = ''; // 검색창 리셋

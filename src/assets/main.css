@@ -126,6 +126,13 @@
   background-color: #f2d383;
   color: white;
 }
+.kb_btn:disabled,
+.kb_btn.disabled {
+  background-color: #d3d3d3; /* 버튼을 흐리게 */
+  color: #a0a0a0; /* 텍스트 색상 흐리게 */
+  cursor: not-allowed; /* 커서를 비활성화 모양으로 */
+  opacity: 0.7; /* 약간 투명하게 */
+}
 /* 여백 없애기 위해 만듦 */
 .kb_btn2 {
   background-color: #f3b706;
@@ -217,4 +224,11 @@
 .kb_btn3.active {
   background-color: #f2d383;
   color: white;
+}
+.kb_btn3:disabled,
+.kb_btn3.disabled {
+  background-color: #d3d3d3; /* 버튼을 흐리게 */
+  color: #a0a0a0; /* 텍스트 색상 흐리게 */
+  cursor: not-allowed; /* 커서를 비활성화 모양으로 */
+  opacity: 0.7; /* 약간 투명하게 */
 }
