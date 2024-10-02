@@ -7,8 +7,6 @@ import KakaoMap from '../components/tool/KaKaoMap.vue';
 import XXDongButton from '../components/button/xxDongButton.vue';
 import CheckMyDoc from '@/pages/side/CheckMyDoc.vue';
 import MyDocResultPage from '@/pages/side/MyDocResultPage.vue';
-import Timer from '@/pages/auth/Timer.vue';
-import PriceToggle from '../components/button/PriceToggle.vue';
 
 const router = useRouter();
 //기본
@@ -57,8 +55,6 @@ const handleOcrCompleted = (result) => {
   <div class="search-overlay">
     <SearchFilter />
   </div>
-  <Timer />
-  <PriceToggle />
   <LoginButton />
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
