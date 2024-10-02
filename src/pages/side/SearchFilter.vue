@@ -1,237 +1,264 @@
 <template>
-  <div ref="autocompleteWrapper" class="input-group mb-3">
-    <img src="@\assets\images\zipkimLogo.png" class="imgSize" />
+    <div ref="autocompleteWrapper" class="input-group mb-3">
+        <img
+            @click="resetSearch"
+            src="@\assets\images\zipkimLogo.png"
+            class="imgSize"
+        />
 
-    <input
-      type="text"
-      v-model="searchTerm"
-      class="searchBox"
-      placeholder="아파트 또는 지역명으로 검색"
-      @input="onInputChange"
-      aria-label="Recipient's username"
-      aria-describedby="button-addon2"
-    />
-    <button class="kb_btn2" type="button" id="button-addon2">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
-  </div>
-  <div>
-    <button
-      class="kb_btn"
-      :class="{ active: selectedValue === 'apt' }"
-      @click="selectType('apt')"
+        <input
+            type="text"
+            v-model="searchTerm"
+            class="searchBox"
+            placeholder="아파트 또는 지역명으로 검색"
+            @input="onInputChange"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+        />
+        <button class="kb_btn2" type="button" id="button-addon2">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+    <div>
+        <button
+            class="kb_btn"
+            :class="{ active: selectedValue === 'apt' }"
+            @click="selectType('apt')"
+        >
+            아파트</button
+        ><button
+            class="kb_btn"
+            :class="{ active: selectedValue === 'opi' }"
+            @click="selectType('opi')"
+        >
+            오피스텔</button
+        ><button
+            class="kb_btn"
+            :class="{ active: selectedValue === 'dd' }"
+            @click="selectType('dd')"
+        >
+            단독다가구</button
+        ><button
+            class="kb_btn2"
+            :class="{ active: selectedValue === 'yr' }"
+            @click="selectType('yr')"
+        >
+            연립다세대
+        </button>
+    </div>
+    <div
+        class="complexSuggestion"
+        v-if="complexSuggestion?.length > 0 && showDropdown"
     >
-      아파트</button
-    ><button
-      class="kb_btn"
-      :class="{ active: selectedValue === 'opi' }"
-      @click="selectType('opi')"
-    >
-      오피스텔</button
-    ><button
-      class="kb_btn"
-      :class="{ active: selectedValue === 'dd' }"
-      @click="selectType('dd')"
-    >
-      단독다가구</button
-    ><button
-      class="kb_btn2"
-      :class="{ active: selectedValue === 'yr' }"
-      @click="selectType('yr')"
-    >
-      연립다세대
-    </button>
-  </div>
-  <div
-    class="complexSuggestion"
-    v-if="complexSuggestion?.length > 0 && showDropdown"
-  >
-    <h1>단지</h1>
-    <ul>
-      <li
-        @click="selectItem(suggestion)"
-        v-for="(suggestion, index) in complexSuggestion"
-        :key="suggestion.complexId"
-      >
-        <div class="suggestion-content">
-          <div class="icon">
-            <i class="fa-solid fa-location-dot"></i>
-          </div>
-          <div>
-            <p
-              style="font-size: 20px; font-family: -apple-system"
-              v-html="highlight(suggestion.name)"
-            ></p>
-            <p
-              style="font-size: 15px; color: #666; font-weight: 500"
-              v-html="highlight(suggestion.addressName)"
-            ></p>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+        <h1>단지</h1>
+        <ul>
+            <li
+                @click="selectItem(suggestion)"
+                v-for="(suggestion, index) in complexSuggestion"
+                :key="suggestion.complexId"
+            >
+                <div class="suggestion-content">
+                    <div class="icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+                    <div>
+                        <p
+                            style="font-size: 20px; font-family: -apple-system"
+                            v-html="highlight(suggestion.name)"
+                        ></p>
+                        <p
+                            style="
+                                font-size: 15px;
+                                color: #666;
+                                font-weight: 500;
+                            "
+                            v-html="highlight(suggestion.addressName)"
+                        ></p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </template>
 <script setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from '@/api/index';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
 
 const kakaoMapStore = useKakaoMapStore();
 const complexesStore = useComplexesStore();
+
 const searchTerm = ref(''); // 검색어
 const complexSuggestion = ref([]); // 자동완성 목록
 const timeout = ref(null); // 입력 지연 타이머
 const showDropdown = ref(true);
 const autocompleteWrapper = ref(null); // 자동완성 기능의 래퍼
 
+const props = defineProps({
+    closeStartModal: Function,
+    showStartModal: Function,
+});
+
+const resetSearch = (event) => {
+    event.stopPropagation();
+    searchTerm.value = ''; // 검색창 리셋
+    props.showStartModal(); // startInfoPage 보이게
+    showDropdown.value = false; // 드롭다운 닫기
+};
+
 // 다른 곳 클릭 시 드롭다운을 닫는 함수
 const handleClickOutside = (event) => {
-  // console.log(autocompleteWrapper.value)
-  if (
-    autocompleteWrapper.value &&
-    !autocompleteWrapper.value.contains(event.target)
-  ) {
-    showDropdown.value = false; // 드롭다운 닫기
-  } else {
-    showDropdown.value = true;
-  }
+    // console.log(autocompleteWrapper.value)
+    if (
+        autocompleteWrapper.value &&
+        !autocompleteWrapper.value.contains(event.target)
+    ) {
+        showDropdown.value = false; // 드롭다운 닫기
+    } else {
+        showDropdown.value = true;
+    }
 };
 
 // 버튼 선택시 건물 유형을 api 주소로 전달
 const selectedValue = ref('apt'); // 기본 선택값 '아파트'
 
 function selectType(type) {
-  selectedValue.value = type;
-  complexesStore.setType(type);
-  complexesStore.getApi().then(() => {
-    // API 데이터 갱신 후 마커 로드
-    complexesStore.loadMarkers();
-  });
+    selectedValue.value = type;
+    complexesStore.setType(type);
+    complexesStore.getApi().then(() => {
+        // API 데이터 갱신 후 마커 로드
+        complexesStore.loadMarkers();
+    });
 }
 
 const highlight = (item) => {
-  const regex = new RegExp(`(${searchTerm.value})`, 'gi');
-  return item.replace(regex, '<mark>$1</mark>'); // 검색어 부분에 <mark> 태그 추가
+    const regex = new RegExp(`(${searchTerm.value})`, 'gi');
+    return item.replace(regex, '<mark>$1</mark>'); // 검색어 부분에 <mark> 태그 추가
 };
 
 const selectItem = (item) => {
-  // console.log(item)
-  // console.log(item.latitude, item.longitude)
-  kakaoMapStore.reposition(item.latitude, item.longitude); // 아이템 좌표 전달
+    // console.log(item)
+    // console.log(item.latitude, item.longitude)
+    kakaoMapStore.reposition(item.latitude, item.longitude); // 아이템 좌표 전달
 };
 
 const onInputChange = async (e) => {
-  searchTerm.value = e.target.value;
-  if (searchTerm.value == '') showDropdown.value = false;
-  else showDropdown.value = true;
-  complexSuggestion.value = await fetchcomplexSuggestion(searchTerm.value);
+    searchTerm.value = e.target.value;
+    if (searchTerm.value.length > 0) {
+        props.closeStartModal();
+    }
+
+    if (searchTerm.value == '') showDropdown.value = false;
+    else showDropdown.value = true;
+    complexSuggestion.value = await fetchcomplexSuggestion(searchTerm.value);
 };
 
 const fetchcomplexSuggestion = async (query) => {
-  try {
-    const response = await axios.get(`/api/search?keyword=${query}&size=20`);
-    return response.data.content;
-  } catch (error) {
-    console.error('Error fetching complexSuggestion:', error);
-    return [];
-  }
+    try {
+        const response = await axios.get(
+            `/api/search?keyword=${query}&size=20`
+        );
+        return response.data.content;
+    } catch (error) {
+        console.error('Error fetching complexSuggestion:', error);
+        return [];
+    }
 };
 
 onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
 });
 </script>
 <style scope>
 .imgSize {
-  width: 45px;
-  height: 45px;
-  margin-top: 5px;
-  margin-bottom: 3px;
-  margin-right: 10px;
-  margin-left: 4px;
+    width: 45px;
+    height: 45px;
+    margin-top: 5px;
+    margin-bottom: 3px;
+    margin-right: 10px;
+    margin-left: 4px;
 }
 
 .searchBox {
-  outline: none;
-  border: var(--bs-border-width) solid var(--bs-border-color);
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  flex: 1 1 auto;
+    outline: none;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    flex: 1 1 auto;
 }
 
 .searchBox:focus {
-  box-shadow: none;
-  color: var(--bs-body-color);
-  outline: 1px solid #f3b706;
-  background-color: white;
-  /* 그림자 효과 제거 (있을 경우) */
+    box-shadow: none;
+    color: var(--bs-body-color);
+    outline: 1px solid #f3b706;
+    background-color: white;
+    /* 그림자 효과 제거 (있을 경우) */
 }
 
 .icon {
-  display: flex;
-  height: 100%;
-  color: #666;
-  padding-bottom: 25px;
-  margin-left: 10px;
-  margin-right: 10px;
+    display: flex;
+    height: 100%;
+    color: #666;
+    padding-bottom: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .suggestion-content {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .complexSuggestion {
-  margin-top: 10px;
-  background-color: white;
-  border: 1px solid #f3b706;
-  max-height: 550px;
-  border-radius: 5px;
-  width: 100%;
-  overflow-y: auto;
-  /* 세로 방향 스크롤 허용 */
+    margin-top: 10px;
+    background-color: white;
+    border: 1px solid #f3b706;
+    max-height: 550px;
+    border-radius: 5px;
+    width: 100%;
+    overflow-y: auto;
+    /* 세로 방향 스크롤 허용 */
 }
 
 mark {
-  background-color: transparent;
-  color: #206ae5;
-  padding: 0px;
-  font-weight: normal;
+    background-color: transparent;
+    color: #206ae5;
+    padding: 0px;
+    font-weight: normal;
 }
 
 .complexSuggestion ul {
-  list-style-type: none;
-  padding-left: 0;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .complexSuggestion li {
-  padding-top: 10px;
+    padding-top: 10px;
 }
 
 .complexSuggestion p {
-  margin-bottom: 2px;
-  padding-left: 10px;
+    margin-bottom: 2px;
+    padding-left: 10px;
 }
 
 .complexSuggestion h1 {
-  padding: 10px;
-  color: rgb(34, 34, 34);
-  font-size: 24px;
-  line-height: 26px;
+    padding: 10px;
+    color: rgb(34, 34, 34);
+    font-size: 24px;
+    line-height: 26px;
 }
 
 .search-overlay {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 10;
-  background-color: #ffecb3;
-  padding: 10px;
-  border-radius: 5px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    background-color: #ffecb3;
+    padding: 10px;
+    border-radius: 5px;
 }
 </style>
