@@ -1,8 +1,12 @@
 <template>
   <!-- XX동 매물 보기 버튼 -->
   <div class="xxDong-overlay">
-    <button class="kb_btn" @click="xxDongClick">
-      {{ currentDong }} 전세가율 확인
+    <button
+      class="kb_btn"
+      @click="xxDongClick"
+      :disabled="complexesStore.isXXDongButtonDisabled"
+    >
+      {{ currentDong }} 전세가 한눈에 보기
     </button>
   </div>
 </template>
