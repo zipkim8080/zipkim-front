@@ -4,6 +4,7 @@
       <button
         class="kb_btn3 mb-1"
         :class="{ active: complexesStore.isActualClicked }"
+        :disabled="complexesStore.isXXDongButtonDisabled"
         @click="actualClick"
       >
         실거래가
@@ -22,10 +23,8 @@
 </template>
 <script setup>
 import { ref, computed } from 'vue';
-// import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
 
-// const kakaoMapStore = useKakaoMapStore();
 const complexesStore = useComplexesStore();
 
 function actualClick() {
