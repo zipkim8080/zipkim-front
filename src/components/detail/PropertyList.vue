@@ -4,7 +4,7 @@ import PropertyDetails from '@/pages/side/PropertyDetails.vue';
 
 const isModalOpen = ref(false);
 const props = defineProps({
-  complexId: String
+  complexId: String,
 });
 const openModal = () => {
   isModalOpen.value = true;
@@ -13,9 +13,8 @@ const openModal = () => {
 
 <template>
   <div>
-    <span>{{ complexId }}</span>
-    <div @click="openModal">매물 리스트</div>
-    <div v-if="isModalOpen" @close="isModalOpen = false">
+    <span @click="openModal">{{ complexId }}</span>
+    <div v-if="isModalOpen" @click="openModal" @close="isModalOpen = false">
       <PropertyDetails />
     </div>
   </div>
