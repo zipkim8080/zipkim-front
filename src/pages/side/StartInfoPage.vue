@@ -1,14 +1,10 @@
-<script setup>
-// import { useRouter, useRoute } from 'vue-router';
-import { onMounted, watch } from 'vue';
-import axios from 'axios';
-</script>
+<script setup></script>
 
 <template>
     <div>
         <div class="cInfo-overlay">
             <div class="wrapWhite">
-                <div>
+                <div style="padding-top: 15px; padding-bottom: 5px">
                     <img
                         src="../../assets/images/fullLogo.png"
                         alt="내집킴이"
@@ -229,11 +225,11 @@ import axios from 'axios';
 .footer {
     align-items: center;
     text-align: center;
-    padding-top: 10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 .hugdesc {
     height: 300px;
-    /* padding: 20px; */
     border-radius: 15px;
 }
 .textBox {
@@ -251,7 +247,7 @@ import axios from 'axios';
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    z-index: 15;
+    z-index: 1000;
     display: flex;
 }
 .icondesc {
@@ -297,7 +293,8 @@ import axios from 'axios';
     padding: 10px;
     border-radius: 5px;
     width: 471px;
-    height: 82%;
+    height: 80%;
+    z-index: 5;
 }
 
 .title {

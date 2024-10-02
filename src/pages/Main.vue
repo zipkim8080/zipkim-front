@@ -7,11 +7,13 @@ import KakaoMap from '../components/tool/KaKaoMap.vue';
 import XXDongButton from '../components/button/xxDongButton.vue';
 import CheckMyDoc from '@/pages/side/CheckMyDoc.vue';
 import MyDocResultPage from '@/pages/side/MyDocResultPage.vue';
+import startInfoPage from '@/pages/side/StartInfoPage.vue';
 
 const router = useRouter();
 //기본
 const ocrData = ref(null);
 const showModal = ref(false);
+const startModal = ref(true);
 
 // 단순 페이지 이동 //
 const regi = () => {
@@ -20,14 +22,21 @@ const regi = () => {
     });
 };
 
-const handleOcrCompleted = (result) => {
-    ocrData.value = result;
-    showModal.value = false;
+const cloaseStartModal = () => {
+    startModal.value = false;
+};
+
+const showStartModal = () => {
+    startModal.value = true;
 };
 </script>
 <template>
     <div class="search-overlay">
-        <SearchFilter />
+        <SearchFilter
+            :startModal="startModal"
+            :closeStartModal="cloaseStartModal"
+            :showStartModal="showStartModal"
+        />
     </div>
     <LoginButton />
     <XXDongButton />
@@ -58,6 +67,8 @@ const handleOcrCompleted = (result) => {
         @ocrCompleted="handleOcrCompleted"
         @close="showModal = false"
     />
+
+    <startInfoPage v-if="startModal" />
 
     <!-- MyDocResultPage 모달 -->
     <MyDocResultPage
