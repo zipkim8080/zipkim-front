@@ -88,7 +88,8 @@ async function fetchPropertyData(complexId) {
     <div class="title-box">
       <div class="content-container">
         <div class="title">
-          <h2 class="login-title">간략한 건물정보</h2>
+          <h2>{{ complexInfo.complexName }}</h2>
+          <br />
           <button class="close-btn" @click="close">
             <i class="fa-solid fa-x"></i>
           </button>
@@ -96,9 +97,6 @@ async function fetchPropertyData(complexId) {
         <!-- 단지아이디: {{ complexInfo.id }} -->
         <!-- <h5 style="font-weight: bold">사진</h5> -->
         <div class="chart-box">사진</div>
-        <br />
-        <h5 style="font-weight: bold">건물명</h5>
-        <div>{{ complexInfo.complexName }}</div>
         <br />
         <h5 style="font-weight: bold">주소</h5>
         <div>도로명 주소: {{ complexInfo.roadName }}</div>
@@ -110,9 +108,7 @@ async function fetchPropertyData(complexId) {
         <br />
         <h5 style="font-weight: bold">차트</h5>
         <div class="chart-box"></div>
-        <button class="kb_btn" style="width: 300px; height: 50px; margin-left: 60px; margin-top: 30px">
-          매물 상세보기
-        </button>
+
         <hr />
         <PropertyList :propList="propList" />
       </div>
@@ -142,7 +138,7 @@ async function fetchPropertyData(complexId) {
 .title {
   display: flex;
   justify-content: space-between;
-  margin: 0;
+  margin: 30px;
 }
 
 .close-btn {
