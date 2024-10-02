@@ -55,7 +55,7 @@ const router = createRouter({
     },
 
     {
-      path: '/details',
+      path: '/SB/:complexId/:propId',
       name: 'PropertyDetails',
       component: PropertyDetails,
     },
@@ -64,7 +64,7 @@ const router = createRouter({
       path: '/redirect-uri',
       name: 'RedirectUri',
       component: RedirectUri,
-    }
+    },
   ],
 });
 
