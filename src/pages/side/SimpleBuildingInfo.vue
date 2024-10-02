@@ -14,13 +14,11 @@ const route = useRoute();
 onMounted(() => {
   const id = route.params.complexId; // 'id' 파라미터를 가져옵니다.
   fetchPropertyData(id);
-  console.log(id); // 가져온 id를 사용할 수 있습니다.
 });
 
 watch(
   () => route.params.complexId,
   (newId, oldId) => {
-    console.log(`ID가 변경되었습니다: ${oldId} -> ${newId}`);
     fetchPropertyData(newId);
     // 새로운 ID로 작업 수행
     // fetchData(newId); // 예시: 데이터 가져오기
@@ -52,12 +50,22 @@ const complexInfo = reactive({
 });
 const propList = reactive({
   items: [],
-});
+  pageable: '', //현재 페이지정보
+  totalElements: '', // 총 아이템수
+  totalPages: '', //총 페이지
+  numberOfElements: '', //현재페이지 아이템수
+}
+);
 async function fetchPropertyData(complexId) {
   try {
     const data = (await axios.get(`/api/complex/summary?complexId=${complexId}`)).data; // API 호출
-    const props = await axios.get(`/api/prop-list?complexId=${complexId}`);
-    propList.items = props.data.content;
+    const props = await axios.get(`/api/prop-list?complexId=${complexId}&page=0&size=2`)
+    propList.items = props.data.content
+    propList.pageable = props.data.pageable
+    propList.totalElements = props.data.totalElements
+    propList.totalPages = props.data.totalPages
+    propList.numberOfElements = props.data.numberOfElements
+    console.log(propList)
     complexInfo.id = data.id;
     complexInfo.bgdCd = data.bgdCd;
     complexInfo.addressName = data.addressName;
@@ -68,7 +76,6 @@ async function fetchPropertyData(complexId) {
     complexInfo.roadName = data.roadName;
     complexInfo.subAddressNo = data.subAddressNo;
     complexInfo.areas = data.areas;
-    console.log(complexInfo);
     // complexesStore or other stores에 필요한 데이터 저장
   } catch (error) {
     console.error('Error fetching property data:', error);
@@ -103,7 +110,7 @@ async function fetchPropertyData(complexId) {
         <div class="chart-box"></div>
 
         <hr />
-        <PropertyList :propList="propList.items" />
+        <PropertyList :propList="propList" />
       </div>
     </div>
     <!-- 면적정보:
@@ -131,7 +138,7 @@ async function fetchPropertyData(complexId) {
 .title {
   display: flex;
   justify-content: space-between;
-  margin: 30px; /* 임의로 설정함 */
+  margin: 30px;
 }
 
 .close-btn {
