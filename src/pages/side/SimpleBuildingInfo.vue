@@ -50,9 +50,16 @@ const complexInfo = reactive({
     },
   ],
 });
+const propList = reactive({
+  items: []
+}
+);
 async function fetchPropertyData(complexId) {
   try {
     const data = (await axios.get(`/api/complex/summary?complexId=${complexId}`)).data; // API 호출
+    const props = await axios.get(`/api/prop-list?complexId=${complexId}`)
+    propList.items = props.data.content
+    propData.items = response.data
     complexInfo.id = data.id;
     complexInfo.bgdCd = data.bgdCd;
     complexInfo.addressName = data.addressName;
@@ -98,14 +105,11 @@ async function fetchPropertyData(complexId) {
         <br />
         <h5 style="font-weight: bold">차트</h5>
         <div class="chart-box"></div>
-        <button
-          class="kb_btn"
-          style="width: 300px; height: 50px; margin-left: 60px; margin-top: 30px"
-        >
+        <button class="kb_btn" style="width: 300px; height: 50px; margin-left: 60px; margin-top: 30px">
           매물 상세보기
         </button>
         <hr />
-        <PropertyList :complexId="complexInfo.id" />
+        <PropertyList :propList="propList.items" />
       </div>
     </div>
     <!-- 면적정보:
@@ -157,6 +161,7 @@ async function fetchPropertyData(complexId) {
   height: 680px;
   overflow-y: auto;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
