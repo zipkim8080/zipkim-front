@@ -26,7 +26,7 @@ function loadScript() {
 async function loadMap() {
   const container = document.getElementById('map');
   const options = {
-    center: new window.kakao.maps.LatLng(37.548138, 127.073397),
+    center: new window.kakao.maps.LatLng(37.57226769699021, 127.06994553827167),
     level: 2,
   };
 

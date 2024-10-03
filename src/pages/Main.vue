@@ -10,7 +10,7 @@ import MyDocResultPage from '@/pages/side/MyDocResultPage.vue';
 import Timer from '@/pages/auth/Timer.vue';
 import PriceToggle from '../components/button/PriceToggle.vue';
 import StartInfoPage from '@/pages/side/StartInfoPage.vue';
-
+import AddProperty from './AddProperty.vue';
 const router = useRouter();
 //기본
 const ocrData = ref(null);
@@ -19,10 +19,9 @@ const startModal = ref(true);
 
 // 단순 페이지 이동 //
 const regi = () => {
-  router.push({
-    path: '/add',
-  });
+  router.push({ name: 'AddProperty' });
 };
+
 const cloaseStartModal = () => {
   startModal.value = false;
 };
@@ -49,7 +48,7 @@ const showStartModal = () => {
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
-    <input class="kb_btn" type="button" value="매물 등록" @click="regi()" />
+    <input class="kb_btn" type="button" value="매물 등록" @click="regi" />
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">

@@ -45,7 +45,9 @@ export default {
     formData.append('leaseAmount', property.leaseAmount); // 전세권 총액
 
     if (property.images) {
-      formData.append('images', property.images); // 파일 첨부
+      for (let i = 0; i < property.images.length; i++) {
+        formData.append('images', property.images[i]); // 여러 이미지 파일 추가
+      }
     }
 
     const { data } = await axios.post(BASE_URL, formData, headers);
