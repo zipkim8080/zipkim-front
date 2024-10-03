@@ -13,7 +13,7 @@ const emit = defineEmits(['close']);
 
 // 위험도 계산
 const result = computed(() => {
-    if (price == 0 || rentalPrice == 0) {
+    if (price.value == 0 || rentalPrice.value == 0) {
         return 0;
     }
     return Math.floor(
@@ -23,6 +23,23 @@ const result = computed(() => {
 
 // 기본
 const ocrData = reactive({ ...props.ocrData });
+
+const formatNumber = (value) => {
+    if (!value) return '';
+    return parseInt(value.replace(/[^\d]/g, '')).toLocaleString();
+};
+
+const onPriceInput = (event) => {
+    const inputValue = event.target.value;
+    price.value = parseInt(inputValue.replace(/[^\d]/g, '')) || 0; // 숫자만 유지
+    event.target.value = formatNumber(inputValue); // 포맷팅된 값을 다시 필드에 반영
+};
+
+const onRentalPriceInput = (event) => {
+    const inputValue = event.target.value;
+    rentalPrice.value = parseInt(inputValue.replace(/[^\d]/g, '')) || 0; // 숫자만 유지
+    event.target.value = formatNumber(inputValue); // 포맷팅된 값을 다시 필드에 반영
+};
 </script>
 
 <template>
@@ -429,21 +446,29 @@ const ocrData = reactive({ ...props.ocrData });
                             <form>
                                 이 집 매매가는
                                 <input
+                                    class="input-box"
                                     type="text"
                                     placeholder="매매가"
-                                    v-model.number="price"
+                                    :value="price ? price.toLocaleString() : ''"
+                                    @input="onPriceInput"
                                 />
                                 원 이에요. <br />
                                 제시된 전세가는
                                 <input
+                                    class="input-box"
                                     type="text"
                                     placeholder="예상되는 전세가"
-                                    v-model.number="rentalPrice"
+                                    :value="
+                                        rentalPrice
+                                            ? rentalPrice.toLocaleString()
+                                            : ''
+                                    "
+                                    @input="onRentalPriceInput"
                                 />
                                 원 이에요.
                             </form>
                             <hr />
-                            <div v-if="result !== Infinity">
+                            <div v-if="price !== 0 && rentalPrice !== 0">
                                 <!-- 근저당액 비율 다시 생각하기  -->
                                 <div v-if="result >= 70">
                                     <span style="color: red"
@@ -490,6 +515,10 @@ const ocrData = reactive({ ...props.ocrData });
 </template>
 
 <style scoped>
+/* 1조 길이 */
+.input-box {
+    width: 165px;
+}
 .modal-backdrop {
     position: fixed;
     left: 0;
