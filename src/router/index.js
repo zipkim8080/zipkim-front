@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Main from '../pages/Main.vue';
-import AddProperty from '../pages/AddProperty.vue';
-import SBInfo from '../pages/side/SimpleBuildingInfo.vue';
 import SMS from '@/pages/auth/SMS.vue';
 import Bookmark from '@/pages/auth/Bookmark.vue';
 import Recent from '@/pages/auth/Recent.vue';
@@ -21,7 +19,7 @@ const router = createRouter({
     {
       path: '/add',
       name: 'AddProperty',
-      component: AddProperty,
+      component: Main,
     },
     {
       path: '/SB/:complexId',
