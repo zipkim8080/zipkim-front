@@ -161,6 +161,7 @@ export const useComplexesStore = defineStore('map', {
 
       for (let i = 0; i < this.apiData.length; i++) {
         const apt = this.apiData[i];
+        console.log(apt);
 
         const markerPosition = new window.kakao.maps.LatLng(
           apt.latitude,
@@ -172,11 +173,11 @@ export const useComplexesStore = defineStore('map', {
         const deposit =
           this.displayType === 'recentDeposit'
             ? apt.recentDeposit
-            : apt.currentDeposit;
+            : apt.currentAverageDeposit;
         const amount =
           this.displayType === 'recentDeposit'
             ? apt.recentAmount
-            : apt.currentAmount;
+            : apt.currentAverageAmount;
 
         if (this.depositRateCal(deposit, amount) >= 90) {
           imageSrc = '/images/property_red.png';
@@ -191,6 +192,8 @@ export const useComplexesStore = defineStore('map', {
         } else {
           imageSrc = '/images/property_green.png';
         }
+
+        // console.log(deposit, apt.recentDeposit, apt.currentAverageDeposit);
 
         const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
         const imageOption = { offset: new kakao.maps.Point(30, 80) }; // 마커와 이미지 위치 맞추기
