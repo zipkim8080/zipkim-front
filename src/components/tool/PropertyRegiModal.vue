@@ -18,21 +18,20 @@ import AddProperty from '@/pages/AddProperty.vue';
   position: absolute;
   background-color: #ffecb3;
   border-radius: 7px;
-  top: 2%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
   width: 807px;
-  height: 860px;
+  height: 857px;
   z-index: 100;
 }
 .propertyRegi-modal2 {
   position: absolute;
   background-color: white;
   border-radius: 7px;
-  top: 2%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%);
-  margin-top: -0.7%;
+  transform: translate(-50%, -50%);
   width: 785px;
   height: 835px;
   z-index: 100;
