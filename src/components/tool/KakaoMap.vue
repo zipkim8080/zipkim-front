@@ -11,13 +11,13 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const kakaoMapStore = useKakaoMapStore();
 const complexesStore = useComplexesStore();
-const map = ref(null);
+const map = ref('');
 
 // 카카오맵 script 불러오기
 function loadScript() {
   const script = document.createElement('script');
   script.src =
-    '//dapi.kakao.com/v2/maps/sdk.js?appkey=7fa64a9f9df09bd4ad3bb3ad71e40379&autoload=false';
+    '//dapi.kakao.com/v2/maps/sdk.js?appkey=7fa64a9f9df09bd4ad3bb3ad71e40379&autoload=false&libraries=clusterer';
   script.onload = () => window.kakao.maps.load(loadMap);
   document.head.appendChild(script);
 }
@@ -33,9 +33,6 @@ async function loadMap() {
   map.value = new window.kakao.maps.Map(container, options);
 
   kakaoMapStore.setMap(map.value);
-
-  await complexesStore.getApi();
-  complexesStore.loadMarkers(router); // 마커 로드
 
   // 이동시 좌표, 레벨 저장
   async function fetchAptData() {
@@ -59,18 +56,17 @@ async function loadMap() {
   kakao.maps.event.addListener(map.value, 'idle', function () {
     fetchAptData(); // API 호출 및 마커 로드
   });
+  // 맵 밖 마커 및 오버레이 삭제
+  kakao.maps.event.addListener(
+    map.value,
+    'bounds_changed',
+    complexesStore.removeOutOfBoundsMarkersAndOverlays
+  );
 }
 
 onMounted(() => {
   if (window.kakao && window.kakao.maps) {
     loadMap();
-
-    // 맵 밖 마커 및 오버레이 삭제
-    kakao.maps.event.addListener(
-      map.value,
-      'bounds_changed',
-      complexesStore.removeOutOfBoundsMarkersAndOverlays
-    );
   } else {
     loadScript();
   }

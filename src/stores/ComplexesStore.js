@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, toRaw } from 'vue';
 import axios from '@/api/index';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
+
 export const useComplexesStore = defineStore('map', {
   state: () => ({
     lat: 37.548138,
@@ -12,7 +13,8 @@ export const useComplexesStore = defineStore('map', {
     apiData: null,
     markers: ref([]), // 마커 배열
     overlays: ref([]), // 오버레이 배열
-    map: ref(null), // 맵 객체
+    clusters: ref([]), // 클러스터 배열
+    map: ref(), // 맵 객체
     cenX: '',
     cenY: '',
     dong: '',
@@ -84,6 +86,7 @@ export const useComplexesStore = defineStore('map', {
         const response = await axios.get(url);
         if (response && response.data && response.data.data.length > 0) {
           this.apiData = response.data.data; // 데이터를 상태에 저장
+          // console.log(this.apiData);
         } else {
           this.apiData = [];
         }
@@ -137,24 +140,34 @@ export const useComplexesStore = defineStore('map', {
       return depositRate;
     },
 
+    // 맵에서 마커, 오버레이 제거
     removeAllMarkersAndOverlays() {
       for (let i = 0; i < this.markers.length; i++) {
-        this.markers[i].setMap(null); // 맵에서 마커 제거
+        this.markers[i].setMap(null);
       }
-      this.markers = []; // 마커 배열 초기화
+      this.markers = [];
       for (let i = 0; i < this.overlays.length; i++) {
-        this.overlays[i].setMap(null); // 맵에서 오버레이 제거
+        this.overlays[i].setMap(null);
       }
-      this.overlays = []; // 오버레이 배열 초기화
+      this.overlays = [];
     },
-
+    // 마커, 오버레이 생성 및 클릭 이벤트
     loadMarkers(router) {
       const kakaoMapStore = useKakaoMapStore();
-      const map = kakaoMapStore.getMap();
+      const map = toRaw(kakaoMapStore.getMap());
 
       this.removeAllMarkersAndOverlays(); // 마커 및 오버레이 모두 삭제
       if (!this.apiData) return;
       this.getApi();
+
+      const level = map.getLevel(); // 현재 지도 레벨
+
+      const clusterer = new window.kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        gridSize: 200,
+        minLevel: 4, // 클러스터 할 최소 지도 레벨
+      });
 
       for (let i = 0; i < this.apiData.length; i++) {
         const apt = this.apiData[i];
@@ -175,6 +188,7 @@ export const useComplexesStore = defineStore('map', {
             ? apt.recentAmount
             : apt.currentAverageAmount;
 
+        // 이미지 마커 설정 로직
         if (this.depositRateCal(deposit, amount) >= 90) {
           imageSrc = '/images/property_red.png';
         } else if (this.depositRateCal(deposit, amount) >= 80) {
@@ -206,6 +220,7 @@ export const useComplexesStore = defineStore('map', {
         marker.setMap(map); // map에 마커 추가
         this.markers.push(marker); // 마커 배열에 추가
 
+        // 오버레이 설정 로직
         const content = document.createElement('div');
         const priceToDisplay =
           this.displayType === 'recentDeposit'
@@ -221,8 +236,24 @@ export const useComplexesStore = defineStore('map', {
           content: content,
           yAnchor: 2.5,
         });
-        this.overlays.push(customOverlay); // 오버레이 배열에 추가
 
+        this.overlays.push(customOverlay);
+
+        // 클러스터 설정 로직
+
+        // 클러스터 처리
+        if (level >= 4) {
+          clusterer.addMarkers(this.markers);
+          this.clusters.push(clusterer);
+
+          this.removeAllMarkersAndOverlays();
+        } else {
+          marker.setMap(map); // map에 마커 추가
+          this.overlays.push(customOverlay);
+        }
+
+        //==============================================
+        // 마커 클릭 이벤트
         const handleClickEvent = () => {
           this.saveCurrentState({
             lat: apt.latitude,
@@ -251,7 +282,7 @@ export const useComplexesStore = defineStore('map', {
 
     removeOutOfBoundsMarkersAndOverlays() {
       const kakaoMapStore = useKakaoMapStore();
-      const map = kakaoMapStore.getMap();
+      const map = toRaw(kakaoMapStore.getMap());
 
       const bounds = map.getBounds(); // 현재 맵의 보이는 영역
 

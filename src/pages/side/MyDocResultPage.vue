@@ -539,7 +539,6 @@ const onRentalPriceInput = (event) => {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     max-width: 650px;
     max-height: 85%;
-    min-height: 50%;
     margin: auto; /* 가운데 정렬 */
     overflow-y: scroll;
 }
