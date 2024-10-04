@@ -39,7 +39,7 @@ const openModal = () => {
       <p>상세주소: {{ property.detailAddress }}</p>
       <p>층: {{ property.floor }}</p>
       <p>매물id: {{ property.id }}</p>
-      <img :src="property.imageUrl" />
+      <img style="width: 200px; height: 130px" :src="property.imageUrl" />
       <div>--------------------------------------</div>
     </div>
     <div v-if="isModalOpen" @click="openModal" @close="isModalOpen = false">
