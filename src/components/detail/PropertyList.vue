@@ -16,7 +16,7 @@ const openModal = () => {
   <div class="list">
     <div class="content-box" v-for="(property, index) in propList.items" :key="property.id">
       <div class="img">
-        <img :src="property.imageUrl" />
+        <img style="width: 200px; height: 130px;" :src="property.imageUrl" />
       </div>
       <div class="content">
         <div class="type">
