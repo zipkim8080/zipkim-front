@@ -108,10 +108,11 @@ export const useComplexesStore = defineStore('map', {
         });
         const data = await response.json();
         if (data.documents.length > 0) {
-          const { region_3depth_name, x, y } = data.documents[0];
+          const { region_3depth_name, x, y ,code} = data.documents[0];
           this.cenX = y;
           this.cenY = x;
           this.dong = region_3depth_name;
+          return code;
         } else {
           throw new Error('동을 찾을 수 없습니다.');
         }
