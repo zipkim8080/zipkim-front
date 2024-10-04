@@ -1,8 +1,10 @@
 <template>
-  <div class="propertyRegi-modal-back"></div>
-  <div class="propertyRegi-modal"></div>
-  <div class="propertyRegi-modal2">
-    <AddProperty />
+  <div class="propertyRegi-modal-back">
+    <div class="propertyRegi-modal">
+      <div class="propertyRegi-modal2">
+        <AddProperty />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,7 +19,8 @@ import AddProperty from '@/pages/AddProperty.vue';
   background-color: #ffecb3;
   border-radius: 7px;
   top: 2%;
-  left: 29.3%;
+  left: 50%;
+  transform: translate(-50%);
   width: 807px;
   height: 860px;
   z-index: 100;
@@ -26,8 +29,10 @@ import AddProperty from '@/pages/AddProperty.vue';
   position: absolute;
   background-color: white;
   border-radius: 7px;
-  top: 3.3%;
-  left: 30%;
+  top: 2%;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: -0.7%;
   width: 785px;
   height: 835px;
   z-index: 100;
