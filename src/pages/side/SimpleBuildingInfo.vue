@@ -166,7 +166,7 @@ async function fetchChartData(areaId) {
         <br />
         <h5 style="font-weight: bold">차트</h5>
         <!-- <PriceChart :priceChart="priceChart" /> -->
-        <canvas id="myChart" width="1000" height="600"></canvas>
+        <canvas id="myChart" width="450" height="600"></canvas>
         <hr />
         <PropertyList :propList="propList" />
       </div>
