@@ -214,6 +214,11 @@
                         주택도시보증공사에서 임대인에게 부여하는 번호로,
                         전세보증가입이 가능한 임대인임을 인증하는 번호에요
                     </div>
+                    <div class="textBox mt-3" style="text-align: left">
+                        HUG 인증번호 검증방법 <br />
+                        HUG 안심전세어플 > 안심조회 > 인대인 정보 조회 >
+                        <br />안심 임대인 조회 > 안심임대인 인증서 조회
+                    </div>
                 </div>
                 <div class="footer">
                     ⓒ 2024.KB_IT's_YOUR LIFE_8080 <br />
