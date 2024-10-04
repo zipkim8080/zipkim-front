@@ -16,7 +16,7 @@ export const useComplexesStore = defineStore('map', {
     cenX: '',
     cenY: '',
     dong: '',
-    displayType: 'recentDeposit', // 현재 표시 타입을 추적하는 새 변수
+    displayType: ref('recentDeposit'), // 현재 표시 타입을 추적하는 새 변수
     isActualClicked: true,
     displayActPrice: true, // 단독 연립에서 현매물가 버튼 안보이게
     isXXDongButtonDisabled: false, // 전세가 한눈에 보기 버튼 비활성화 상태
@@ -50,24 +50,21 @@ export const useComplexesStore = defineStore('map', {
       this.lon = lon;
     },
     setType(type) {
-      if (
-        (type === 'apt' || type === 'opi') &&
-        (this.type === 'dd' || this.type === 'yr')
-      ) {
+      if (type === 'dd' || type === 'yr') {
+        this.isActualClicked = false; // 실거래가 버튼 비활성화
+        this.displayActPrice = false; // 현매물가 버튼 표시
+        this.displayType = 'currentAverageDeposit'; // 현매물가 데이터 표시
+        this.isXXDongButtonDisabled = true; // 전세가 한눈에 보기 버튼 비활성화
+      } else if (type === 'apt' || type === 'opi') {
         this.isActualClicked = true;
+        this.displayActPrice = true;
+        this.displayType = 'recentDeposit';
+        this.isXXDongButtonDisabled = false;
       }
 
-      if (type === 'dd' || type === 'yr') {
-        this.isActualClicked = false;
-        this.displayActPrice = false; // 실거래가 버튼 숨김
-        this.isXXDongButtonDisabled = true; // 전세가 한눈에 보기 버튼 비활성화
-      } else {
-        this.displayActPrice = true; // 실거래가 버튼 표시
-        this.isXXDongButtonDisabled = false; // 전세가 한눈에 보기 버튼 활성화
-      }
       this.type = type;
-      this.clearData(); // 기존 데이터를 초기화
-      this.getApi(type); // 새로운 타입에 맞는 API 데이터 호출
+      this.clearData();
+      this.getApi(type);
     },
     clearData() {
       this.apiData = null; // 기존 API 데이터 초기화
@@ -172,11 +169,11 @@ export const useComplexesStore = defineStore('map', {
         const deposit =
           this.displayType === 'recentDeposit'
             ? apt.recentDeposit
-            : apt.currentDeposit;
+            : apt.currentAverageDeposit;
         const amount =
           this.displayType === 'recentDeposit'
             ? apt.recentAmount
-            : apt.currentAmount;
+            : apt.currentAverageAmount;
 
         if (this.depositRateCal(deposit, amount) >= 90) {
           imageSrc = '/images/property_red.png';
