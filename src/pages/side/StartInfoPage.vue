@@ -32,7 +32,11 @@
                     <div class="textBox" style="text-align: left">
                         전세가율이란? <br />
                         집의 매매 가격 대비 전세 보증금의 비율을 말해요
-                        <br />깡통전세를 막기위해 70% 이상은 주의가 필요해요
+                        <br /><u
+                            >전세가율 70%가 넘으면 보증금을 반환받지 못할 확률이
+                            높아지니 주의해야해요!</u
+                        >
+                        <br />
                     </div>
                 </div>
 
@@ -179,13 +183,12 @@
                         </div>
                     </div>
                     <div class="pt-4" style="text-align: center">
-                        집킴이의 등기확인 기능을 통해 이제는 쉽게 <br />등기를
-                        읽을 수 있어요
+                        등기부를 업로드하면 검출된 내역을 한눈에 보여줘요!
                     </div>
                     <div class="textBox" style="text-align: left">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                         주의 <br />
-                        집킴이는 성장중이라 100% 신뢰는 아직 어려워요 <br />
+                        집킴이는 성장중이라 100% 신뢰는 어려워요 <br />
                         조금만 기다려주세요!
                     </div>
                 </div>
@@ -204,7 +207,7 @@
                     </div>
                     <div class="pt-4" style="text-align: center">
                         집킴이는 자세한 매물 정보를 제공해요! <br />
-                        등기부와 HUG 인증번호를 통해 더 꼼꼼하게 알아봐요!
+                        매물의 등기부와 HUG 인증번호(선택사항)을 입력받아요!
                     </div>
                     <div class="textBox" style="text-align: left">
                         HUG 인증번호란? <br />
@@ -233,7 +236,7 @@
     border-radius: 15px;
 }
 .textBox {
-    margin-top: 10px;
+    margin-top: 30px;
     padding-top: 20px;
     padding: 6px;
     border-radius: 10px;
