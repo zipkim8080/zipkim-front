@@ -37,9 +37,7 @@ async function loadMap() {
   await complexesStore.getApi();
   complexesStore.loadMarkers(router); // 마커 로드
 
-  let timeoutId = null;
-  let firstLoad = true; // 첫 화면인지 여부를 확인하는 변수
-
+  // 이동시 좌표, 레벨 저장
   async function fetchAptData() {
     const center = map.value.getCenter();
     const level = map.value.getLevel();

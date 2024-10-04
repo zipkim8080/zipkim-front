@@ -151,16 +151,20 @@ const close = () => {
         <p style="font-weight: bold; font-size: 50px; width: 640px">
           매물 등록
         </p>
-        <p
+        <button
           style="
             font-weight: bold;
             font-size: 25px;
             margin-left: -5px;
             margin-top: 10px;
+            background-color: white;
+            height: 34px;
+            border: none;
           "
+          @click="close"
         >
-          <i class="fa-solid fa-x" @click="close"></i>
-        </p>
+          <i class="fa-solid fa-x"></i>
+        </button>
       </div>
 
       <form @submit.prevent="register">
@@ -519,7 +523,7 @@ const close = () => {
   object-fit: contain;
 }
 .modal-content {
-  max-height: 90vh; /* 최대 높이를 화면 높이의 80%로 설정 */
+  max-height: 815px; /* 최대 높이를 화면 높이의 80%로 설정 */
   overflow-y: auto; /* 세로 스크롤바가 필요할 때 생성 */
   padding: 20px; /* 패딩 추가 */
 }
