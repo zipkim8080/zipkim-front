@@ -1,10 +1,10 @@
 <script setup>
-import { ref, watch} from 'vue';
+import { ref, watch } from 'vue';
 import forSale from '@/pages/auth/ForSale.vue';
 import recent from '@/pages/auth/Recent.vue';
 import sms from '@/pages/auth/SMS.vue';
 import mypage from '@/pages/auth/MyPage.vue';
-import Bookmark from "@/pages/auth/Bookmark.vue";
+import Bookmark from '@/pages/auth/Bookmark.vue';
 
 // 현재 열려 있는 항목을 저장하는 변수
 const openSection = ref('mypage');
@@ -12,24 +12,23 @@ const bookmarkRef = ref(null);
 
 // 항목을 열고 닫는 함수
 const toggleSection = (section) => {
-      // 현재 열려 있는 항목과 클릭된 항목이 같으면 닫고, 다르면 새로운 항목을 연다.
+  // 현재 열려 있는 항목과 클릭된 항목이 같으면 닫고, 다르면 새로운 항목을 연다.
   openSection.value = openSection.value === section ? '' : section;
 };
 
 watch(openSection, (newSection) => {
-  if(newSection === 'bookmark' && bookmarkRef.value) {
-      console.log("값 존재 : " + bookmarkRef.value);
-      const bookmarkComponent = bookmarkRef.value
-      console.log("Component : " + bookmarkComponent);
+  if (newSection === 'bookmark' && bookmarkRef.value) {
+    console.log('값 존재 : ' + bookmarkRef.value);
+    const bookmarkComponent = bookmarkRef.value;
+    console.log('Component : ' + bookmarkComponent);
 
-      if(typeof bookmarkComponent.fetchBookMarks === 'function') {
-        bookmarkComponent.fetchBookMarks();
-      } else {
-          console.error('fetchBookMarks not function');
-      }
+    if (typeof bookmarkComponent.fetchBookMarks === 'function') {
+      bookmarkComponent.fetchBookMarks();
+    } else {
+      console.error('fetchBookMarks not function');
     }
+  }
 });
-
 </script>
 
 <template>
@@ -121,6 +120,7 @@ watch(openSection, (newSection) => {
   position: fixed;
   top: 0%;
   right: 0%;
+  transform: translate(0%, %);
   width: 450px;
   height: 830px;
   background: #fff;

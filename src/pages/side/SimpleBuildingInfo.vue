@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useRouter, useRoute } from 'vue-router';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
-import { onMounted, reactive, watch } from 'vue';
+import { onMounted, reactive, watch, ref } from 'vue';
 import PropertyList from '@/components/detail/propertyList.vue';
 
 const kakaoMapStore = useKakaoMapStore();
@@ -70,13 +70,17 @@ const chartInfo = reactive({
   //   }
   // ]
 });
+
+const handlePageChange = async (pageNum, event) => {
+  pageRequest.page = pageNum;
+  await fetchPropertyData(route.params.complexId);
+};
+
 async function fetchPropertyData(complexId) {
   try {
-    const data = (
-      await axios.get(`/api/complex/summary?complexId=${complexId}`)
-    ).data; // API 호출
+    const data = (await axios.get(`/api/complex/summary?complexId=${complexId}`)).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=0&size=2`
+      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1}&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
     console.log('areaId뽑기', areaIds);
@@ -106,18 +110,19 @@ async function fetchPropertyData(complexId) {
     console.error('Error fetching property data:', error);
   }
 }
+
+const pageRequest = reactive({
+  page: propList.pageable.pageNumber || 1,
+});
+
 async function fetchChartData(areaId) {
   try {
     // 매매 가져오기
-    const saleResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=SALE`
-    );
+    const saleResponse = await axios.get(`/api/price?areaId=${areaId}&type=SALE`);
     const saleData = saleResponse.data.content;
 
     // 전세 가져오기
-    const leaseResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=LEASE`
-    );
+    const leaseResponse = await axios.get(`/api/price?areaId=${areaId}&type=LEASE`);
     const leaseData = leaseResponse.data.content;
 
     // chartInfo에 저장 - 매매
@@ -177,6 +182,21 @@ async function fetchChartData(areaId) {
         <canvas id="myChart" width="450" height="600"></canvas>
         <hr />
         <PropertyList :propList="propList" />
+        <div class="paginate">
+          <vue-awesome-paginate
+            :total-items="propList.totalElements"
+            :items-per-page="propList.pageable.pageSize"
+            :max-pages-shown="propList.totalPages"
+            :show-ending-buttons="false"
+            v-model="pageRequest.page"
+            @click="handlePageChange"
+          >
+            <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
+            <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
+            <template #next-button><i class="fa-solid fa-caret-right"></i></template>
+            <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+          </vue-awesome-paginate>
+        </div>
       </div>
     </div>
     <!-- 면적정보:
@@ -189,6 +209,9 @@ async function fetchChartData(areaId) {
 </template>
 
 <style scope>
+.paginate {
+  text-align: center;
+}
 .cInfo-overlay {
   position: absolute;
   top: 168px;
