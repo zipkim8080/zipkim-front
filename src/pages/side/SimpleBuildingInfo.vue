@@ -72,8 +72,12 @@ const chartInfo = reactive({
 });
 async function fetchPropertyData(complexId) {
   try {
-    const data = (await axios.get(`/api/complex/summary?complexId=${complexId}`)).data; // API 호출
-    const props = await axios.get(`/api/prop-list?complexId=${complexId}&page=0&size=2`);
+    const data = (
+      await axios.get(`/api/complex/summary?complexId=${complexId}`)
+    ).data; // API 호출
+    const props = await axios.get(
+      `/api/prop-list?complexId=${complexId}&page=0&size=2`
+    );
     const areaIds = data.areas.map((area) => area.id);
     console.log('areaId뽑기', areaIds);
 
@@ -105,11 +109,15 @@ async function fetchPropertyData(complexId) {
 async function fetchChartData(areaId) {
   try {
     // 매매 가져오기
-    const saleResponse = await axios.get(`/api/price?areaId=${areaId}&type=SALE`);
+    const saleResponse = await axios.get(
+      `/api/price?areaId=${areaId}&type=SALE`
+    );
     const saleData = saleResponse.data.content;
 
     // 전세 가져오기
-    const leaseResponse = await axios.get(`/api/price?areaId=${areaId}&type=LEASE`);
+    const leaseResponse = await axios.get(
+      `/api/price?areaId=${areaId}&type=LEASE`
+    );
     const leaseData = leaseResponse.data.content;
 
     // chartInfo에 저장 - 매매
@@ -166,7 +174,7 @@ async function fetchChartData(areaId) {
         <br />
         <h5 style="font-weight: bold">차트</h5>
         <!-- <PriceChart :priceChart="priceChart" /> -->
-        <canvas id="myChart" width="1000" height="600"></canvas>
+        <canvas id="myChart" width="450" height="600"></canvas>
         <hr />
         <PropertyList :propList="propList" />
       </div>
