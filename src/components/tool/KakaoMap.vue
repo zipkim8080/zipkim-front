@@ -46,12 +46,12 @@ const displayArea = (coordinates, name) => {
   let polygon = new kakao.maps.Polygon({
     map: map.value,
     path: path, // 그려질 다각형의 좌표 배열입니다
-    strokeWeight: 2, // 선의 두께입니다
+    strokeWeight: 3, // 선의 두께입니다
     strokeColor: '#004c80', // 선의 색깔입니다
-    strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+    strokeOpacity: 0.9, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
     strokeStyle: 'solid', // 선의 스타일입니다
     fillColor: '#09f', // 채우기 색깔입니다
-    fillOpacity: 0.4, // 채우기 불투명도 입니다
+    fillOpacity: 0.1, // 채우기 불투명도 입니다
   });
 
   polygons.push(polygon);
