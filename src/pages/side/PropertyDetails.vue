@@ -2,15 +2,18 @@
 import axios from 'axios';
 import { onMounted, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { VueperSlides, VueperSlide } from 'vueperslides';
+import 'vueperslides/dist/vueperslides.css';
 
 const router = useRouter();
 const route = useRoute();
 
+const props = defineProps({
+  propId: String,
+});
+
 onMounted(() => {
-  const id = route.params.propId;
-  console.log(id);
-  fetchPropertyData(id);
-  console.log(id);
+  fetchPropertyData(props.propId);
 });
 
 const propInfo = reactive({
@@ -89,8 +92,7 @@ async function fetchPropertyData(propId) {
     propInfo.leaseAmount = data.register.leaseAmount;
     propInfo.uniqueNumber = data.register.uniqueNumber;
     propInfo.loan = data.register.loan;
-    propInfo.imageUrl = data.images[0].imageUrl;
-    console.log(imageUrl);
+    propInfo.images = data.images;
     console.log(propInfo);
   } catch (error) {
     console.error('Error fetching property data:', error);
@@ -101,6 +103,9 @@ async function fetchPropertyData(propId) {
 <template>
   <div class="modal-backdrop">
     <div class="modal-container">
+      <button class="close-btn" @click="$emit('close')">
+        <i class="fa-solid fa-x"></i>
+      </button>
       <div class="mt-2 mx-auto" style="height: 500px; width: 1300px">
         <div class="info-container">
           <div class="left-left">
@@ -123,12 +128,23 @@ async function fetchPropertyData(propId) {
             </div>
           </div>
           <div class="right-left">
-            <div>{{ propInfo.imageUrl }}</div>
-            <img src=
-            https://zipkim-bucket.s3.ap-northeast-2.amazonaws.com/121d568b-9165-44f4-abb6-826bc6a4f506.png
+            <img
+              v-for="(image, index) in propInfo.images"
+              :key="index"
+              :src="image.imageUrl"
+              alt="매물 이미지"
+              style="width: 80%; height: 100%; margin-bottom: 10px"
             />
-            <!-- 주소말고 변수로 어떻게 넣어야하는지? -->
-            <!-- <img :src="imageUrl" /> -->
+            <!-- <vueper-slides>
+              <vueper-slide v-for="(image, index) in propInfo.images" :key="index">
+                <img
+                  :key="index"
+                  :src="image.imageUrl"
+                  alt="매물 이미지"
+                  style="width: 80%; height: 100%; margin-bottom: 10px"
+                />
+              </vueper-slide>
+            </vueper-slides> -->
           </div>
         </div>
         <br />
@@ -211,6 +227,7 @@ async function fetchPropertyData(propId) {
   z-index: 1001;
   box-shadow: rgba(0, 0, 0, 0.2);
   overflow-y: auto;
+  height: 80%;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -226,6 +243,14 @@ async function fetchPropertyData(propId) {
 .left-left,
 .right-left {
   width: 48%;
+}
+.close-btn {
+  border: none;
+  background: none;
+  margin-top: 0px;
+  margin-right: 10px;
+  padding: 0px;
+  float: right;
 }
 .agent-comment-box {
   border: 1px solid #ccc;

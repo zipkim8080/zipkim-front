@@ -5,6 +5,7 @@ import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
 import { onMounted, reactive, watch } from 'vue';
 import PropertyList from '@/components/detail/propertyList.vue';
+import PriceChart from '@/components/detail/PriceChart.vue';
 
 const kakaoMapStore = useKakaoMapStore();
 const complexesStore = useComplexesStore();
@@ -14,8 +15,6 @@ const route = useRoute();
 onMounted(() => {
   const id = route.params.complexId; // 'id' 파라미터를 가져옵니다.
   fetchPropertyData(id);
-  // fetchChartData(areaId, type);
-  // console.log('뭐가나올까', areaId, type);
 });
 
 watch(
@@ -57,29 +56,15 @@ const propList = reactive({
   totalPages: '', //총 페이지
   numberOfElements: '', //현재페이지 아이템수
 });
-const chartInfo = reactive({
-  saleContent: [], // 매매
-  leaseContent: [], // 전세
-  // content: [
-  //   {
-  //     tradeYear: '',
-  //     tradeMonth: '',
-  //     dealPrice: 0, // 106500
-  //     formattedPrice: '', // 10억 6,500
-  //     // transactionType => 나눠야 하는지?
-  //   }
-  // ]
-});
+const priceChart = reactive({});
+
 async function fetchPropertyData(complexId) {
   try {
-    const data = (
-      await axios.get(`/api/complex/summary?complexId=${complexId}`)
-    ).data; // API 호출
-    const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=0&size=2`
-    );
+    const data = (await axios.get(`/api/complex/summary?complexId=${complexId}`)).data; // API 호출
+    const props = await axios.get(`/api/prop-list?complexId=${complexId}&page=0&size=2`);
     const areaIds = data.areas.map((area) => area.id);
-    console.log('areaId뽑기', areaIds);
+
+    for (let member in priceChart) delete priceChart[member];
 
     for (const areaId of areaIds) {
       await fetchChartData(areaId);
@@ -109,40 +94,37 @@ async function fetchPropertyData(complexId) {
 async function fetchChartData(areaId) {
   try {
     // 매매 가져오기
-    const saleResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=SALE`
-    );
+    const saleResponse = await axios.get(`/api/price?areaId=${areaId}&type=SALE`);
     const saleData = saleResponse.data.content;
 
     // 전세 가져오기
-    const leaseResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=LEASE`
-    );
+    const leaseResponse = await axios.get(`/api/price?areaId=${areaId}&type=LEASE`);
     const leaseData = leaseResponse.data.content;
 
-    // chartInfo에 저장 - 매매
-    chartInfo.saleContent.push(
-      ...saleData.map((item) => ({
+    const chartInfo = { data: {} };
+
+    chartInfo.data[areaId] = {
+      saleContent: saleData.map((item) => ({
         tradeYear: item.tradeYear,
         tradeMonth: item.tradeMonth,
         dealPrice: item.dealPrice,
         formattedPrice: item.formattedPrice,
         transactionType: item.transactionType,
-      }))
-    );
-
-    // chartInfo에 저장 - 전세
-    chartInfo.leaseContent.push(
-      ...leaseData.map((item) => ({
+      })),
+      leaseContent: leaseData.map((item) => ({
         tradeYear: item.tradeYear,
         tradeMonth: item.tradeMonth,
         dealPrice: item.dealPrice,
         formattedPrice: item.formattedPrice,
         transactionType: item.transactionType,
-      }))
-    );
+      })),
+    };
 
-    console.log('chartInfo: ', chartInfo);
+    // priceChart: areaId가 key고, *Content가 value인 object
+    priceChart[areaId] = [].concat(
+      chartInfo.data[areaId].saleContent,
+      chartInfo.data[areaId].leaseContent
+    );
   } catch (error) {
     console.log('Error fetching chart data:', error);
   }
@@ -151,7 +133,7 @@ async function fetchChartData(areaId) {
 
 <template>
   <div class="cInfo-overlay">
-    <div class="title-box">
+    <div class="sBuilding-title-box">
       <div class="content-container">
         <div class="title">
           <h2>{{ complexInfo.complexName }}</h2>
@@ -160,8 +142,6 @@ async function fetchChartData(areaId) {
             <i class="fa-solid fa-x"></i>
           </button>
         </div>
-        <!-- 단지아이디: {{ complexInfo.id }} -->
-        <!-- <h5 style="font-weight: bold">사진</h5> -->
         <div class="chart-box">사진</div>
         <br />
         <h5 style="font-weight: bold">주소</h5>
@@ -173,18 +153,11 @@ async function fetchChartData(areaId) {
         <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
         <br />
         <h5 style="font-weight: bold">차트</h5>
-        <!-- <PriceChart :priceChart="priceChart" /> -->
-        <canvas id="myChart" width="450" height="600"></canvas>
+        <PriceChart :priceChart="priceChart" />
         <hr />
         <PropertyList :propList="propList" />
       </div>
     </div>
-    <!-- 면적정보:
-    <ul>
-      <li v-for="(area, index) in complexInfo.areas" :key="index">
-        면적아이디: {{ area.id }}, 공급면적: {{ area.supplyArea }}, 평: {{ area.pyeongName }}
-      </li>
-    </ul> -->
   </div>
 </template>
 
@@ -198,7 +171,11 @@ async function fetchChartData(areaId) {
   padding: 10px;
   border-radius: 5px;
   width: 471px;
-  height: 700px;
+}
+
+.sBuilding-title-box {
+  width: 500px;
+  padding-top: 0;
 }
 
 .title {
