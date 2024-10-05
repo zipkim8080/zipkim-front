@@ -25,7 +25,7 @@ onMounted(() => {
   <div class="login-overlay">
     <!-- 로그인 상태에 따라 다른 컴포넌트를 렌더링 -->
     <template v-if="!loginStore.isAuthenticated()">
-      <button class="btn btn-lg btn-secondary" @click="loginModalOpen">
+      <button class="btn btn-lg btn-secondary when-logout" @click="loginModalOpen">
         <i class="fa-solid fa-user"></i>
       </button>
       <transition name="fade">
@@ -40,7 +40,7 @@ onMounted(() => {
 
     <!-- 로그인 상태일 때 Sidebar를 보여줌 -->
     <template v-else>
-      <button class="btn btn-lg btn-secondary" @click="sidebarModalOpen">
+      <button class="btn btn-lg btn-secondary when-login" @click="sidebarModalOpen">
         <i class="fa-solid fa-user"></i>
       </button>
       <transition name="fade">
@@ -56,6 +56,18 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.btn {
+  border: 0px;
+}
+
+.when-login {
+  background-color: #f3b706;
+}
+
+.when-login:hover {
+  background-color: #f2d383;
+}
+
 .fade-enter-active {
   transition: all 0.5s;
 }
@@ -106,7 +118,7 @@ onMounted(() => {
   position: fixed;
   top: 53%;
   right: 15px;
-  transform: translateY(-50%);
+  transform: translate(-2.5%, -55%);
   width: 450px;
   height: 830px;
   background: #fff;
@@ -117,8 +129,8 @@ onMounted(() => {
 
 .login-overlay {
   position: absolute;
-  right: 2%;
-  top: 3%;
+  right: 1%;
+  top: 2%;
   z-index: 10;
 }
 </style>

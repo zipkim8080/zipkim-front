@@ -9,14 +9,13 @@ const props = defineProps({
 const openModal = () => {
   isModalOpen.value = true;
 };
-
 </script>
 
 <template>
   <div class="list">
     <div class="content-box" v-for="(property, index) in propList.items" :key="property.id">
       <div class="img">
-        <img style="width: 200px; height: 130px;" :src="property.imageUrl" />
+        <img style="width: 200px; height: 130px" :src="property.imageUrl" />
       </div>
       <div class="content">
         <div class="type">
@@ -40,7 +39,7 @@ const openModal = () => {
       <p>층: {{ property.floor }}</p>
       <p>매물id: {{ property.id }}</p>
       <img style="width: 200px; height: 130px" :src="property.imageUrl" />
-      <div>--------------------------------------</div>
+      <hr />
     </div>
     <div v-if="isModalOpen" @click="openModal" @close="isModalOpen = false">
       <PropertyDetails />
