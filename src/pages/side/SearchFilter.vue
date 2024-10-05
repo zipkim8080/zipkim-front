@@ -126,6 +126,7 @@ function selectType(type) {
   complexesStore.setType(type);
   complexesStore.getApi().then(() => {
     // API 데이터 갱신 후 마커 로드
+    complexesStore.clusterRemove();
     complexesStore.loadMarkers();
   });
 }

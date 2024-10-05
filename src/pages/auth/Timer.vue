@@ -10,6 +10,7 @@ import { useLoginStore } from '@/stores/LoginStore';
 const loginStore = useLoginStore();
 const remainingTime = ref(''); // 남은 시간을 저장
 let timer = null;
+const showLogoutModal = ref(false);
 
 // 남은 시간 계산 함수
 const calculateRemainingTime = () => {
@@ -29,9 +30,24 @@ const calculateRemainingTime = () => {
     } else {
       remainingTime.value = '';
       clearInterval(timer); // 만료 시 타이머 정지
+      logoutModal();
     }
   } else {
     remainingTime.value = '';
+  }
+};
+
+const logoutModal = () => {
+  showLogoutModal.value = true;
+};
+
+const logout = async () => {
+  try {
+    // await axios.post('/api/logout');
+    loginStore.logout();
+    window.location.reload();
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -44,8 +60,8 @@ const extendSession = async () => {
     loginStore.loadTokenFromCookies();
     // console.log(response.data);
 
-    Cookies.set('Authorization', access, { expires: 1 / 48 });
-    Cookies.set('Refresh', refresh, { expires: 1 / 12 });
+    Cookies.set('Authorization', access, { expires: 1 / 6 });
+    Cookies.set('Refresh', refresh, { expires: 1 / 6 });
 
     if (response.status === 200) {
       toast('로그인 시간이 연장되었습니다!', {
@@ -94,35 +110,96 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="login-overlay">
-    <div class="container">
-      <div class="time">{{ remainingTime }}</div>
-      <button class="kb_btn" @click="extendSession">로그인 연장</button>
+  <template v-if="showLogoutModal">
+    <div class="logout-modal">
+      <div class="modal-content">
+        <div class="content">장시간 사용이 없어 자동 로그아웃 됩니다.</div>
+        <button class="close-btn" @click="logout">확인</button>
+      </div>
     </div>
-  </div>
+  </template>
+
+  <template v-if="remainingTime !== ''">
+    <div class="login-overlay">
+      <div class="container">
+        <div class="time">{{ remainingTime }}</div>
+        <button class="kb_btn button" @click="extendSession">연장</button>
+      </div>
+    </div>
+  </template>
+  <template v-else> </template>
 </template>
 
 <style scoped>
 .container {
-  width: 270px;
+  width: 260px;
   display: flex;
-  justify-content: space-between;
 }
-
+.button {
+  border-radius: 0px 10px 10px 0px;
+  font-size: 22px;
+  padding: 7px 13px 5px 13px;
+  /* font-weight: bold; */
+}
 .time {
+  background: #fff;
   text-align: center;
   align-items: center;
   line-height: -1px;
-  font-size: 29px;
-  font-weight: bold;
-  padding-top: 1px;
+  font-size: 20px;
+  padding-top: 8px;
   margin: 0px;
+  width: 95px;
+  border-radius: 10px 0px 0px 10px;
+  color: #f3b706;
 }
 
 .login-overlay {
   position: absolute;
-  right: 4.7%;
-  top: 3%;
+  right: 1.3%;
+  top: 2%;
   z-index: 10;
+  transform: translateX(7%);
+}
+
+.logout-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 380px;
+}
+
+.content {
+  padding-top: 10px;
+  padding-bottom: 30px;
+  font-size: 19px;
+}
+
+.close-btn {
+  border-radius: 10px;
+  background-color: #f3b706;
+  height: 40px;
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  font-weight: bold;
+}
+
+.close-btn:hover {
+  background-color: #f2d383;
 }
 </style>
