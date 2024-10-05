@@ -21,6 +21,7 @@
     "vue-awesome-paginate": "^1.2.0",
     "vue-router": "^4.3.0",
     "vue3-toastify": "^0.2.3",
+    "vueperslides": "^3.5.1",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
