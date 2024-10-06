@@ -2,8 +2,8 @@
 import axios from 'axios';
 import { onMounted, reactive } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { VueperSlides, VueperSlide } from 'vueperslides';
-import 'vueperslides/dist/vueperslides.css';
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 const router = useRouter();
 const route = useRoute();
@@ -59,6 +59,7 @@ const propInfo = reactive({
     ],
   ],
 });
+
 async function fetchPropertyData(propId) {
   try {
     const response = await axios.get(`/api/prop/${propId}`);
@@ -128,23 +129,28 @@ async function fetchPropertyData(propId) {
             </div>
           </div>
           <div class="right-left">
-            <img
+            <!--<img
               v-for="(image, index) in propInfo.images"
               :key="index"
               :src="image.imageUrl"
               alt="매물 이미지"
               style="width: 80%; height: 100%; margin-bottom: 10px"
-            />
-            <!-- <vueper-slides>
-              <vueper-slide v-for="(image, index) in propInfo.images" :key="index">
-                <img
-                  :key="index"
-                  :src="image.imageUrl"
-                  alt="매물 이미지"
-                  style="width: 80%; height: 100%; margin-bottom: 10px"
-                />
-              </vueper-slide>
-            </vueper-slides> -->
+            />-->
+
+            <div class="wrapper">
+              <Carousel :autoplay="3000" :wrap-around="true">
+                <Slide v-for="(image, index) in propInfo.images" :key="index">
+                  <div class="carousel__item">
+                    <img class="slideImg" :src="image.imageUrl" width="90%" height="100%" />
+                  </div>
+                </Slide>
+
+                <template #addons>
+                  <Pagination />
+                  <Navigation />
+                </template>
+              </Carousel>
+            </div>
           </div>
         </div>
         <br />
