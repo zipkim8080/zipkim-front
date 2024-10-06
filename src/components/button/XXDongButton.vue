@@ -6,7 +6,7 @@
       @click="xxDongClick"
       :disabled="complexesStore.isXXDongButtonDisabled"
     >
-      {{ currentDong }} 전세가 한눈에 보기
+      {{ currentDong }} 한눈에 보기
     </button>
   </div>
 </template>

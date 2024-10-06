@@ -337,6 +337,27 @@ export const useComplexesStore = defineStore('map', {
             });
 
             this.overlays.push(customOverlay);
+
+            const handleClickEvent = () => {
+              this.saveCurrentState({
+                lat: umd.centerLat,
+                lon: umd.centerLon,
+                level: this.level,
+              });
+              const markerMPosition = new window.kakao.maps.LatLng(
+                umd.centerLat,
+                umd.centerLon
+              );
+              map.setLevel(3);
+              map.panTo(markerMPosition);
+            };
+
+            window.kakao.maps.event.addListener(
+              marker,
+              'click',
+              handleClickEvent
+            );
+            content.addEventListener('click', handleClickEvent);
           }
         }
       } else if (level > 5) {
@@ -374,6 +395,27 @@ export const useComplexesStore = defineStore('map', {
           });
 
           this.overlays.push(customOverlay);
+
+          const handleClickEvent = () => {
+            this.saveCurrentState({
+              lat: sgg.centerLat,
+              lon: sgg.centerLon,
+              level: this.level,
+            });
+            const markerMPosition = new window.kakao.maps.LatLng(
+              sgg.centerLat,
+              sgg.centerLon
+            );
+            map.setLevel(5);
+            map.panTo(markerMPosition);
+          };
+
+          window.kakao.maps.event.addListener(
+            marker,
+            'click',
+            handleClickEvent
+          );
+          content.addEventListener('click', handleClickEvent);
         }
       }
     },
