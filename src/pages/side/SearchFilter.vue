@@ -139,6 +139,7 @@ const highlight = (item) => {
 const selectItem = (item) => {
   // console.log(item)
   // console.log(item.latitude, item.longitude)
+  kakaoMapStore.map.setLevel(2);
   kakaoMapStore.reposition(item.latitude, item.longitude); // 아이템 좌표 전달
 };
 
