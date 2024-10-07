@@ -77,7 +77,7 @@ const drawChart = (targetAreaId) => {
     return leases.length ? leases.reduce((a, b) => a + b, 0) / leases.length : null; // 평균 계산
   });
 
-  const ctx = document.getElementById('myChart').getContext('2d');
+  const ctx = document.getElementById('myChart')?.getContext('2d');
   let prevChart = Chart.getChart('myChart');
   if (prevChart) {
     prevChart.destroy();

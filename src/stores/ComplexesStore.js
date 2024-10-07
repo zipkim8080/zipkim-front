@@ -423,8 +423,6 @@ export const useComplexesStore = defineStore('map', {
     togglePriceType(type) {
       this.displayType = type; // 표시 타입 변경
       this.isActualClicked = type === 'recentDeposit';
-      this.loadMarkers(); // 새로운 타입으로 마커 다시 로드
-      // this.loadCluster();
     },
 
     removeOutOfBoundsMarkersAndOverlays() {

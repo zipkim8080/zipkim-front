@@ -72,8 +72,7 @@ async function fetchPropertyData(complexId) {
       await axios.get(`/api/complex/summary?complexId=${complexId}`)
     ).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=${
-        pageRequest.page - 1
+      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1
       }&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
@@ -161,16 +160,14 @@ async function fetchChartData(areaId) {
   <div class="cInfo-overlay">
     <div class="sBuilding-title-box">
       <div class="content-container">
+        <div class="title">
+          <h2>{{ complexInfo.complexName }}</h2>
+          <br />
+          <button class="close-btn" @click="close">
+            <i class="fa-solid fa-x"></i>
+          </button>
+        </div>
         <div v-if="complexInfo.type == 'opi' || complexInfo.type == 'apt'">
-          <div class="title">
-            <h2>{{ complexInfo.complexName }}</h2>
-            <br />
-            <button class="close-btn" @click="close">
-              <i class="fa-solid fa-x"></i>
-            </button>
-          </div>
-          <!-- 단지아이디: {{ complexInfo.id }} -->
-          <!-- <h5 style="font-weight: bold">사진</h5> -->
           <div class="chart-box">사진</div>
           <br />
           <h5 style="font-weight: bold">주소</h5>
@@ -185,33 +182,17 @@ async function fetchChartData(areaId) {
             전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원
           </div>
           <br />
+          <PriceChart v-if="priceChart" :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
         </div>
-        <PriceChart
-          :priceChart="priceChart"
-          :areaIdToPyeongName="areaIdToPyeongName"
-        />
         <PropertyList :propList="propList" />
         <div class="paginate">
-          <vue-awesome-paginate
-            :total-items="propList.totalElements"
-            :items-per-page="propList.pageable.pageSize"
-            :max-pages-shown="propList.totalPages"
-            :show-ending-buttons="false"
-            v-model="pageRequest.page"
-            @click="handlePageChange"
-          >
-            <template #first-page-button
-              ><i class="fa-solid fa-backward-fast"></i
-            ></template>
-            <template #prev-button
-              ><i class="fa-solid fa-caret-left"></i
-            ></template>
-            <template #next-button
-              ><i class="fa-solid fa-caret-right"></i
-            ></template>
-            <template #last-page-button
-              ><i class="fa-solid fa-forward-fast"></i
-            ></template>
+          <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
+            :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
+            @click="handlePageChange">
+            <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
+            <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
+            <template #next-button><i class="fa-solid fa-caret-right"></i></template>
+            <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
           </vue-awesome-paginate>
         </div>
       </div>
@@ -222,6 +203,7 @@ async function fetchChartData(areaId) {
 <style scope>
 .paginate {
   text-align: center;
+  margin-top: 10px;
 }
 
 .cInfo-overlay {
