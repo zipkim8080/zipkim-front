@@ -34,6 +34,7 @@ function close() {
 
 const complexInfo = reactive({
   id: '',
+  type: '',
   bgdCd: '',
   complexName: '',
   addressName: '',
@@ -94,7 +95,6 @@ async function fetchPropertyData(complexId) {
     propList.totalElements = props.data.totalElements;
     propList.totalPages = props.data.totalPages;
     propList.numberOfElements = props.data.numberOfElements;
-    console.log(propList);
     complexInfo.id = data.id;
     complexInfo.bgdCd = data.bgdCd;
     complexInfo.addressName = data.addressName;
@@ -105,6 +105,7 @@ async function fetchPropertyData(complexId) {
     complexInfo.roadName = data.roadName;
     complexInfo.subAddressNo = data.subAddressNo;
     complexInfo.areas = data.areas;
+    complexInfo.type = data.type;
     // complexesStore or other stores에 필요한 데이터 저장
   } catch (error) {
     console.error('Error fetching property data:', error);
@@ -158,39 +159,36 @@ async function fetchChartData(areaId) {
   <div class="cInfo-overlay">
     <div class="title-box">
       <div class="content-container">
-        <div class="title">
-          <h2>{{ complexInfo.complexName }}</h2>
+        <div v-if="complexInfo.type == 'opi' || complexInfo.type == 'apt'">
+          <div class="title">
+            <h2>{{ complexInfo.complexName }}</h2>
+            <br />
+            <button class="close-btn" @click="close">
+              <i class="fa-solid fa-x"></i>
+            </button>
+          </div>
+          <!-- 단지아이디: {{ complexInfo.id }} -->
+          <!-- <h5 style="font-weight: bold">사진</h5> -->
+          <div class="chart-box">사진</div>
           <br />
-          <button class="close-btn" @click="close">
-            <i class="fa-solid fa-x"></i>
-          </button>
+          <h5 style="font-weight: bold">주소</h5>
+          <div>도로명 주소: {{ complexInfo.roadName }}</div>
+          <div>지번 주소: {{ complexInfo.addressName }}</div>
+          <br />
+          <h5 style="font-weight: bold">최근 실거래가</h5>
+          <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
+          <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
+          <br />
+          <h5 style="font-weight: bold">차트</h5>
+          <!-- <PriceChart :priceChart="priceChart" /> -->
+          <canvas id="myChart" width="450" height="600"></canvas>
+          <hr />
         </div>
-        <!-- 단지아이디: {{ complexInfo.id }} -->
-        <!-- <h5 style="font-weight: bold">사진</h5> -->
-        <div class="chart-box">사진</div>
-        <br />
-        <h5 style="font-weight: bold">주소</h5>
-        <div>도로명 주소: {{ complexInfo.roadName }}</div>
-        <div>지번 주소: {{ complexInfo.addressName }}</div>
-        <br />
-        <h5 style="font-weight: bold">최근 실거래가</h5>
-        <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
-        <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
-        <br />
-        <h5 style="font-weight: bold">차트</h5>
-        <!-- <PriceChart :priceChart="priceChart" /> -->
-        <canvas id="myChart" width="450" height="600"></canvas>
-        <hr />
         <PropertyList :propList="propList" />
         <div class="paginate">
-          <vue-awesome-paginate
-            :total-items="propList.totalElements"
-            :items-per-page="propList.pageable.pageSize"
-            :max-pages-shown="propList.totalPages"
-            :show-ending-buttons="false"
-            v-model="pageRequest.page"
-            @click="handlePageChange"
-          >
+          <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
+            :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
+            @click="handlePageChange">
             <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
             <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
             <template #next-button><i class="fa-solid fa-caret-right"></i></template>
@@ -212,6 +210,7 @@ async function fetchChartData(areaId) {
 .paginate {
   text-align: center;
 }
+
 .cInfo-overlay {
   position: absolute;
   top: 168px;
