@@ -40,18 +40,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="title">
+  <!-- <div class="title">
     <h1>즐겨찾기</h1>
     <button class="close-btn" @click="handleClose">
       <i class="fa-solid fa-x"></i>
     </button>
-  </div>
+  </div> -->
 
   <!-- 나중에 즐겨찾기 리스트에서 쭉 뽑아올 예정 -->
   <div class="list">
     <div class="content-box">
-      <div class="img">
-        <img src="@/assets/images/img1.png" />
+      <div class="image-box">
+        <div class="image">
+          <img src="@/assets/images/img1.png" />
+        </div>
+        <button class="mark-nonChecked">
+          <i class="fa-regular fa-star"></i>
+        </button>
       </div>
       <div class="content">
         <div class="type">
@@ -65,8 +70,13 @@ onMounted(() => {
       </div>
     </div>
     <div class="content-box">
-      <div class="img">
-        <img src="@/assets/images/img2.png" />
+      <div class="image-box">
+        <div class="image">
+          <img src="@/assets/images/img3.png" />
+        </div>
+        <button class="mark-checked">
+          <i class="fa-solid fa-star"></i>
+        </button>
       </div>
       <div class="content">
         <div class="type">아파트</div>
@@ -77,8 +87,13 @@ onMounted(() => {
       </div>
     </div>
     <div class="content-box">
-      <div class="img">
-        <img src="@/assets/images/img3.png" />
+      <div class="image-box">
+        <div class="image">
+          <img src="@/assets/images/img4.png" />
+        </div>
+        <button class="mark-test">
+          <i class="fa-solid fa-heart"></i>
+        </button>
       </div>
       <div class="content">
         <div class="type">원룸</div>
@@ -89,8 +104,8 @@ onMounted(() => {
       </div>
     </div>
     <div class="content-box">
-      <div class="img">
-        <img src="@/assets/images/img4.png" />
+      <div class="image">
+        <img src="@/assets/images/img2.png" />
       </div>
       <div class="content">
         <div class="type">원룸</div>
@@ -100,15 +115,71 @@ onMounted(() => {
         <div class="word">역세권 5분</div>
       </div>
     </div>
+    <div class="content-box">
+      <div class="image-box">
+        <div class="image">
+          <img src="@/assets/images/img4.png" />
+        </div>
+        <button class="mark-test">
+          <i class="fa-solid fa-heart"></i>
+        </button>
+      </div>
+      <div class="content">
+        <div class="type">원룸</div>
+        <div class="price">매매 2억</div>
+        <div class="where">공항동 · 해태</div>
+        <div class="info">54m<sup>2</sup> · 2층</div>
+        <div class="word">역세권 3분 뛰면 30초</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.image-box {
+  position: relative;
+}
+
+.mark-nonChecked {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  height: 10px;
+  width: 10px;
+  font-size: 24px;
+}
+
+.mark-checked {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  color: #f3b706;
+  height: 10px;
+  width: 10px;
+  font-size: 24px;
+}
+
+.mark-test {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  color: rgb(246, 60, 74);
+  height: 10px;
+  width: 10px;
+  font-size: 24px;
+}
+
 .content-box {
   padding: 15px 0px;
   display: flex;
   width: 400px;
-  border-top: 0.5px solid #ccc;
+  /* border-top: 0.5px solid #ccc; */
   border-bottom: 0.1px solid #ccc;
 }
 

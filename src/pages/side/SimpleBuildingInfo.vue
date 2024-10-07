@@ -151,10 +151,7 @@ async function fetchChartData(areaId) {
     };
 
     // priceChart: areaId가 key고, *Content가 value인 object
-    return [].concat(
-      chartInfo.data[areaId].saleContent,
-      chartInfo.data[areaId].leaseContent
-    );
+    return [].concat(chartInfo.data[areaId].saleContent, chartInfo.data[areaId].leaseContent);
   } catch (error) {
     console.log('Error fetching chart data:', error);
   }
@@ -182,14 +179,23 @@ async function fetchChartData(areaId) {
           <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
           <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
           <hr style="width: 100%; height: 10px; background-color: #ccc" />
-          <PriceChart v-if="priceChart" :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
+          <PriceChart
+            v-if="priceChart"
+            :priceChart="priceChart"
+            :areaIdToPyeongName="areaIdToPyeongName"
+          />
         </div>
         <hr style="width: 100%; height: 10px; background-color: #ccc" />
         <PropertyList :propList="propList" />
         <div class="paginate">
-          <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
-            :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
-            @click="handlePageChange">
+          <vue-awesome-paginate
+            :total-items="propList.totalElements"
+            :items-per-page="propList.pageable.pageSize"
+            :max-pages-shown="propList.totalPages"
+            :show-ending-buttons="false"
+            v-model="pageRequest.page"
+            @click="handlePageChange"
+          >
             <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
             <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
             <template #next-button><i class="fa-solid fa-caret-right"></i></template>
@@ -203,6 +209,7 @@ async function fetchChartData(areaId) {
 
 <style scope>
 .paginate {
+  padding-top: 13.5px;
   text-align: center;
   margin-top: 10px;
 }

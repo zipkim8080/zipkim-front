@@ -3,6 +3,8 @@ import { defineEmits } from 'vue';
 import { useLoginStore } from '@/stores/LoginStore';
 import { ref } from 'vue';
 import axios from '@/api/index';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const emit = defineEmits(['close', 'updatePhoneNumber']);
 const handleClose = () => {
@@ -30,9 +32,7 @@ const requestVerificationCode = async () => {
     message.value = '인증번호가 전송되었습니다. 확인해주세요.';
   } catch (error) {
     // 실패 시 에러 메시지 설정
-    message.value = `인증번호 요청 실패: ${
-      error.response?.data || error.message
-    }`;
+    message.value = `인증번호 요청 실패: ${error.response?.data || error.message}`;
   }
 };
 
@@ -42,6 +42,14 @@ const verifyCode = async () => {
     message.value = '인증번호를 입력해주세요';
   } else if (verificationCode.value === generatedCode.value) {
     message.value = '인증에 성공했습니다';
+    toast('휴대폰 인증에 성공했습니다!', {
+      theme: 'auto', // 테마(auto, light, dark, colored)
+      type: 'success', // 타입(info, success, warning, error, default)
+      position: 'top-center', //토스트 생성위치
+      pauseOnHover: false, //마우스오버시 멈춤 제거
+      autoClose: 1000, //자동닫기
+      hideProgressBar: true, //로딩바제거
+    });
     try {
       await axios.post('/api/users/phone', {
         phoneNumber: phoneNumber.value,
@@ -70,14 +78,8 @@ const verifyCode = async () => {
       <p>변경할 휴대폰 번호를 입력하세요.</p>
       <!-- 인증번호 발송 버튼을 입력란 내부에 위치시킴 -->
       <div class="input-group">
-        <input
-          v-model="phoneNumber"
-          type="text"
-          placeholder="휴대폰 번호 입력"
-        />
-        <button class="send-code-btn" @click="requestVerificationCode">
-          인증번호 발송
-        </button>
+        <input v-model="phoneNumber" type="text" placeholder="휴대폰 번호 입력" />
+        <button class="send-code-btn" @click="requestVerificationCode">인증번호 발송</button>
       </div>
       <input
         v-model="verificationCode"
