@@ -37,7 +37,7 @@ const showStartModal = () => {
   <div class="search-overlay">
     <SearchFilter
       :startModal="startModal"
-      :closeStartModal="cloaseStartModal"
+      :closeStartModal="closeStartModal"
       :showStartModal="showStartModal"
     />
   </div>
