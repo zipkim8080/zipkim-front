@@ -1,5 +1,7 @@
 <script setup>
 import { reactive, ref, computed, defineProps } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const props = defineProps(['ocrData']);
 
@@ -24,15 +26,22 @@ const result = computed(() => {
 // 기본
 const ocrData = reactive({ ...props.ocrData });
 
-const formatNumber = (value) => {
-    return Number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const formatNumber = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 const onPriceInput = (event) => {
     const inputValue = event.target.value;
 
     if (!/^\d*$/.test(inputValue.replace(/,/g, ''))) {
-        alert('숫자만 입력 가능합니다.');
+        toast('숫자만 입력할 수 있어요!', {
+            theme: 'auto', // 테마(auto, light, dark, colored)
+            type: 'error', // 타입(info, success, warning, error, default)
+            position: 'top-center', //토스트 생성위치
+            pauseOnHover: false, //마우스오버시 멈춤 제거
+            autoClose: 1000, //자동닫기
+            hideProgressBar: true, //로딩바제거
+        });
         event.target.value = '';
         return;
     }
@@ -46,7 +55,14 @@ const onRentalPriceInput = (event) => {
     const inputValue = event.target.value;
 
     if (!/^\d*$/.test(inputValue.replace(/,/g, ''))) {
-        alert('숫자만 입력 가능합니다.');
+        toast('숫자만 입력할 수 있어요!', {
+            theme: 'auto', // 테마(auto, light, dark, colored)
+            type: 'error', // 타입(info, success, warning, error, default)
+            position: 'top-center', //토스트 생성위치
+            pauseOnHover: false, //마우스오버시 멈춤 제거
+            autoClose: 1000, //자동닫기
+            hideProgressBar: true, //로딩바제거
+        });
         event.target.value = '';
         return;
     }
