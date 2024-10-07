@@ -16,8 +16,8 @@ const saveToken = () => {
   const refresh = queryParams.refresh;
   if (token) {
     // 쿠키에 token 저장
-    Cookies.set('Authorization', token, { expires: 1 / 2 });
-    Cookies.set('Refresh', refresh, { expires: 1 / 2 });
+    Cookies.set('Authorization', token, { expires: 1 / 48 });
+    Cookies.set('Refresh', refresh, { expires: 1 / 12 });
   } else {
     console.log('토큰이 쿼리 파라미터에 없습니다.');
   }

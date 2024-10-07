@@ -117,21 +117,24 @@ watch(openSection, (newSection) => {
 <style scoped>
 /* sidebar 컨테이너 부분 */
 .sidebar {
-  position: fixed;
+  position: absolute;
   top: 0%;
   right: 0%;
-  transform: translate(0%, %);
+  transform: translate(-4%, 12.5%);
   width: 450px;
-  height: 830px;
+  height: 80vh;
   background: #fff;
   /* padding: 20px; */
   border-radius: 10px;
   border: 1px solid #aaa;
+  overflow-y: auto;
+  display: flex;
 }
 
 .menu {
-  position: fixed;
-  left: 0%;
+  position: relative;
+  top: -0.1%;
+  left: -0.35%;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -146,9 +149,10 @@ watch(openSection, (newSection) => {
 .menu-button {
   font-size: 1.2rem;
   width: 100%;
-  height: 70px;
+  height: 65px;
   text-align: left;
   padding: 10px;
+  margin: 0px;
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);
   cursor: pointer;
@@ -179,12 +183,13 @@ watch(openSection, (newSection) => {
 
 /* 클릭 시 content */
 .menu-content {
-  max-height: 548px;
+  /* max-height: 500px;*/
+  max-height: calc(80vh - 262px);
   overflow-y: auto;
-  padding: 20px 15px 20px 20px;
+  padding: 0px 15px 0px 20px;
   /* border: 1px solid #ddd; */
   border-top: none;
-  background: #fff;
+  background: rgba(0, 0, 0, 0);
 }
 
 /* 메뉴 스크롤 바 */
