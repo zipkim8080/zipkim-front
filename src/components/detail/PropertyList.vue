@@ -13,8 +13,12 @@ const openModal = () => {
 
 <template>
   <div class="list">
-    <div class="content-box" v-for="(property, index) in propList.items" :key="property.id">
-      <div class="img">
+    <div
+      class="content-box"
+      v-for="(property, index) in propList.items"
+      :key="property.id"
+    >
+      <div class="outer">
         <img style="width: 200px; height: 130px" :src="property.imageUrl" />
       </div>
       <div class="content">
@@ -24,9 +28,10 @@ const openModal = () => {
         </div>
         <div class="price">전세 {{ property.deposit }}</div>
         <div class="price">매매 {{ property.amount }}</div>
-        <div class="where">{{ property.complexName }}</div>
-        <div class="info">{{ property.floor }}층</div>
-        <div class="word">{{ property.description }}</div>
+        <div class="where">
+          {{ property.complexName
+          }}<span class="info m-1"> {{ property.floor }}층</span>
+        </div>
       </div>
     </div>
   </div>
@@ -62,12 +67,12 @@ const openModal = () => {
 
 .price {
   /* font-size: 1.5rem; */
-  font-size: 23px;
+  font-size: 22px;
   font-weight: bold;
 }
 
 .where {
-  font-size: 19px;
+  font-size: 16px;
 }
 
 .word {
@@ -88,5 +93,11 @@ const openModal = () => {
   background: none;
   margin-right: 20px;
   padding: 0px;
+}
+
+.outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
