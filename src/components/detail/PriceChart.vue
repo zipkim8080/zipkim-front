@@ -201,6 +201,7 @@ canvas {
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
+  padding: 0 10px;
 }
 
 .average-section,
@@ -208,5 +209,7 @@ canvas {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* 아래 두 줄 추가 */
+  max-height: 120px;
 }
 </style>
