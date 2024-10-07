@@ -78,7 +78,7 @@ onMounted(() => {
 
 <style scoped>
 .profile-container {
-  padding: 20px;
+  padding: 0px 20px 20px 20px;
   font-size: 16px;
 }
 
