@@ -80,12 +80,24 @@ async function fetchPropertyData(complexId) {
 
     for (let member in priceChart) delete priceChart[member];
     for (let member in areaIdToPyeongName) delete areaIdToPyeongName[member];
-
+    const combinedChartData = {};
+    const combinedAreaPyeong = {};
     for (const [index, areaId] of areaIds.entries()) {
-      areaIdToPyeongName[areaId] = areaPyeongNames[index];
-      await fetchChartData(areaId);
+      // areaIdToPyeongName[areaId] = areaPyeongNames[index];
+      combinedAreaPyeong[areaId] = areaPyeongNames[index];
+      combinedChartData[areaId] = await fetchChartData(areaId);
     }
-
+    for (const areaId in combinedChartData) {
+      priceChart[areaId] = combinedChartData[areaId];
+    }
+    for (const areaId in combinedAreaPyeong) {
+      areaIdToPyeongName[areaId] = combinedAreaPyeong[areaId];
+    }
+    // console.log(combinedAreaPyeong)
+    // console.log(priceChart)
+    // console.log(priceChart)
+    // console.log('===================')
+    // console.log(areaIdToPyeongName)
     propList.items = props.data.content;
     propList.pageable = props.data.pageable;
     propList.totalElements = props.data.totalElements;
@@ -146,7 +158,7 @@ async function fetchChartData(areaId) {
     };
 
     // priceChart: areaId가 key고, *Content가 value인 object
-    priceChart[areaId] = [].concat(
+    return [].concat(
       chartInfo.data[areaId].saleContent,
       chartInfo.data[areaId].leaseContent
     );
@@ -182,7 +194,8 @@ async function fetchChartData(areaId) {
             전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원
           </div>
           <br />
-          <PriceChart v-if="priceChart" :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
+          <PriceChart v-if="priceChart && areaIdToPyeongName" :priceChart="priceChart"
+            :areaIdToPyeongName="areaIdToPyeongName" />
         </div>
         <PropertyList :propList="propList" />
         <div class="paginate">
