@@ -167,21 +167,7 @@ async function fetchChartData(areaId) {
           <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
           <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
           <br />
-          <h5 style="font-weight: bold">차트</h5>
-          <!-- <PriceChart :priceChart="priceChart" /> -->
-          <canvas id="myChart" width="450" height="600"></canvas>
-          <hr />
         </div>
-        <div class="chart-box">사진</div>
-        <br />
-        <h5 style="font-weight: bold">주소</h5>
-        <div>도로명 주소: {{ complexInfo.roadName }}</div>
-        <div>지번 주소: {{ complexInfo.addressName }}</div>
-        <br />
-        <h5 style="font-weight: bold">최근 실거래가</h5>
-        <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
-        <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
-        <br />
         <PriceChart :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
         <PropertyList :propList="propList" />
         <div class="paginate">
