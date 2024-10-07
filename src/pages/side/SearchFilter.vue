@@ -94,8 +94,6 @@ const props = defineProps({
   closeStartModal: Function,
   showStartModal: Function,
   startModal: Boolean,
-  closeStartModal: Function,
-  showStartModal: Function,
 });
 
 const resetSearch = (event) => {

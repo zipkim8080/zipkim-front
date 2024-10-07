@@ -4,7 +4,7 @@
       <button
         class="kb_btn3 mb-1"
         :class="{ active: complexesStore.isActualClicked }"
-        :disabled="complexesStore.isXXDongButtonDisabled"
+        :disabled="complexesStore.actPriceButtonDisabled"
         @click="actualClick"
       >
         실거래가

@@ -29,15 +29,20 @@ const openModal = (propertyId) => {
           {{ property.type }}
           <img class="check" src="@/assets/images/check.png" />
         </div>
-        <div class="price">전세 {{ property.deposit.toLocaleString() }}</div>
-        <div class="price">매매 {{ property.amount.toLocaleString() }}</div>
-        <div class="where">{{ property.complexName }}</div>
-        <div class="info">{{ property.floor }}층</div>
+        <div class="price">전세 {{ property.deposit }}</div>
+        <div class="price">매매 {{ property.amount }}</div>
+        <div class="where">
+          {{ property.complexName
+          }}<span class="info m-1"> {{ property.floor }}층</span>
+        </div>
       </div>
     </div>
   </div>
   <div v-if="isModalOpen" @close="isModalOpen = false">
-    <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false" />
+    <PropertyDetails
+      :propId="selectedPropertyId"
+      @close="isModalOpen = false"
+    />
   </div>
 </template>
 
@@ -56,12 +61,12 @@ const openModal = (propertyId) => {
 
 .price {
   /* font-size: 1.5rem; */
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
 }
 
 .where {
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .word {
@@ -82,5 +87,11 @@ const openModal = (propertyId) => {
   background: none;
   margin-right: 20px;
   padding: 0px;
+}
+
+.outer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
