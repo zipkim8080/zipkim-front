@@ -232,6 +232,7 @@ async function fetchChartData(areaId) {
 
 <style scope>
 .paginate {
+  padding-top: 13.5px;
   text-align: center;
   margin-top: 10px;
 }

@@ -46,9 +46,9 @@ onMounted(() => {
       <transition name="fade">
         <!-- 모달의 바깥을 클릭하면 닫히도록 @click.self 사용 -->
         <div class="modal-wrap-mypage" v-show="sidebarModal" @click.self="sidebarModalOpen">
-          <div class="modal-container-mypage">
-            <sidebar @close="sidebarModalOpen" />
-          </div>
+          <!-- <div class="modal-container-mypage"> -->
+          <sidebar @close="sidebarModalOpen" />
+          <!-- </div> -->
         </div>
       </transition>
     </template>
@@ -114,18 +114,19 @@ onMounted(() => {
   z-index: 1000;
 }
 
-.modal-container-mypage {
+/* .modal-container-mypage {
   position: fixed;
   top: 53%;
   right: 15px;
   transform: translate(-2.5%, -55%);
   width: 450px;
-  height: 830px;
+  height: 80%;
   background: #fff;
   border-radius: 10px;
   box-sizing: border-box;
+  overflow-y: auto;
   z-index: 10;
-}
+} */
 
 .login-overlay {
   position: absolute;
