@@ -77,12 +77,24 @@ async function fetchPropertyData(complexId) {
 
     for (let member in priceChart) delete priceChart[member];
     for (let member in areaIdToPyeongName) delete areaIdToPyeongName[member];
-
+    const combinedChartData = {};
+    const combinedAreaPyeong = {};
     for (const [index, areaId] of areaIds.entries()) {
-      areaIdToPyeongName[areaId] = areaPyeongNames[index];
-      await fetchChartData(areaId);
+      // areaIdToPyeongName[areaId] = areaPyeongNames[index];
+      combinedAreaPyeong[areaId] = areaPyeongNames[index];
+      combinedChartData[areaId] = await fetchChartData(areaId);
     }
-
+    for (const areaId in combinedChartData) {
+      priceChart[areaId] = combinedChartData[areaId];
+    }
+    for (const areaId in combinedAreaPyeong) {
+      areaIdToPyeongName[areaId] = combinedAreaPyeong[areaId];
+    }
+    // console.log(combinedAreaPyeong)
+    // console.log(priceChart)
+    // console.log(priceChart)
+    // console.log('===================')
+    // console.log(areaIdToPyeongName)
     propList.items = props.data.content;
     propList.pageable = props.data.pageable;
     propList.totalElements = props.data.totalElements;
@@ -139,7 +151,7 @@ async function fetchChartData(areaId) {
     };
 
     // priceChart: areaId가 key고, *Content가 value인 object
-    priceChart[areaId] = [].concat(
+    return [].concat(
       chartInfo.data[areaId].saleContent,
       chartInfo.data[areaId].leaseContent
     );
@@ -170,23 +182,14 @@ async function fetchChartData(areaId) {
           <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
           <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
           <hr style="width: 100%; height: 10px; background-color: #ccc" />
-          <PriceChart
-            v-if="priceChart"
-            :priceChart="priceChart"
-            :areaIdToPyeongName="areaIdToPyeongName"
-          />
+          <PriceChart v-if="priceChart" :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
         </div>
         <hr style="width: 100%; height: 10px; background-color: #ccc" />
         <PropertyList :propList="propList" />
         <div class="paginate">
-          <vue-awesome-paginate
-            :total-items="propList.totalElements"
-            :items-per-page="propList.pageable.pageSize"
-            :max-pages-shown="propList.totalPages"
-            :show-ending-buttons="false"
-            v-model="pageRequest.page"
-            @click="handlePageChange"
-          >
+          <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
+            :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
+            @click="handlePageChange">
             <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
             <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
             <template #next-button><i class="fa-solid fa-caret-right"></i></template>
@@ -223,7 +226,8 @@ async function fetchChartData(areaId) {
 
 .title {
   display: flex;
-  justify-content: space-between; /* 닫기 버튼을 오른쪽으로 이동 */
+  justify-content: space-between;
+  /* 닫기 버튼을 오른쪽으로 이동 */
   align-items: center;
   padding: 5px;
 }
@@ -250,11 +254,13 @@ async function fetchChartData(areaId) {
   overflow-y: auto;
   /* display: flex; */
   flex-direction: column;
-  justify-content: center; /* 수직 중앙 정렬 */
+  justify-content: center;
+  /* 수직 중앙 정렬 */
 }
 
 .complex-name {
-  text-align: center; /* 가운데 정렬 */
+  text-align: center;
+  /* 가운데 정렬 */
   flex-grow: 1;
 }
 
