@@ -11,6 +11,7 @@ const router = useRouter();
 const images = ref(null);
 const selectedFile = ref(null);
 const previews = ref([]); // 이미지 미리보기 URL 배열 초기화
+const fileName = ref('');
 
 // 파일 선택 핸들러
 const handleFileChange = async (event) => {
