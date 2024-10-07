@@ -275,6 +275,10 @@ export const useComplexesStore = defineStore('map', {
 
           // 마커 클릭 이벤트
           const handleClickEvent = () => {
+            router.push({
+              name: 'SBInfo',
+              params: { complexId: apt.complexId },
+            });
             this.saveCurrentState({
               lat: apt.latitude,
               lon: apt.longitude,
@@ -285,11 +289,6 @@ export const useComplexesStore = defineStore('map', {
               apt.longitude - 0.0012 // 경도를 조금 줄여서 왼쪽으로 중심 이동
             );
             map.panTo(markerMPosition);
-
-            router.push({
-              name: 'SBInfo',
-              params: { complexId: apt.complexId },
-            });
           };
 
           window.kakao.maps.event.addListener(

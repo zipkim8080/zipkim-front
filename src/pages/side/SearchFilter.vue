@@ -81,9 +81,11 @@ import { ref, onMounted } from 'vue';
 import axios from '@/api/index';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
+import { useRouter } from 'vue-router';
 
 const kakaoMapStore = useKakaoMapStore();
 const complexesStore = useComplexesStore();
+const router = useRouter();
 const searchTerm = ref(''); // 검색어
 const complexSuggestion = ref([]); // 자동완성 목록
 const timeout = ref(null); // 입력 지연 타이머
@@ -125,7 +127,7 @@ function selectType(type) {
   complexesStore.getApi().then(() => {
     // API 데이터 갱신 후 마커 로드
     complexesStore.clusterRemove();
-    complexesStore.loadMarkers();
+    complexesStore.loadMarkers(router);
   });
 }
 
