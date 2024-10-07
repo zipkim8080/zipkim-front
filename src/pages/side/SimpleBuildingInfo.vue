@@ -68,13 +68,9 @@ const handlePageChange = async (pageNum, event) => {
 
 async function fetchPropertyData(complexId) {
   try {
-    const data = (
-      await axios.get(`/api/complex/summary?complexId=${complexId}`)
-    ).data; // API 호출
+    const data = (await axios.get(`/api/complex/summary?complexId=${complexId}`)).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=${
-        pageRequest.page - 1
-      }&size=2`
+      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1}&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
     const areaPyeongNames = data.areas.map((area) => area.pyeongName);
@@ -116,15 +112,11 @@ const pageRequest = reactive({
 async function fetchChartData(areaId) {
   try {
     // 매매 가져오기
-    const saleResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=SALE`
-    );
+    const saleResponse = await axios.get(`/api/price?areaId=${areaId}&type=SALE`);
     const saleData = saleResponse.data.content;
 
     // 전세 가져오기
-    const leaseResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=LEASE`
-    );
+    const leaseResponse = await axios.get(`/api/price?areaId=${areaId}&type=LEASE`);
     const leaseData = leaseResponse.data.content;
 
     const chartInfo = { data: {} };
@@ -178,42 +170,29 @@ async function fetchChartData(areaId) {
           <div>지번 주소: {{ complexInfo.addressName }}</div>
           <br />
           <h5 style="font-weight: bold">최근 실거래가</h5>
-          <div>
-            매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원
-          </div>
-          <div>
-            전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원
-          </div>
+          <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
+          <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
           <br />
         </div>
-        <PriceChart
-          :priceChart="priceChart"
-          :areaIdToPyeongName="areaIdToPyeongName"
-        />
+        <PriceChart :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
         <PropertyList :propList="propList" />
-        <div class="paginate">
-          <vue-awesome-paginate
-            :total-items="propList.totalElements"
-            :items-per-page="propList.pageable.pageSize"
-            :max-pages-shown="propList.totalPages"
-            :show-ending-buttons="false"
-            v-model="pageRequest.page"
-            @click="handlePageChange"
-          >
-            <template #first-page-button
-              ><i class="fa-solid fa-backward-fast"></i
-            ></template>
-            <template #prev-button
-              ><i class="fa-solid fa-caret-left"></i
-            ></template>
-            <template #next-button
-              ><i class="fa-solid fa-caret-right"></i
-            ></template>
-            <template #last-page-button
-              ><i class="fa-solid fa-forward-fast"></i
-            ></template>
-          </vue-awesome-paginate>
-        </div>
+        <template v-if="propList.totalElements > 0">
+          <div class="paginate">
+            <vue-awesome-paginate
+              :total-items="propList.totalElements"
+              :items-per-page="propList.pageable.pageSize"
+              :max-pages-shown="propList.totalPages"
+              :show-ending-buttons="false"
+              v-model="pageRequest.page"
+              @click="handlePageChange"
+            >
+              <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
+              <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
+              <template #next-button><i class="fa-solid fa-caret-right"></i></template>
+              <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+            </vue-awesome-paginate>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -221,7 +200,9 @@ async function fetchChartData(areaId) {
 
 <style scope>
 .paginate {
+  padding-top: 13.5px;
   text-align: center;
+  height: 20px;
 }
 
 .cInfo-overlay {
