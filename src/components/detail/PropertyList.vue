@@ -15,12 +15,8 @@ const openModal = (propertyId) => {
 
 <template>
   <div class="list">
-    <div
-      class="content-box"
-      v-for="(property, index) in propList.items"
-      :key="property.id"
-      @click="openModal(property.id)"
-    >
+    <div class="content-box" v-for="(property, index) in propList.items" :key="property.id"
+      @click="openModal(property.id)">
       <div class="img">
         <img style="width: 230px; height: 100%" :src="property.imageUrl" />
       </div>
@@ -39,10 +35,7 @@ const openModal = (propertyId) => {
     </div>
   </div>
   <div v-if="isModalOpen" @close="isModalOpen = false">
-    <PropertyDetails
-      :propId="selectedPropertyId"
-      @close="isModalOpen = false"
-    />
+    <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false" />
   </div>
 </template>
 
@@ -51,7 +44,6 @@ const openModal = (propertyId) => {
   padding: 15px 0px;
   display: flex;
   width: 400px;
-  border-top: 0.5px solid #ccc;
   border-bottom: 0.1px solid #ccc;
 }
 
