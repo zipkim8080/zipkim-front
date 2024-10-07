@@ -24,14 +24,18 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useComplexesStore } from '@/stores/ComplexesStore';
+import { useRouter } from 'vue-router';
 
 const complexesStore = useComplexesStore();
+const router = useRouter();
 
 function actualClick() {
   complexesStore.togglePriceType('recentDeposit');
+  complexesStore.loadMarkers(router);
 }
 function currentClick() {
   complexesStore.togglePriceType('currentAverageAmount');
+  complexesStore.loadMarkers(router);
 }
 </script>
 

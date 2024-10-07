@@ -92,6 +92,7 @@ async function fetchPropertyData(propId) {
     propInfo.trust = data.register.trust;
     propInfo.leaseAmount = data.register.leaseAmount;
     propInfo.uniqueNumber = data.register.uniqueNumber;
+    propInfo.hugNumber = data.hugNumber;
     propInfo.loan = data.register.loan;
     propInfo.images = data.images;
     console.log(propInfo);
@@ -111,9 +112,16 @@ async function fetchPropertyData(propId) {
         <div class="mt-2 mx-auto" style="height: 500px; width: 1300px">
           <div class="info-container">
             <div class="left-left">
-              <div>등기확인 HUG 인증여부</div>
+              <h5 style="font-weight: bold">
+                HUG 인증번호
+                {{
+                  propInfo.hugNumber
+                    ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
+                    : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
+                }}
+              </h5>
               <br />
-              <div>주소</div>
+              <h5 style="font-weight: bold">주소</h5>
               <div>
                 도로명 주소: {{ propInfo.roadName }}
                 {{ propInfo.detailAddress }}
@@ -123,11 +131,11 @@ async function fetchPropertyData(propId) {
                 {{ propInfo.detailAddress }}
               </div>
               <br />
-              <div>금액</div>
+              <h5 style="font-weight: bold">금액</h5>
               <div>매매가: {{ propInfo.amount.toLocaleString() }} 원</div>
               <div>전세가: {{ propInfo.deposit.toLocaleString() }} 원</div>
               <br />
-              <div>중개인의 한마디</div>
+              <h5 style="font-weight: bold">중개인의 한마디</h5>
               <div class="agent-comment-box">
                 {{ propInfo.description }}
               </div>
@@ -137,12 +145,7 @@ async function fetchPropertyData(propId) {
                 <Carousel :autoplay="3000" :wrap-around="true">
                   <Slide v-for="(image, index) in propInfo.images" :key="index">
                     <div class="carousel__item">
-                      <img
-                        class="slideImg"
-                        :src="image.imageUrl"
-                        width="90%"
-                        height="100%"
-                      />
+                      <img class="slideImg" :src="image.imageUrl" width="95%" height="100%" />
                     </div>
                   </Slide>
                   <template #addons>
@@ -155,7 +158,7 @@ async function fetchPropertyData(propId) {
           </div>
           <br />
           <br />
-          <h4>[매물정보]</h4>
+          <h5 style="font-weight: bold">매물정보</h5>
           <hr style="width: 100%; height: 3px; background-color: black" />
           <div class="info-container">
             <div class="left">
@@ -194,7 +197,7 @@ async function fetchPropertyData(propId) {
           </div>
           <br />
           <br />
-          <h4>[등기정보]</h4>
+          <h5 style="font-weight: bold">등기정보</h5>
           <hr style="width: 100%; height: 4px; background-color: black" />
           <div>등기고유번호: {{ propInfo.uniqueNumber }}</div>
           <div>
@@ -230,12 +233,12 @@ async function fetchPropertyData(propId) {
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 50px;
+  padding: 3%;
   border-radius: 10px;
   z-index: 1001;
   box-shadow: rgba(0, 0, 0, 0.2);
   overflow-y: auto;
-  height: 80%;
+  height: 83%;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -255,10 +258,10 @@ async function fetchPropertyData(propId) {
 .close-btn {
   border: none;
   background: none;
-  margin-top: 0px;
-  margin-right: 10px;
-  padding: 0px;
-  float: right;
+  position: absolute; /* 절대 위치로 변경 */
+  top: 20px; /* 위쪽 간격 조정 */
+  right: 20px; /* 오른쪽 간격 조정 */
+  padding: 0;
 }
 .agent-comment-box {
   border: 1px solid #ccc;

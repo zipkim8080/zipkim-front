@@ -29,20 +29,16 @@ const openModal = (propertyId) => {
           {{ property.type }}
           <img class="check" src="@/assets/images/check.png" />
         </div>
-        <div class="price">전세 {{ property.deposit }}</div>
-        <div class="price">매매 {{ property.amount }}</div>
+        <div class="price">전세 {{ property.deposit.toLocaleString() }}</div>
+        <div class="price">매매 {{ property.amount.toLocaleString() }}</div>
         <div class="where">
-          {{ property.complexName
-          }}<span class="info m-1"> {{ property.floor }}층</span>
+          {{ property.complexName }}<span class="info m-1"> {{ property.floor }}층</span>
         </div>
       </div>
     </div>
   </div>
   <div v-if="isModalOpen" @close="isModalOpen = false">
-    <PropertyDetails
-      :propId="selectedPropertyId"
-      @close="isModalOpen = false"
-    />
+    <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false" />
   </div>
 </template>
 
@@ -51,7 +47,6 @@ const openModal = (propertyId) => {
   padding: 15px 0px;
   display: flex;
   width: 400px;
-  border-top: 0.5px solid #ccc;
   border-bottom: 0.1px solid #ccc;
 }
 

@@ -1,6 +1,6 @@
 <script setup>
 import axios from 'axios';
-import { ref, reactive, defineProps, onMounted, watch } from 'vue';
+import { ref, reactive, defineProps, onMounted, watch, onUpdated, nextTick } from 'vue';
 import Chart from 'chart.js/auto';
 import SimpleBuildingInfo from '@/pages/side/SimpleBuildingInfo.vue';
 
@@ -21,13 +21,20 @@ const state = reactive({
   averageLeaseRate: null,
 });
 
+onMounted(() => {
+  const targetId = Object.keys(props.priceChart).find(
+    (key) => props.areaIdToPyeongName[key] === state.selectedItem
+  )
+  drawChart(targetId)
+})
 const chartRef = ref(null);
 
 const calculateAverageLeaseRate = (targetAreaId) => {
   const leasePrices = [];
   const salePrices = [];
 
-  props.priceChart[targetAreaId].forEach((item) => {
+  props.priceChart[targetAreaId]?.forEach((item) => {
+    if (item == undefined) return
     if (item.transactionType === 'LEASE') {
       leasePrices.push(item.dealPrice);
     } else if (item.transactionType === 'SALE') {
@@ -48,7 +55,6 @@ const calculateAverageLeaseRate = (targetAreaId) => {
 
 const drawChart = (targetAreaId) => {
   if (Object.keys(props.priceChart).length === 0) return;
-
   // const areaIdToPyeongName = props.areaIdToPyeongName;
   // const AreaId = Object.keys(props.priceChart);
   // const targetAreaId = Object.keys(props.priceChart)[0]; // 평수
@@ -56,6 +62,7 @@ const drawChart = (targetAreaId) => {
   // 연도별 데이터
   const yearlyData = {};
   props.priceChart[targetAreaId].forEach((item) => {
+    if (item == undefined) return;
     const year = item.tradeYear;
     if (!yearlyData[year]) {
       yearlyData[year] = { sales: [], leases: [] };
@@ -77,7 +84,7 @@ const drawChart = (targetAreaId) => {
     return leases.length ? leases.reduce((a, b) => a + b, 0) / leases.length : null; // 평균 계산
   });
 
-  const ctx = document.getElementById('myChart').getContext('2d');
+  const ctx = document.getElementById('myChart')?.getContext('2d');
   let prevChart = Chart.getChart('myChart');
   if (prevChart) {
     prevChart.destroy();
@@ -128,18 +135,17 @@ const drawChart = (targetAreaId) => {
 };
 
 function change() {
+  if (!state.selectedItem) return; // selectedItem이 null인 경우 조기 리턴
   const targetAreaId = Object.keys(props.priceChart).find(
     (key) => props.areaIdToPyeongName[key] === state.selectedItem
   );
-  if (targetAreaId) {
-    drawChart(targetAreaId);
-    state.averageLeaseRate = calculateAverageLeaseRate(targetAreaId);
-  }
+  drawChart(targetAreaId);
+  state.averageLeaseRate = calculateAverageLeaseRate(targetAreaId);
 }
 
-watch(props.priceChart, (newPriceChart) => {
-  drawChart();
-});
+// watch(props.priceChart, (newPriceChart) => {
+//   drawChart();
+// });
 
 // areaIdToPyeongName 값으로 items 업데이트
 watch(
@@ -148,7 +154,10 @@ watch(
     state.items = Object.values(newAreaIdToPyeongName);
     if (state.items.length > 0) {
       state.selectedItem = state.items[0];
-      change();
+      nextTick(() => {
+        change();
+      })
+
     }
   },
   { immediate: true }
@@ -201,6 +210,7 @@ canvas {
   align-items: center;
   width: 100%;
   margin-bottom: 10px;
+  padding: 0 10px;
 }
 
 .average-section,
@@ -208,5 +218,7 @@ canvas {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* 아래 두 줄 추가 */
+  max-height: 120px;
 }
 </style>
