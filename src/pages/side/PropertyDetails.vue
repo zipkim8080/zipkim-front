@@ -129,14 +129,6 @@ async function fetchPropertyData(propId) {
             </div>
           </div>
           <div class="right-left">
-            <!--<img
-              v-for="(image, index) in propInfo.images"
-              :key="index"
-              :src="image.imageUrl"
-              alt="매물 이미지"
-              style="width: 80%; height: 100%; margin-bottom: 10px"
-            />-->
-
             <div class="wrapper">
               <Carousel :autoplay="3000" :wrap-around="true">
                 <Slide v-for="(image, index) in propInfo.images" :key="index">
@@ -144,7 +136,6 @@ async function fetchPropertyData(propId) {
                     <img class="slideImg" :src="image.imageUrl" width="90%" height="100%" />
                   </div>
                 </Slide>
-
                 <template #addons>
                   <Pagination />
                   <Navigation />

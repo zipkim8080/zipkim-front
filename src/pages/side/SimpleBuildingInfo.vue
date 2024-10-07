@@ -58,6 +58,7 @@ const propList = reactive({
   numberOfElements: '', //현재페이지 아이템수
 });
 const priceChart = reactive({});
+const areaIdToPyeongName = reactive({});
 
 async function fetchPropertyData(complexId) {
   try {
@@ -66,10 +67,13 @@ async function fetchPropertyData(complexId) {
       `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1}&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
+    const areaPyeongNames = data.areas.map((area) => area.pyeongName);
 
     for (let member in priceChart) delete priceChart[member];
+    for (let member in areaIdToPyeongName) delete areaIdToPyeongName[member];
 
-    for (const areaId of areaIds) {
+    for (const [index, areaId] of areaIds.entries()) {
+      areaIdToPyeongName[areaId] = areaPyeongNames[index];
       await fetchChartData(areaId);
     }
 
@@ -178,9 +182,7 @@ async function fetchChartData(areaId) {
         <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
         <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
         <br />
-        <h5 style="font-weight: bold">차트</h5>
-        <PriceChart :priceChart="priceChart" />
-        <hr />
+        <PriceChart :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
         <PropertyList :propList="propList" />
         <div class="paginate">
           <vue-awesome-paginate
