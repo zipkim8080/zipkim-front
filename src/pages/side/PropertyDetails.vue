@@ -112,7 +112,14 @@ async function fetchPropertyData(propId) {
         <div class="mt-2 mx-auto" style="height: 500px; width: 1300px">
           <div class="info-container">
             <div class="left-left">
-              <h5 style="font-weight: bold">HUG 인증여부 {{ propInfo.hugNumber }}</h5>
+              <h5 style="font-weight: bold">
+                HUG 인증번호
+                {{
+                  propInfo.hugNumber
+                    ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
+                    : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
+                }}
+              </h5>
               <br />
               <h5 style="font-weight: bold">주소</h5>
               <div>
