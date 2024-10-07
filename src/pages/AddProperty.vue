@@ -5,16 +5,26 @@ import { reactive, ref, defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 import propertyApi from '../api/PropertyRegiAPI';
 import { requestWithFile } from '@/api/Ocr';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 const router = useRouter();
 const images = ref(null);
 const selectedFile = ref(null);
 const previews = ref([]); // 이미지 미리보기 URL 배열 초기화
+const fileName = ref('');
 
 // 파일 선택 핸들러
 const handleFileChange = async (event) => {
   const file = event.target.files[0];
   if (file && file.type !== 'application/pdf') {
-    alert('PDF 파일만 업로드 가능합니다.');
+    toast('PDF 파일만 업로드할 수 있어요!', {
+      theme: 'auto', // 테마(auto, light, dark, colored)
+      type: 'error', // 타입(info, success, warning, error, default)
+      position: 'top-center', //토스트 생성위치
+      pauseOnHover: false, //마우스오버시 멈춤 제거
+      autoClose: 1000, //자동닫기
+      hideProgressBar: true, //로딩바제거
+    });
     event.target.value = '';
     fileName.value = '';
   } else if (file) {
@@ -28,11 +38,35 @@ const handleImageUpload = (event) => {
   const files = event.target.files;
 
   if (!files || files.length === 0) {
-    console.error('파일이 선택되지 않았습니다.'); // 파일이 없을 때 오류 로그 출력
+    toast('파일을 선택해주세요!', {
+      theme: 'auto', // 테마(auto, light, dark, colored)
+      type: 'error', // 타입(info, success, warning, error, default)
+      position: 'top-center', //토스트 생성위치
+      pauseOnHover: false, //마우스오버시 멈춤 제거
+      autoClose: 1000, //자동닫기
+      hideProgressBar: true, //로딩바제거
+    });
     return;
   }
+
+  const allowedType = ['image/png', 'image/jpg', 'image/jpeg'];
   previews.value = []; // 기존 미리보기 초기화
   for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+
+    if (!allowedType.includes(file.type)) {
+      toast('이미지 파일만 업로드할 수 있어요!', {
+        theme: 'auto', // 테마(auto, light, dark, colored)
+        type: 'error', // 타입(info, success, warning, error, default)
+        position: 'top-center', //토스트 생성위치
+        pauseOnHover: false, //마우스오버시 멈춤 제거
+        autoClose: 1000, //자동닫기
+        hideProgressBar: true, //로딩바제거
+      });
+      event.target.value = ''; // 파일 초기화
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (e) => {
       previews.value.push(e.target.result); // 파일의 URL을 배열에 추가
@@ -121,6 +155,102 @@ const handleAddressSelected = (addressData) => {
   property.complexId = addressData.complexId;
 };
 
+const validationNumber = (event) => {
+  const inputValue = event.target.value;
+
+  if (!/^\d*$/.test(inputValue)) {
+    toast(`숫자만 입력할 수 있어요!`, {
+      theme: 'auto',
+      type: 'error',
+      position: 'top-center',
+      pauseOnHover: false,
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
+    event.target.value = '';
+    return '';
+  }
+
+  if (parseInt(inputValue, 10) <= 0) {
+    toast(`0 보다 큰 수만 입력할 수 있어요!`, {
+      theme: 'auto',
+      type: 'error',
+      position: 'top-center',
+      pauseOnHover: false,
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
+    event.target.value = '';
+    return '';
+  }
+
+  return inputValue;
+};
+const onRoomNoInput = (event) => {
+  property.roomNo = validationNumber(event);
+};
+
+const onBathNoInput = (event) => {
+  property.bathNo = validationNumber(event);
+};
+
+const onFloorInput = (event) => {
+  property.floor = validationNumber(event);
+};
+
+const onTotalFloorInput = (event) => {
+  property.totalFloor = validationNumber(event);
+};
+
+// 숫자를 3자리마다 쉼표를 추가하여 포맷하는 함수
+const formatNumber = (value) => {
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
+// 매매가 입력 처리 함수
+const onAmountInput = (event) => {
+  const inputValue = event.target.value;
+
+  if (!/^\d*$/.test(inputValue.replace(/,/g, ''))) {
+    toast('숫자만 입력할 수 있어요!', {
+      theme: 'auto',
+      type: 'error',
+      position: 'top-center',
+      pauseOnHover: false,
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
+    event.target.value = ''; // 잘못된 입력 초기화
+    return;
+  }
+
+  // 숫자일 경우
+  property.amount = parseInt(inputValue.replace(/[^\d]/g, '')) || 0;
+  event.target.value = formatNumber(property.amount); // 3자리 쉼표 포맷 적용
+};
+
+// 전세가 입력 처리 함수
+const onDepositInput = (event) => {
+  const inputValue = event.target.value;
+
+  if (!/^\d*$/.test(inputValue.replace(/,/g, ''))) {
+    toast('숫자만 입력할 수 있어요!', {
+      theme: 'auto',
+      type: 'error',
+      position: 'top-center',
+      pauseOnHover: false,
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
+    event.target.value = ''; // 잘못된 입력 초기화
+    return;
+  }
+
+  // 숫자일 경우
+  property.deposit = parseInt(inputValue.replace(/[^\d]/g, '')) || 0;
+  event.target.value = formatNumber(property.deposit); // 3자리 쉼표 포맷 적용
+};
+
 // 등록 버튼 클릭시
 const register = async () => {
   // 첨부파일
@@ -146,17 +276,23 @@ const close = () => {
 
 <template>
   <div class="modal-content">
-    <div class="m-4 container">
-      <div class="mb-5 cover">
-        <p style="font-weight: bold; font-size: 50px; width: 640px">
-          매물 등록
-        </p>
+    <div class="mt-3 container">
+      <div
+        class="mb-5 cover"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <h1 style="text-align: center; color: #955a1f; flex-grow: 1">
+          <strong>매물 등록</strong>
+        </h1>
         <button
           style="
             font-weight: bold;
             font-size: 25px;
-            margin-left: -5px;
-            margin-top: 10px;
+
             background-color: white;
             height: 34px;
             border: none;
@@ -170,7 +306,7 @@ const close = () => {
       <form @submit.prevent="register">
         <!--  -->
         <div class="cover mb-3">
-          <label class="subTitle">매물유형</label>
+          <label class="subTitle">매물 유형</label>
           <div>
             <label class="form-check-label me-2" for="apt"> 아파트 </label>
             <input
@@ -256,7 +392,8 @@ const close = () => {
             name="amount"
             id="amount"
             placeholder="매매가"
-            v-model="property.amount"
+            @input="onAmountInput"
+            :value="property.amount ? formatNumber(property.amount) : ''"
           />
           <span class="ms-1 me-4" style="font-size: larger">(만원)</span
           ><input
@@ -266,7 +403,8 @@ const close = () => {
             name="deposit"
             id="deposit"
             placeholder="전세가"
-            v-model="property.deposit"
+            @input="onDepositInput"
+            :value="property.deposit ? formatNumber(property.deposit) : ''"
           />
           <span class="ms-1" style="font-size: larger">(만원)</span>
         </div>
@@ -281,8 +419,10 @@ const close = () => {
               type="text"
               name="floor"
               id="floor"
+              maxlength="5"
               placeholder="해당층"
-              v-model="property.floor"
+              @input="onFloorInput"
+              :value="property.floor"
             />
             <input
               class="form-control"
@@ -290,7 +430,8 @@ const close = () => {
               name="totalFloor"
               id="totalFloor"
               placeholder="전체층"
-              v-model="property.totalFloor"
+              @input="onTotalFloorInput"
+              :value="property.totalFloor"
             />
           </div>
         </div>
@@ -306,7 +447,8 @@ const close = () => {
               name="roomNo"
               id="roomNo"
               placeholder="방"
-              v-model="property.roomNo"
+              @input="onRoomNoInput"
+              :value="property.roomNo"
             />
             <input
               class="form-control"
@@ -314,7 +456,8 @@ const close = () => {
               name="bathNo"
               id="bathNo"
               placeholder="욕실"
-              v-model="property.bathNo"
+              @input="onBathNoInput"
+              :value="property.bathNo"
             />
           </div>
         </div>
@@ -322,61 +465,85 @@ const close = () => {
         <div class="cover mb-3">
           <label class="subTitle">현관 타입</label>
           <div>
-            <input
-              type="text"
-              class="form-control"
-              name="porch"
-              id="porch"
-              v-model="property.porch"
-            />
+            <div>
+              <input
+                class="form-check-input me-1"
+                type="radio"
+                name="porch"
+                id="porch1"
+                value="계단식"
+                v-model="property.porch"
+              />
+              <label class="form-check-label me-4" for="porch1"> 계단식 </label>
+
+              <input
+                class="form-check-input me-1"
+                type="radio"
+                name="porch"
+                id="porch2"
+                value="복도식"
+                v-model="property.porch"
+              />
+              <label class="form-check-label me-4" for="porch2"> 복도식 </label>
+
+              <input
+                class="form-check-input me-1"
+                type="radio"
+                name="porch"
+                id="porch3"
+                value="복합식"
+                v-model="property.porch"
+              />
+              <label class="form-check-label me-4" for="porch3"> 복합식 </label>
+            </div>
           </div>
         </div>
         <!--  -->
         <div class="cover mb-3">
           <label class="subTitle">주차 가능 여부</label>
           <div>
-            <label class="form-check-label me-2" for="parkingY"> 유 </label>
             <input
-              class="form-check-input me-5"
+              class="form-check-input me-2"
               type="radio"
               name="parking"
               id="parkingY"
               value="true"
               v-model="property.parking"
             />
-            <label class="form-check-label me-2" for="parkingN"> 무 </label>
+            <label class="form-check-label me-5" for="parkingY"> 유 </label>
             <input
-              class="form-check-input"
+              class="form-check-input me-2"
               type="radio"
               name="parking"
               id="parkingN"
               value="false"
               v-model="property.parking"
             />
+            <label class="form-check-label me-5" for="parkingN"> 무 </label>
           </div>
         </div>
         <!--  -->
         <div class="cover mb-3">
           <label class="subTitle">엘리베이터 유무</label>
           <div>
-            <label class="form-check-label me-2" for="hasEvY"> 유 </label>
             <input
-              class="form-check-input me-5"
+              class="form-check-input me-2"
               type="radio"
               name="hasEv"
               id="hasEvY"
               value="true"
               v-model="property.hasEv"
             />
-            <label class="form-check-label me-2" for="hasEvN"> 무 </label>
+            <label class="form-check-label me-5" for="hasEvY"> 유 </label>
             <input
-              class="form-check-input"
+              class="form-check-input me-2"
               type="radio"
               name="hasEv"
               id="hasEvN"
               value="false"
               v-model="property.hasEv"
             />
+            <label class="form-check-label me-5" for="hasEvN"> 무 </label>
           </div>
         </div>
         <!--  -->
@@ -410,7 +577,6 @@ const close = () => {
           </div>
         </div>
         <!--  -->
-        <!-- 매물 사진 올리는 설명 있으면 좋을듯 -->
         <div class="cover mb-3 a">
           <label class="subTitle">매물 사진</label>
           <label class="imgPart me-5" for="images">사진 추가</label>
@@ -419,7 +585,7 @@ const close = () => {
             name="images"
             id="images"
             ref="images"
-            accept="image/png, image/jpeg"
+            accept="image/png, image/jpeg, image/jpg"
             multiple
             @change="handleImageUpload"
           />
@@ -439,7 +605,7 @@ const close = () => {
 
         <!--  -->
         <div class="cover">
-          <label class="subTitle">상세설명</label
+          <label class="subTitle">상세 설명</label
           ><textarea
             class="form-control textarea"
             name="description"
@@ -480,7 +646,7 @@ const close = () => {
   width: 177px;
 }
 .twoText {
-  width: 320px;
+  width: 310px;
 }
 .plus {
   font-size: 105px;

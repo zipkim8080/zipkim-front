@@ -2,6 +2,8 @@
 import { ref, computed } from 'vue';
 import { requestWithFile } from '@/api/Ocr';
 import { defineEmits } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const emit = defineEmits(['ocrCompleted', 'close']);
 const selectedFile = ref(null);
@@ -11,7 +13,14 @@ const fileName = ref('');
 const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file && file.type !== 'application/pdf') {
-        alert('PDF 파일만 업로드 가능합니다.');
+        toast('PDF 파일만 업로드할 수 있어요!', {
+            theme: 'auto', // 테마(auto, light, dark, colored)
+            type: 'error', // 타입(info, success, warning, error, default)
+            position: 'top-center', //토스트 생성위치
+            pauseOnHover: false, //마우스오버시 멈춤 제거
+            autoClose: 1000, //자동닫기
+            hideProgressBar: true, //로딩바제거
+        });
         event.target.value = '';
         fileName.value = '';
     } else if (file) {

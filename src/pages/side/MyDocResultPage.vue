@@ -1,5 +1,7 @@
 <script setup>
 import { reactive, ref, computed, defineProps } from 'vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const props = defineProps(['ocrData']);
 
@@ -24,21 +26,50 @@ const result = computed(() => {
 // 기본
 const ocrData = reactive({ ...props.ocrData });
 
-const formatNumber = (value) => {
-    if (!value) return '';
-    return parseInt(value.replace(/[^\d]/g, '')).toLocaleString();
+const formatNumber = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
 const onPriceInput = (event) => {
     const inputValue = event.target.value;
+
+    if (!/^\d*$/.test(inputValue.replace(/,/g, ''))) {
+        toast('숫자만 입력할 수 있어요!', {
+            theme: 'auto', // 테마(auto, light, dark, colored)
+            type: 'error', // 타입(info, success, warning, error, default)
+            position: 'top-center', //토스트 생성위치
+            pauseOnHover: false, //마우스오버시 멈춤 제거
+            autoClose: 1000, //자동닫기
+            hideProgressBar: true, //로딩바제거
+        });
+        event.target.value = '';
+        return;
+    }
+
+    // 숫자일 경우
     price.value = parseInt(inputValue.replace(/[^\d]/g, '')) || 0; // 숫자만 유지
-    event.target.value = formatNumber(inputValue); // 포맷팅된 값을 다시 필드에 반영
+    event.target.value = formatNumber(price.value); // 포맷팅된 값을 다시 필드에 반영
 };
 
 const onRentalPriceInput = (event) => {
     const inputValue = event.target.value;
+
+    if (!/^\d*$/.test(inputValue.replace(/,/g, ''))) {
+        toast('숫자만 입력할 수 있어요!', {
+            theme: 'auto', // 테마(auto, light, dark, colored)
+            type: 'error', // 타입(info, success, warning, error, default)
+            position: 'top-center', //토스트 생성위치
+            pauseOnHover: false, //마우스오버시 멈춤 제거
+            autoClose: 1000, //자동닫기
+            hideProgressBar: true, //로딩바제거
+        });
+        event.target.value = '';
+        return;
+    }
+
+    // 숫자일 경우
     rentalPrice.value = parseInt(inputValue.replace(/[^\d]/g, '')) || 0; // 숫자만 유지
-    event.target.value = formatNumber(inputValue); // 포맷팅된 값을 다시 필드에 반영
+    event.target.value = formatNumber(rentalPrice.value); // 포맷팅된 값을 다시 필드에 반영
 };
 </script>
 
