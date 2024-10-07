@@ -72,7 +72,8 @@ async function fetchPropertyData(complexId) {
       await axios.get(`/api/complex/summary?complexId=${complexId}`)
     ).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1
+      `/api/prop-list?complexId=${complexId}&page=${
+        pageRequest.page - 1
       }&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
@@ -182,17 +183,34 @@ async function fetchChartData(areaId) {
             전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원
           </div>
           <br />
-          <PriceChart v-if="priceChart" :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
+          <PriceChart
+            v-if="priceChart"
+            :priceChart="priceChart"
+            :areaIdToPyeongName="areaIdToPyeongName"
+          />
         </div>
         <PropertyList :propList="propList" />
         <div class="paginate">
-          <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
-            :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
-            @click="handlePageChange">
-            <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
-            <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
-            <template #next-button><i class="fa-solid fa-caret-right"></i></template>
-            <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+          <vue-awesome-paginate
+            :total-items="propList.totalElements"
+            :items-per-page="propList.pageable.pageSize"
+            :max-pages-shown="propList.totalPages"
+            :show-ending-buttons="false"
+            v-model="pageRequest.page"
+            @click="handlePageChange"
+          >
+            <template #first-page-button
+              ><i class="fa-solid fa-backward-fast"></i
+            ></template>
+            <template #prev-button
+              ><i class="fa-solid fa-caret-left"></i
+            ></template>
+            <template #next-button
+              ><i class="fa-solid fa-caret-right"></i
+            ></template>
+            <template #last-page-button
+              ><i class="fa-solid fa-forward-fast"></i
+            ></template>
           </vue-awesome-paginate>
         </div>
       </div>
@@ -244,9 +262,10 @@ async function fetchChartData(areaId) {
 }
 
 .content-container {
-  padding: 3%;
+  padding: 13.5px;
   background-color: white;
-  height: 680px;
+  height: 714px;
+  border-radius: 5px;
   overflow-y: auto;
 }
 
