@@ -23,7 +23,7 @@ export const useComplexesStore = defineStore('map', {
     displayType: ref('recentDeposit'), // 현재 표시 타입을 추적하는 새 변수
     isActualClicked: true,
     displayActPrice: true, // 단독 연립에서 현매물가 버튼 안보이게
-    isXXDongButtonDisabled: false, // 전세가 한눈에 보기 버튼 비활성화 상태
+    actPriceButtonDisabled: false, // 전세가 한눈에 보기 버튼 비활성화 상태
     umdList: ref(umdData.regionList),
     sggList: ref(sggData.regionList),
   }),
@@ -60,12 +60,12 @@ export const useComplexesStore = defineStore('map', {
         this.isActualClicked = false; // 실거래가 버튼 비활성화
         this.displayActPrice = false; // 현매물가 버튼 표시
         this.displayType = 'currentAverageDeposit'; // 현매물가 데이터 표시
-        this.isXXDongButtonDisabled = true; // 전세가 한눈에 보기 버튼 비활성화
+        this.actPriceButtonDisabled = true; // 전세가 한눈에 보기 버튼 비활성화
       } else if (type === 'apt' || type === 'opi') {
         this.isActualClicked = true;
         this.displayActPrice = true;
         this.displayType = 'recentDeposit';
-        this.isXXDongButtonDisabled = false;
+        this.actPriceButtonDisabled = false;
       }
 
       this.type = type;
@@ -167,10 +167,10 @@ export const useComplexesStore = defineStore('map', {
         map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
         gridSize: 120,
-        minLevel: 3, // 클러스터 할 최소 지도 레벨
+        minLevel: 4, // 클러스터 할 최소 지도 레벨
       });
 
-      if (level == 3) {
+      if (level == 4) {
         clusterer.addMarkers(this.markers);
         this.clusters.push(clusterer);
         // console.log(clusterer);
@@ -199,10 +199,11 @@ export const useComplexesStore = defineStore('map', {
       const level = map.getLevel(); // 현재 지도 레벨
       const bounds = map.getBounds();
 
-      this.removeAllMarkersAndOverlays(); // 마커 및 오버레이 모두 삭제
+      this.removeAllMarkersAndOverlays(); // 기존 마커 및 오버레이 모두 삭제
+      this.clusterRemove(); // 기존 클러스터 삭제
       if (!this.apiData) return;
       this.getApi();
-      if (level < 4) {
+      if (level < 5) {
         for (let i = 0; i < this.apiData.length; i++) {
           const apt = this.apiData[i];
           const markerPosition = new window.kakao.maps.LatLng(
@@ -237,7 +238,7 @@ export const useComplexesStore = defineStore('map', {
           }
 
           const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
-          const imageOption = { offset: new kakao.maps.Point(30, 80) }; // 마커와 이미지 위치 맞추기
+          const imageOption = { offset: new kakao.maps.Point(30, 50) }; // 마커와 이미지 위치 맞추기
 
           const markerImage = new window.kakao.maps.MarkerImage(
             imageSrc,
@@ -267,7 +268,7 @@ export const useComplexesStore = defineStore('map', {
             map: map,
             position: markerPosition,
             content: content,
-            yAnchor: 2.5,
+            yAnchor: 1.3,
           });
 
           this.overlays.push(customOverlay);
@@ -299,7 +300,7 @@ export const useComplexesStore = defineStore('map', {
           content.addEventListener('click', handleClickEvent);
         }
         this.loadCluster();
-      } else if (level == 4 || level == 5) {
+      } else if (level == 5) {
         for (let i = 0; i < this.umdList.length; i++) {
           const umd = this.umdList[i];
           const markerPosition = new window.kakao.maps.LatLng(
@@ -333,7 +334,7 @@ export const useComplexesStore = defineStore('map', {
               map: map,
               position: markerPosition,
               content: content,
-              yAnchor: 2.5,
+              yAnchor: 1.3,
             });
 
             this.overlays.push(customOverlay);
@@ -348,7 +349,7 @@ export const useComplexesStore = defineStore('map', {
                 umd.centerLat,
                 umd.centerLon
               );
-              map.setLevel(3);
+              map.setLevel(4);
               map.panTo(markerMPosition);
             };
 
@@ -391,7 +392,7 @@ export const useComplexesStore = defineStore('map', {
             map: map,
             position: markerPosition,
             content: content,
-            yAnchor: 2.5,
+            yAnchor: 1.3,
           });
 
           this.overlays.push(customOverlay);

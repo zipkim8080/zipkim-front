@@ -1,12 +1,8 @@
 <template>
   <!-- XX동 매물 보기 버튼 -->
   <div class="xxDong-overlay">
-    <button
-      class="kb_btn"
-      @click="xxDongClick"
-      :disabled="complexesStore.isXXDongButtonDisabled"
-    >
-      {{ currentDong }} 한눈에 보기
+    <button class="kb_btn" @click="xxDongClick">
+      {{ currentDong }} 매물 한눈에 보기
     </button>
   </div>
 </template>
@@ -23,6 +19,7 @@ const currentDong = computed(() => complexesStore.dong);
 function xxDongClick() {
   kakaoMapStore.xxDongEvent();
   isClicked.value = true;
+  // complexesStore.clusterRemove();
 }
 </script>
 
