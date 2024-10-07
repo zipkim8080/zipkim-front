@@ -3,10 +3,12 @@ import { ref, defineProps, onMounted, watch, reactive } from 'vue';
 import PropertyDetails from '@/pages/side/PropertyDetails.vue';
 import axios from 'axios';
 const isModalOpen = ref(false);
+const selectedPropertyId = ref(null);
 const props = defineProps({
   propList: Object,
 });
-const openModal = () => {
+const openModal = (propertyId) => {
+  selectedPropertyId.value = propertyId; // 선택된 아이템의 ID를 설정합니다.
   isModalOpen.value = true;
 };
 </script>
@@ -17,9 +19,10 @@ const openModal = () => {
       class="content-box"
       v-for="(property, index) in propList.items"
       :key="property.id"
+      @click="openModal(property.id)"
     >
-      <div class="outer">
-        <img style="width: 200px; height: 130px" :src="property.imageUrl" />
+      <div class="img">
+        <img style="width: 230px; height: 100%" :src="property.imageUrl" />
       </div>
       <div class="content">
         <div class="type">
@@ -35,20 +38,11 @@ const openModal = () => {
       </div>
     </div>
   </div>
-  <div>
-    <div v-for="(property, index) in propList.items" :key="index">
-      <p>매매가: {{ property.amount }}</p>
-      <p>전세가: {{ property.deposit }}</p>
-      <p>설명: {{ property.description }}</p>
-      <p>상세주소: {{ property.detailAddress }}</p>
-      <p>층: {{ property.floor }}</p>
-      <p>매물id: {{ property.id }}</p>
-      <img style="width: 200px; height: 130px" :src="property.imageUrl" />
-      <hr />
-    </div>
-    <div v-if="isModalOpen" @click="openModal" @close="isModalOpen = false">
-      <PropertyDetails />
-    </div>
+  <div v-if="isModalOpen" @close="isModalOpen = false">
+    <PropertyDetails
+      :propId="selectedPropertyId"
+      @close="isModalOpen = false"
+    />
   </div>
 </template>
 

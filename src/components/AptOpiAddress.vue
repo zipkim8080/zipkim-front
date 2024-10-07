@@ -175,14 +175,14 @@ const handleClickOutside = (event) => {
 const filteredData = computed(() => {
   if (!searchQuery.value) {
     return apiData.value.filter(
-      (item) => item.type === 'art' || item.type === 'opi'
+      (item) => item.type === 'apt' || item.type === 'opi'
     );
   }
   return apiData.value
     .filter((item) =>
       item.name?.toLowerCase().includes(searchQuery.value.toLowerCase())
     )
-    .filter((item) => item.type === 'art' || item.type === 'opi');
+    .filter((item) => item.type === 'apt' || item.type === 'opi');
 });
 
 //클릭 이벤트

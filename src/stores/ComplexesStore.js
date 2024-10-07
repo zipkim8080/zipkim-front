@@ -310,7 +310,7 @@ export const useComplexesStore = defineStore('map', {
 
           const imageSrc = '/images/property_KB.png';
           const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
-          const imageOption = { offset: new kakao.maps.Point(30, 80) }; // 마커와 이미지 위치 맞추기
+          const imageOption = { offset: new kakao.maps.Point(30, 50) }; // 마커와 이미지 위치 맞추기
           if (bounds.contain(markerPosition)) {
             const markerImage = new window.kakao.maps.MarkerImage(
               imageSrc,
@@ -370,7 +370,7 @@ export const useComplexesStore = defineStore('map', {
           );
           const imageSrc = '/images/property_green.png';
           const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
-          const imageOption = { offset: new kakao.maps.Point(30, 80) }; // 마커와 이미지 위치 맞추기
+          const imageOption = { offset: new kakao.maps.Point(30, 50) }; // 마커와 이미지 위치 맞추기
           const markerImage = new window.kakao.maps.MarkerImage(
             imageSrc,
             imageSize,
