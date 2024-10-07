@@ -94,8 +94,6 @@ const props = defineProps({
   closeStartModal: Function,
   showStartModal: Function,
   startModal: Boolean,
-  closeStartModal: Function,
-  showStartModal: Function,
 });
 
 const resetSearch = (event) => {
@@ -126,6 +124,7 @@ function selectType(type) {
   complexesStore.setType(type);
   complexesStore.getApi().then(() => {
     // API 데이터 갱신 후 마커 로드
+    complexesStore.clusterRemove();
     complexesStore.loadMarkers();
   });
 }
@@ -138,6 +137,7 @@ const highlight = (item) => {
 const selectItem = (item) => {
   // console.log(item)
   // console.log(item.latitude, item.longitude)
+  kakaoMapStore.map.setLevel(2);
   kakaoMapStore.reposition(item.latitude, item.longitude); // 아이템 좌표 전달
 };
 

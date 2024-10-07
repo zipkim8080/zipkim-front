@@ -115,6 +115,7 @@ const jibunAddress = ref('');
 const longitude = ref(null); // 위도
 const latitude = ref(null); // 경도
 const complexId = ref();
+const type = ref();
 
 // 기타 처리 사항
 const searchQuery = ref(''); // 검색어
@@ -149,6 +150,7 @@ const getComplexesApi = async () => {
       ...item,
       longitude: item.longitude, // 위도 데이터
       latitude: item.latitude, // 경도 데이터
+      type: item.type,
     })); // 데이터를 상태에 저장
     // console.log(longitude.value, latitude.value);
   } catch (error) {
@@ -172,11 +174,15 @@ const handleClickOutside = (event) => {
 // 검색 함수
 const filteredData = computed(() => {
   if (!searchQuery.value) {
-    return apiData.value;
+    return apiData.value.filter(
+      (item) => item.type === 'apt' || item.type === 'opi'
+    );
   }
-  return apiData.value.filter((item) =>
-    item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
+  return apiData.value
+    .filter((item) =>
+      item.name?.toLowerCase().includes(searchQuery.value.toLowerCase())
+    )
+    .filter((item) => item.type === 'apt' || item.type === 'opi');
 });
 
 //클릭 이벤트
