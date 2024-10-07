@@ -57,11 +57,12 @@ const extendSession = async () => {
     const response = await axios.post('/api/reissue');
 
     const { access, refresh } = response.data;
-    loginStore.loadTokenFromCookies();
-    // console.log(response.data);
 
-    Cookies.set('Authorization', access, { expires: 1 / 6 });
-    Cookies.set('Refresh', refresh, { expires: 1 / 6 });
+    loginStore.setAccessToken(access);
+    loginStore.setRefreshToken(refresh);
+
+    Cookies.set('Authorization', access, { expires: 1 / 48 });
+    Cookies.set('Refresh', refresh, { expires: 1 / 12 });
 
     if (response.status === 200) {
       toast('로그인 시간이 연장되었습니다!', {
@@ -69,7 +70,7 @@ const extendSession = async () => {
         type: 'success', // 타입(info, success, warning, error, default)
         position: 'top-center', //토스트 생성위치
         pauseOnHover: false, //마우스오버시 멈춤 제거
-        autoClose: 1000, //자동닫기
+        autoClose: 1500, //자동닫기
         hideProgressBar: true, //로딩바제거
       });
       // 갱신된 토큰이 쿠키에 저장되었다고 가정하고, 남은 시간을 다시 계산
