@@ -68,12 +68,9 @@ const handlePageChange = async (pageNum, event) => {
 
 async function fetchPropertyData(complexId) {
   try {
-    const data = (
-      await axios.get(`/api/complex/summary?complexId=${complexId}`)
-    ).data; // API 호출
+    const data = (await axios.get(`/api/complex/summary?complexId=${complexId}`)).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1
-      }&size=2`
+      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1}&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
     const areaPyeongNames = data.areas.map((area) => area.pyeongName);
@@ -115,15 +112,11 @@ const pageRequest = reactive({
 async function fetchChartData(areaId) {
   try {
     // 매매 가져오기
-    const saleResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=SALE`
-    );
+    const saleResponse = await axios.get(`/api/price?areaId=${areaId}&type=SALE`);
     const saleData = saleResponse.data.content;
 
     // 전세 가져오기
-    const leaseResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=LEASE`
-    );
+    const leaseResponse = await axios.get(`/api/price?areaId=${areaId}&type=LEASE`);
     const leaseData = leaseResponse.data.content;
 
     const chartInfo = { data: {} };
@@ -161,8 +154,7 @@ async function fetchChartData(areaId) {
     <div class="sBuilding-title-box">
       <div class="content-container">
         <div class="title">
-          <h2>{{ complexInfo.complexName }}</h2>
-          <br />
+          <h2 class="complex-name">{{ complexInfo.complexName }}</h2>
           <button class="close-btn" @click="close">
             <i class="fa-solid fa-x"></i>
           </button>
@@ -175,20 +167,26 @@ async function fetchChartData(areaId) {
           <div>지번 주소: {{ complexInfo.addressName }}</div>
           <br />
           <h5 style="font-weight: bold">최근 실거래가</h5>
-          <div>
-            매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원
-          </div>
-          <div>
-            전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원
-          </div>
-          <br />
-          <PriceChart v-if="priceChart" :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
+          <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
+          <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
+          <hr style="width: 100%; height: 10px; background-color: #ccc" />
+          <PriceChart
+            v-if="priceChart"
+            :priceChart="priceChart"
+            :areaIdToPyeongName="areaIdToPyeongName"
+          />
         </div>
+        <hr style="width: 100%; height: 10px; background-color: #ccc" />
         <PropertyList :propList="propList" />
         <div class="paginate">
-          <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
-            :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
-            @click="handlePageChange">
+          <vue-awesome-paginate
+            :total-items="propList.totalElements"
+            :items-per-page="propList.pageable.pageSize"
+            :max-pages-shown="propList.totalPages"
+            :show-ending-buttons="false"
+            v-model="pageRequest.page"
+            @click="handlePageChange"
+          >
             <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
             <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
             <template #next-button><i class="fa-solid fa-caret-right"></i></template>
@@ -220,12 +218,14 @@ async function fetchChartData(areaId) {
 .sBuilding-title-box {
   width: 500px;
   padding-top: 0;
+  height: 100%;
 }
 
 .title {
   display: flex;
-  justify-content: space-between;
-  margin: 30px;
+  justify-content: space-between; /* 닫기 버튼을 오른쪽으로 이동 */
+  align-items: center;
+  padding: 5px;
 }
 
 .close-btn {
@@ -246,8 +246,16 @@ async function fetchChartData(areaId) {
 .content-container {
   padding: 3%;
   background-color: white;
-  height: 680px;
+  height: 100%;
   overflow-y: auto;
+  /* display: flex; */
+  flex-direction: column;
+  justify-content: center; /* 수직 중앙 정렬 */
+}
+
+.complex-name {
+  text-align: center; /* 가운데 정렬 */
+  flex-grow: 1;
 }
 
 ::-webkit-scrollbar {
