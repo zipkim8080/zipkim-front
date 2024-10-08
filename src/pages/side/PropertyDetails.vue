@@ -45,9 +45,10 @@ const propInfo = reactive({
       attachMent2: '',
       auction: '',
       trust: '',
-      leaseAmount: 0, // 전세권 금액 => > 0이면 전세권(금액) 띄워주기
+      leaseAmount: 0,
       loan: 0,
-      uniqueNumber: '', // 고유번호
+      uniqueNumber: '',
+      openDate: '', // 열람일시
     },
   ],
   images: [
@@ -95,6 +96,7 @@ async function fetchPropertyData(propId) {
     propInfo.hugNumber = data.hugNumber;
     propInfo.loan = data.register.loan;
     propInfo.images = data.images;
+    propInfo.register[0].openDate = data.register.openDate;
     console.log(propInfo);
   } catch (error) {
     console.error('Error fetching property data:', error);
@@ -110,118 +112,161 @@ async function fetchPropertyData(propId) {
           <button class="close-btn" @click="$emit('close')">
             <i class="fa-solid fa-x"></i>
           </button>
-          <div class="mt-2 mx-auto" style="height: 500px; width: 1300px">
-            <div class="info-container">
-              <div class="left-left">
-                <h5 style="font-weight: bold">
-                  HUG 인증번호
-                  {{
-                    propInfo.hugNumber
-                      ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
-                      : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
-                  }}
-                </h5>
-                <br />
-                <h5 style="font-weight: bold">주소</h5>
-                <div>
-                  도로명 주소: {{ propInfo.roadName }}
-                  {{ propInfo.detailAddress }}
-                </div>
-                <div>
-                  지번 주소: {{ propInfo.address }}
-                  {{ propInfo.detailAddress }}
-                </div>
-                <br />
-                <h5 style="font-weight: bold">금액</h5>
-                <div>매매가: {{ propInfo.amount.toLocaleString() }} 만원</div>
-                <div>전세가: {{ propInfo.deposit.toLocaleString() }} 만원</div>
-                <br />
-                <h5 style="font-weight: bold">중개인의 한마디</h5>
-                <div class="agent-comment-box">
-                  {{ propInfo.description }}
-                </div>
+          <div class="mt-2 mx-auto" style="height: 800px; width: 800px">
+            <h4 style="font-weight: bold">
+              ✅ &nbsp; HUG 인증번호
+              {{
+                propInfo.hugNumber
+                  ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
+                  : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
+              }}
+            </h4>
+            <br />
+            <h5 style="font-weight: bold">
+              {{ propInfo.roadName }} {{ propInfo.detailAddress }}
+            </h5>
+            <br />
+            <div style="display: flex; margin-bottom: 5px">
+              <div class="status-icon" style="font-weight: bold">BUY</div>
+              <div
+                style="
+                  font-weight: bold;
+                  width: 175px;
+                  text-align: right;
+                  font-size: 22px;
+                "
+              >
+                {{ propInfo.amount.toLocaleString() }} 만원
               </div>
-              <div class="right-left">
-                <div class="wrapper">
-                  <Carousel :autoplay="3000" :wrap-around="true">
-                    <Slide
-                      v-for="(image, index) in propInfo.images"
-                      :key="index"
-                    >
-                      <div class="carousel__item">
-                        <img
-                          class="slideImg"
-                          :src="image.imageUrl"
-                          width="600px"
-                          height="400px"
-                        />
-                      </div>
-                    </Slide>
-                    <template #addons>
-                      <Pagination />
-                      <Navigation />
-                    </template>
-                  </Carousel>
-                </div>
+            </div>
+            <div style="display: flex">
+              <div class="status-icon" style="font-weight: bold">RENT</div>
+              <div
+                style="
+                  font-weight: bold;
+                  width: 166px;
+                  text-align: right;
+                  font-size: 22px;
+                "
+              >
+                {{ propInfo.deposit.toLocaleString() }} 만원
               </div>
             </div>
             <br />
-            <br />
-            <h5 style="font-weight: bold">매물정보</h5>
-            <hr style="width: 100%; height: 3px; background-color: black" />
-            <div class="info-container">
-              <div class="left">
-                <div class="info-container">
-                  <div class="left-left">
-                    <div>매물유형</div>
-                    <div>해당층 / 전체층</div>
-                    <div>방 / 욕실</div>
-                    <div>현관타입</div>
-                  </div>
-                  <div class="right-left">
-                    <div>아파트</div>
-                    <div>{{ propInfo.floor }} / {{ propInfo.totalFloor }}</div>
-                    <div>{{ propInfo.roomNo }} / {{ propInfo.bathNo }}</div>
-                    <div>{{ propInfo.porch }}</div>
-                  </div>
-                </div>
-              </div>
-              <div class="right">
-                <div class="info-container">
-                  <div class="left-left">
-                    <div>주차가능여부</div>
-                    <div>엘베유무</div>
-                    <div>주변정보</div>
-                  </div>
-                  <div class="right-left">
-                    <div>{{ propInfo.parking ? '가능' : '불가능' }}</div>
-                    <div>{{ propInfo.hasEv ? '있음' : '없음' }}</div>
-                    <div>
-                      {{ propInfo.hasConvenience ? '편의점' : '' }}
-                      {{ propInfo.hasSchool ? '학교' : '' }}
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <h5 style="font-weight: bold">중개인의 한마디</h5>
+            <div class="agent-comment-box">
+              {{ propInfo.description }}
             </div>
             <br />
             <br />
-            <h5 style="font-weight: bold">등기정보</h5>
-            <hr style="width: 100%; height: 4px; background-color: black" />
-            <div>등기고유번호: {{ propInfo.uniqueNumber }}</div>
-            <div>
-              <!-- 코드정리하기 -->
-              주의사항: {{ propInfo.attachMent1 ? '압류' : '' }}
-              {{ propInfo.attachMent2 ? '가압류' : '' }}
-              {{ propInfo.auction ? '경매개시결정' : '' }}
-              {{ propInfo.trust ? '신탁' : '' }}
+            <div class="wrapper">
+              <Carousel :autoplay="3000" :wrap-around="true">
+                <Slide v-for="(image, index) in propInfo.images" :key="index">
+                  <div class="carousel__item">
+                    <img
+                      class="slideImg"
+                      :src="image.imageUrl"
+                      width="600px"
+                      height="400px"
+                    />
+                  </div>
+                </Slide>
+                <template #addons>
+                  <Pagination />
+                  <Navigation />
+                </template>
+              </Carousel>
             </div>
-            <div>근저당(총액): {{ propInfo.loan }} 원</div>
-            <br />
-            <br />
           </div>
+          <br />
+          <br />
+          <h5 style="font-weight: bold">매물정보</h5>
+          <hr style="width: 100%; height: 3px; background-color: black" />
+          <div class="info-container">
+            <div class="prop-left">해당층 / 전체층</div>
+            <div class="prop-right">
+              {{ propInfo.floor }} / {{ propInfo.totalFloor }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">방 / 욕실</div>
+            <div class="prop-right">
+              {{ propInfo.roomNo }} / {{ propInfo.bathNo }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">현관타입</div>
+            <div class="prop-right">{{ propInfo.porch }}</div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">주차가능 여부</div>
+            <div class="prop-right">
+              {{ propInfo.parking ? '가능' : '불가능' }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">엘리베이터 유무</div>
+            <div class="prop-right">
+              {{ propInfo.hasEv ? '가능' : '불가능' }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">주변정보</div>
+            <div class="prop-right">
+              {{ propInfo.hasConvenience ? '편의점' : '' }}
+              {{ propInfo.hasSchool ? '학교' : '' }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <br />
+          <br />
+          <h5 style="font-weight: bold">등기정보</h5>
+          <hr style="width: 100%; height: 4px; background-color: black" />
+          <div class="info-container">
+            <div class="prop-left">등기고유번호</div>
+            <div class="prop-right">{{ propInfo.uniqueNumber }}</div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">열람일시</div>
+            <div class="prop-right">{{ propInfo.register[0].openDate }}</div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">등기현황</div>
+            <div class="info-container">
+              <span class="status-item"
+                >압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span
+              >
+              <span class="status-item"
+                >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
+              >
+              <span class="status-item"
+                >경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span
+              >
+              <span class="status-item"
+                >신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span
+              >
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">근저당(총액)</div>
+            <div class="prop-right">{{ propInfo.loan }} 원</div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">전세권(총액)</div>
+            <div class="prop-right">{{ propInfo.leaseAmount }} 원</div>
+          </div>
+          <hr class="section-divider" />
+          <br />
         </div>
-        <br />
       </div>
     </Teleport>
   </transition>
@@ -253,24 +298,12 @@ async function fetchPropertyData(propId) {
 ::-webkit-scrollbar {
   display: none;
 }
-.info-container {
-  display: flex;
-  justify-content: space-between;
-}
-.left,
-.right {
-  width: 48%;
-}
-.left-left,
-.right-left {
-  width: 48%;
-}
 .close-btn {
   border: none;
   background: none;
-  position: absolute; /* 절대 위치로 변경 */
-  top: 20px; /* 위쪽 간격 조정 */
-  right: 20px; /* 오른쪽 간격 조정 */
+  position: absolute;
+  top: 20px;
+  right: 20px;
   padding: 0;
 }
 .agent-comment-box {
@@ -279,5 +312,49 @@ async function fetchPropertyData(propId) {
   height: 100px;
   margin-top: 10px;
   background: #f9f9f9;
+  border-radius: 10px;
+}
+.info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.left-align {
+  text-align: left;
+  flex: 1;
+}
+.right-align {
+  text-align: right;
+  flex: 1;
+}
+.section-divider {
+  width: 100%;
+  height: 0.5px;
+  background-color: rgb(130, 127, 127);
+  border: none;
+  margin-top: 1px;
+}
+.status-item {
+  margin-right: 10px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  padding: 4px 10px;
+}
+.status-item:last-child {
+  margin-right: 0;
+}
+.divider {
+  margin: 0 15px;
+}
+.status-icon {
+  /* display: inline-block; */
+  /* background-color: white; */
+  border-radius: 10px;
+  border: 2px solid black;
+  padding: 3px 5px;
+  font-weight: bold;
+  font-size: 15px;
+  /* margin-right: 5px; */
 }
 </style>

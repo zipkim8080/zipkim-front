@@ -86,23 +86,23 @@ const property = reactive({
   bathNo: '',
   hasEv: '',
   porch: '',
-  images: null,
+  images: '',
   floor: '',
   totalFloor: '',
   description: '',
   parking: '',
   hugNumber: '',
-  hasSchool: false,
-  hasConvenience: false,
+  hasSchool: '',
+  hasConvenience: '',
   type: 'apt',
   // ocrData
-  uniqueNumber: '7', // 고유번호
+  uniqueNumber: '', // 고유번호
   openDate: '', // 열람일시
   address: '', // 건물명 주소
-  attachment1: false, // 압류 여부
-  attachment2: false, // 가압류 여부
-  trust: false, // 신탁 여부
-  auction: false, // 경매 여부
+  attachment1: '', // 압류 여부
+  attachment2: '', // 가압류 여부
+  trust: '', // 신탁 여부
+  auction: '', // 경매 여부
   loan: 0, // 근저당액 총액
   leaseAmount: 0, // 전세권 총액
 });

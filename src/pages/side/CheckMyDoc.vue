@@ -56,7 +56,7 @@ const isFileSelected = computed(() => !!selectedFile.value);
 </script>
 
 <template>
-  <div class="modal-container" @click.stop>
+  <div class="modal-container2" @click.stop>
     <button class="close-btn" @click="$emit('close')">
       <i class="fa-solid fa-x"></i>
     </button>
@@ -105,7 +105,7 @@ const isFileSelected = computed(() => !!selectedFile.value);
 </template>
 
 <style scoped>
-.modal-container {
+.modal-container2 {
   position: fixed;
   top: 50%;
   left: 50%;
