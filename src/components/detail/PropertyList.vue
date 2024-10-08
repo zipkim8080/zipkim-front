@@ -22,7 +22,7 @@ const openModal = (propertyId) => {
       @click="openModal(property.id)"
     >
       <div class="img">
-        <img style="width: 230px; height: 100%" :src="property.imageUrl" />
+        <img style="width: 230px; height: 180px" :src="property.imageUrl" />
       </div>
       <div class="content">
         <div class="type">

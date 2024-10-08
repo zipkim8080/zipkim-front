@@ -178,14 +178,14 @@ async function fetchChartData(areaId) {
           <h5 style="font-weight: bold">최근 실거래가</h5>
           <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
           <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
-          <hr style="width: 100%; height: 10px; background-color: #ccc" />
+          <hr style="width: 100%; height: 10px; background-color: #ccc; border: none" />
           <PriceChart
             v-if="priceChart"
             :priceChart="priceChart"
             :areaIdToPyeongName="areaIdToPyeongName"
           />
         </div>
-        <hr style="width: 100%; height: 10px; background-color: #ccc" />
+        <hr style="width: 100%; height: 10px; background-color: #ccc; border: none" />
         <PropertyList :propList="propList" />
         <div class="paginate">
           <vue-awesome-paginate
@@ -234,7 +234,6 @@ async function fetchChartData(areaId) {
 .title {
   display: flex;
   justify-content: space-between;
-  /* 닫기 버튼을 오른쪽으로 이동 */
   align-items: center;
   padding: 5px;
 }
