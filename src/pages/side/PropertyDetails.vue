@@ -132,8 +132,8 @@ async function fetchPropertyData(propId) {
               </div>
               <br />
               <h5 style="font-weight: bold">금액</h5>
-              <div>매매가: {{ propInfo.amount.toLocaleString() }} 원</div>
-              <div>전세가: {{ propInfo.deposit.toLocaleString() }} 원</div>
+              <div>매매가: {{ propInfo.amount.toLocaleString() }} 만원</div>
+              <div>전세가: {{ propInfo.deposit.toLocaleString() }} 만원</div>
               <br />
               <h5 style="font-weight: bold">중개인의 한마디</h5>
               <div class="agent-comment-box">
@@ -145,7 +145,12 @@ async function fetchPropertyData(propId) {
                 <Carousel :autoplay="3000" :wrap-around="true">
                   <Slide v-for="(image, index) in propInfo.images" :key="index">
                     <div class="carousel__item">
-                      <img class="slideImg" :src="image.imageUrl" width="95%" height="100%" />
+                      <img
+                        class="slideImg"
+                        :src="image.imageUrl"
+                        width="600px"
+                        height="400px"
+                      />
                     </div>
                   </Slide>
                   <template #addons>
