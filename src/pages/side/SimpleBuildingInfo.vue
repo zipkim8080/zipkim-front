@@ -187,21 +187,23 @@ async function fetchChartData(areaId) {
         </div>
         <hr style="width: 100%; height: 10px; background-color: #ccc" />
         <PropertyList :propList="propList" />
-        <div class="paginate">
-          <vue-awesome-paginate
-            :total-items="propList.totalElements"
-            :items-per-page="propList.pageable.pageSize"
-            :max-pages-shown="propList.totalPages"
-            :show-ending-buttons="false"
-            v-model="pageRequest.page"
-            @click="handlePageChange"
-          >
-            <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
-            <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
-            <template #next-button><i class="fa-solid fa-caret-right"></i></template>
-            <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
-          </vue-awesome-paginate>
-        </div>
+        <template v-if="propList.totalElements > 0">
+          <div class="paginate">
+            <vue-awesome-paginate
+              :total-items="propList.totalElements"
+              :items-per-page="propList.pageable.pageSize"
+              :max-pages-shown="propList.totalPages"
+              :show-ending-buttons="false"
+              v-model="pageRequest.page"
+              @click="handlePageChange"
+            >
+              <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
+              <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
+              <template #next-button><i class="fa-solid fa-caret-right"></i></template>
+              <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+            </vue-awesome-paginate>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -211,7 +213,8 @@ async function fetchChartData(areaId) {
 .paginate {
   padding-top: 13.5px;
   text-align: center;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  height: 55px;
 }
 
 .cInfo-overlay {
