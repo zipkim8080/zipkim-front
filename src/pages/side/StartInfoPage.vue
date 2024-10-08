@@ -159,9 +159,9 @@
   display: flex;
 }
 .icondesc {
-  border-radius: 10px;
-  height: 140px;
-  width: 100%;
+    border-radius: 10px;
+    height: 190px;
+    width: 100%;
 }
 .grayContent {
   background-color: #f4f4f4;
