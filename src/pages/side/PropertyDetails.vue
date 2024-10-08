@@ -103,123 +103,128 @@ async function fetchPropertyData(propId) {
 </script>
 
 <template>
-  <Teleport to="body">
-    <div class="modal-backdrop">
-      <div class="modal-container">
-        <button class="close-btn" @click="$emit('close')">
-          <i class="fa-solid fa-x"></i>
-        </button>
-        <div class="mt-2 mx-auto" style="height: 500px; width: 1300px">
-          <div class="info-container">
-            <div class="left-left">
-              <h5 style="font-weight: bold">
-                HUG 인증번호
-                {{
-                  propInfo.hugNumber
-                    ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
-                    : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
-                }}
-              </h5>
-              <br />
-              <h5 style="font-weight: bold">주소</h5>
-              <div>
-                도로명 주소: {{ propInfo.roadName }}
-                {{ propInfo.detailAddress }}
+  <transition name="fade">
+    <Teleport to="body">
+      <div class="modal-backdrop">
+        <div class="modal-container">
+          <button class="close-btn" @click="$emit('close')">
+            <i class="fa-solid fa-x"></i>
+          </button>
+          <div class="mt-2 mx-auto" style="height: 500px; width: 1300px">
+            <div class="info-container">
+              <div class="left-left">
+                <h5 style="font-weight: bold">
+                  HUG 인증번호
+                  {{
+                    propInfo.hugNumber
+                      ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
+                      : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
+                  }}
+                </h5>
+                <br />
+                <h5 style="font-weight: bold">주소</h5>
+                <div>
+                  도로명 주소: {{ propInfo.roadName }}
+                  {{ propInfo.detailAddress }}
+                </div>
+                <div>
+                  지번 주소: {{ propInfo.address }}
+                  {{ propInfo.detailAddress }}
+                </div>
+                <br />
+                <h5 style="font-weight: bold">금액</h5>
+                <div>매매가: {{ propInfo.amount.toLocaleString() }} 만원</div>
+                <div>전세가: {{ propInfo.deposit.toLocaleString() }} 만원</div>
+                <br />
+                <h5 style="font-weight: bold">중개인의 한마디</h5>
+                <div class="agent-comment-box">
+                  {{ propInfo.description }}
+                </div>
               </div>
-              <div>
-                지번 주소: {{ propInfo.address }}
-                {{ propInfo.detailAddress }}
-              </div>
-              <br />
-              <h5 style="font-weight: bold">금액</h5>
-              <div>매매가: {{ propInfo.amount.toLocaleString() }} 만원</div>
-              <div>전세가: {{ propInfo.deposit.toLocaleString() }} 만원</div>
-              <br />
-              <h5 style="font-weight: bold">중개인의 한마디</h5>
-              <div class="agent-comment-box">
-                {{ propInfo.description }}
+              <div class="right-left">
+                <div class="wrapper">
+                  <Carousel :autoplay="3000" :wrap-around="true">
+                    <Slide
+                      v-for="(image, index) in propInfo.images"
+                      :key="index"
+                    >
+                      <div class="carousel__item">
+                        <img
+                          class="slideImg"
+                          :src="image.imageUrl"
+                          width="600px"
+                          height="400px"
+                        />
+                      </div>
+                    </Slide>
+                    <template #addons>
+                      <Pagination />
+                      <Navigation />
+                    </template>
+                  </Carousel>
+                </div>
               </div>
             </div>
-            <div class="right-left">
-              <div class="wrapper">
-                <Carousel :autoplay="3000" :wrap-around="true">
-                  <Slide v-for="(image, index) in propInfo.images" :key="index">
-                    <div class="carousel__item">
-                      <img
-                        class="slideImg"
-                        :src="image.imageUrl"
-                        width="600px"
-                        height="400px"
-                      />
+            <br />
+            <br />
+            <h5 style="font-weight: bold">매물정보</h5>
+            <hr style="width: 100%; height: 3px; background-color: black" />
+            <div class="info-container">
+              <div class="left">
+                <div class="info-container">
+                  <div class="left-left">
+                    <div>매물유형</div>
+                    <div>해당층 / 전체층</div>
+                    <div>방 / 욕실</div>
+                    <div>현관타입</div>
+                  </div>
+                  <div class="right-left">
+                    <div>아파트</div>
+                    <div>{{ propInfo.floor }} / {{ propInfo.totalFloor }}</div>
+                    <div>{{ propInfo.roomNo }} / {{ propInfo.bathNo }}</div>
+                    <div>{{ propInfo.porch }}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                <div class="info-container">
+                  <div class="left-left">
+                    <div>주차가능여부</div>
+                    <div>엘베유무</div>
+                    <div>주변정보</div>
+                  </div>
+                  <div class="right-left">
+                    <div>{{ propInfo.parking ? '가능' : '불가능' }}</div>
+                    <div>{{ propInfo.hasEv ? '있음' : '없음' }}</div>
+                    <div>
+                      {{ propInfo.hasConvenience ? '편의점' : '' }}
+                      {{ propInfo.hasSchool ? '학교' : '' }}
                     </div>
-                  </Slide>
-                  <template #addons>
-                    <Pagination />
-                    <Navigation />
-                  </template>
-                </Carousel>
-              </div>
-            </div>
-          </div>
-          <br />
-          <br />
-          <h5 style="font-weight: bold">매물정보</h5>
-          <hr style="width: 100%; height: 3px; background-color: black" />
-          <div class="info-container">
-            <div class="left">
-              <div class="info-container">
-                <div class="left-left">
-                  <div>매물유형</div>
-                  <div>해당층 / 전체층</div>
-                  <div>방 / 욕실</div>
-                  <div>현관타입</div>
-                </div>
-                <div class="right-left">
-                  <div>아파트</div>
-                  <div>{{ propInfo.floor }} / {{ propInfo.totalFloor }}</div>
-                  <div>{{ propInfo.roomNo }} / {{ propInfo.bathNo }}</div>
-                  <div>{{ propInfo.porch }}</div>
-                </div>
-              </div>
-            </div>
-            <div class="right">
-              <div class="info-container">
-                <div class="left-left">
-                  <div>주차가능여부</div>
-                  <div>엘베유무</div>
-                  <div>주변정보</div>
-                </div>
-                <div class="right-left">
-                  <div>{{ propInfo.parking ? '가능' : '불가능' }}</div>
-                  <div>{{ propInfo.hasEv ? '있음' : '없음' }}</div>
-                  <div>
-                    {{ propInfo.hasConvenience ? '편의점' : '' }}
-                    {{ propInfo.hasSchool ? '학교' : '' }}
                   </div>
                 </div>
               </div>
             </div>
+            <br />
+            <br />
+            <h5 style="font-weight: bold">등기정보</h5>
+            <hr style="width: 100%; height: 4px; background-color: black" />
+            <div>등기고유번호: {{ propInfo.uniqueNumber }}</div>
+            <div>
+              <!-- 코드정리하기 -->
+              주의사항: {{ propInfo.attachMent1 ? '압류' : '' }}
+              {{ propInfo.attachMent2 ? '가압류' : '' }}
+              {{ propInfo.auction ? '경매개시결정' : '' }}
+              {{ propInfo.trust ? '신탁' : '' }}
+            </div>
+            <div>근저당(총액): {{ propInfo.loan }} 원</div>
+            <br />
+            <br />
           </div>
-          <br />
-          <br />
-          <h5 style="font-weight: bold">등기정보</h5>
-          <hr style="width: 100%; height: 4px; background-color: black" />
-          <div>등기고유번호: {{ propInfo.uniqueNumber }}</div>
-          <div>
-            <!-- 코드정리하기 -->
-            주의사항: {{ propInfo.attachMent1 ? '압류' : '' }}
-            {{ propInfo.attachMent2 ? '가압류' : '' }}
-            {{ propInfo.auction ? '경매개시결정' : '' }}
-            {{ propInfo.trust ? '신탁' : '' }}
-          </div>
-          <div>근저당(총액): {{ propInfo.loan }} 원</div>
-          <br />
-          <br />
         </div>
+        <br />
       </div>
-      <br />
-    </div>
-  </Teleport>
+    </Teleport>
+  </transition>
 </template>
 
 <style>

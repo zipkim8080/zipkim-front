@@ -64,12 +64,13 @@ const showStartModal = () => {
   <div v-if="showModal" class="modal-backdrop" @click="showModal = false"></div>
 
   <!-- CheckMyDoc 모달 -->
-  <CheckMyDoc
-    v-if="showModal"
-    @ocrCompleted="handleOcrCompleted"
-    @close="showModal = false"
-  />
-
+  <transition name="fade">
+    <CheckMyDoc
+      v-if="showModal"
+      @ocrCompleted="handleOcrCompleted"
+      @close="showModal = false"
+    />
+  </transition>
   <!-- MyDocResultPage 모달 -->
   <MyDocResultPage v-if="ocrData" :ocrData="ocrData" @close="ocrData = null" />
 
