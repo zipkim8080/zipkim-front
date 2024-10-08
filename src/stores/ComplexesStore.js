@@ -224,21 +224,21 @@ export const useComplexesStore = defineStore('map', {
 
           // 이미지 마커 설정 로직
           if (this.depositRateCal(deposit, amount) >= 90) {
-            imageSrc = '/images/red.png';
+            imageSrc = '/images/property_red.png';
           } else if (this.depositRateCal(deposit, amount) >= 80) {
-            imageSrc = '/images/orange.png';
+            imageSrc = '/images/property_orange.png';
           } else if (this.depositRateCal(deposit, amount) >= 70) {
-            imageSrc = '/images/yellow.png';
+            imageSrc = '/images/property_yellow.png';
           } else if (this.depositRateCal(deposit, amount) >= 60) {
-            imageSrc = '/images/greenL.png';
+            imageSrc = '/images/property_greenL.png';
           } else if (this.convertToEok(deposit) === '') {
-            imageSrc = '/images/gray.png';
+            imageSrc = '/images/property_gray.png';
           } else {
-            imageSrc = '/images/green.png';
+            imageSrc = '/images/property_green.png';
           }
 
-          const imageSize = new kakao.maps.Size(70, 70); // 이미지 크기
-          const imageOption = { offset: new kakao.maps.Point(35, 56) }; // 마커와 이미지 위치 맞추기
+          const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
+          const imageOption = { offset: new kakao.maps.Point(30, 53) }; // 마커와 이미지 위치 맞추기
 
           const markerImage = new window.kakao.maps.MarkerImage(
             imageSrc,
@@ -262,13 +262,13 @@ export const useComplexesStore = defineStore('map', {
               : apt.currentAverageDeposit; // 어떤 가격을 표시할지 결정
 
           content.innerHTML = `${this.convertToEok(priceToDisplay)}`;
-          content.classList.add('imgText');
+          content.classList.add('imgText2');
 
           const customOverlay = new window.kakao.maps.CustomOverlay({
             map: map,
             position: markerPosition,
             content: content,
-            yAnchor: 1.3,
+            yAnchor: 1.4,
           });
 
           this.overlays.push(customOverlay);
@@ -309,7 +309,7 @@ export const useComplexesStore = defineStore('map', {
 
           const imageSrc = '/images/dongGu.png';
           const imageSize = new kakao.maps.Size(140, 80); // 이미지 크기
-          const imageOption = { offset: new kakao.maps.Point(80, 59) }; // 마커와 이미지 위치 맞추기
+          const imageOption = { offset: new kakao.maps.Point(90, 58) }; // 마커와 이미지 위치 맞추기
           if (bounds.contain(markerPosition)) {
             const markerImage = new window.kakao.maps.MarkerImage(
               imageSrc,

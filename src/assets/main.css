@@ -77,9 +77,10 @@
 .imgText2 {
   /* display: block; */
   text-align: center;
-  font-size: 17px;
-  font-family: 'GowunBatang-Regular';
-  color: #3a2711;
+  font-size: 15px;
+  font-family: 'Paperlogy-4Regular';
+  font-weight: 700;
+  color: black;
 }
 .imgText {
   /* display: block; */
