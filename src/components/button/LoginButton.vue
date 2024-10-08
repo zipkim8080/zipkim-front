@@ -25,12 +25,19 @@ onMounted(() => {
   <div class="login-overlay">
     <!-- 로그인 상태에 따라 다른 컴포넌트를 렌더링 -->
     <template v-if="!loginStore.isAuthenticated()">
-      <button class="btn btn-lg btn-secondary when-logout" @click="loginModalOpen">
+      <button
+        class="btn btn-lg btn-secondary when-logout"
+        @click="loginModalOpen"
+      >
         <i class="fa-solid fa-user"></i>
       </button>
       <transition name="fade">
         <!-- 모달의 바깥을 클릭하면 닫히도록 @click.self 사용 -->
-        <div class="modal-wrap" v-show="loginModal" @click.self="loginModalOpen">
+        <div
+          class="modal-wrap"
+          v-show="loginModal"
+          @click.self="loginModalOpen"
+        >
           <div class="modal-container">
             <loginPage @close="loginModalOpen" />
           </div>
@@ -40,12 +47,19 @@ onMounted(() => {
 
     <!-- 로그인 상태일 때 Sidebar를 보여줌 -->
     <template v-else>
-      <button class="btn btn-lg btn-secondary when-login" @click="sidebarModalOpen">
+      <button
+        class="btn btn-lg btn-secondary when-login"
+        @click="sidebarModalOpen"
+      >
         <i class="fa-solid fa-user"></i>
       </button>
       <transition name="fade">
         <!-- 모달의 바깥을 클릭하면 닫히도록 @click.self 사용 -->
-        <div class="modal-wrap-mypage" v-show="sidebarModal" @click.self="sidebarModalOpen">
+        <div
+          class="modal-wrap-mypage"
+          v-show="sidebarModal"
+          @click.self="sidebarModalOpen"
+        >
           <!-- <div class="modal-container-mypage"> -->
           <sidebar @close="sidebarModalOpen" />
           <!-- </div> -->
@@ -68,7 +82,7 @@ onMounted(() => {
   background-color: #f2d383;
 }
 
-.fade-enter-active {
+/* .fade-enter-active {
   transition: all 0.5s;
 }
 
@@ -78,7 +92,7 @@ onMounted(() => {
 
 .fade-enter-to {
   opacity: 1;
-}
+} */
 
 .modal-wrap {
   position: fixed;

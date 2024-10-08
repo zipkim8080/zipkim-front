@@ -11,10 +11,12 @@ const isModalVisible2 = computed(() => route.name === 'AddProperty');
 
 <template>
   <RouterView />
-  <PRModal v-if="isModalVisible2" />
-  <Modal v-if="isModalVisible">
-    <router-view />
-  </Modal>
+  <transition name="fade">
+    <PRModal v-if="isModalVisible2" />
+  </transition>
+  <transition name="fade">
+    <Modal v-if="isModalVisible" />
+  </transition>
 </template>
 
 <style scoped></style>

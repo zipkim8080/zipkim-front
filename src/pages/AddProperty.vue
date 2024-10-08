@@ -288,7 +288,11 @@ const close = () => {
     <div class="mt-3 container">
       <div
         class="mb-5 cover"
-        style="display: flex; justify-content: space-between; align-items: center"
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
       >
         <h1 style="text-align: center; color: #955a1f; flex-grow: 1">
           <strong>매물 등록</strong>
@@ -563,7 +567,9 @@ const close = () => {
               id="hasConvenience"
               v-model="property.hasConvenience"
             />
-            <label class="form-check-label ms-2 me-4" for="hasConvenience"> 편의점 </label>
+            <label class="form-check-label ms-2 me-4" for="hasConvenience">
+              편의점
+            </label>
           </div>
           <div class="form-check">
             <input
@@ -574,7 +580,9 @@ const close = () => {
               id="hasSchool"
               v-model="property.hasSchool"
             />
-            <label class="form-check-label ms-2 me-4" for="hasSchool"> 학교 </label>
+            <label class="form-check-label ms-2 me-4" for="hasSchool">
+              학교
+            </label>
           </div>
         </div>
         <!--  -->
@@ -594,7 +602,11 @@ const close = () => {
         <div class="cover mb-3">
           <label class="subTitle"></label>
           <div v-if="previews.length > 0" class="image-grid">
-            <div v-for="(preview, index) in previews" :key="index" class="grid-item">
+            <div
+              v-for="(preview, index) in previews"
+              :key="index"
+              class="grid-item"
+            >
               <img :src="preview" alt="미리보기 이미지" class="preview-img" />
             </div>
           </div>

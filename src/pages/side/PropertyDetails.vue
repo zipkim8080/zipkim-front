@@ -105,129 +105,171 @@ async function fetchPropertyData(propId) {
 </script>
 
 <template>
-  <Teleport to="body">
-    <div class="modal-backdrop">
-      <div class="modal-container">
-        <button class="close-btn" @click="$emit('close')">
-          <i class="fa-solid fa-x"></i>
-        </button>
-        <div class="mt-2 mx-auto" style="height: 800px; width: 800px">
-          <h6 style="font-weight: bold">
-            ✅ &nbsp; HUG 인증번호
-            {{
-              propInfo.hugNumber
-                ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
-                : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
-            }}
-          </h6>
-          <br />
-          <h6 style="font-weight: bold">{{ propInfo.roadName }} {{ propInfo.detailAddress }}</h6>
-          <br />
-          <h6 style="font-weight: bold">
-            <span class="status-icon" style="font-weight: bold">BUY</span>&nbsp;
-            {{ propInfo.amount.toLocaleString() }} 만원
-          </h6>
-          <h6 style="font-weight: bold">
-            <span class="status-icon">RENT</span>&nbsp; {{ propInfo.deposit.toLocaleString() }} 만원
-          </h6>
-
-          <br />
-          <h6 style="font-weight: bold">중개인의 한마디</h6>
-          <div class="agent-comment-box">
-            {{ propInfo.description }}
+  <transition name="fade">
+    <Teleport to="body">
+      <div class="modal-backdrop">
+        <div class="modal-container">
+          <button class="close-btn" @click="$emit('close')">
+            <i class="fa-solid fa-x"></i>
+          </button>
+          <div class="mt-2 mx-auto" style="height: 800px; width: 800px">
+            <h4 style="font-weight: bold">
+              ✅ &nbsp; HUG 인증번호
+              {{
+                propInfo.hugNumber
+                  ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
+                  : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
+              }}
+            </h4>
+            <br />
+            <h5 style="font-weight: bold">
+              {{ propInfo.roadName }} {{ propInfo.detailAddress }}
+            </h5>
+            <br />
+            <div style="display: flex; margin-bottom: 5px">
+              <div class="status-icon" style="font-weight: bold">BUY</div>
+              <div
+                style="
+                  font-weight: bold;
+                  width: 175px;
+                  text-align: right;
+                  font-size: 22px;
+                "
+              >
+                {{ propInfo.amount.toLocaleString() }} 만원
+              </div>
+            </div>
+            <div style="display: flex">
+              <div class="status-icon" style="font-weight: bold">RENT</div>
+              <div
+                style="
+                  font-weight: bold;
+                  width: 166px;
+                  text-align: right;
+                  font-size: 22px;
+                "
+              >
+                {{ propInfo.deposit.toLocaleString() }} 만원
+              </div>
+            </div>
+            <br />
+            <h5 style="font-weight: bold">중개인의 한마디</h5>
+            <div class="agent-comment-box">
+              {{ propInfo.description }}
+            </div>
+            <br />
+            <br />
+            <div class="wrapper">
+              <Carousel :autoplay="3000" :wrap-around="true">
+                <Slide v-for="(image, index) in propInfo.images" :key="index">
+                  <div class="carousel__item">
+                    <img
+                      class="slideImg"
+                      :src="image.imageUrl"
+                      width="600px"
+                      height="400px"
+                    />
+                  </div>
+                </Slide>
+                <template #addons>
+                  <Pagination />
+                  <Navigation />
+                </template>
+              </Carousel>
+            </div>
           </div>
           <br />
           <br />
-          <div class="wrapper">
-            <Carousel :autoplay="3000" :wrap-around="true">
-              <Slide v-for="(image, index) in propInfo.images" :key="index">
-                <div class="carousel__item">
-                  <img class="slideImg" :src="image.imageUrl" width="600px" height="400px" />
-                </div>
-              </Slide>
-              <template #addons>
-                <Pagination />
-                <Navigation />
-              </template>
-            </Carousel>
-          </div>
-        </div>
-        <br />
-        <br />
-        <h5 style="font-weight: bold">매물정보</h5>
-        <hr style="width: 100%; height: 3px; background-color: black" />
-        <div class="info-container">
-          <div class="prop-left">해당층 / 전체층</div>
-          <div class="prop-right">{{ propInfo.floor }} / {{ propInfo.totalFloor }}</div>
-        </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">방 / 욕실</div>
-          <div class="prop-right">{{ propInfo.roomNo }} / {{ propInfo.bathNo }}</div>
-        </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">현관타입</div>
-          <div class="prop-right">{{ propInfo.porch }}</div>
-        </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">주차가능 여부</div>
-          <div class="prop-right">{{ propInfo.parking ? '가능' : '불가능' }}</div>
-        </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">엘리베이터 유무</div>
-          <div class="prop-right">{{ propInfo.hasEv ? '가능' : '불가능' }}</div>
-        </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">주변정보</div>
-          <div class="prop-right">
-            {{ propInfo.hasConvenience ? '편의점' : '' }} {{ propInfo.hasSchool ? '학교' : '' }}
-          </div>
-        </div>
-        <hr class="section-divider" />
-        <br />
-        <br />
-        <h5 style="font-weight: bold">등기정보</h5>
-        <hr style="width: 100%; height: 4px; background-color: black" />
-        <div class="info-container">
-          <div class="prop-left">등기고유번호</div>
-          <div class="prop-right">{{ propInfo.uniqueNumber }}</div>
-        </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">열람일시</div>
-          <div class="prop-right">{{ propInfo.register[0].openDate }}</div>
-        </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">등기현황</div>
+          <h5 style="font-weight: bold">매물정보</h5>
+          <hr style="width: 100%; height: 3px; background-color: black" />
           <div class="info-container">
-            <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
-            <span class="status-item">가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span>
-            <span class="status-item"
-              >경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span
-            >
-            <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
+            <div class="prop-left">해당층 / 전체층</div>
+            <div class="prop-right">
+              {{ propInfo.floor }} / {{ propInfo.totalFloor }}
+            </div>
           </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">방 / 욕실</div>
+            <div class="prop-right">
+              {{ propInfo.roomNo }} / {{ propInfo.bathNo }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">현관타입</div>
+            <div class="prop-right">{{ propInfo.porch }}</div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">주차가능 여부</div>
+            <div class="prop-right">
+              {{ propInfo.parking ? '가능' : '불가능' }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">엘리베이터 유무</div>
+            <div class="prop-right">
+              {{ propInfo.hasEv ? '가능' : '불가능' }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">주변정보</div>
+            <div class="prop-right">
+              {{ propInfo.hasConvenience ? '편의점' : '' }}
+              {{ propInfo.hasSchool ? '학교' : '' }}
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <br />
+          <br />
+          <h5 style="font-weight: bold">등기정보</h5>
+          <hr style="width: 100%; height: 4px; background-color: black" />
+          <div class="info-container">
+            <div class="prop-left">등기고유번호</div>
+            <div class="prop-right">{{ propInfo.uniqueNumber }}</div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">열람일시</div>
+            <div class="prop-right">{{ propInfo.register[0].openDate }}</div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">등기현황</div>
+            <div class="info-container">
+              <span class="status-item"
+                >압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span
+              >
+              <span class="status-item"
+                >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
+              >
+              <span class="status-item"
+                >경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span
+              >
+              <span class="status-item"
+                >신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span
+              >
+            </div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">근저당(총액)</div>
+            <div class="prop-right">{{ propInfo.loan }} 원</div>
+          </div>
+          <hr class="section-divider" />
+          <div class="info-container">
+            <div class="prop-left">전세권(총액)</div>
+            <div class="prop-right">{{ propInfo.leaseAmount }} 원</div>
+          </div>
+          <hr class="section-divider" />
+          <br />
         </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">근저당(총액)</div>
-          <div class="prop-right">{{ propInfo.loan }} 원</div>
-        </div>
-        <hr class="section-divider" />
-        <div class="info-container">
-          <div class="prop-left">전세권(총액)</div>
-          <div class="prop-right">{{ propInfo.leaseAmount }} 원</div>
-        </div>
-        <hr class="section-divider" />
-        <br />
       </div>
-    </div>
-  </Teleport>
+    </Teleport>
+  </transition>
 </template>
 
 <style>
@@ -306,13 +348,13 @@ async function fetchPropertyData(propId) {
   margin: 0 15px;
 }
 .status-icon {
-  display: inline-block;
-  background-color: white;
+  /* display: inline-block; */
+  /* background-color: white; */
   border-radius: 10px;
   border: 2px solid black;
-  padding: 2px 4px;
+  padding: 3px 5px;
   font-weight: bold;
-  font-size: 12px;
-  margin-right: 5px;
+  font-size: 15px;
+  /* margin-right: 5px; */
 }
 </style>

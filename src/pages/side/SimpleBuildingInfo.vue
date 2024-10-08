@@ -12,7 +12,7 @@ const complexesStore = useComplexesStore();
 const router = useRouter();
 const route = useRoute();
 const basePath = "/images/";
-const images = ["building1.jpeg", "building2.jpeg", "building3.jpeg", "building4.jpeg", "building5.jpeg", "building6.jpeg", "building7.jpeg", "building8.jpeg", "building9.jpeg", "building10.jpeg"]
+const images = ["building1.jpeg", "building2.jpeg", "building3.jpeg", "building4.jpeg", "building5.jpeg", "building6.jpeg", "building7.jpeg", "building8.jpeg", "building9.jpeg", "building10.jpeg", "building11.jpg"]
 onMounted(() => {
   const id = route.params.complexId; // 'id' 파라미터를 가져옵니다.
   fetchPropertyData(id);
@@ -182,7 +182,7 @@ async function fetchChartData(areaId) {
           </button>
         </div>
         <div v-if="complexInfo.type == 'opi' || complexInfo.type == 'apt'">
-          <img width="424px" height="200px" :src="complexInfo.img"></img>
+          <img width="424px" height="200px" :src="complexInfo.img" style="border-radius: 7px; margin-bottom: 20px"></img>
           <br />
           <h5 style="font-weight: bold">주소</h5>
           <div>도로명 주소: {{ complexInfo.roadName }}</div>
@@ -200,6 +200,7 @@ async function fetchChartData(areaId) {
         </div>
         <hr style="width: 100%; height: 10px; background-color: #ccc; border: none" />
         <PropertyList :propList="propList" />
+        
         <template v-if="propList.totalElements > 0">
           <div class="paginate">
             <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
@@ -223,17 +224,6 @@ async function fetchChartData(areaId) {
   text-align: center;
   /* margin-top: 10px; */
   height: 55px;
-}
-
-.cInfo-overlay {
-  position: absolute;
-  top: 168px;
-  left: 20px;
-  z-index: 10;
-  background-color: #ffecb3;
-  padding: 10px;
-  border-radius: 5px;
-  width: 471px;
 }
 
 .sBuilding-title-box {
@@ -268,7 +258,7 @@ async function fetchChartData(areaId) {
   padding: 13.5px;
   background-color: white;
   height: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
   overflow-y: auto;
   /* display: flex; */
   flex-direction: column;
