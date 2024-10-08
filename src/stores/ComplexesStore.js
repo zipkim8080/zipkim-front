@@ -238,7 +238,7 @@ export const useComplexesStore = defineStore('map', {
           }
 
           const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
-          const imageOption = { offset: new kakao.maps.Point(30, 50) }; // 마커와 이미지 위치 맞추기
+          const imageOption = { offset: new kakao.maps.Point(30, 53) }; // 마커와 이미지 위치 맞추기
 
           const markerImage = new window.kakao.maps.MarkerImage(
             imageSrc,
@@ -262,13 +262,13 @@ export const useComplexesStore = defineStore('map', {
               : apt.currentAverageDeposit; // 어떤 가격을 표시할지 결정
 
           content.innerHTML = `${this.convertToEok(priceToDisplay)}`;
-          content.classList.add('imgText');
+          content.classList.add('imgText2');
 
           const customOverlay = new window.kakao.maps.CustomOverlay({
             map: map,
             position: markerPosition,
             content: content,
-            yAnchor: 1.3,
+            yAnchor: 1.4,
           });
 
           this.overlays.push(customOverlay);
@@ -307,9 +307,9 @@ export const useComplexesStore = defineStore('map', {
             umd.centerLon
           );
 
-          const imageSrc = '/images/property_KB.png';
-          const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
-          const imageOption = { offset: new kakao.maps.Point(30, 50) }; // 마커와 이미지 위치 맞추기
+          const imageSrc = '/images/dongGu.png';
+          const imageSize = new kakao.maps.Size(140, 80); // 이미지 크기
+          const imageOption = { offset: new kakao.maps.Point(90, 58) }; // 마커와 이미지 위치 맞추기
           if (bounds.contain(markerPosition)) {
             const markerImage = new window.kakao.maps.MarkerImage(
               imageSrc,
@@ -327,7 +327,7 @@ export const useComplexesStore = defineStore('map', {
             const content = document.createElement('div');
             content.innerHTML = `${umd.cortarName}`;
 
-            content.classList.add('imgText');
+            content.classList.add('imgText2');
 
             const customOverlay = new window.kakao.maps.CustomOverlay({
               map: map,
@@ -367,9 +367,9 @@ export const useComplexesStore = defineStore('map', {
             sgg.centerLat,
             sgg.centerLon
           );
-          const imageSrc = '/images/property_green.png';
-          const imageSize = new kakao.maps.Size(60, 60); // 이미지 크기
-          const imageOption = { offset: new kakao.maps.Point(30, 50) }; // 마커와 이미지 위치 맞추기
+          const imageSrc = '/images/dongGu.png';
+          const imageSize = new kakao.maps.Size(140, 80); // 이미지 크기
+          const imageOption = { offset: new kakao.maps.Point(90, 59) }; // 마커와 이미지 위치 맞추기
           const markerImage = new window.kakao.maps.MarkerImage(
             imageSrc,
             imageSize,
@@ -385,7 +385,7 @@ export const useComplexesStore = defineStore('map', {
           // 오버레이 설정 로직
           const content = document.createElement('div');
           content.innerHTML = `${sgg.cortarName}`;
-          content.classList.add('imgText');
+          content.classList.add('imgText2');
 
           const customOverlay = new window.kakao.maps.CustomOverlay({
             map: map,
