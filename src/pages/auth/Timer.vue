@@ -29,8 +29,8 @@ const calculateRemainingTime = () => {
       remainingTime.value = `${minutes} : ${seconds}`;
     } else {
       remainingTime.value = '';
-      clearInterval(timer); // 만료 시 타이머 정지
       logoutModal();
+      clearInterval(timer); // 만료 시 타이머 정지
     }
   } else {
     remainingTime.value = '';
@@ -115,7 +115,7 @@ onBeforeUnmount(() => {
     <div class="logout-modal">
       <div class="modal-content">
         <div class="content">장시간 사용이 없어 자동 로그아웃 됩니다.</div>
-        <button class="close-btn" @click="logout">확인</button>
+        <button class="btn" @click="logout">확인</button>
       </div>
     </div>
   </template>
@@ -190,17 +190,18 @@ onBeforeUnmount(() => {
   font-size: 19px;
 }
 
-.close-btn {
+.btn {
   border-radius: 10px;
-  background-color: #f3b706;
+  background: #f3b706;
   height: 40px;
-  text-align: center;
   width: 100%;
-  color: #fff;
-  font-weight: bold;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 19px;
+  padding: 0px;
 }
 
-.close-btn:hover {
-  background-color: #f2d383;
+.btn:hover {
+  background: #f2d383;
 }
 </style>
