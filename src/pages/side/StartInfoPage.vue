@@ -260,7 +260,7 @@
 }
 .icondesc {
     border-radius: 10px;
-    height: 155px;
+    height: 180px;
     width: 100%;
 }
 .grayContent {
