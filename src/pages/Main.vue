@@ -1,8 +1,8 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useLoginStore } from '@/stores/LoginStore';
 import LoginButton from '../components/button/LoginButton.vue';
-import LoginPage from '@/pages/auth/LoginPage.vue';
 import SearchFilter from '../pages/side/SearchFilter.vue';
 import KakaoMap from '../components/tool/KaKaoMap.vue';
 import XXDongButton from '../components/button/xxDongButton.vue';
@@ -12,10 +12,11 @@ import Timer from '@/pages/auth/Timer.vue';
 import PriceToggle from '../components/button/PriceToggle.vue';
 import StartInfoPage from '@/pages/side/StartInfoPage.vue';
 import AddProperty from './AddProperty.vue';
-import { useLoginStore } from '@/stores/LoginStore';
+import LoginPage from '@/pages/auth/LoginPage.vue';
 
-const loginStore = useLoginStore();
 const router = useRouter();
+const loginStore = useLoginStore();
+
 //기본
 const ocrData = ref(null);
 const showModal = ref(false);
@@ -42,7 +43,6 @@ const dgCheck = () => {
 const openLoginModal = () => {
   loginModal.value = true;
 };
-
 const closeStartModal = () => {
   startModal.value = false;
 };
@@ -92,8 +92,9 @@ onMounted(() => {
   <div v-if="showModal" class="modal-backdrop" @click="showModal = false"></div>
 
   <!-- CheckMyDoc 모달 -->
-  <CheckMyDoc v-if="showModal" @ocrCompleted="handleOcrCompleted" @close="showModal = false" />
-
+  <transition name="fade">
+    <CheckMyDoc v-if="showModal" @ocrCompleted="handleOcrCompleted" @close="showModal = false" />
+  </transition>
   <!-- MyDocResultPage 모달 -->
   <MyDocResultPage v-if="ocrData" :ocrData="ocrData" @close="ocrData = null" />
 
