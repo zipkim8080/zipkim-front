@@ -5,7 +5,6 @@ import infoPage from '@/pages/auth/InfoPage.vue';
 import axios from 'axios';
 
 const loginStore = useLoginStore();
-
 const emit = defineEmits(['close']);
 const infoModal = ref(false);
 

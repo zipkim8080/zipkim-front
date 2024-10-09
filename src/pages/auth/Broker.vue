@@ -16,9 +16,31 @@ const phoneNumber = ref(''); // 전화번호 입력 값
 const verificationCode = ref(''); // 인증번호 입력 값
 const generatedCode = ref(''); // 생성한 인증번호
 const message = ref(''); // 결과 메시지
+const brokerNumber = ref('');
+const brokerInfo = ref(null);
 
-const LoginStore = useLoginStore();
-const token = LoginStore.getToken();
+const loginStore = useLoginStore();
+const token = loginStore.getToken();
+
+const checkBrokerNumber = async () => {
+  try {
+    const response = await axios.post('/api/broker', {
+      brokerNumber: brokerNumber.value,
+      name: loginStore.name,
+    });
+    if (response.data && Object.keys(response.data).length > 0) {
+      brokerInfo.value = response.data;
+      //   console.log(brokerInfo);
+      message.value = '조회에 성공했습니다.';
+    } else {
+      brokerInfo.value = '';
+
+      message.value = '조회된 정보가 없습니다.';
+    }
+  } catch (error) {
+    message.value = '중개사 자격 번호 조회에 실패했습니다.';
+  }
+};
 
 // 인증번호 요청 메서드
 const requestVerificationCode = async () => {
@@ -27,6 +49,7 @@ const requestVerificationCode = async () => {
     const response = await axios.post('/api/sms/send', {
       phoneNumber: phoneNumber.value,
     });
+
     generatedCode.value = response.data.split(': ')[1];
     // 성공 시 메시지 설정
     message.value = '인증번호가 전송되었습니다. 확인해주세요.';
@@ -53,6 +76,7 @@ const verifyCode = async () => {
     try {
       await axios.post('/api/users/phone', {
         phoneNumber: phoneNumber.value,
+        brokerNumber: brokerInfo.value.brokerNo,
       });
       console.log('DB 성공');
       emit('updatePhoneNumber'); // 인증 성공 시 갱신 요청 이벤트 발생
@@ -70,23 +94,42 @@ const verifyCode = async () => {
   <div class="modal-overlay" @click.self="handleClose">
     <div class="modal-container">
       <div class="modal-header">
-        <h2>휴대폰 인증</h2>
+        <h2>중개사 인증</h2>
         <button class="close-btn" @click="handleClose">
           <i class="fa-solid fa-x"></i>
         </button>
       </div>
-      <p>휴대폰 번호를 입력하세요.</p>
+      <p>중개사 번호를 입력하세요.</p>
       <!-- 인증번호 발송 버튼을 입력란 내부에 위치시킴 -->
       <div class="input-group">
-        <input v-model="phoneNumber" type="text" placeholder="휴대폰 번호 입력" />
-        <button class="send-code-btn" @click="requestVerificationCode">인증번호 발송</button>
+        <input v-model="brokerNumber" type="text" placeholder="중개등록번호 입력 ('-' 포함)" />
+        <button class="send-code-btn" @click="checkBrokerNumber">조회</button>
       </div>
-      <input
+
+      <div v-if="brokerInfo" class="broker-info">
+        <p>이름: {{ brokerInfo.name }}</p>
+        <p>중개등록번호: {{ brokerInfo.brokerNo }}</p>
+        <p>사업자 상호: {{ brokerInfo.companyName }}</p>
+      </div>
+
+      <div v-if="brokerInfo">
+        <div class="input-group">
+          <input v-model="phoneNumber" type="text" placeholder="휴대폰 번호 입력" />
+          <button class="send-code-btn" @click="requestVerificationCode">인증번호 발송</button>
+        </div>
+        <input
+          v-model="verificationCode"
+          type="text"
+          placeholder="인증번호를 입력하세요"
+          class="verification-input"
+        />
+      </div>
+      <!-- <input
         v-model="verificationCode"
         type="text"
         placeholder="인증번호를 입력하세요"
         class="verification-input"
-      />
+      /> -->
       <button class="verify-btn" @click="verifyCode">확인</button>
       <p class="message">{{ message }}</p>
     </div>
@@ -112,8 +155,15 @@ const verifyCode = async () => {
   border-radius: 10px;
   padding: 20px;
   width: 400px;
-  height: 310px;
+  min-height: 250px;
+  /* max-height: calc(80vh - 262px); */
+  height: auto;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 50%; /* 화면의 약간 아래에서 시작 */
+  left: 50%;
+  transform: translate(-50%, -20%);
+  overflow-y: auto;
 }
 
 .modal-header {
