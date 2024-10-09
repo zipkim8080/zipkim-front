@@ -27,8 +27,8 @@ const handleClose = () => {
 .login-title {
   flex: 1;
   text-align: center;
-  margin: 0;
-  padding-left: 30px;
+  margin-top: 20px;
+  color: #955a1f;
 }
 
 .close-btn {

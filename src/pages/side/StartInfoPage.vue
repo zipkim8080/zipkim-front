@@ -294,12 +294,4 @@
   margin-right: 10px;
   padding: 0px;
 }
-
-.login-title {
-  flex: 1;
-  text-align: center;
-  margin: 0;
-  padding-left: 30px;
-  color: #955a1f;
-}
 </style>

@@ -91,7 +91,7 @@ onMounted(() => {
         <div class="image">
           <img src="@/assets/images/img4.png" />
         </div>
-        <button class="mark-test">
+        <button class="bookMark-test">
           <i class="fa-solid fa-heart"></i>
         </button>
       </div>
@@ -120,8 +120,8 @@ onMounted(() => {
         <div class="image">
           <img src="@/assets/images/img4.png" />
         </div>
-        <button class="mark-test">
-          <i class="fa-solid fa-heart"></i>
+        <button class="bookMark-test">
+          <i class="fa-regular fa-heart"></i>
         </button>
       </div>
       <div class="content">
@@ -140,6 +140,17 @@ onMounted(() => {
   position: relative;
 }
 
+.bookMark-test {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  color: rgb(246, 60, 74);
+  height: 10px;
+  width: 10px;
+  font-size: 24px;
+}
 .mark-nonChecked {
   position: absolute;
   left: 2px;
@@ -158,18 +169,6 @@ onMounted(() => {
   border: none;
   background: rgba(0, 0, 0, 0);
   color: #f3b706;
-  height: 10px;
-  width: 10px;
-  font-size: 24px;
-}
-
-.mark-test {
-  position: absolute;
-  left: 2px;
-  top: 2px;
-  border: none;
-  background: rgba(0, 0, 0, 0);
-  color: rgb(246, 60, 74);
   height: 10px;
   width: 10px;
   font-size: 24px;

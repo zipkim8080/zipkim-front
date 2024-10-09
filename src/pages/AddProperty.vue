@@ -698,8 +698,8 @@ const close = () => {
   object-fit: contain;
 }
 .modal-content {
-  max-height: 815px; /* 최대 높이를 화면 높이의 80%로 설정 */
-  overflow-y: auto; /* 세로 스크롤바가 필요할 때 생성 */
-  padding: 20px; /* 패딩 추가 */
+  max-height: 815px;
+  overflow-y: auto;
+  padding: 20px;
 }
 </style>

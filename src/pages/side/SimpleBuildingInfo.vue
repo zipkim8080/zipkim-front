@@ -246,14 +246,6 @@ async function fetchChartData(areaId) {
   padding: 0px;
 }
 
-.login-title {
-  flex: 1;
-  text-align: center;
-  margin-top: 2px;
-  padding-left: 30px;
-  color: #955a1f;
-}
-
 .content-container {
   padding: 13.5px;
   background-color: white;
