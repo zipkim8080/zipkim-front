@@ -75,8 +75,8 @@ onMounted(() => {
 .login-title {
   flex: 1;
   text-align: center;
-  margin: 0;
-  padding-left: 0px;
+  margin-top: 10px;
+  color: #955a1f;
 }
 
 a {
