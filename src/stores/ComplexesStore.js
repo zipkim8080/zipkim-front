@@ -284,10 +284,24 @@ export const useComplexesStore = defineStore('map', {
               lon: apt.longitude,
               level: this.level,
             });
-            const markerMPosition = new window.kakao.maps.LatLng(
-              apt.latitude,
-              apt.longitude - 0.0012 // 경도를 조금 줄여서 왼쪽으로 중심 이동
-            );
+            let markerMPosition = '';
+            if (level === 1) {
+              markerMPosition = new window.kakao.maps.LatLng(
+                apt.latitude,
+                apt.longitude - 0.00068 // 경도를 조금 줄여서 왼쪽으로 중심 이동
+              );
+            } else if (level === 2) {
+              markerMPosition = new window.kakao.maps.LatLng(
+                apt.latitude,
+                apt.longitude - 0.00135 // 경도를 조금 줄여서 왼쪽으로 중심 이동
+              );
+            } else if (level === 3) {
+              markerMPosition = new window.kakao.maps.LatLng(
+                apt.latitude,
+                apt.longitude - 0.0027 // 경도를 조금 줄여서 왼쪽으로 중심 이동
+              );
+            }
+
             map.panTo(markerMPosition);
           };
 
