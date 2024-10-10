@@ -6,7 +6,7 @@ import axios from '@/api/index';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
-const emit = defineEmits(['close', 'updatePhoneNumber']);
+const emit = defineEmits(['close', 'updatePhoneNumber', 'updateRole']);
 const handleClose = () => {
   emit('close');
 };
@@ -22,70 +22,174 @@ const brokerInfo = ref(null);
 const loginStore = useLoginStore();
 const token = loginStore.getToken();
 
+const validateNum = (inputValue) => {
+  if (!/^\d*$/.test(inputValue)) {
+    toast('숫자만 입력할 수 있어요!', {
+      theme: 'auto',
+      type: 'error',
+      position: 'top-center',
+      pauseOnHover: false,
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
+    inputValue = '';
+    return; // 잘못된 입력 초기화
+  }
+  return inputValue;
+};
+
+const onPhoneNumberInput = (event) => {
+  phoneNumber.value = validateNum(event.target.value);
+};
+
+const onVerificationCodeInput = (event) => {
+  verificationCode.value = validateNum(event.target.value);
+};
+
+// 중개자격번호 조회 메서드
 const checkBrokerNumber = async () => {
-  try {
-    const response = await axios.post('/api/broker', {
-      brokerNumber: brokerNumber.value,
-      name: loginStore.name,
-    });
-    if (response.data && Object.keys(response.data).length > 0) {
-      brokerInfo.value = response.data;
-      //   console.log(brokerInfo);
-      message.value = '조회에 성공했습니다.';
-    } else {
-      brokerInfo.value = '';
-
-      message.value = '조회된 정보가 없습니다.';
-    }
-  } catch (error) {
-    message.value = '중개사 자격 번호 조회에 실패했습니다.';
-  }
-};
-
-// 인증번호 요청 메서드
-const requestVerificationCode = async () => {
-  try {
-    // 전화번호를 포함하여 백엔드의 /auth/send API 호출
-    const response = await axios.post('/api/sms/send', {
-      phoneNumber: phoneNumber.value,
-    });
-
-    generatedCode.value = response.data.split(': ')[1];
-    // 성공 시 메시지 설정
-    message.value = '인증번호가 전송되었습니다. 확인해주세요.';
-  } catch (error) {
-    // 실패 시 에러 메시지 설정
-    message.value = `인증번호 요청 실패: ${error.response?.data || error.message}`;
-  }
-};
-
-// 인증번호 검증 메서드
-const verifyCode = async () => {
-  if (!verificationCode.value) {
-    message.value = '인증번호를 입력해주세요';
-  } else if (verificationCode.value === generatedCode.value) {
-    message.value = '인증에 성공했습니다';
-    toast('휴대폰 인증에 성공했습니다!', {
+  if (!brokerNumber.value) {
+    toast('중개등록번호를 입력해주세요.', {
       theme: 'auto', // 테마(auto, light, dark, colored)
-      type: 'success', // 타입(info, success, warning, error, default)
+      type: 'error', // 타입(info, success, warning, error, default)
       position: 'top-center', //토스트 생성위치
       pauseOnHover: false, //마우스오버시 멈춤 제거
       autoClose: 1000, //자동닫기
       hideProgressBar: true, //로딩바제거
     });
-    try {
-      await axios.post('/api/users/phone', {
-        phoneNumber: phoneNumber.value,
-        brokerNumber: brokerInfo.value.brokerNo,
-      });
-      console.log('DB 성공');
-      emit('updatePhoneNumber'); // 인증 성공 시 갱신 요청 이벤트 발생
-      handleClose(); // 인증에 성공하면 모달을 닫음
-    } catch (error) {
-      console.error('DB 실패', error);
-    }
   } else {
-    message.value = '인증번호가 일치하지 않습니다';
+    try {
+      const response = await axios.post('/api/broker', {
+        brokerNumber: brokerNumber.value,
+        name: loginStore.name,
+      });
+      if (response.data && Object.keys(response.data).length > 0) {
+        brokerInfo.value = response.data;
+        //   console.log(brokerInfo);
+        toast('조회에 성공했습니다!', {
+          theme: 'auto', // 테마(auto, light, dark, colored)
+          type: 'success', // 타입(info, success, warning, error, default)
+          position: 'top-center', //토스트 생성위치
+          pauseOnHover: false, //마우스오버시 멈춤 제거
+          autoClose: 1000, //자동닫기
+          hideProgressBar: true, //로딩바제거
+        });
+      } else {
+        brokerInfo.value = '';
+        toast('조회된 정보가 없습니다!', {
+          theme: 'auto', // 테마(auto, light, dark, colored)
+          type: 'error', // 타입(info, success, warning, error, default)
+          position: 'top-center', //토스트 생성위치
+          pauseOnHover: false, //마우스오버시 멈춤 제거
+          autoClose: 1000, //자동닫기
+          hideProgressBar: true, //로딩바제거
+        });
+      }
+    } catch (error) {
+      message.value = '중개등록번호 조회에 실패했습니다.';
+      brokerInfo.value = '';
+    }
+  }
+};
+
+// 인증번호 요청 메서드
+const requestVerificationCode = async () => {
+  if (!phoneNumber.value) {
+    toast('휴대폰 번호를 입력해주세요!', {
+      theme: 'auto', // 테마(auto, light, dark, colored)
+      type: 'error', // 타입(info, success, warning, error, default)
+      position: 'top-center', //토스트 생성위치
+      pauseOnHover: false, //마우스오버시 멈춤 제거
+      autoClose: 1000, //자동닫기
+      hideProgressBar: true, //로딩바제거
+    });
+  } else if (phoneNumber.value.length !== 11) {
+    toast('휴대폰 번호 11자리를 입력해주세요!', {
+      theme: 'auto', // 테마(auto, light, dark, colored)
+      type: 'error', // 타입(info, success, warning, error, default)
+      position: 'top-center', //토스트 생성위치
+      pauseOnHover: false, //마우스오버시 멈춤 제거
+      autoClose: 1000, //자동닫기
+      hideProgressBar: true, //로딩바제거
+    });
+  } else {
+    try {
+      // 전화번호를 포함하여 백엔드의 /auth/send API 호출
+      const response = await axios.post('/api/sms/send', {
+        phoneNumber: phoneNumber.value,
+      });
+
+      generatedCode.value = response.data.split(': ')[1];
+      // 성공 시 메시지 설정
+      toast('인증번호가 전송되었습니다!', {
+        theme: 'auto', // 테마(auto, light, dark, colored)
+        type: 'success', // 타입(info, success, warning, error, default)
+        position: 'top-center', //토스트 생성위치
+        pauseOnHover: false, //마우스오버시 멈춤 제거
+        autoClose: 1000, //자동닫기
+        hideProgressBar: true, //로딩바제거
+      });
+    } catch (error) {
+      // 실패 시 에러 메시지 설정
+      message.value = `인증번호 요청 실패: ${error.response?.data || error.message}`;
+    }
+  }
+};
+
+// 인증번호 검증 메서드
+const verifyCode = async () => {
+  if (!brokerInfo || !brokerNumber.value) {
+    toast('중개등록번호를 조회해주세요!', {
+      theme: 'auto', // 테마(auto, light, dark, colored)
+      type: 'error', // 타입(info, success, warning, error, default)
+      position: 'top-center', //토스트 생성위치
+      pauseOnHover: false, //마우스오버시 멈춤 제거
+      autoClose: 1000, //자동닫기
+      hideProgressBar: true, //로딩바제거
+    });
+  } else {
+    if (!verificationCode.value) {
+      toast('휴대폰 인증을 완료해주세요!', {
+        theme: 'auto', // 테마(auto, light, dark, colored)
+        type: 'error', // 타입(info, success, warning, error, default)
+        position: 'top-center', //토스트 생성위치
+        pauseOnHover: false, //마우스오버시 멈춤 제거
+        autoClose: 1000, //자동닫기
+        hideProgressBar: true, //로딩바제거
+      });
+    } else if (verificationCode.value === generatedCode.value) {
+      message.value = '인증에 성공했습니다';
+      toast('휴대폰 인증에 성공했습니다!', {
+        theme: 'auto', // 테마(auto, light, dark, colored)
+        type: 'success', // 타입(info, success, warning, error, default)
+        position: 'top-center', //토스트 생성위치
+        pauseOnHover: false, //마우스오버시 멈춤 제거
+        autoClose: 1000, //자동닫기
+        hideProgressBar: true, //로딩바제거
+      });
+      try {
+        await axios.post('/api/users/phone', {
+          phoneNumber: phoneNumber.value,
+          brokerNumber: brokerInfo.value.brokerNo,
+          companyName: brokerInfo.value.companyName,
+        });
+        console.log('DB 성공');
+        emit('updatePhoneNumber'); // 인증 성공 시 갱신 요청 이벤트 발생
+        emit('updateRole');
+        handleClose(); // 인증에 성공하면 모달을 닫음
+      } catch (error) {
+        console.error('DB 실패', error);
+      }
+    } else {
+      toast('인증번호가 일치하지 않습니다!', {
+        theme: 'auto', // 테마(auto, light, dark, colored)
+        type: 'error', // 타입(info, success, warning, error, default)
+        position: 'top-center', //토스트 생성위치
+        pauseOnHover: false, //마우스오버시 멈춤 제거
+        autoClose: 1000, //자동닫기
+        hideProgressBar: true, //로딩바제거
+      });
+    }
   }
 };
 </script>
@@ -99,7 +203,7 @@ const verifyCode = async () => {
           <i class="fa-solid fa-x"></i>
         </button>
       </div>
-      <p>중개사 번호를 입력하세요.</p>
+      <p>중개등록번호를 입력하세요.</p>
       <!-- 인증번호 발송 버튼을 입력란 내부에 위치시킴 -->
       <div class="input-group">
         <input v-model="brokerNumber" type="text" placeholder="중개등록번호 입력 ('-' 포함)" />
@@ -107,36 +211,61 @@ const verifyCode = async () => {
       </div>
 
       <div v-if="brokerInfo" class="broker-info">
-        <p>이름: {{ brokerInfo.name }}</p>
-        <p>중개등록번호: {{ brokerInfo.brokerNo }}</p>
-        <p>사업자 상호: {{ brokerInfo.companyName }}</p>
+        <div class="info">
+          <p class="info-title">이름</p>
+          <p>{{ brokerInfo.name }}</p>
+        </div>
+        <div class="info">
+          <p class="info-title">중개등록번호</p>
+          <p>{{ brokerInfo.brokerNo }}</p>
+        </div>
+        <div class="info">
+          <p class="info-title">사업자 상호</p>
+          <p>{{ brokerInfo.companyName }}</p>
+        </div>
       </div>
 
       <div v-if="brokerInfo">
         <div class="input-group">
-          <input v-model="phoneNumber" type="text" placeholder="휴대폰 번호 입력" />
+          <input
+            v-model="phoneNumber"
+            @input="onPhoneNumberInput"
+            type="text"
+            placeholder="휴대폰 번호 입력 ('-' 제외)"
+          />
           <button class="send-code-btn" @click="requestVerificationCode">인증번호 발송</button>
         </div>
         <input
           v-model="verificationCode"
+          @input="onVerificationCodeInput"
           type="text"
           placeholder="인증번호를 입력하세요"
           class="verification-input"
         />
       </div>
-      <!-- <input
-        v-model="verificationCode"
-        type="text"
-        placeholder="인증번호를 입력하세요"
-        class="verification-input"
-      /> -->
       <button class="verify-btn" @click="verifyCode">확인</button>
-      <p class="message">{{ message }}</p>
     </div>
   </div>
 </template>
 
 <style scoped>
+.broker-info {
+  border-radius: 5px;
+  background: #f4f4f4;
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-title {
+  font-weight: bold;
+}
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -162,7 +291,7 @@ const verifyCode = async () => {
   position: fixed;
   top: 50%; /* 화면의 약간 아래에서 시작 */
   left: 50%;
-  transform: translate(-50%, -20%);
+  transform: translate(-50%, -30%);
   overflow-y: auto;
 }
 
@@ -204,7 +333,7 @@ input[type='text'] {
   color: white;
   border: none;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 5px !important;
   cursor: pointer;
   font-size: 14px;
 }
@@ -219,6 +348,7 @@ input[type='text'] {
 }
 
 .verify-btn {
+  margin-top: 10px;
   background: #ffc107;
   color: white;
   border: none;
@@ -231,6 +361,7 @@ input[type='text'] {
 
 .message {
   margin-top: 10px;
+  margin-bottom: 0px;
   color: #ff4d4d;
   font-size: 14px;
 }

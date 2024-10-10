@@ -151,7 +151,7 @@ watch(openSection, (newSection) => {
   width: 100%;
   height: 65px;
   text-align: left;
-  padding: 10px;
+  padding: 10px 23px;
   margin: 0px;
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0);

@@ -10,7 +10,7 @@ import 'vue3-toastify/dist/index.css';
 const loginStore = useLoginStore();
 const phoneNumber = ref(null);
 const brokerNumber = ref(null);
-const showSMSModal = ref(false);
+const role = ref(null);
 const showBrokerModal = ref(false);
 
 const getPhoneNumber = async () => {
@@ -23,11 +23,14 @@ const getPhoneNumber = async () => {
   }
 };
 
-const openSMSModal = () => {
-  showSMSModal.value = true;
-};
-const closeSMSModal = () => {
-  showSMSModal.value = false;
+const getRole = async () => {
+  try {
+    const response = await axios.get('/api/role');
+    role.value = response.data;
+    console.log(role.value);
+  } catch (error) {
+    console.log('오류발생: ', error);
+  }
 };
 
 const openBrokerModal = () => {
@@ -35,6 +38,8 @@ const openBrokerModal = () => {
 };
 const closeBrokerModal = () => {
   showBrokerModal.value = false;
+  getPhoneNumber();
+  getRole();
 };
 
 // 로그아웃 함수
@@ -45,6 +50,7 @@ const handleLogout = () => {
 
 onMounted(() => {
   getPhoneNumber();
+  getRole();
 });
 </script>
 
@@ -76,7 +82,7 @@ onMounted(() => {
       <div class="key">중개사번호</div>
       <div class="value">
         <div v-if="!brokerNumber">
-          <button class="certify-button" @click="openBrokerModal">중개사번호 인증</button>
+          <button class="certify-button" @click="openBrokerModal">중개자격번호 인증</button>
         </div>
 
         <!-- 중개사 번호가 있으면 중개사 번호 표시 -->
@@ -87,17 +93,10 @@ onMounted(() => {
     <!-- 로그아웃 버튼 -->
     <button class="logout-button" @click="handleLogout">로그아웃</button>
 
-    <!-- SMS 인증 모달 -->
-    <transition name="fade">
-      <div v-if="showSMSModal" class="sms-modal">
-        <SMS @close="closeSMSModal" @updatePhoneNumber="getPhoneNumber" />
-      </div>
-    </transition>
-
     <!-- 중개사 인증 모달 -->
     <transition name="fade">
       <div v-if="showBrokerModal" class="sms-modal">
-        <Broker @close="closeBrokerModal" @updatePhoneNumber="getPhoneNumber" />
+        <Broker @close="closeBrokerModal" @updateRole="getRole" />
       </div>
     </transition>
   </div>
