@@ -33,6 +33,7 @@ const propInfo = reactive({
   parking: '',
   totalFloor: '',
   brokerId: '',
+  phoneNumber: '',
   complexId: '',
   porch: '',
   createAt: '',
@@ -82,6 +83,7 @@ async function fetchPropertyData(propId) {
     propInfo.parking = data.parking;
     propInfo.totalFloor = data.totalFloor;
     propInfo.brokerId = data.brokerId;
+    propInfo.phoneNumber = data.phoneNumber;
     propInfo.complexId = data.complexId;
     propInfo.porch = data.porch;
     propInfo.registerId = data.registerId;
@@ -138,34 +140,34 @@ async function fetchPropertyData(propId) {
               {{ propInfo.roadName }}
               {{ propInfo.detailAddress }}
             </h5>
+            <h5 v-if="propInfo.phoneNumber" style="font-weight: bold; margin-left: 6px">
+              <i class="fa-solid fa-phone"></i> &nbsp;&nbsp;
+              {{ propInfo.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') }}
+            </h5>
             <br />
             <!--  -->
             <div style="display: flex">
               <div class="status-icon" style="font-weight: bold">BUY</div>
-              <div
-                style="
+              <div style="
                   font-weight: bold;
                   width: 175px;
                   text-align: right;
                   font-size: 21px;
                   padding-top: 2px;
-                "
-              >
+                ">
                 {{ propInfo.amount.toLocaleString() }} 만원
               </div>
             </div>
             <!--  -->
             <div style="display: flex">
               <div class="status-icon" style="font-weight: bold">RENT</div>
-              <div
-                style="
+              <div style="
                   font-weight: bold;
                   width: 168px;
                   text-align: right;
                   font-size: 21px;
                   padding-top: 2px;
-                "
-              >
+                ">
                 {{ propInfo.deposit.toLocaleString() }} 만원
               </div>
             </div>
@@ -182,12 +184,7 @@ async function fetchPropertyData(propId) {
               <Carousel :autoplay="3000" :wrap-around="true">
                 <Slide v-for="(image, index) in propInfo.images" :key="index">
                   <div class="carousel__item">
-                    <img
-                      class="slideImg"
-                      :src="image.imageUrl"
-                      width="600px"
-                      height="400px"
-                    />
+                    <img class="slideImg" :src="image.imageUrl" width="600px" height="400px" />
                   </div>
                 </Slide>
                 <template #addons>
@@ -259,19 +256,11 @@ async function fetchPropertyData(propId) {
             <div class="info-container">
               <div class="prop-left">등기현황</div>
               <div class="info-container">
-                <span class="status-item"
-                  >압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span
-                >
-                <span class="status-item"
-                  >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
-                >
-                <span class="status-item"
-                  >경매개시결정&nbsp;
-                  {{ propInfo.auction ? '⭕️' : '❌' }}</span
-                >
-                <span class="status-item"
-                  >신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span
-                >
+                <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
+                <span class="status-item">가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span>
+                <span class="status-item">경매개시결정&nbsp;
+                  {{ propInfo.auction ? '⭕️' : '❌' }}</span>
+                <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
               </div>
             </div>
             <hr class="section-divider" />
@@ -307,6 +296,7 @@ async function fetchPropertyData(propId) {
   z-index: 100;
   overflow: auto;
 }
+
 .modal-container {
   position: absolute;
   background-color: #ffecb3;
@@ -318,12 +308,15 @@ async function fetchPropertyData(propId) {
   height: 857px;
   z-index: 100;
 }
+
 .wrapper {
   width: 745px;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
+
 .close-btn {
   border: none;
   background: none;
@@ -332,6 +325,7 @@ async function fetchPropertyData(propId) {
   right: 20px;
   padding: 0;
 }
+
 .agent-comment-box {
   border: 1px solid #ccc;
   padding: 10px;
@@ -341,20 +335,24 @@ async function fetchPropertyData(propId) {
   background: #f9f9f9;
   border-radius: 10px;
 }
+
 .info-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
+
 .left-align {
   text-align: left;
   flex: 1;
 }
+
 .right-align {
   text-align: right;
   flex: 1;
 }
+
 .section-divider {
   width: 100%;
   height: 0.5px;
@@ -362,18 +360,22 @@ async function fetchPropertyData(propId) {
   border: none;
   margin-top: 1px;
 }
+
 .status-item {
   margin-right: 10px;
   background-color: #f4f4f4;
   border-radius: 5px;
   padding: 4px 10px;
 }
+
 .status-item:last-child {
   margin-right: 0;
 }
+
 .divider {
   margin: 0 15px;
 }
+
 .status-icon {
   border-radius: 10px;
   border: 2px solid black;
