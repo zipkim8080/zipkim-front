@@ -9,11 +9,17 @@ const router = useRouter();
 const route = useRoute();
 
 const props = defineProps({
-  propId: String,
+  propId: Number,
 });
+const emit = defineEmits(['close']);
 
-onMounted(() => {
-  fetchPropertyData(props.propId);
+onMounted(async () => {
+  try {
+    await fetchPropertyData(props.propId);
+    brokerData();
+  } catch (error) {
+    console.error('오류 발생:', error);
+  }
 });
 
 const propInfo = reactive({
@@ -33,6 +39,9 @@ const propInfo = reactive({
   parking: '',
   totalFloor: '',
   brokerId: '',
+  brokerNo: '',
+  name: '',
+  companyName: '',
   phoneNumber: '',
   complexId: '',
   porch: '',
@@ -65,7 +74,7 @@ const propInfo = reactive({
 async function fetchPropertyData(propId) {
   try {
     const response = await axios.get(`/api/prop/${propId}`);
-    console.log(response);
+    // console.log(response);
     const data = response.data;
     propInfo.id = data.id;
     propInfo.address = data.address;
@@ -83,6 +92,8 @@ async function fetchPropertyData(propId) {
     propInfo.parking = data.parking;
     propInfo.totalFloor = data.totalFloor;
     propInfo.brokerId = data.brokerId;
+    propInfo.name = data.name;
+    propInfo.brokerNo = data.brokerNo;
     propInfo.phoneNumber = data.phoneNumber;
     propInfo.complexId = data.complexId;
     propInfo.porch = data.porch;
@@ -99,9 +110,28 @@ async function fetchPropertyData(propId) {
     propInfo.loan = data.register.loan;
     propInfo.images = data.images;
     propInfo.register[0].openDate = data.register.openDate;
-    console.log(propInfo);
+    // console.log(propInfo);
   } catch (error) {
     console.error('Error fetching property data:', error);
+  }
+}
+
+async function brokerData() {
+  try {
+    // 요청 보낼 데이터 설정 propInfo.name,
+    const requestBody = {
+      name: propInfo.name,
+      brokerNumber: propInfo.brokerNo,
+    };
+    const response = await axios.post('/api/broker', requestBody);
+    const data = response.data;
+    propInfo.companyName = data.companyName;
+    propInfo.brokerNo = data.brokerNo;
+
+    // console.log('응답 데이터:', propInfo.companyName);
+  } catch (error) {
+    console.error('요청 중 오류 발생:', error);
+    // 에러 처리 로직 추가 가능
   }
 }
 </script>
@@ -116,75 +146,36 @@ async function fetchPropertyData(propId) {
               <i class="fa-solid fa-x"></i>
             </button>
             <!--  -->
-            <h3 style="font-weight: bold">
-              <i class="fa-solid fa-hashtag mb-2"></i> &nbsp; 매물
-              번호&nbsp;&nbsp; {{ propInfo.id }}
+
+            <h4
+              style="
+                font-weight: bold;
+                text-align: center;
+                margin-left: 6px;
+                margin-top: 50px;
+              "
+            >
+              {{ propInfo.roadName }}
+              {{ propInfo.detailAddress }}
               <button class="bookMark-detail">
                 <i class="fa-regular fa-heart"></i>
               </button>
-            </h3>
-            <br />
-            <!--  -->
-            <h5 style="font-weight: bold; margin-bottom: 10px">
-              ✅ &nbsp; HUG 인증번호
-              {{
-                propInfo.hugNumber
-                  ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
-                  : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
-              }}
-            </h5>
-
-            <!--  -->
-            <h5 style="font-weight: bold; margin-left: 6px">
-              <i class="fa-solid fa-location-dot"></i> &nbsp;&nbsp;
-              {{ propInfo.roadName }}
-              {{ propInfo.detailAddress }}
-            </h5>
-            <h5 v-if="propInfo.phoneNumber" style="font-weight: bold; margin-left: 6px">
-              <i class="fa-solid fa-phone"></i> &nbsp;&nbsp;
-              {{ propInfo.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3') }}
-            </h5>
-            <br />
-            <!--  -->
-            <div style="display: flex">
-              <div class="status-icon" style="font-weight: bold">BUY</div>
-              <div style="
-                  font-weight: bold;
-                  width: 175px;
-                  text-align: right;
-                  font-size: 21px;
-                  padding-top: 2px;
-                ">
-                {{ propInfo.amount.toLocaleString() }} 만원
-              </div>
-            </div>
-            <!--  -->
-            <div style="display: flex">
-              <div class="status-icon" style="font-weight: bold">RENT</div>
-              <div style="
-                  font-weight: bold;
-                  width: 168px;
-                  text-align: right;
-                  font-size: 21px;
-                  padding-top: 2px;
-                ">
-                {{ propInfo.deposit.toLocaleString() }} 만원
-              </div>
-            </div>
-            <br />
-            <!--  -->
-            <h6 style="font-weight: bold">중개인의 한마디</h6>
-            <div class="agent-comment-box">
-              {{ propInfo.description }}
-            </div>
+            </h4>
+            <!-- <i class="fa-solid fa-hashtag mb-2"></i> &nbsp; 매물
+              번호&nbsp;&nbsp; {{ propInfo.id }} -->
             <br />
             <br />
-            <!--  -->
+            <!-- 이미지 슬라이드 -->
             <div class="wrapper">
               <Carousel :autoplay="3000" :wrap-around="true">
                 <Slide v-for="(image, index) in propInfo.images" :key="index">
                   <div class="carousel__item">
-                    <img class="slideImg" :src="image.imageUrl" width="600px" height="400px" />
+                    <img
+                      class="slideImg"
+                      :src="image.imageUrl"
+                      width="600px"
+                      height="400px"
+                    />
                   </div>
                 </Slide>
                 <template #addons>
@@ -194,7 +185,46 @@ async function fetchPropertyData(propId) {
               </Carousel>
             </div>
             <br />
+            <!-- 가격 -->
+            <div style="display: flex">
+              <div class="status-icon" style="font-weight: bold">BUY</div>
+              <div
+                style="
+                  font-weight: bold;
+                  width: 175px;
+                  text-align: right;
+                  font-size: 21px;
+                  padding-top: 2px;
+                "
+              >
+                {{ propInfo.amount.toLocaleString() }} 만원
+              </div>
+            </div>
+            <!--  -->
+            <div style="display: flex">
+              <div class="status-icon" style="font-weight: bold">RENT</div>
+              <div
+                style="
+                  font-weight: bold;
+                  width: 168px;
+                  text-align: right;
+                  font-size: 21px;
+                  padding-top: 2px;
+                "
+              >
+                {{ propInfo.deposit.toLocaleString() }} 만원
+              </div>
+            </div>
             <br />
+
+            <!--  -->
+            <h5 style="font-weight: bold">중개인의 한마디</h5>
+            <div class="agent-comment-box">
+              {{ propInfo.description }}
+            </div>
+            <br />
+            <br />
+
             <!--  -->
             <h5 style="font-weight: bold">매물정보</h5>
             <hr style="width: 100%; height: 3px; background-color: black" />
@@ -241,6 +271,18 @@ async function fetchPropertyData(propId) {
             <hr class="section-divider" />
             <br />
             <br />
+            <!--  -->
+            <h5 style="font-weight: bold; margin-bottom: 10px">
+              ✅ &nbsp; HUG 인증번호
+              {{
+                propInfo.hugNumber
+                  ? `&nbsp;&nbsp;[&nbsp;${propInfo.hugNumber}&nbsp;]`
+                  : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-'
+              }}
+            </h5>
+            <br />
+            <br />
+            <!--  -->
             <h5 style="font-weight: bold">등기정보</h5>
             <hr style="width: 100%; height: 4px; background-color: black" />
             <div class="info-container">
@@ -256,11 +298,19 @@ async function fetchPropertyData(propId) {
             <div class="info-container">
               <div class="prop-left">등기현황</div>
               <div class="info-container">
-                <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
-                <span class="status-item">가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span>
-                <span class="status-item">경매개시결정&nbsp;
-                  {{ propInfo.auction ? '⭕️' : '❌' }}</span>
-                <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
+                <span class="status-item"
+                  >압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span
+                >
+                <span class="status-item"
+                  >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
+                >
+                <span class="status-item"
+                  >경매개시결정&nbsp;
+                  {{ propInfo.auction ? '⭕️' : '❌' }}</span
+                >
+                <span class="status-item"
+                  >신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span
+                >
               </div>
             </div>
             <hr class="section-divider" />
@@ -272,6 +322,43 @@ async function fetchPropertyData(propId) {
             <div class="info-container">
               <div class="prop-left">전세권(총액)</div>
               <div class="prop-right">{{ propInfo.leaseAmount }} 원</div>
+            </div>
+            <hr class="section-divider" />
+            <br />
+            <br />
+            <h5 style="font-weight: bold">중개사</h5>
+            <hr style="width: 100%; height: 3px; background-color: black" />
+            <div class="info-container">
+              <div class="prop-left">사무소</div>
+              <div class="prop-right">
+                {{ propInfo.companyName }}
+              </div>
+            </div>
+            <hr class="section-divider" />
+            <div class="info-container">
+              <div class="prop-left">중개인</div>
+              <div class="prop-right">
+                {{ propInfo.name }}
+              </div>
+            </div>
+            <hr class="section-divider" />
+            <div class="info-container">
+              <div class="prop-left">중개사 번호</div>
+              <div class="prop-right">{{ propInfo.brokerNo }}</div>
+            </div>
+            <hr class="section-divider" />
+            <div class="info-container">
+              <div class="prop-left">연락처</div>
+              <div class="prop-right">
+                {{
+                  propInfo.phoneNumber
+                    ? propInfo.phoneNumber.replace(
+                        /(\d{3})(\d{4})(\d{4})/,
+                        '$1-$2-$3'
+                      )
+                    : '-'
+                }}
+              </div>
             </div>
             <hr class="section-divider" />
             <br />
