@@ -13,6 +13,10 @@ import PriceToggle from '../components/button/PriceToggle.vue';
 import StartInfoPage from '@/pages/side/StartInfoPage.vue';
 import AddProperty from './AddProperty.vue';
 import LoginPage from '@/pages/auth/LoginPage.vue';
+import Sidebar from '@/components/Sidebar.vue';
+import axios from '@/api/index';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const router = useRouter();
 const loginStore = useLoginStore();
@@ -22,13 +26,36 @@ const ocrData = ref(null);
 const showModal = ref(false);
 const startModal = ref(true);
 const loginModal = ref(false);
+const sidebarModal = ref(false);
+const role = ref(null);
+
+const getRole = async () => {
+  try {
+    const response = await axios.get('/api/role');
+    role.value = response.data;
+  } catch (error) {
+    console.log('오루발생: ', error);
+  }
+};
 
 // 단순 페이지 이동 //
 const regi = () => {
   if (!loginStore.isAuthenticated()) {
     openLoginModal();
   } else {
-    router.push({ name: 'AddProperty' });
+    if (role.value !== 'ROLE_BROKER') {
+      toast('중개자격번호를 인증해주세요.', {
+        theme: 'auto', // 테마(auto, light, dark, colored)
+        type: 'error', // 타입(info, success, warning, error, default)
+        position: 'top-center', //토스트 생성위치
+        pauseOnHover: false, //마우스오버시 멈춤 제거
+        autoClose: 1000, //자동닫기
+        hideProgressBar: true, //로딩바제거
+      });
+      openSidebarModal();
+    } else {
+      router.push({ name: 'AddProperty' });
+    }
   }
 };
 
@@ -40,6 +67,9 @@ const dgCheck = () => {
   }
 };
 
+const openSidebarModal = () => {
+  sidebarModal.value = true;
+};
 const openLoginModal = () => {
   loginModal.value = true;
 };
@@ -56,6 +86,7 @@ const showStartModal = () => {
 
 onMounted(() => {
   loginStore.loadTokenFromCookies();
+  getRole();
 });
 </script>
 <template>
@@ -73,11 +104,25 @@ onMounted(() => {
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
-    <input class="kb_btn" type="button" value="매물 등록" @click="regi" />
+    <input
+      v-if="role === 'ROLE_BROKER'"
+      class="kb_btn"
+      type="button"
+      value="매물 등록"
+      @click="regi"
+    />
+    <input v-else class="not-login" type="button" value="매물 등록" @click="regi" />
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
-    <input class="kb_btn" type="button" value="등기 확인" @click="dgCheck" />
+    <input
+      v-if="loginStore.isAuthenticated()"
+      class="kb_btn"
+      type="button"
+      value="등기 확인"
+      @click="dgCheck"
+    />
+    <input v-else class="not-login" type="button" value="등기 확인" @click="dgCheck" />
   </div>
 
   <transition name="fade">
@@ -88,6 +133,13 @@ onMounted(() => {
     </div>
   </transition>
 
+  <transition name="fade">
+    <div v-if="sidebarModal" class="side-modal-wrap" @click.self="sidebarModal = false">
+      <div>
+        <Sidebar class="sidebar" />
+      </div>
+    </div>
+  </transition>
   <!-- 모달 백드롭 -->
   <div v-if="showModal" class="modal-backdrop" @click="showModal = false"></div>
 
@@ -137,6 +189,16 @@ onMounted(() => {
   z-index: 10;
 }
 
+.side-modal-wrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  z-index: 10;
+}
+
 .modal-container {
   position: relative;
   top: 50%;
@@ -161,5 +223,60 @@ onMounted(() => {
 
 .fade-enter-to {
   opacity: 1;
+}
+
+.not-login {
+  background-color: #6c757d;
+  border: none;
+  color: white;
+  margin-right: 0.5rem !important;
+  cursor: pointer;
+  --bs-btn-padding-y: 0.5rem;
+  --bs-btn-padding-x: 1rem;
+  --bs-btn-font-size: 1.25rem;
+  --bs-btn-border-radius: var(--bs-border-radius-lg);
+  --bs-btn-font-weight: 400;
+  --bs-btn-line-height: 1.5;
+  --bs-btn-color: var(--bs-body-color);
+  --bs-btn-bg: transparent;
+  --bs-btn-border-width: var(--bs-border-width);
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+  --bs-btn-disabled-opacity: 0.65;
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), 0.5);
+  display: inline-block;
+  padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+  font-family: var(--bs-btn-font-family);
+  font-size: var(--bs-btn-font-size);
+  font-weight: var(--bs-btn-font-weight);
+  line-height: var(--bs-btn-line-height);
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  user-select: none;
+  border-radius: var(--bs-btn-border-radius);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.not-login:hover {
+  background-color: #5c636a;
+  color: white;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  transform: translate(-4%, 12.5%);
+  width: 450px;
+  height: 80vh;
+  background: #fff;
+  /* padding: 20px; */
+  border-radius: 10px;
+  border: 1px solid #aaa;
+  overflow-y: auto;
+  display: flex;
 }
 </style>
