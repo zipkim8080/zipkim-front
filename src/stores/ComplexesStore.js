@@ -273,6 +273,12 @@ export const useComplexesStore = defineStore('map', {
 
           this.overlays.push(customOverlay);
 
+          // 사용자별 마커에 필요한 요소 선언
+          const screenWidth = window.innerWidth;
+          const percentOffset = screenWidth * 0.01;
+          const longitudeOffset1 = (percentOffset / 30000) * 1;
+          const longitudeOffset2 = (percentOffset / 30000) * 2;
+          const longitudeOffset3 = (percentOffset / 23000) * 3;
           // 마커 클릭 이벤트
           const handleClickEvent = () => {
             router.push({
@@ -288,17 +294,17 @@ export const useComplexesStore = defineStore('map', {
             if (level === 1) {
               markerMPosition = new window.kakao.maps.LatLng(
                 apt.latitude,
-                apt.longitude - 0.00068 // 경도를 조금 줄여서 왼쪽으로 중심 이동
+                apt.longitude - longitudeOffset1 // 경도를 조금 줄여서 왼쪽으로 중심 이동
               );
             } else if (level === 2) {
               markerMPosition = new window.kakao.maps.LatLng(
                 apt.latitude,
-                apt.longitude - 0.00135 // 경도를 조금 줄여서 왼쪽으로 중심 이동
+                apt.longitude - longitudeOffset2 // 경도를 조금 줄여서 왼쪽으로 중심 이동
               );
             } else if (level === 3) {
               markerMPosition = new window.kakao.maps.LatLng(
                 apt.latitude,
-                apt.longitude - 0.0027 // 경도를 조금 줄여서 왼쪽으로 중심 이동
+                apt.longitude - longitudeOffset3 // 경도를 조금 줄여서 왼쪽으로 중심 이동
               );
             }
 

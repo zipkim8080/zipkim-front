@@ -11,8 +11,20 @@ const kakaoMapStore = useKakaoMapStore();
 const complexesStore = useComplexesStore();
 const router = useRouter();
 const route = useRoute();
-const basePath = "/images/";
-const images = ["building1.jpeg", "building2.jpeg", "building3.jpeg", "building4.jpeg", "building5.jpeg", "building6.jpeg", "building7.jpeg", "building8.jpeg", "building9.jpeg", "building10.jpeg", "building11.jpg"]
+const basePath = '/images/';
+const images = [
+  'building1.jpeg',
+  'building2.jpeg',
+  'building3.jpeg',
+  'building4.jpeg',
+  'building5.jpeg',
+  'building6.jpeg',
+  'building7.jpeg',
+  'building8.jpeg',
+  'building9.jpeg',
+  'building10.jpeg',
+  'building11.jpg',
+];
 onMounted(() => {
   const id = route.params.complexId; // 'id' 파라미터를 가져옵니다.
   fetchPropertyData(id);
@@ -28,7 +40,6 @@ watch(
 );
 function close() {
   complexesStore.restoreState();
-  kakaoMapStore.reposition(complexesStore.lat, complexesStore.lon);
   router.push({ name: 'Main' }); // 메인 페이지로 돌아가 모달 닫기
 }
 
@@ -74,7 +85,8 @@ async function fetchPropertyData(complexId) {
       await axios.get(`/api/complex/summary?complexId=${complexId}`)
     ).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1
+      `/api/prop-list?complexId=${complexId}&page=${
+        pageRequest.page - 1
       }&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
@@ -116,7 +128,8 @@ async function fetchPropertyData(complexId) {
     complexInfo.subAddressNo = data.subAddressNo;
     complexInfo.areas = data.areas;
     complexInfo.type = data.type;
-    complexInfo.img = basePath + images[Math.floor(Math.random() * images.length)];
+    complexInfo.img =
+      basePath + images[Math.floor(Math.random() * images.length)];
     // complexesStore or other stores에 필요한 데이터 저장
   } catch (error) {
     console.error('Error fetching property data:', error);
@@ -182,34 +195,70 @@ async function fetchChartData(areaId) {
           </button>
         </div>
         <div v-if="complexInfo.type == 'opi' || complexInfo.type == 'apt'">
-          <img width="424px" height="200px" :src="complexInfo.img" style="border-radius: 7px; margin-bottom: 20px"></img>
+          <img
+            width="424px"
+            height="200px"
+            :src="complexInfo.img"
+            style="border-radius: 7px; margin-bottom: 20px"
+          />
           <br />
           <h5 style="font-weight: bold">주소</h5>
           <div>도로명 주소: {{ complexInfo.roadName }}</div>
           <div>지번 주소: {{ complexInfo.addressName }}</div>
           <br />
           <h5 style="font-weight: bold">최근 실거래가</h5>
-          <div>매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원</div>
-          <div>전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원</div>
-          <hr style="width: 100%; height: 10px; background-color: #ccc; border: none" />
+          <div>
+            매매가: {{ complexInfo.recentAmount.toLocaleString() }} 만원
+          </div>
+          <div>
+            전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원
+          </div>
+          <hr
+            style="
+              width: 100%;
+              height: 10px;
+              background-color: #ccc;
+              border: none;
+            "
+          />
           <PriceChart
             v-if="priceChart"
             :priceChart="priceChart"
             :areaIdToPyeongName="areaIdToPyeongName"
           />
         </div>
-        <hr style="width: 100%; height: 10px; background-color: #ccc; border: none" />
+        <hr
+          style="
+            width: 100%;
+            height: 10px;
+            background-color: #ccc;
+            border: none;
+          "
+        />
         <PropertyList :propList="propList" />
-        
+
         <template v-if="propList.totalElements > 0">
           <div class="paginate">
-            <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
-              :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
-              @click="handlePageChange">
-              <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
-              <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
-              <template #next-button><i class="fa-solid fa-caret-right"></i></template>
-              <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+            <vue-awesome-paginate
+              :total-items="propList.totalElements"
+              :items-per-page="propList.pageable.pageSize"
+              :max-pages-shown="propList.totalPages"
+              :show-ending-buttons="false"
+              v-model="pageRequest.page"
+              @click="handlePageChange"
+            >
+              <template #first-page-button
+                ><i class="fa-solid fa-backward-fast"></i
+              ></template>
+              <template #prev-button
+                ><i class="fa-solid fa-caret-left"></i
+              ></template>
+              <template #next-button
+                ><i class="fa-solid fa-caret-right"></i
+              ></template>
+              <template #last-page-button
+                ><i class="fa-solid fa-forward-fast"></i
+              ></template>
             </vue-awesome-paginate>
           </div>
         </template>

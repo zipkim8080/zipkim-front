@@ -24,9 +24,9 @@ const state = reactive({
 onMounted(() => {
   const targetId = Object.keys(props.priceChart).find(
     (key) => props.areaIdToPyeongName[key] === state.selectedItem
-  )
-  drawChart(targetId)
-})
+  );
+  drawChart(targetId);
+});
 const chartRef = ref(null);
 
 const calculateAverageLeaseRate = (targetAreaId) => {
@@ -34,7 +34,7 @@ const calculateAverageLeaseRate = (targetAreaId) => {
   const salePrices = [];
 
   props.priceChart[targetAreaId]?.forEach((item) => {
-    if (item == undefined) return
+    if (item == undefined) return;
     if (item.transactionType === 'LEASE') {
       leasePrices.push(item.dealPrice);
     } else if (item.transactionType === 'SALE') {
@@ -156,8 +156,7 @@ watch(
       state.selectedItem = state.items[0];
       nextTick(() => {
         change();
-      })
-
+      });
     }
   },
   { immediate: true }
@@ -169,7 +168,7 @@ watch(
     <div class="header">
       <div class="average-section">
         <h5 style="font-weight: bold">평균 전세가율</h5>
-        <p>{{ state.averageLeaseRate ? state.averageLeaseRate.toFixed(2) + '%' : '없음' }}</p>
+        <p>{{ state.averageLeaseRate ? state.averageLeaseRate.toFixed(2) + '%' : '-' }}</p>
       </div>
       <div class="dropdown-section">
         <h5 style="font-weight: bold">타입 선택</h5>
@@ -207,10 +206,10 @@ canvas {
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
-  margin-bottom: 10px;
-  padding: 0 10px;
+  padding: 0 8px;
+  margin-top: 10px;
 }
 
 .average-section,
@@ -218,7 +217,11 @@ canvas {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 아래 두 줄 추가 */
   max-height: 120px;
+}
+
+select {
+  width: 75px;
+  /* height: 30px; */
 }
 </style>
