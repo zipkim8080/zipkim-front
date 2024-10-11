@@ -62,7 +62,7 @@ onMounted(() => {
       </div>
       <div class="content">
         <div class="type">
-          유형 : {{'오피스텔'}}
+          {{'apt'}}
           <img class="check" src="@/assets/images/check.png" alt="체크 이미지"/>
         </div>
         <div class="price">

@@ -147,6 +147,18 @@ const saveProperty = (newPropInfo, propId) => {
   }
   newPropInfo.propId = propId;
 
+  let index = -1;
+  for(let i=0;i<existingProperties.length;i++){
+    if(existingProperties[i].propId === newPropInfo.propId){
+      index=i;
+      break;
+    }
+  }
+
+  if(index !== -1) {
+    existingProperties.splice(index, 1);
+  }
+
   existingProperties.push(newPropInfo);
   if (existingProperties.length > 7) {
     existingProperties.shift();
