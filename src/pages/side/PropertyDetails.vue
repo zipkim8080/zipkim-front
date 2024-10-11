@@ -1,6 +1,6 @@
 <script setup>
-import axios from 'axios';
-import { onMounted, reactive } from 'vue';
+import axios from '@/api/index';
+import { onMounted, reactive, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
@@ -9,7 +9,7 @@ import { useLoginStore } from '@/stores/LoginStore.js';
 
 const LoginStore = useLoginStore();
 const un = LoginStore.loadUsernameFromToken();
-let isNull = false;
+let isFavorite = ref(false);
 
 const router = useRouter();
 const route = useRoute();
@@ -31,17 +31,18 @@ onMounted(async () => {
 
 const check = async () => {
   try {
-    const response = await axios.post(`/apis/checkDB`, { username: un, probid: props.propId });
-    console.log(JSON.stringify(response.data));
-    if (response.data != '') {
-      isNull = true;
-      console.log('즐겨찾기가 있습니다.');
+    const response = await axios.get(`/api/bookmark/${props.propId}`)
+    if (response.data == true) {
+      isFavorite.value = true;
+      console.log("즐겨찾기가 있습니다.")
     } else {
-      isNull = false;
-      console.log('즐겨찾기가 없습니다.');
+      isFavorite.value = false;
+      console.log("즐겨찾기가 없습니다.")
     }
-  } catch (error) {}
-};
+  } catch (error) {
+  }
+}
+
 
 const propInfo = reactive({
   id: '',
@@ -148,14 +149,14 @@ const saveProperty = (newPropInfo, propId) => {
   newPropInfo.propId = propId;
 
   let index = -1;
-  for(let i=0;i<existingProperties.length;i++){
-    if(existingProperties[i].propId === newPropInfo.propId){
-      index=i;
+  for (let i = 0; i < existingProperties.length; i++) {
+    if (existingProperties[i].propId === newPropInfo.propId) {
+      index = i;
       break;
     }
   }
 
-  if(index !== -1) {
+  if (index !== -1) {
     existingProperties.splice(index, 1);
   }
 
@@ -166,18 +167,20 @@ const saveProperty = (newPropInfo, propId) => {
   localStorage.setItem('propInfo', JSON.stringify(existingProperties));
 };
 
-async function bookMark(id, deposit, amount, floor, images) {
-  try {
-    const response = await axios.post('/apis/addDB', {
-      username: un,
-      probid: id,
-      deposit: deposit,
-      amount: amount,
-      floor: floor,
-      image: images,
-    });
-  } catch (error) {
-    console.log('즐겨찾기 실패');
+async function bookMark(id) {
+  console.log(isFavorite.value)
+  //이미 즐겨찾기 되있으면 해제
+  if (isFavorite.value) {
+    await axios.post('/api/bookmark/delete', {
+      propertyId: id
+    })
+    isFavorite.value = false;
+  }//즐겨찾기 안되잇으면 즐찾
+  else {
+    await axios.post('/api/bookmark/add', {
+      propertyId: id
+    })
+    isFavorite.value = true;
   }
 }
 
@@ -212,22 +215,16 @@ async function brokerData() {
             </button>
             <!--  -->
 
-            <h4 style="font-weight: bold; text-align: center; margin-left: 6px; margin-top: 50px">
+            <h4 style="
+                font-weight: bold;
+                text-align: center;
+                margin-left: 6px;
+                margin-top: 50px;
+              ">
               {{ propInfo.roadName }}
               {{ propInfo.detailAddress }}
-              <button
-                @click="
-                  bookMark(
-                    propInfo.id,
-                    propInfo.deposit.toLocaleString(),
-                    propInfo.amount.toLocaleString(),
-                    propInfo.complexName + propInfo.floor,
-                    propInfo.images[0].imageUrl
-                  )
-                "
-                class="bookMark-detail"
-              >
-                <i :class="isNull ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+              <button @click="bookMark(propInfo.id)" class="bookMark-detail">
+                <i :class="isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
               </button>
             </h4>
             <!-- <i class="fa-solid fa-hashtag mb-2"></i> &nbsp; 매물
@@ -252,30 +249,26 @@ async function brokerData() {
             <!-- 가격 -->
             <div style="display: flex">
               <div class="status-icon" style="font-weight: bold">BUY</div>
-              <div
-                style="
+              <div style="
                   font-weight: bold;
                   width: 175px;
                   text-align: right;
                   font-size: 21px;
                   padding-top: 2px;
-                "
-              >
+                ">
                 {{ propInfo.amount.toLocaleString() }} 만원
               </div>
             </div>
             <!--  -->
             <div style="display: flex">
               <div class="status-icon" style="font-weight: bold">RENT</div>
-              <div
-                style="
+              <div style="
                   font-weight: bold;
                   width: 168px;
                   text-align: right;
                   font-size: 21px;
                   padding-top: 2px;
-                "
-              >
+                ">
                 {{ propInfo.deposit.toLocaleString() }} 만원
               </div>
             </div>
@@ -359,12 +352,9 @@ async function brokerData() {
               <div class="prop-left">등기현황</div>
               <div class="info-container">
                 <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
-                <span class="status-item"
-                  >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
-                >
-                <span class="status-item"
-                  >경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span
-                >
+                <span class="status-item">가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span>
+                <span class="status-item">경매개시결정&nbsp;
+                  {{ propInfo.auction ? '⭕️' : '❌' }}</span>
                 <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
               </div>
             </div>
@@ -411,7 +401,10 @@ async function brokerData() {
               <div class="prop-right">
                 {{
                   propInfo.phoneNumber
-                    ? propInfo.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+                    ? propInfo.phoneNumber.replace(
+                      /(\d{3})(\d{4})(\d{4})/,
+                      '$1-$2-$3'
+                    )
                     : '-'
                 }}
               </div>

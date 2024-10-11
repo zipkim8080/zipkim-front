@@ -1,38 +1,43 @@
 <script setup>
 import { defineEmits } from 'vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
 import axios from 'axios';
 import { useLoginStore } from '@/stores/LoginStore.js';
 import PropertyDetails from "@/pages/side/PropertyDetails.vue";
+import PropertyList from '@/components/detail/propertyList.vue';
 
 const LoginStore = useLoginStore();
 const un = LoginStore.loadUsernameFromToken();
 const isModalOpen = ref(false);
 const selectedPropertyId = ref(null);
-const props = defineProps({
-  propList: Object,
-});
 
 const openModal = (propertyId) => {
   selectedPropertyId.value = propertyId;
   isModalOpen.value = true;
 }
 
-const bookMarks = ref([]); //백엔드에서 내보내는 데이터를 저장
+const propList = reactive({
+  items: [],
+  pageable: '', //현재 페이지정보
+  totalElements: '', // 총 아이템수
+  totalPages: '', //총 페이지
+  numberOfElements: '', //현재페이지 아이템수
+});
+
 
 const emit = defineEmits(['close']);
 
 const fetchBookMarks = async () => {
   try {
-    const response = await axios.post('/apis/searchDB', {
-      username: un, //유저 이름을 백엔드로 전송
-    });
-    bookMarks.value = response.data;
-    console.log('Username : ', bookMarks.value);
+    const props = await axios.get('/api/bookmark/list')
+    propList.items = props.data.content;
+    propList.pageable = props.data.pageable;
+    propList.totalElements = props.data.totalElements;
+    propList.totalPages = props.data.totalPages;
+    propList.numberOfElements = props.data.numberOfElements;
+    console.log('hi')
   } catch (error) {
-    if(error.response.status === 404) {
-      console.log('데이터가 없습니다.');
-    }
+
   }
 };
 
@@ -55,36 +60,7 @@ onMounted(() => {
 
 <template>
 
-  <div v-if="bookMarks.length > 0">
-    <div v-for="(bookMark, index) in bookMarks" :key="index" class="content-box">
-      <div class="img">
-        <img style="width: 200px; height: 130px; border-radius: 5px" :src="bookMark.image" />
-      </div>
-      <div class="content">
-        <div class="type">
-          {{'apt'}}
-          <img class="check" src="@/assets/images/check.png" alt="체크 이미지"/>
-        </div>
-        <div class="price">
-           전세 {{bookMark.deposit}} 만원
-        </div>
-        <div class="info">
-          매매 {{bookMark.amount}} 만원
-        </div>
-        <div class="word">
-          {{bookMark.floor}} 층
-        </div>
-        <div>
-          <button @click="openModal(bookMark.probid)">
-            보러가기
-          </button>
-          <div v-if="isModalOpen" class="modal">
-            <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false"/>
-          </div>
-        </div>
-    </div>
-    </div>
-  </div>
+  <PropertyList :propList="propList" />
 </template>
 
 <style scoped>
@@ -103,6 +79,7 @@ onMounted(() => {
   width: 10px;
   font-size: 24px;
 }
+
 .mark-nonChecked {
   position: absolute;
   left: 2px;

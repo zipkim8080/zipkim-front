@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import forSale from '@/pages/auth/ForSale.vue';
 import recent from '@/pages/auth/Recent.vue';
 import sms from '@/pages/auth/SMS.vue';
@@ -16,7 +16,9 @@ const toggleSection = (section) => {
   // 현재 열려 있는 항목과 클릭된 항목이 같으면 닫고, 다르면 새로운 항목을 연다.
   openSection.value = openSection.value === section ? '' : section;
 };
-
+onMounted(() => {
+  // fetchFavoriteProps();
+})
 watch(openSection, (newSection) => {
   console.log('현재 섹션 : ', newSection);
   if (newSection === 'bookmark' && bookmarkRef.value) {
@@ -30,8 +32,8 @@ watch(openSection, (newSection) => {
   if (newSection === 'recent' && recentRef.value) {
     console.log("함수 첫번째 실행");
     const recentComponent = recentRef.value;
-    console.log('recentComponent:',recentComponent);
-    if(typeof recentComponent.loadProperties === 'function') {
+    console.log('recentComponent:', recentComponent);
+    if (typeof recentComponent.loadProperties === 'function') {
       console.log("함수 실행");
       recentComponent.loadProperties();
     } else {
@@ -47,11 +49,7 @@ watch(openSection, (newSection) => {
     <ul class="menu">
       <!-- 내 정보 항목 -->
       <li class="menu-item">
-        <button
-          @click="toggleSection('mypage')"
-          class="menu-button"
-          :class="{ active: openSection === 'mypage' }"
-        >
+        <button @click="toggleSection('mypage')" class="menu-button" :class="{ active: openSection === 'mypage' }">
           <i class="fa-regular fa-user"></i>
           내 정보
           <i v-if="openSection === 'mypage'" class="fa-solid fa-chevron-up"></i>
@@ -66,11 +64,7 @@ watch(openSection, (newSection) => {
 
       <!-- 즐겨찾기 항목 -->
       <li class="menu-item">
-        <button
-          @click="toggleSection('bookmark')"
-          class="menu-button"
-          :class="{ active: openSection === 'bookmark' }"
-        >
+        <button @click="toggleSection('bookmark')" class="menu-button" :class="{ active: openSection === 'bookmark' }">
           <i class="fa-regular fa-star"></i>
           즐겨찾기
           <i v-if="openSection === 'bookmark'" class="fa-solid fa-chevron-up"></i>
@@ -85,11 +79,7 @@ watch(openSection, (newSection) => {
 
       <!-- 최근 본 매물 항목 -->
       <li class="menu-item">
-        <button
-          @click="toggleSection('recent')"
-          class="menu-button"
-          :class="{ active: openSection === 'recent' }"
-        >
+        <button @click="toggleSection('recent')" class="menu-button" :class="{ active: openSection === 'recent' }">
           <i class="fa-solid fa-clock-rotate-left"></i>
           최근 본 매물
           <i v-if="openSection === 'recent'" class="fa-solid fa-chevron-up"></i>
@@ -104,11 +94,7 @@ watch(openSection, (newSection) => {
 
       <!-- 등록한 매물 항목 -->
       <li class="menu-item">
-        <button
-          @click="toggleSection('forSale')"
-          class="menu-button"
-          :class="{ active: openSection === 'forSale' }"
-        >
+        <button @click="toggleSection('forSale')" class="menu-button" :class="{ active: openSection === 'forSale' }">
           <i class="fa-solid fa-house"></i>
           등록한 매물
           <i v-if="openSection === 'forSale'" class="fa-solid fa-chevron-up"></i>
