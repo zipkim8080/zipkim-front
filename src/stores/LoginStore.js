@@ -22,14 +22,11 @@ export const useLoginStore = defineStore('auth', {
       this.refreshToken = token;
     },
 
-    setEmailAndName(email, name) {
+    setEmailAndNameAndRole(email, name, role) {
       this.email = email;
       this.name = name;
-      // console.log('이메일과 이름 ', email, name);
-    },
-
-    setRole(role) {
       this.role = role;
+      // console.log('이메일과 이름 ', email, name);
     },
 
     // 쿠키에서 JWT 토큰을 읽어와 상태에 저장하는 액션
@@ -45,7 +42,7 @@ export const useLoginStore = defineStore('auth', {
         this.setAccessToken(token); // 토큰을 상태에 저장
         const payload = jwtDecode(token);
 
-        this.setEmailAndName(payload.email, payload.name);
+        this.setEmailAndNameAndRole(payload.email, payload.name, payload.role);
 
         // console.log('토큰이 저장되었습니다:', token);
         // console.log(payload);

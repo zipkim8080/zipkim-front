@@ -32,7 +32,7 @@ const role = computed(() => loginStore.role);
 const getRole = async () => {
   try {
     const response = await axios.get('/api/role');
-    role.value = response.data;
+    loginStore.role = response.data;
   } catch (error) {
     console.log('오루발생: ', error);
   }
@@ -40,6 +40,8 @@ const getRole = async () => {
 
 // 단순 페이지 이동 //
 const regi = () => {
+  console.log(role);
+
   if (!loginStore.isAuthenticated()) {
     openLoginModal();
   } else {
