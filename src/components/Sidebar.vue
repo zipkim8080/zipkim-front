@@ -18,19 +18,21 @@ const toggleSection = (section) => {
 };
 
 watch(openSection, (newSection) => {
+  console.log('현재 섹션 : ', newSection);
   if (newSection === 'bookmark' && bookmarkRef.value) {
-    console.log('값 존재 : ' + bookmarkRef.value);
     const bookmarkComponent = bookmarkRef.value;
-    console.log('Component : ' + bookmarkComponent);
-
     if (typeof bookmarkComponent.fetchBookMarks === 'function') {
       bookmarkComponent.fetchBookMarks();
     } else {
       console.error('fetchBookMarks not function');
     }
-  } else if (newSection === 'recent' && recentRef.value) {
+  }
+  if (newSection === 'recent' && recentRef.value) {
+    console.log("함수 첫번째 실행");
     const recentComponent = recentRef.value;
+    console.log('recentComponent:',recentComponent);
     if(typeof recentComponent.loadProperties === 'function') {
+      console.log("함수 실행");
       recentComponent.loadProperties();
     } else {
       console.error('not function');
@@ -95,7 +97,7 @@ watch(openSection, (newSection) => {
         </button>
         <transition name="slide-fade">
           <div v-show="openSection === 'recent'" class="menu-content">
-            <recent @close="toggleSection('recent')" />
+            <recent ref="recentRef" @close="toggleSection('recent')" />
           </div>
         </transition>
       </li>

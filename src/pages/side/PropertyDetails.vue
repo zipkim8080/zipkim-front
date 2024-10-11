@@ -9,7 +9,7 @@ import { useLoginStore } from '@/stores/LoginStore.js';
 
 const LoginStore = useLoginStore();
 const un = LoginStore.loadUsernameFromToken();
-let isNull=false;
+let isNull = false;
 
 const router = useRouter();
 const route = useRoute();
@@ -18,7 +18,6 @@ const props = defineProps({
   propId: Number,
 });
 const emit = defineEmits(['close']);
-
 
 onMounted(async () => {
   try {
@@ -30,24 +29,19 @@ onMounted(async () => {
   }
 });
 
-const check = async() => {
+const check = async () => {
   try {
-    const response = await axios.post(`/apis/checkDB`,
-        {username:un,
-          probid:props.propId,
-        })
+    const response = await axios.post(`/apis/checkDB`, { username: un, probid: props.propId });
     console.log(JSON.stringify(response.data));
-    if(response.data!="") {
-      isNull=true;
-      console.log("즐겨찾기가 있습니다.")
+    if (response.data != '') {
+      isNull = true;
+      console.log('즐겨찾기가 있습니다.');
     } else {
-      isNull=false;
-      console.log("즐겨찾기가 없습니다.")
+      isNull = false;
+      console.log('즐겨찾기가 없습니다.');
     }
-    } catch (error) {
-  }
-}
-
+  } catch (error) {}
+};
 
 const propInfo = reactive({
   id: '',
@@ -138,7 +132,7 @@ async function fetchPropertyData(propId) {
     propInfo.images = data.images;
     propInfo.register[0].openDate = data.register.openDate;
     console.log(propInfo);
-    saveProperty(propInfo,propId);
+    saveProperty(propInfo, propId);
 
     // console.log(propInfo);
   } catch (error) {
@@ -146,33 +140,44 @@ async function fetchPropertyData(propId) {
   }
 }
 
-const saveProperty = (newPropInfo,propId) => {
+const saveProperty = (newPropInfo, propId) => {
   let existingProperties = JSON.parse(localStorage.getItem('propInfo')) || [];
   if (!Array.isArray(existingProperties)) {
     existingProperties = [];
   }
-  newPropInfo.propId=propId;
+  newPropInfo.propId = propId;
+
+  let index = -1;
+  for(let i=0;i<existingProperties.length;i++){
+    if(existingProperties[i].propId === newPropInfo.propId){
+      index=i;
+      break;
+    }
+  }
+
+  if(index !== -1) {
+    existingProperties.splice(index, 1);
+  }
 
   existingProperties.push(newPropInfo);
-  if(existingProperties.length > 7) {
+  if (existingProperties.length > 7) {
     existingProperties.shift();
   }
-  localStorage.setItem('propInfo',JSON.stringify(existingProperties));
-}
+  localStorage.setItem('propInfo', JSON.stringify(existingProperties));
+};
 
 async function bookMark(id, deposit, amount, floor, images) {
   try {
-    const response = await axios.post('/apis/addDB',
-        {
-          username:un,
-          probid:id,
-          deposit:deposit,
-          amount:amount,
-          floor:floor,
-          image:images,
-        });
+    const response = await axios.post('/apis/addDB', {
+      username: un,
+      probid: id,
+      deposit: deposit,
+      amount: amount,
+      floor: floor,
+      image: images,
+    });
   } catch (error) {
-    console.log("즐겨찾기 실패");
+    console.log('즐겨찾기 실패');
   }
 }
 
@@ -207,17 +212,21 @@ async function brokerData() {
             </button>
             <!--  -->
 
-            <h4
-              style="
-                font-weight: bold;
-                text-align: center;
-                margin-left: 6px;
-                margin-top: 50px;
-              "
-            >
+            <h4 style="font-weight: bold; text-align: center; margin-left: 6px; margin-top: 50px">
               {{ propInfo.roadName }}
               {{ propInfo.detailAddress }}
-              <button @click="bookMark(propInfo.id, propInfo.deposit.toLocaleString(), propInfo.amount.toLocaleString(), propInfo.complexName+propInfo.floor, propInfo.images[0].imageUrl)" class="bookMark-detail">
+              <button
+                @click="
+                  bookMark(
+                    propInfo.id,
+                    propInfo.deposit.toLocaleString(),
+                    propInfo.amount.toLocaleString(),
+                    propInfo.complexName + propInfo.floor,
+                    propInfo.images[0].imageUrl
+                  )
+                "
+                class="bookMark-detail"
+              >
                 <i :class="isNull ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
               </button>
             </h4>
@@ -230,12 +239,7 @@ async function brokerData() {
               <Carousel :autoplay="3000" :wrap-around="true">
                 <Slide v-for="(image, index) in propInfo.images" :key="index">
                   <div class="carousel__item">
-                    <img
-                      class="slideImg"
-                      :src="image.imageUrl"
-                      width="600px"
-                      height="400px"
-                    />
+                    <img class="slideImg" :src="image.imageUrl" width="600px" height="400px" />
                   </div>
                 </Slide>
                 <template #addons>
@@ -290,16 +294,12 @@ async function brokerData() {
             <hr style="width: 100%; height: 3px; background-color: black" />
             <div class="info-container">
               <div class="prop-left">해당층 / 전체층</div>
-              <div class="prop-right">
-                {{ propInfo.floor }} / {{ propInfo.totalFloor }}
-              </div>
+              <div class="prop-right">{{ propInfo.floor }} / {{ propInfo.totalFloor }}</div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">방 / 욕실</div>
-              <div class="prop-right">
-                {{ propInfo.roomNo }} / {{ propInfo.bathNo }}
-              </div>
+              <div class="prop-right">{{ propInfo.roomNo }} / {{ propInfo.bathNo }}</div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
@@ -358,30 +358,29 @@ async function brokerData() {
             <div class="info-container">
               <div class="prop-left">등기현황</div>
               <div class="info-container">
-                <span class="status-item"
-                  >압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span
-                >
+                <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
                 <span class="status-item"
                   >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
                 >
                 <span class="status-item"
-                  >경매개시결정&nbsp;
-                  {{ propInfo.auction ? '⭕️' : '❌' }}</span
+                  >경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span
                 >
-                <span class="status-item"
-                  >신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span
-                >
+                <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
               </div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">근저당(총액)</div>
-              <div class="prop-right">{{ propInfo.loan }} 원</div>
+              <div class="prop-right">
+                {{ propInfo.loan > 0 ? propInfo.loan.toLocaleString() : 0 }} 원
+              </div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">전세권(총액)</div>
-              <div class="prop-right">{{ propInfo.leaseAmount }} 원</div>
+              <div class="prop-right">
+                {{ propInfo.leaseAmount > 0 ? propInfo.leaseAmount.toLocaleString() : 0 }} 원
+              </div>
             </div>
             <hr class="section-divider" />
             <br />
@@ -412,10 +411,7 @@ async function brokerData() {
               <div class="prop-right">
                 {{
                   propInfo.phoneNumber
-                    ? propInfo.phoneNumber.replace(
-                        /(\d{3})(\d{4})(\d{4})/,
-                        '$1-$2-$3'
-                      )
+                    ? propInfo.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
                     : '-'
                 }}
               </div>

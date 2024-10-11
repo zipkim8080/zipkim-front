@@ -2,7 +2,7 @@
 import { ref, defineProps, onMounted, watch, reactive } from 'vue';
 import PropertyDetails from '@/pages/side/PropertyDetails.vue';
 import axios from 'axios';
-import {useLoginStore} from "@/stores/LoginStore.js";
+import { useLoginStore } from '@/stores/LoginStore.js';
 
 const loginStore = useLoginStore();
 const un = loginStore.loadUsernameFromToken();
@@ -13,10 +13,9 @@ const props = defineProps({
 });
 
 const openModal = (propertyId) => {
-  selectedPropertyId.value = propertyId;// 선택된 아이템의 ID를 설정합니다.
+  selectedPropertyId.value = propertyId; // 선택된 아이템의 ID를 설정합니다.
   isModalOpen.value = true;
 };
-
 </script>
 
 <template>
@@ -35,8 +34,8 @@ const openModal = (propertyId) => {
           {{ property.type }}
           <img class="check" src="@/assets/images/check.png" />
         </div>
-        <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
         <div class="price">매매 {{ property.amount.toLocaleString() }} 만원</div>
+        <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
         <div class="where">
           {{ property.complexName }}<span class="info m-1"> {{ property.floor }}층</span>
         </div>

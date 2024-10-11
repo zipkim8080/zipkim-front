@@ -1,6 +1,6 @@
 //git <script setup>
 
-import {onMounted, ref, computed} from 'vue';
+import {onMounted, ref} from 'vue';
 import { defineEmits } from 'vue';
 import axios from 'axios';
 import PropertyDetails from "@/pages/side/PropertyDetails.vue";
@@ -15,32 +15,40 @@ const props = defineProps({
   propList: Object,
 });
 
+const reset = () => {
+  localStorage.clear();
+}
+
 const openModal = (propertyId) => {
   console.log(propertyId);
   selectedPropertyId.value = propertyId;
   isModalOpen.value = true;
 }
 
-const loadProperties = () => {
+const loadProperties = async () => {
   const storedProperties = localStorage.getItem('propInfo');
-  console.log(storedProperties);
   if (storedProperties) {
     let propertiesData = JSON.parse(storedProperties);
     if(!Array.isArray(propertiesData)){
       propertiesData = [propertiesData];
     }
+    propertiesData.push();
+
     const propertiesToDisplay = propertiesData.map(property => {
       return {
-        propid: property.propid,
+        propId: property.propId,
         amount: property.amount,
         deposit: property.deposit,
-        floor: property.floor,
+        floor: property.complexName + property.floor,
         image: property.images && property.images.length > 0 ? property.images[0].imageUrl : ''
       };
     });
 
     displayedProperties.value = propertiesToDisplay.reverse().slice(0, 7);
     console.log(`매물 수 :  + ${propertiesToDisplay.length}`);
+    localStorage.setItem('propInfo', JSON.stringify(propertiesData));
+  } else if(!storedProperties) {
+    displayedProperties.value=[];
   }
 };
 
@@ -84,10 +92,12 @@ const clear = () => {
 const handleClose = () => {
   emit('close');
 };
+
+defineExpose({loadProperties});
 </script>
 
 <template>
-  <div class="title">
+  <div class="list">
     <div>
       <div v-for="(property, index) in displayedProperties" :key="index" class="content-box">
         <div class="img">
@@ -95,32 +105,30 @@ const handleClose = () => {
         </div>
         <div class="content">
           <div class="type">
-            유형 : {{'오피스텔'}}
+            {{'apt'}}
             <img class="check" src="@/assets/images/check.png" alt="체크 이미지"/>
-          </div>
-          <div class="price">
-            전세 {{property.deposit.toLocaleString()}} 만원
-          </div>
-          <div class="info">
-            매매 {{property.amount.toLocaleString()}} 만원
-          </div>
-          <div class="word">
-            {{property.floor}} 층
-          </div>
-          <div>
-            <button @click="openModal(property.propid)">
-              보러가기
+            <button @click="openModal(property.propId)">
+                 보러가기
             </button>
             <div v-if="isModalOpen" class="modal">
               <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false"/>
             </div>
+          </div>
+          <div class="price">
+            전세 {{property.deposit.toLocaleString()}} 만원
+          </div>
+          <div class="price">
+            매매 {{property.amount.toLocaleString()}} 만원
+          </div>
+          <div class="where">
+            {{property.floor}} 층
           </div>
         </div>
       </div>
     </div>
     <p v-if="displayedProperties.length === 0">저장된 매물이 없습니다.</p>
   </div>
-  <button @click="loadProperties">O</button>
+  <button @click="reset">초기화</button>
 </template>
 
 <style scoped>
@@ -141,5 +149,19 @@ const handleClose = () => {
   width: 400px;
   /* border-top: 0.5px solid #ccc; */
   border-bottom: 0.1px solid #ccc;
+}
+
+.price {
+  /* font-size: 1.5rem; */
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.where {
+  font-size: 16px;
+}
+
+.check {
+  height: 17px;
 }
 </style>
