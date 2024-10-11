@@ -16,20 +16,48 @@ const openModal = (propertyId) => {
   selectedPropertyId.value = propertyId; // 선택된 아이템의 ID를 설정합니다.
   isModalOpen.value = true;
 };
+
+// 상세페이지에서 좋아요버튼눌렸을때 리스트에도 반영
+const handleBookMarkEvent = ({ id, isFavorite }) => {
+  console.log('이벤트왓어요' + id, isFavorite)
+  const property = props.propList.items.find(p => p.id == id)
+  property.isFavorite = isFavorite
+  // property.isFavorite = status;
+};
+
+async function bookMark(property) {
+  //이미 즐겨찾기 되있으면 해제
+  if (property.isFavorite) {
+    await axios.post('/api/bookmark/delete', {
+      propertyId: property.id
+    })
+    property.isFavorite = false;
+    // status = false;
+  }//즐겨찾기 안되잇으면 즐찾
+  else {
+    await axios.post('/api/bookmark/add', {
+      propertyId: property.id
+    })
+    property.isFavorite = true;
+    // status = true;
+  }
+  // return status;
+}
 </script>
 
 <template>
   <div class="list">
-    <div
-      class="content-box"
-      v-for="(property, index) in propList.items"
-      :key="property.id"
-      @click="openModal(property.id)"
-    >
-      <div class="img">
-        <img style="width: 200px; height: 130px; border-radius: 5px" :src="property.imageUrl" />
+    <div class="content-box" v-for="(property, index) in propList.items" :key="property.id">
+      <div class="image-box">
+        <div class="img">
+          <img style="width: 200px; height: 130px; border-radius: 5px" :src="property.imageUrl" />
+        </div>
+        <button @click="bookMark(property)" class="mark-checked">
+          <i :class="property.isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+        </button>
       </div>
-      <div class="content">
+
+      <div class="content" @click="openModal(property.id)">
         <div class="type">
           {{ property.type }}
           <img class="check" src="@/assets/images/check.png" />
@@ -43,7 +71,7 @@ const openModal = (propertyId) => {
     </div>
   </div>
   <div v-if="isModalOpen" @close="isModalOpen = false">
-    <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false" />
+    <PropertyDetails @bookMark="handleBookMarkEvent" :propId="selectedPropertyId" @close="isModalOpen = false" />
   </div>
 </template>
 
@@ -93,5 +121,21 @@ const openModal = (propertyId) => {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.image-box {
+  position: relative;
+}
+
+.mark-checked {
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  color: rgb(246, 60, 74);
+  height: 10px;
+  width: 10px;
+  font-size: 24px;
 }
 </style>

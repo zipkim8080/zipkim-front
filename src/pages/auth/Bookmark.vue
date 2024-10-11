@@ -45,7 +45,7 @@ const fetchBookMarks = async () => {
     propList.totalElements = props.data.totalElements;
     propList.totalPages = props.data.totalPages;
     propList.numberOfElements = props.data.numberOfElements;
-    console.log('hi')
+    console.log(props)
   } catch (error) {
 
   }
