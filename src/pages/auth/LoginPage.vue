@@ -13,8 +13,8 @@ const infoModalOpen = () => {
 };
 
 const naverLogin = async () => {
-  // window.location.href = 'http://52.79.206.11/oauth2/authorization/naver';
-  window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
+  window.location.href = 'http://52.79.206.11/oauth2/authorization/naver';
+  // window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
 };
 const googleLogin = () => {
   window.location.href = 'http://52.79.206.11/oauth2/authorization/google';
