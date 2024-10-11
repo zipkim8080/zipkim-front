@@ -10,6 +10,9 @@ const LoginStore = useLoginStore();
 const un = LoginStore.loadUsernameFromToken();
 const isModalOpen = ref(false);
 const selectedPropertyId = ref(null);
+const props = defineProps({
+  propList: Object,
+});
 
 const openModal = (propertyId) => {
   selectedPropertyId.value = propertyId;

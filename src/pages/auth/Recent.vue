@@ -97,9 +97,9 @@ defineExpose({loadProperties});
 </script>
 
 <template>
-  <div class="list">
+  <div class="list" >
     <div>
-      <div v-for="(property, index) in displayedProperties" :key="index" class="content-box">
+      <div v-for="(property, index) in displayedProperties" :key="index" class="content-box" @click="openModal(property.propId)">
         <div class="img">
           <img style="width: 200px; height: 130px; border-radius: 5px" :src="property.image" />
         </div>
@@ -107,9 +107,6 @@ defineExpose({loadProperties});
           <div class="type">
             {{'apt'}}
             <img class="check" src="@/assets/images/check.png" alt="체크 이미지"/>
-            <button @click="openModal(property.propId)">
-                 보러가기
-            </button>
             <div v-if="isModalOpen" class="modal">
               <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false"/>
             </div>
@@ -163,5 +160,9 @@ defineExpose({loadProperties});
 
 .check {
   height: 17px;
+}
+
+.content-box:hover {
+  transform: scale(1.02);
 }
 </style>
