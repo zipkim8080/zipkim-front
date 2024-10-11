@@ -174,9 +174,9 @@ const verifyCode = async () => {
           companyName: brokerInfo.value.companyName,
         });
         console.log('DB 성공');
-        loginStore.setRole('ROLE_BROKER');
         emit('updatePhoneNumber'); // 인증 성공 시 갱신 요청 이벤트 발생
         emit('updateRole');
+        loginStore.role = 'ROLE_BROKER';
         handleClose(); // 인증에 성공하면 모달을 닫음
       } catch (error) {
         console.error('DB 실패', error);
