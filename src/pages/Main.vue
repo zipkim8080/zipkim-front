@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLoginStore } from '@/stores/LoginStore';
 import LoginButton from '../components/button/LoginButton.vue';
@@ -27,7 +27,7 @@ const showModal = ref(false);
 const startModal = ref(true);
 const loginModal = ref(false);
 const sidebarModal = ref(false);
-const role = ref(null);
+const role = computed(() => loginStore.role);
 
 const getRole = async () => {
   try {

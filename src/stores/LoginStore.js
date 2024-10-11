@@ -9,6 +9,7 @@ export const useLoginStore = defineStore('auth', {
     refreshToken: null,
     email: null,
     name: null,
+    role: null,
   }),
   actions: {
     // 토큰을 상태에 저장하는 액션
@@ -25,6 +26,10 @@ export const useLoginStore = defineStore('auth', {
       this.email = email;
       this.name = name;
       // console.log('이메일과 이름 ', email, name);
+    },
+
+    setRole(role) {
+      this.role = role;
     },
 
     // 쿠키에서 JWT 토큰을 읽어와 상태에 저장하는 액션
@@ -76,6 +81,7 @@ export const useLoginStore = defineStore('auth', {
       this.isAuthenticated = false;
       this.name = null;
       this.email = null;
+      this.role = null;
       Cookies.remove('Authorization');
       Cookies.remove('Refresh');
       console.log('토큰이 삭제되었습니다.');
