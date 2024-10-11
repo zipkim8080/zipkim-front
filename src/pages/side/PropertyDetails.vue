@@ -1,6 +1,6 @@
 <script setup>
 import axios from '@/api/index';
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive, ref, defineEmits } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
@@ -17,7 +17,7 @@ const route = useRoute();
 const props = defineProps({
   propId: Number,
 });
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'bookMark']);
 
 onMounted(async () => {
   try {
@@ -168,7 +168,6 @@ const saveProperty = (newPropInfo, propId) => {
 };
 
 async function bookMark(id) {
-  console.log(isFavorite.value)
   //이미 즐겨찾기 되있으면 해제
   if (isFavorite.value) {
     await axios.post('/api/bookmark/delete', {
@@ -182,6 +181,7 @@ async function bookMark(id) {
     })
     isFavorite.value = true;
   }
+  emit('bookMark', { id: id, isFavorite: isFavorite.value });
 }
 
 async function brokerData() {
