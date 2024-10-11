@@ -193,7 +193,7 @@
           </div>
           <div class="textBox mt-3" style="text-align: left">
             HUG 인증번호 검증방법 <br />
-            HUG 안심전세어플 > 안심조회 > 인대인 정보 조회 >
+            HUG 안심전세어플 > 안심조회 > 임대인 정보 조회 >
             <br />안심 임대인 조회 > 안심임대인 인증서 조회
           </div>
         </div>
