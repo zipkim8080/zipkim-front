@@ -13,12 +13,13 @@ export default defineConfig({
   },
   server: {
     proxy: {
-       '/apis': {
-         target: 'http://localhost:8080',
-         changeOrigin: true,
-       },
+      // '/api': {
+      //   target: 'http://52.79.206.11',
+      //   changeOrigin: true,
+      // },
+
       '/api': {
-        target: 'http://52.79.206.11',
+        target: 'http://localhost:8080',
         changeOrigin: true,
       },
       '/oauth2': {

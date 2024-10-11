@@ -1,6 +1,6 @@
 <script setup>
-import axios from 'axios';
-import { onMounted, reactive } from 'vue';
+import axios from '@/api/index';
+import { onMounted, reactive, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
@@ -9,7 +9,7 @@ import { useLoginStore } from '@/stores/LoginStore.js';
 
 const LoginStore = useLoginStore();
 const un = LoginStore.loadUsernameFromToken();
-let isNull=false;
+let isFavorite = ref(false);
 
 const router = useRouter();
 const route = useRoute();
@@ -30,21 +30,17 @@ onMounted(async () => {
   }
 });
 
-const check = async() => {
+const check = async () => {
   try {
-    const response = await axios.post(`/apis/checkDB`,
-        {username:un,
-          probid:props.propId,
-        })
-    console.log(JSON.stringify(response.data));
-    if(response.data!="") {
-      isNull=true;
+    const response = await axios.get(`/api/bookmark/${props.propId}`)
+    if (response.data == true) {
+      isFavorite.value = true;
       console.log("즐겨찾기가 있습니다.")
     } else {
-      isNull=false;
+      isFavorite.value = false;
       console.log("즐겨찾기가 없습니다.")
     }
-    } catch (error) {
+  } catch (error) {
   }
 }
 
@@ -138,7 +134,7 @@ async function fetchPropertyData(propId) {
     propInfo.images = data.images;
     propInfo.register[0].openDate = data.register.openDate;
     console.log(propInfo);
-    saveProperty(propInfo,propId);
+    saveProperty(propInfo, propId);
 
     // console.log(propInfo);
   } catch (error) {
@@ -146,33 +142,34 @@ async function fetchPropertyData(propId) {
   }
 }
 
-const saveProperty = (newPropInfo,propId) => {
+const saveProperty = (newPropInfo, propId) => {
   let existingProperties = JSON.parse(localStorage.getItem('propInfo')) || [];
   if (!Array.isArray(existingProperties)) {
     existingProperties = [];
   }
-  newPropInfo.propId=propId;
+  newPropInfo.propId = propId;
 
   existingProperties.push(newPropInfo);
-  if(existingProperties.length > 7) {
+  if (existingProperties.length > 7) {
     existingProperties.shift();
   }
-  localStorage.setItem('propInfo',JSON.stringify(existingProperties));
+  localStorage.setItem('propInfo', JSON.stringify(existingProperties));
 }
 
-async function bookMark(id, deposit, amount, floor, images) {
-  try {
-    const response = await axios.post('/apis/addDB',
-        {
-          username:un,
-          probid:id,
-          deposit:deposit,
-          amount:amount,
-          floor:floor,
-          image:images,
-        });
-  } catch (error) {
-    console.log("즐겨찾기 실패");
+async function bookMark(id) {
+  console.log(isFavorite.value)
+  //이미 즐겨찾기 되있으면 해제
+  if (isFavorite.value) {
+    await axios.post('/api/bookmark/delete', {
+      propertyId: id
+    })
+    isFavorite.value = false;
+  }//즐겨찾기 안되잇으면 즐찾
+  else {
+    await axios.post('/api/bookmark/add', {
+      propertyId: id
+    })
+    isFavorite.value = true;
   }
 }
 
@@ -207,18 +204,16 @@ async function brokerData() {
             </button>
             <!--  -->
 
-            <h4
-              style="
+            <h4 style="
                 font-weight: bold;
                 text-align: center;
                 margin-left: 6px;
                 margin-top: 50px;
-              "
-            >
+              ">
               {{ propInfo.roadName }}
               {{ propInfo.detailAddress }}
-              <button @click="bookMark(propInfo.id, propInfo.deposit.toLocaleString(), propInfo.amount.toLocaleString(), propInfo.complexName+propInfo.floor, propInfo.images[0].imageUrl)" class="bookMark-detail">
-                <i :class="isNull ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+              <button @click="bookMark(propInfo.id)" class="bookMark-detail">
+                <i :class="isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
               </button>
             </h4>
             <!-- <i class="fa-solid fa-hashtag mb-2"></i> &nbsp; 매물
@@ -230,12 +225,7 @@ async function brokerData() {
               <Carousel :autoplay="3000" :wrap-around="true">
                 <Slide v-for="(image, index) in propInfo.images" :key="index">
                   <div class="carousel__item">
-                    <img
-                      class="slideImg"
-                      :src="image.imageUrl"
-                      width="600px"
-                      height="400px"
-                    />
+                    <img class="slideImg" :src="image.imageUrl" width="600px" height="400px" />
                   </div>
                 </Slide>
                 <template #addons>
@@ -248,30 +238,26 @@ async function brokerData() {
             <!-- 가격 -->
             <div style="display: flex">
               <div class="status-icon" style="font-weight: bold">BUY</div>
-              <div
-                style="
+              <div style="
                   font-weight: bold;
                   width: 175px;
                   text-align: right;
                   font-size: 21px;
                   padding-top: 2px;
-                "
-              >
+                ">
                 {{ propInfo.amount.toLocaleString() }} 만원
               </div>
             </div>
             <!--  -->
             <div style="display: flex">
               <div class="status-icon" style="font-weight: bold">RENT</div>
-              <div
-                style="
+              <div style="
                   font-weight: bold;
                   width: 168px;
                   text-align: right;
                   font-size: 21px;
                   padding-top: 2px;
-                "
-              >
+                ">
                 {{ propInfo.deposit.toLocaleString() }} 만원
               </div>
             </div>
@@ -358,19 +344,11 @@ async function brokerData() {
             <div class="info-container">
               <div class="prop-left">등기현황</div>
               <div class="info-container">
-                <span class="status-item"
-                  >압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span
-                >
-                <span class="status-item"
-                  >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
-                >
-                <span class="status-item"
-                  >경매개시결정&nbsp;
-                  {{ propInfo.auction ? '⭕️' : '❌' }}</span
-                >
-                <span class="status-item"
-                  >신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span
-                >
+                <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
+                <span class="status-item">가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span>
+                <span class="status-item">경매개시결정&nbsp;
+                  {{ propInfo.auction ? '⭕️' : '❌' }}</span>
+                <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
               </div>
             </div>
             <hr class="section-divider" />
@@ -413,9 +391,9 @@ async function brokerData() {
                 {{
                   propInfo.phoneNumber
                     ? propInfo.phoneNumber.replace(
-                        /(\d{3})(\d{4})(\d{4})/,
-                        '$1-$2-$3'
-                      )
+                      /(\d{3})(\d{4})(\d{4})/,
+                      '$1-$2-$3'
+                    )
                     : '-'
                 }}
               </div>
