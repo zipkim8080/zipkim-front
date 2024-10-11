@@ -1,12 +1,57 @@
-<script setup>
-import { ref } from 'vue';
+//git <script setup>
+
+import {onMounted, ref, computed} from 'vue';
 import { defineEmits } from 'vue';
+import axios from 'axios';
+import PropertyDetails from "@/pages/side/PropertyDetails.vue";
 
 const emit = defineEmits(['close']);
-const properties = ref(JSON.parse(localStorage.getItem('properties')) || []);
+const properties = ref([]);
+//JSON.parse(localStorage.getItem('properties')) ||
+const displayedProperties = ref([]);
+const isModalOpen = ref(false);
+const selectedPropertyId = ref(null);
+const props = defineProps({
+  propList: Object,
+});
 
-const saveToLocalStorage = (propertyName) => {
+const openModal = (propertyId) => {
+  console.log(propertyId);
+  selectedPropertyId.value = propertyId;
+  isModalOpen.value = true;
+}
+
+const loadProperties = () => {
+  const storedProperties = localStorage.getItem('propInfo');
+  console.log(storedProperties);
+  if (storedProperties) {
+    let propertiesData = JSON.parse(storedProperties);
+    if(!Array.isArray(propertiesData)){
+      propertiesData = [propertiesData];
+    }
+    const propertiesToDisplay = propertiesData.map(property => {
+      return {
+        propid: property.propid,
+        amount: property.amount,
+        deposit: property.deposit,
+        floor: property.floor,
+        image: property.images && property.images.length > 0 ? property.images[0].imageUrl : ''
+      };
+    });
+
+    displayedProperties.value = propertiesToDisplay.reverse().slice(0, 7);
+    console.log(`매물 수 :  + ${propertiesToDisplay.length}`);
+  }
+};
+
+  // 컴포넌트가 마운트될 때 데이터 로딩
+  onMounted(() => {
+    loadProperties();
+  });
+
+/*const saveToLocalStorage = (propertyName) => {
   // 중복 확인: 이미 저장된 매물이라면 저장하지 않음
+
   if (properties.value.includes(propertyName)) {
     const index = properties.value.indexOf(propertyName);
 
@@ -29,7 +74,8 @@ const saveToLocalStorage = (propertyName) => {
 
   // 저장된 매물 확인을 위한 콘솔 출력 (필요 시 삭제)
   console.log('저장된 매물:', properties.value);
-};
+};*/
+
 
 const clear = () => {
   localStorage.clear();
@@ -42,23 +88,39 @@ const handleClose = () => {
 
 <template>
   <div class="title">
-    <h1>최근 본 매물</h1>
+    <div>
+      <div v-for="(property, index) in displayedProperties" :key="index" class="content-box">
+        <div class="img">
+          <img style="width: 200px; height: 130px; border-radius: 5px" :src="property.image" />
+        </div>
+        <div class="content">
+          <div class="type">
+            유형 : {{'오피스텔'}}
+            <img class="check" src="@/assets/images/check.png" alt="체크 이미지"/>
+          </div>
+          <div class="price">
+            전세 {{property.deposit.toLocaleString()}} 만원
+          </div>
+          <div class="info">
+            매매 {{property.amount.toLocaleString()}} 만원
+          </div>
+          <div class="word">
+            {{property.floor}} 층
+          </div>
+          <div>
+            <button @click="openModal(property.propid)">
+              보러가기
+            </button>
+            <div v-if="isModalOpen" class="modal">
+              <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p v-if="displayedProperties.length === 0">저장된 매물이 없습니다.</p>
   </div>
-  <div>
-    <button
-      v-for="num in 7"
-      :key="num"
-      @click="saveToLocalStorage(`매물${num}`)"
-    >
-      매물{{ num }}
-    </button>
-    <button @click="clear">초기화</button>
-  </div>
-  <ul>
-    <li v-for="i in properties.length" :key="i">
-      {{ properties[properties.length - i] }}
-    </li>
-  </ul>
+  <button @click="loadProperties">O</button>
 </template>
 
 <style scoped>
@@ -72,5 +134,12 @@ const handleClose = () => {
   background: none;
   margin-right: 20px;
   padding: 0px;
+}
+.content-box {
+  padding: 15px 0px;
+  display: flex;
+  width: 400px;
+  /* border-top: 0.5px solid #ccc; */
+  border-bottom: 0.1px solid #ccc;
 }
 </style>

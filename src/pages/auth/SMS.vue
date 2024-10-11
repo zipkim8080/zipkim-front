@@ -51,7 +51,7 @@ const verifyCode = async () => {
       hideProgressBar: true, //로딩바제거
     });
     try {
-      await axios.post('/api/users/phone', {
+      await axios.post('http://localhost:8080/api/phone', {
         phoneNumber: phoneNumber.value,
       });
       console.log('DB 성공');

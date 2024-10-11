@@ -13,10 +13,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // '/api': {
-      //   target: 'http://localhost:8080',
-      //   changeOrigin: true,
-      // },
+       '/apis': {
+         target: 'http://localhost:8080',
+         changeOrigin: true,
+       },
       '/api': {
         target: 'http://52.79.206.11',
         changeOrigin: true,

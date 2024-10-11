@@ -5,6 +5,12 @@ import { useRouter, useRoute } from 'vue-router';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
+import { useLoginStore } from '@/stores/LoginStore.js';
+
+const LoginStore = useLoginStore();
+const un = LoginStore.loadUsernameFromToken();
+let isNull=false;
+
 const router = useRouter();
 const route = useRoute();
 
@@ -13,14 +19,35 @@ const props = defineProps({
 });
 const emit = defineEmits(['close']);
 
+
 onMounted(async () => {
   try {
     await fetchPropertyData(props.propId);
     brokerData();
+    check();
   } catch (error) {
     console.error('오류 발생:', error);
   }
 });
+
+const check = async() => {
+  try {
+    const response = await axios.post(`/apis/checkDB`,
+        {username:un,
+          probid:props.propId,
+        })
+    console.log(JSON.stringify(response.data));
+    if(response.data!="") {
+      isNull=true;
+      console.log("즐겨찾기가 있습니다.")
+    } else {
+      isNull=false;
+      console.log("즐겨찾기가 없습니다.")
+    }
+    } catch (error) {
+  }
+}
+
 
 const propInfo = reactive({
   id: '',
@@ -110,9 +137,42 @@ async function fetchPropertyData(propId) {
     propInfo.loan = data.register.loan;
     propInfo.images = data.images;
     propInfo.register[0].openDate = data.register.openDate;
+    console.log(propInfo);
+    saveProperty(propInfo,propId);
+
     // console.log(propInfo);
   } catch (error) {
     console.error('Error fetching property data:', error);
+  }
+}
+
+const saveProperty = (newPropInfo,propId) => {
+  let existingProperties = JSON.parse(localStorage.getItem('propInfo')) || [];
+  if (!Array.isArray(existingProperties)) {
+    existingProperties = [];
+  }
+  newPropInfo.propId=propId;
+
+  existingProperties.push(newPropInfo);
+  if(existingProperties.length > 7) {
+    existingProperties.shift();
+  }
+  localStorage.setItem('propInfo',JSON.stringify(existingProperties));
+}
+
+async function bookMark(id, deposit, amount, floor, images) {
+  try {
+    const response = await axios.post('/apis/addDB',
+        {
+          username:un,
+          probid:id,
+          deposit:deposit,
+          amount:amount,
+          floor:floor,
+          image:images,
+        });
+  } catch (error) {
+    console.log("즐겨찾기 실패");
   }
 }
 
@@ -157,8 +217,8 @@ async function brokerData() {
             >
               {{ propInfo.roadName }}
               {{ propInfo.detailAddress }}
-              <button class="bookMark-detail">
-                <i class="fa-regular fa-heart"></i>
+              <button @click="bookMark(propInfo.id, propInfo.deposit.toLocaleString(), propInfo.amount.toLocaleString(), propInfo.complexName+propInfo.floor, propInfo.images[0].imageUrl)" class="bookMark-detail">
+                <i :class="isNull ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
               </button>
             </h4>
             <!-- <i class="fa-solid fa-hashtag mb-2"></i> &nbsp; 매물

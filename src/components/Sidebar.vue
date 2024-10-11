@@ -9,6 +9,7 @@ import Bookmark from '@/pages/auth/Bookmark.vue';
 // 현재 열려 있는 항목을 저장하는 변수
 const openSection = ref('mypage');
 const bookmarkRef = ref(null);
+const recentRef = ref(null);
 
 // 항목을 열고 닫는 함수
 const toggleSection = (section) => {
@@ -26,6 +27,13 @@ watch(openSection, (newSection) => {
       bookmarkComponent.fetchBookMarks();
     } else {
       console.error('fetchBookMarks not function');
+    }
+  } else if (newSection === 'recent' && recentRef.value) {
+    const recentComponent = recentRef.value;
+    if(typeof recentComponent.loadProperties === 'function') {
+      recentComponent.loadProperties();
+    } else {
+      console.error('not function');
     }
   }
 });

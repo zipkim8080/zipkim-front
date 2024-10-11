@@ -2,15 +2,21 @@
 import { ref, defineProps, onMounted, watch, reactive } from 'vue';
 import PropertyDetails from '@/pages/side/PropertyDetails.vue';
 import axios from 'axios';
+import {useLoginStore} from "@/stores/LoginStore.js";
+
+const loginStore = useLoginStore();
+const un = loginStore.loadUsernameFromToken();
 const isModalOpen = ref(false);
 const selectedPropertyId = ref(null);
 const props = defineProps({
   propList: Object,
 });
+
 const openModal = (propertyId) => {
-  selectedPropertyId.value = propertyId; // 선택된 아이템의 ID를 설정합니다.
+  selectedPropertyId.value = propertyId;// 선택된 아이템의 ID를 설정합니다.
   isModalOpen.value = true;
 };
+
 </script>
 
 <template>
