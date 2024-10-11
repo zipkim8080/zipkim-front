@@ -19,7 +19,6 @@ const props = defineProps({
 });
 const emit = defineEmits(['close']);
 
-
 onMounted(async () => {
   try {
     await fetchPropertyData(props.propId);
@@ -149,12 +148,24 @@ const saveProperty = (newPropInfo, propId) => {
   }
   newPropInfo.propId = propId;
 
+  let index = -1;
+  for (let i = 0; i < existingProperties.length; i++) {
+    if (existingProperties[i].propId === newPropInfo.propId) {
+      index = i;
+      break;
+    }
+  }
+
+  if (index !== -1) {
+    existingProperties.splice(index, 1);
+  }
+
   existingProperties.push(newPropInfo);
   if (existingProperties.length > 7) {
     existingProperties.shift();
   }
   localStorage.setItem('propInfo', JSON.stringify(existingProperties));
-}
+};
 
 async function bookMark(id) {
   console.log(isFavorite.value)
@@ -276,16 +287,12 @@ async function brokerData() {
             <hr style="width: 100%; height: 3px; background-color: black" />
             <div class="info-container">
               <div class="prop-left">해당층 / 전체층</div>
-              <div class="prop-right">
-                {{ propInfo.floor }} / {{ propInfo.totalFloor }}
-              </div>
+              <div class="prop-right">{{ propInfo.floor }} / {{ propInfo.totalFloor }}</div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">방 / 욕실</div>
-              <div class="prop-right">
-                {{ propInfo.roomNo }} / {{ propInfo.bathNo }}
-              </div>
+              <div class="prop-right">{{ propInfo.roomNo }} / {{ propInfo.bathNo }}</div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
@@ -354,12 +361,16 @@ async function brokerData() {
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">근저당(총액)</div>
-              <div class="prop-right">{{ propInfo.loan }} 원</div>
+              <div class="prop-right">
+                {{ propInfo.loan > 0 ? propInfo.loan.toLocaleString() : 0 }} 원
+              </div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">전세권(총액)</div>
-              <div class="prop-right">{{ propInfo.leaseAmount }} 원</div>
+              <div class="prop-right">
+                {{ propInfo.leaseAmount > 0 ? propInfo.leaseAmount.toLocaleString() : 0 }} 원
+              </div>
             </div>
             <hr class="section-divider" />
             <br />
