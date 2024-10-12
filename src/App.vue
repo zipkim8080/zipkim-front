@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import Modal from '@/components/tool/Modal.vue';
-import PRModal from '@/components/tool/propertyRegiModal.vue';
+import PRModal from '@/components/tool/PropertyRegiModal.vue';
 const route = useRoute();
 
 const isModalVisible = computed(() => route.name === 'SBInfo');
