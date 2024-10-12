@@ -271,13 +271,49 @@ const onRentalPriceInput = (event) => {
                             </p>
                         </div>
                     </div>
+                    <!-- 경매개시 내역 -->
+                    <div
+                        v-if="ocrData.auction === true"
+                        class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
+                        style="
+                            background-color: #f4f4f4;
+                            border: 4px solid red;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                        "
+                    >
+                        <div class="col-auto d-flex align-items-center">
+                            <div
+                                class="rounded-circle overflow-hidden"
+                                style="width: 70px; height: 70px"
+                            >
+                                <img
+                                    src="../../assets/images/auction.png"
+                                    alt="경매"
+                                    class="img-fluid"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <p class="mb-0">
+                                <span class="fw-bold"
+                                    >경매개시결정 내역 발견!</span
+                                >
+                                <br />
+                                경매를 진행한다는 것을 의미해요<br /><u
+                                    >계약 자체를 고려하지 않는 것이 안전해요</u
+                                >
+                            </p>
+                        </div>
+                        <div class="col-auto d-flex align-items-center">
+                            <div class="danger">주의!</div>
+                        </div>
+                    </div>
 
                     <!-- 압류 내역 -->
                     <div
-                        v-if="
-                            ocrData.attachment1 === true &&
-                            ocrData.auction !== true
-                        "
+                        v-if="ocrData.attachment1 === true"
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
@@ -306,10 +342,7 @@ const onRentalPriceInput = (event) => {
 
                     <!-- 가압류 내역 -->
                     <div
-                        v-if="
-                            ocrData.attachment2 === true &&
-                            ocrData.auction !== true
-                        "
+                        v-if="ocrData.attachment2 === true"
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
@@ -338,9 +371,7 @@ const onRentalPriceInput = (event) => {
 
                     <!-- 신탁 내역 -->
                     <div
-                        v-if="
-                            ocrData.trust === true && ocrData.auction !== true
-                        "
+                        v-if="ocrData.trust === true"
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
@@ -366,43 +397,9 @@ const onRentalPriceInput = (event) => {
                         </div>
                     </div>
 
-                    <!-- 경매개시 내역 -->
-                    <div
-                        v-if="ocrData.auction === true"
-                        class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
-                        style="background-color: #f4f4f4"
-                    >
-                        <div class="col-auto">
-                            <div
-                                class="rounded-circle overflow-hidden"
-                                style="width: 70px; height: 70px"
-                            >
-                                <img
-                                    src="../../assets/images/auction.png"
-                                    alt="경매"
-                                    class="img-fluid"
-                                />
-                            </div>
-                        </div>
-                        <div class="col">
-                            <p class="mb-0">
-                                <span class="fw-bold"
-                                    >경매개시결정 내역 발견!</span
-                                >
-                                <br />
-                                경매를 진행한다는 것을 의미해요<br /><u
-                                    >계약 자체를 고려하지 않는 것이 안전해요</u
-                                >
-                            </p>
-                        </div>
-                    </div>
-
                     <!-- 전세권 내역 -->
                     <div
-                        v-if="
-                            ocrData.leaseAmount !== 0 &&
-                            ocrData.auction !== true
-                        "
+                        v-if="ocrData.leaseAmount !== 0"
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
@@ -435,7 +432,7 @@ const onRentalPriceInput = (event) => {
 
                     <!-- 근저당권 내역 -->
                     <div
-                        v-if="ocrData.loan !== 0 && ocrData.auction !== true"
+                        v-if="ocrData.loan !== 0"
                         class="row align-items-center p-3 rounded-start-5 rounded-end-5 mb-2"
                         style="background-color: #f4f4f4"
                     >
@@ -546,6 +543,16 @@ const onRentalPriceInput = (event) => {
 </template>
 
 <style scoped>
+.danger {
+    text-align: center;
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.3em;
+    font-weight: bold;
+    white-space: nowrap;
+    border-radius: 10px;
+}
 /* 1조 길이 */
 .input-box {
     width: 165px;
