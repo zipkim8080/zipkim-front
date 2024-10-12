@@ -16,6 +16,20 @@ const openModal = (propertyId) => {
   selectedPropertyId.value = propertyId; // 선택된 아이템의 ID를 설정합니다.
   isModalOpen.value = true;
 };
+// 건물 유형 한글 변환
+function invertToKR(type) {
+  let kr = type;
+  if (kr === 'apt') {
+    kr = '아파트';
+  } else if (kr === 'opi') {
+    kr = '오피스텔';
+  } else if (kr === 'dd') {
+    kr = '단독다가구';
+  } else if (kr === 'yr') {
+    kr = '연립다세대';
+  }
+  return kr;
+}
 
 // 상세페이지에서 좋아요버튼눌렸을때 리스트에도 반영
 const handleBookMarkEvent = ({ id, isFavorite }) => {
@@ -23,6 +37,7 @@ const handleBookMarkEvent = ({ id, isFavorite }) => {
   const property = props.propList.items.find((p) => p.id == id);
   property.isFavorite = isFavorite;
   // property.isFavorite = status;
+  console.log(property);
 };
 
 async function bookMark(property) {
@@ -47,25 +62,45 @@ async function bookMark(property) {
 
 <template>
   <div class="list">
-    <div class="content-box" v-for="(property, index) in propList.items" :key="property.id">
+    <div
+      class="content-box"
+      v-for="(property, index) in propList.items"
+      :key="property.id"
+    >
       <div class="image-box">
         <div class="img">
-          <img style="width: 200px; height: 130px; border-radius: 5px" :src="property.imageUrl" />
+          <img
+            style="width: 200px; height: 130px; border-radius: 5px"
+            :src="property.imageUrl"
+          />
         </div>
         <button @click="bookMark(property)" class="mark-checked">
-          <i :class="property.isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+          <i
+            :class="
+              property.isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'
+            "
+          ></i>
         </button>
       </div>
 
       <div class="content" @click="openModal(property.id)">
         <div class="type">
-          {{ property.type }}
-          <img class="check" src="@/assets/images/check.png" />
+          {{ invertToKR(property.type) }}
+          <img
+            v-if="property.hugNumber"
+            class="check"
+            src="@/assets/images/check.png"
+          />
         </div>
-        <div class="price">매매 {{ property.amount.toLocaleString() }} 만원</div>
-        <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
+        <div class="price">
+          매매 {{ property.amount.toLocaleString() }} 만원
+        </div>
+        <div class="price">
+          전세 {{ property.deposit.toLocaleString() }} 만원
+        </div>
         <div class="where">
-          {{ property.complexName }}<span class="info m-1"> {{ property.floor }}층</span>
+          {{ property.complexName
+          }}<span class="info m-1"> {{ property.floor }}층</span>
         </div>
       </div>
     </div>
