@@ -41,7 +41,7 @@ const emit = defineEmits(['close']);
 
 const fetchBookMarks = async () => {
   try {
-    const props = await axios.get(`https://zipkimserver.store/bookmark/list?page=${pageRequest.page - 1
+    const props = await axios.get(`https://zipkimserver.store/api/bookmark/list?page=${pageRequest.page - 1
       }&size=2`)
     propList.items = props.data.content;
     propList.pageable = props.data.pageable;

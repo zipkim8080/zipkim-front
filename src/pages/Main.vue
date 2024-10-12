@@ -31,7 +31,7 @@ const role = computed(() => loginStore.role);
 
 const getRole = async () => {
   try {
-    const response = await axios.get('/api/role');
+    const response = await axios.get('https://zipkimserver.store/api/role');
     loginStore.role = response.data;
   } catch (error) {
     console.log('오루발생: ', error);
@@ -93,11 +93,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="search-overlay">
-    <SearchFilter
-      :startModal="startModal"
-      :closeStartModal="closeStartModal"
-      :showStartModal="showStartModal"
-    />
+    <SearchFilter :startModal="startModal" :closeStartModal="closeStartModal" :showStartModal="showStartModal" />
   </div>
   <StartInfoPage v-if="startModal" />
   <Timer />
@@ -106,37 +102,13 @@ onMounted(() => {
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
-    <input
-      v-if="role === 'ROLE_BROKER'"
-      class="kb_btn"
-      type="button"
-      value="매물 등록"
-      @click="regi"
-    />
-    <input
-      v-else
-      class="not-login"
-      type="button"
-      value="매물 등록"
-      @click="regi"
-    />
+    <input v-if="role === 'ROLE_BROKER'" class="kb_btn" type="button" value="매물 등록" @click="regi" />
+    <input v-else class="not-login" type="button" value="매물 등록" @click="regi" />
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
-    <input
-      v-if="loginStore.isAuthenticated"
-      class="kb_btn"
-      type="button"
-      value="등기 확인"
-      @click="dgCheck"
-    />
-    <input
-      v-else
-      class="not-login"
-      type="button"
-      value="등기 확인"
-      @click="dgCheck"
-    />
+    <input v-if="loginStore.isAuthenticated" class="kb_btn" type="button" value="등기 확인" @click="dgCheck" />
+    <input v-else class="not-login" type="button" value="등기 확인" @click="dgCheck" />
   </div>
 
   <transition name="fade">
@@ -148,11 +120,7 @@ onMounted(() => {
   </transition>
 
   <transition name="fade">
-    <div
-      v-if="sidebarModal"
-      class="side-modal-wrap"
-      @click.self="sidebarModal = false"
-    >
+    <div v-if="sidebarModal" class="side-modal-wrap" @click.self="sidebarModal = false">
       <div>
         <Sidebar class="sidebar" />
       </div>
@@ -163,11 +131,7 @@ onMounted(() => {
 
   <!-- CheckMyDoc 모달 -->
   <transition name="fade">
-    <CheckMyDoc
-      v-if="showModal"
-      @ocrCompleted="handleOcrCompleted"
-      @close="showModal = false"
-    />
+    <CheckMyDoc v-if="showModal" @ocrCompleted="handleOcrCompleted" @close="showModal = false" />
   </transition>
   <!-- MyDocResultPage 모달 -->
   <MyDocResultPage v-if="ocrData" :ocrData="ocrData" @close="ocrData = null" />
@@ -267,8 +231,7 @@ onMounted(() => {
   --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
     0 1px 1px rgba(0, 0, 0, 0.075);
   --bs-btn-disabled-opacity: 0.65;
-  --bs-btn-focus-box-shadow: 0 0 0 0.25rem
-    rgba(var(--bs-btn-focus-shadow-rgb), 0.5);
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), 0.5);
   display: inline-block;
   padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
   font-family: var(--bs-btn-font-family);

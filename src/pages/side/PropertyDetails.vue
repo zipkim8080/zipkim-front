@@ -93,7 +93,7 @@ const propInfo = reactive({
 
 async function fetchPropertyData(propId) {
   try {
-    const response = await axios.get(`/api/prop/${propId}`);
+    const response = await axios.get(`https://zipkimserver.store/api/prop/${propId}`);
     // console.log(response);
     const data = response.data;
     propInfo.id = data.id;
