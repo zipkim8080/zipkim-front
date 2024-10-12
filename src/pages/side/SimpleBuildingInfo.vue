@@ -4,7 +4,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { useKakaoMapStore } from '@/stores/KakaoMapStore';
 import { useComplexesStore } from '@/stores/ComplexesStore';
 import { onMounted, reactive, watch, ref } from 'vue';
-import PropertyList from '@/components/detail/propertyList.vue';
+import PropertyList from '@/components/detail/PropertyList.vue';
 import PriceChart from '@/components/detail/PriceChart.vue';
 
 const kakaoMapStore = useKakaoMapStore();

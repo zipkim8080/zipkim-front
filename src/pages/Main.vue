@@ -4,8 +4,8 @@ import { useRouter } from 'vue-router';
 import { useLoginStore } from '@/stores/LoginStore';
 import LoginButton from '../components/button/LoginButton.vue';
 import SearchFilter from '../pages/side/SearchFilter.vue';
-import KakaoMap from '../components/tool/KaKaoMap.vue';
-import XXDongButton from '../components/button/xxDongButton.vue';
+import KakaoMap from '../components/tool/KakaoMap.vue';
+import XXDongButton from '../components/button/XXDongButton.vue';
 import CheckMyDoc from '@/pages/side/CheckMyDoc.vue';
 import MyDocResultPage from '@/pages/side/MyDocResultPage.vue';
 import Timer from '@/pages/auth/Timer.vue';
@@ -93,11 +93,7 @@ onMounted(() => {
 </script>
 <template>
   <div class="search-overlay">
-    <SearchFilter
-      :startModal="startModal"
-      :closeStartModal="closeStartModal"
-      :showStartModal="showStartModal"
-    />
+    <SearchFilter :startModal="startModal" :closeStartModal="closeStartModal" :showStartModal="showStartModal" />
   </div>
   <StartInfoPage v-if="startModal" />
   <Timer />
@@ -106,24 +102,12 @@ onMounted(() => {
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
-    <input
-      v-if="role === 'ROLE_BROKER'"
-      class="kb_btn"
-      type="button"
-      value="매물 등록"
-      @click="regi"
-    />
+    <input v-if="role === 'ROLE_BROKER'" class="kb_btn" type="button" value="매물 등록" @click="regi" />
     <input v-else class="not-login" type="button" value="매물 등록" @click="regi" />
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
-    <input
-      v-if="loginStore.isAuthenticated()"
-      class="kb_btn"
-      type="button"
-      value="등기 확인"
-      @click="dgCheck"
-    />
+    <input v-if="loginStore.isAuthenticated()" class="kb_btn" type="button" value="등기 확인" @click="dgCheck" />
     <input v-else class="not-login" type="button" value="등기 확인" @click="dgCheck" />
   </div>
 
