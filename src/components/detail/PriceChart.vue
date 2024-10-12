@@ -168,7 +168,9 @@ watch(
     <div class="header">
       <div class="average-section">
         <h5 style="font-weight: bold">평균 전세가율</h5>
-        <p>{{ state.averageLeaseRate ? state.averageLeaseRate.toFixed(2) + '%' : '-' }}</p>
+        <h5 style="color: #f3b706">
+          {{ state.averageLeaseRate ? state.averageLeaseRate.toFixed(2) + '%' : '-' }}
+        </h5>
       </div>
       <div class="dropdown-section">
         <h5 style="font-weight: bold">타입 선택</h5>

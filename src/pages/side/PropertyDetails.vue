@@ -1,6 +1,6 @@
 <script setup>
 import axios from '@/api/index';
-import { onMounted, reactive, ref, defineEmits } from 'vue';
+import { onMounted, reactive, ref, defineEmits, computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
@@ -31,18 +31,16 @@ onMounted(async () => {
 
 const check = async () => {
   try {
-    const response = await axios.get(`/api/bookmark/${props.propId}`)
+    const response = await axios.get(`/api/bookmark/${props.propId}`);
     if (response.data == true) {
       isFavorite.value = true;
-      console.log("즐겨찾기가 있습니다.")
+      console.log('즐겨찾기가 있습니다.');
     } else {
       isFavorite.value = false;
-      console.log("즐겨찾기가 없습니다.")
+      console.log('즐겨찾기가 없습니다.');
     }
-  } catch (error) {
-  }
-}
-
+  } catch (error) {}
+};
 
 const propInfo = reactive({
   id: '',
@@ -122,8 +120,8 @@ async function fetchPropertyData(propId) {
     propInfo.registerId = data.registerId;
     propInfo.updatedAt = data.updatedAt;
     propInfo.description = data.description;
-    propInfo.attachMent1 = data.register.attachMent1;
-    propInfo.attachMent2 = data.register.attachMent2;
+    propInfo.attachMent1 = data.register.attachment1;
+    propInfo.attachMent2 = data.register.attachment2;
     propInfo.auction = data.register.auction;
     propInfo.trust = data.register.trust;
     propInfo.leaseAmount = data.register.leaseAmount;
@@ -171,14 +169,14 @@ async function bookMark(id) {
   //이미 즐겨찾기 되있으면 해제
   if (isFavorite.value) {
     await axios.post('/api/bookmark/delete', {
-      propertyId: id
-    })
+      propertyId: id,
+    });
     isFavorite.value = false;
-  }//즐겨찾기 안되잇으면 즐찾
+  } //즐겨찾기 안되잇으면 즐찾
   else {
     await axios.post('/api/bookmark/add', {
-      propertyId: id
-    })
+      propertyId: id,
+    });
     isFavorite.value = true;
   }
   emit('bookMark', { id: id, isFavorite: isFavorite.value });
@@ -202,6 +200,12 @@ async function brokerData() {
     // 에러 처리 로직 추가 가능
   }
 }
+
+const formattedOpenDate = computed(() => {
+  if (!propInfo.register[0].openDate) return '';
+  const openDate = propInfo.register[0].openDate;
+  return openDate.replace(/(\d{4})년(\d{1,2})월(\d{1,2})일/, '$1년 $2월 $3일');
+});
 </script>
 
 <template>
@@ -215,12 +219,7 @@ async function brokerData() {
             </button>
             <!--  -->
 
-            <h4 style="
-                font-weight: bold;
-                text-align: center;
-                margin-left: 6px;
-                margin-top: 50px;
-              ">
+            <h4 style="font-weight: bold; text-align: center; margin-left: 6px; margin-top: 50px">
               {{ propInfo.roadName }}
               {{ propInfo.detailAddress }}
               <button @click="bookMark(propInfo.id)" class="bookMark-detail">
@@ -248,32 +247,35 @@ async function brokerData() {
             <br />
             <!-- 가격 -->
             <div style="display: flex">
-              <div class="status-icon" style="font-weight: bold">BUY</div>
-              <div style="
+              <div class="status-icon larger-text">매매</div>
+              <div
+                style="
                   font-weight: bold;
-                  width: 175px;
+                  width: 168px;
                   text-align: right;
                   font-size: 21px;
-                  padding-top: 2px;
-                ">
+                  padding-top: 4.5px;
+                "
+              >
                 {{ propInfo.amount.toLocaleString() }} 만원
               </div>
             </div>
             <!--  -->
             <div style="display: flex">
-              <div class="status-icon" style="font-weight: bold">RENT</div>
-              <div style="
+              <div class="status-icon larger-text" style="font-weight: bold">전세</div>
+              <div
+                style="
                   font-weight: bold;
                   width: 168px;
                   text-align: right;
                   font-size: 21px;
-                  padding-top: 2px;
-                ">
+                  padding-top: 4.5px;
+                "
+              >
                 {{ propInfo.deposit.toLocaleString() }} 만원
               </div>
             </div>
             <br />
-
             <!--  -->
             <h5 style="font-weight: bold">중개인의 한마디</h5>
             <div class="agent-comment-box">
@@ -337,7 +339,7 @@ async function brokerData() {
             <br />
             <!--  -->
             <h5 style="font-weight: bold">등기정보</h5>
-            <hr style="width: 100%; height: 4px; background-color: black" />
+            <hr style="width: 100%; height: 3px; background-color: black" />
             <div class="info-container">
               <div class="prop-left">등기고유번호</div>
               <div class="prop-right">{{ propInfo.uniqueNumber }}</div>
@@ -345,16 +347,19 @@ async function brokerData() {
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">열람일시</div>
-              <div class="prop-right">{{ propInfo.register[0].openDate }}</div>
+              <div class="prop-right">{{ formattedOpenDate }}</div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">등기현황</div>
               <div class="info-container">
                 <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
-                <span class="status-item">가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span>
-                <span class="status-item">경매개시결정&nbsp;
-                  {{ propInfo.auction ? '⭕️' : '❌' }}</span>
+                <span class="status-item"
+                  >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
+                >
+                <span class="status-item"
+                  >경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span
+                >
                 <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
               </div>
             </div>
@@ -401,10 +406,7 @@ async function brokerData() {
               <div class="prop-right">
                 {{
                   propInfo.phoneNumber
-                    ? propInfo.phoneNumber.replace(
-                      /(\d{3})(\d{4})(\d{4})/,
-                      '$1-$2-$3'
-                    )
+                    ? propInfo.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
                     : '-'
                 }}
               </div>
@@ -515,9 +517,13 @@ async function brokerData() {
 .status-icon {
   border-radius: 10px;
   border: 2px solid black;
-  padding: 2px 4px;
-  margin: 5px 0;
+  padding: 0 18px;
+  margin: 5px 5px;
   font-weight: bold;
-  font-size: 12px;
+}
+
+.larger-text {
+  font-size: 18px;
+  font-weight: bold;
 }
 </style>
