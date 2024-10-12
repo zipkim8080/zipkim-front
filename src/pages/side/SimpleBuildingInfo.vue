@@ -85,7 +85,7 @@ async function fetchPropertyData(complexId) {
       await axios.get(`https://zipkimserver.store/api/complex/summary?complexId=${complexId}`)
     ).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1
+      `https://zipkimserver.store/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1
       }&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
