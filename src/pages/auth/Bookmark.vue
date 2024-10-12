@@ -4,7 +4,7 @@ import { ref, onMounted, reactive } from 'vue';
 import axios from 'axios';
 import { useLoginStore } from '@/stores/LoginStore.js';
 import PropertyDetails from "@/pages/side/PropertyDetails.vue";
-import PropertyList from '@/components/detail/propertyList.vue';
+import PropertyList from '@/components/detail/PropertyList.vue';
 
 const LoginStore = useLoginStore();
 const un = LoginStore.loadUsernameFromToken();

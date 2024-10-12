@@ -11,162 +11,163 @@ const isLoading = ref(false);
 const fileName = ref('');
 
 const handleFileChange = (event) => {
-  const file = event.target.files[0];
-  if (file && file.type !== 'application/pdf') {
-    toast('PDF 파일만 업로드할 수 있어요!', {
-      theme: 'auto', // 테마(auto, light, dark, colored)
-      type: 'error', // 타입(info, success, warning, error, default)
-      position: 'top-center', //토스트 생성위치
-      pauseOnHover: false, //마우스오버시 멈춤 제거
-      autoClose: 1000, //자동닫기
-      hideProgressBar: true, //로딩바제거
-    });
-    event.target.value = '';
-    fileName.value = '';
-  } else if (file) {
-    selectedFile.value = file;
-    fileName.value = file.name;
-  }
+    const file = event.target.files[0];
+    if (file && file.type !== 'application/pdf') {
+        toast('PDF 파일만 업로드할 수 있어요!', {
+            theme: 'auto', // 테마(auto, light, dark, colored)
+            type: 'error', // 타입(info, success, warning, error, default)
+            position: 'top-center', //토스트 생성위치
+            pauseOnHover: false, //마우스오버시 멈춤 제거
+            autoClose: 1000, //자동닫기
+            hideProgressBar: true, //로딩바제거
+        });
+        event.target.value = '';
+        fileName.value = '';
+    } else if (file) {
+        selectedFile.value = file;
+        fileName.value = file.name;
+    }
 };
 
 const submitFile = async () => {
-  if (!selectedFile.value) {
-    alert('파일을 선택하세요.');
-    return;
-  }
-
-  isLoading.value = true;
-  try {
-    const result = await requestWithFile(selectedFile.value);
-    if (result) {
-      emit('ocrCompleted', result);
+    if (!selectedFile.value) {
+        alert('파일을 선택하세요.');
+        return;
     }
-  } catch (error) {
-    console.error('OCR 처리 중 오류 발생:', error);
-  } finally {
-    isLoading.value = false;
-  }
+
+    isLoading.value = true;
+    try {
+        const result = await requestWithFile(selectedFile.value);
+        if (result) {
+            emit('ocrCompleted', result);
+        }
+    } catch (error) {
+        console.error('OCR 처리 중 오류 발생:', error);
+    } finally {
+        isLoading.value = false;
+    }
 };
 
 const triggerFileInput = () => {
-  document.getElementById('file-input').click();
+    document.getElementById('file-input').click();
 };
 
 const isFileSelected = computed(() => !!selectedFile.value);
 </script>
 
 <template>
-  <div class="modal-container2" @click.stop>
-    <button class="close-btn" @click="$emit('close')">
-      <i class="fa-solid fa-x"></i>
-    </button>
-    <br />
-    <h1 style="text-align: center; color: #955a1f">
-      <strong>내 등기 확인하기</strong>
-    </h1>
-    <br />
-    <div>
-      <form>
-        <div class="filebox">
-          <label
-            for="file-input"
-            class="choose"
-            @click.prevent="triggerFileInput"
-            >파일 선택</label
-          >
-          <input
-            class="upload-name"
-            :value="fileName"
-            readonly
-            placeholder="파일을 올려주세요"
-          />
-          <input
-            type="file"
-            id="file-input"
-            @change="handleFileChange"
-            accept=".pdf"
-          />
-        </div>
-        <div style="color: red; font-size: 1em; margin-left: 6px">
-          정확한 인식을 위해 원본 pdf를 넣어주세요
-        </div>
-        <button
-          type="button"
-          class="checkdoc fs-5 mt-3"
-          @click="submitFile"
-          :disabled="!selectedFile || isLoading"
-          :class="{ 'file-selected': isFileSelected }"
-        >
-          {{ isLoading ? '처리 중...' : '내 등기 확인하기' }}
+    <div class="modal-container2" @click.stop>
+        <button class="close-btn" @click="$emit('close')">
+            <i class="fa-solid fa-x"></i>
         </button>
-      </form>
+        <br />
+        <h1 style="text-align: center; color: #955a1f">
+            <strong>내 등기 확인하기</strong>
+        </h1>
+        <br />
+        <div>
+            <form>
+                <div class="filebox">
+                    <label
+                        for="file-input"
+                        class="choose"
+                        @click.prevent="triggerFileInput"
+                        >파일 선택</label
+                    >
+                    <input
+                        class="upload-name"
+                        :value="fileName"
+                        readonly
+                        placeholder="파일을 올려주세요"
+                    />
+                    <input
+                        type="file"
+                        id="file-input"
+                        @change="handleFileChange"
+                        accept=".pdf"
+                    />
+                </div>
+                <div style="color: red; font-size: 1em; margin-left: 6px">
+                    정확한 인식을 위해 원본 pdf를 넣어주세요 (처리시간 약 5-10
+                    초 소요됩니다.)
+                </div>
+                <button
+                    type="button"
+                    class="checkdoc fs-5 mt-3"
+                    @click="submitFile"
+                    :disabled="!selectedFile || isLoading"
+                    :class="{ 'file-selected': isFileSelected }"
+                >
+                    {{ isLoading ? '처리 중...' : '내 등기 확인하기' }}
+                </button>
+            </form>
+        </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
 .modal-container2 {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  z-index: 1001;
-  box-shadow: rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1001;
+    box-shadow: rgba(0, 0, 0, 0.2);
 }
 .checkdoc {
-  background-color: #ffecb3;
-  border: none;
-  color: white;
-  width: 500px;
-  height: 50px;
-  border-radius: 10px;
-  margin: 5px;
-  margin-bottom: 10px;
+    background-color: #ffecb3;
+    border: none;
+    color: white;
+    width: 500px;
+    height: 50px;
+    border-radius: 10px;
+    margin: 5px;
+    margin-bottom: 10px;
 }
 .file-selected {
-  background-color: #f3b706;
+    background-color: #f3b706;
 }
 .close-btn {
-  border: none;
-  background: none;
-  margin-top: 8px;
-  margin-right: 10px;
-  padding: 0px;
-  float: right;
+    border: none;
+    background: none;
+    margin-top: 8px;
+    margin-right: 10px;
+    padding: 0px;
+    float: right;
 }
 .filebox .choose {
-  border-radius: 8px 0 0 8px;
-  margin: 5px;
-  line-height: 20px;
+    border-radius: 8px 0 0 8px;
+    margin: 5px;
+    line-height: 20px;
 }
 .filebox .upload-name {
-  display: inline-block;
-  height: 40px;
-  padding: 0 10px;
-  vertical-align: middle;
-  border: 1px solid #dddddd;
-  width: 77%;
-  color: #676767;
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 77%;
+    color: #676767;
 }
 .filebox label {
-  display: inline-block;
-  padding: 10px 20px;
-  color: #fff;
-  vertical-align: middle;
-  background-color: #717070;
-  cursor: pointer;
-  height: 40px;
-  margin-left: 10px;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #717070;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
 }
 .filebox input[type='file'] {
-  position: absolute;
-  width: 0;
-  height: 0;
-  padding: 0;
-  overflow: hidden;
-  border: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
 }
 </style>
