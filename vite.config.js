@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://52.79.206.11',
+        target: 'https://zipkimserver.store',
         changeOrigin: true,
       },
 
