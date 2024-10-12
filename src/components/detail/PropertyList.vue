@@ -19,9 +19,9 @@ const openModal = (propertyId) => {
 
 // 상세페이지에서 좋아요버튼눌렸을때 리스트에도 반영
 const handleBookMarkEvent = ({ id, isFavorite }) => {
-  console.log('이벤트왓어요' + id, isFavorite)
-  const property = props.propList.items.find(p => p.id == id)
-  property.isFavorite = isFavorite
+  console.log('이벤트왓어요' + id, isFavorite);
+  const property = props.propList.items.find((p) => p.id == id);
+  property.isFavorite = isFavorite;
   // property.isFavorite = status;
 };
 
@@ -29,15 +29,15 @@ async function bookMark(property) {
   //이미 즐겨찾기 되있으면 해제
   if (property.isFavorite) {
     await axios.post('/api/bookmark/delete', {
-      propertyId: property.id
-    })
+      propertyId: property.id,
+    });
     property.isFavorite = false;
     // status = false;
-  }//즐겨찾기 안되잇으면 즐찾
+  } //즐겨찾기 안되잇으면 즐찾
   else {
     await axios.post('/api/bookmark/add', {
-      propertyId: property.id
-    })
+      propertyId: property.id,
+    });
     property.isFavorite = true;
     // status = true;
   }
@@ -71,7 +71,11 @@ async function bookMark(property) {
     </div>
   </div>
   <div v-if="isModalOpen" @close="isModalOpen = false">
-    <PropertyDetails @bookMark="handleBookMarkEvent" :propId="selectedPropertyId" @close="isModalOpen = false" />
+    <PropertyDetails
+      @bookMark="handleBookMarkEvent"
+      :propId="selectedPropertyId"
+      @close="isModalOpen = false"
+    />
   </div>
 </template>
 
@@ -89,7 +93,7 @@ async function bookMark(property) {
 
 .price {
   /* font-size: 1.5rem; */
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
 }
 

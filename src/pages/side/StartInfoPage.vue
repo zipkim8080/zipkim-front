@@ -5,12 +5,7 @@
     <div class="cInfo-overlay">
       <div class="wrapWhite">
         <div style="padding-top: 15px; padding-bottom: 5px">
-          <img
-            src="../../assets/images/fullLogo.png"
-            alt="내집킴이"
-            height="95px"
-            width="300px"
-          />
+          <img src="../../assets/images/fullLogo.png" alt="내집킴이" height="95px" width="300px" />
         </div>
 
         <!-- 1번 -->
@@ -33,10 +28,7 @@
           <div class="textBox" style="text-align: left">
             전세가율이란? <br />
             집의 매매 가격 대비 전세 보증금의 비율을 말해요
-            <br /><u
-              >전세가율 70%가 넘으면 보증금을 반환받지 못할 확률이 높아지니
-              주의해야해요!</u
-            >
+            <br /><u>전세가율 70%가 넘으면 보증금을 반환받지 못할 확률이 높아지니 주의해야해요!</u>
             <br />
           </div>
         </div>
@@ -52,53 +44,23 @@
               class="d-flex justify-content-center align-items-center p-2"
               style="gap: 15px; flex-wrap: wrap"
             >
-              <div
-                class="d-flex flex-column align-items-center"
-                style="width: 70px"
-              >
-                <div
-                  class="rounded-circle overflow-hidden"
-                  style="width: 70px; height: 70px"
-                >
-                  <img
-                    src="../../assets/images/attachment1.png"
-                    alt="압류"
-                    class="img-fluid"
-                  />
+              <div class="d-flex flex-column align-items-center" style="width: 70px">
+                <div class="rounded-circle overflow-hidden" style="width: 70px; height: 70px">
+                  <img src="../../assets/images/attachment1.png" alt="압류" class="img-fluid" />
                 </div>
                 <div style="margin-top: 5px; text-align: center">압류</div>
               </div>
 
-              <div
-                class="d-flex flex-column align-items-center"
-                style="width: 70px"
-              >
-                <div
-                  class="rounded-circle overflow-hidden"
-                  style="width: 70px; height: 70px"
-                >
-                  <img
-                    src="../../assets/images/attachment2.png"
-                    alt="가압류"
-                    class="img-fluid"
-                  />
+              <div class="d-flex flex-column align-items-center" style="width: 70px">
+                <div class="rounded-circle overflow-hidden" style="width: 70px; height: 70px">
+                  <img src="../../assets/images/attachment2.png" alt="가압류" class="img-fluid" />
                 </div>
                 <div style="margin-top: 5px; text-align: center">가압류</div>
               </div>
 
-              <div
-                class="d-flex flex-column align-items-center"
-                style="width: 70px"
-              >
-                <div
-                  class="rounded-circle overflow-hidden"
-                  style="width: 70px; height: 70px"
-                >
-                  <img
-                    src="../../assets/images/trust.png"
-                    alt="신탁"
-                    class="img-fluid"
-                  />
+              <div class="d-flex flex-column align-items-center" style="width: 70px">
+                <div class="rounded-circle overflow-hidden" style="width: 70px; height: 70px">
+                  <img src="../../assets/images/trust.png" alt="신탁" class="img-fluid" />
                 </div>
                 <div style="margin-top: 5px; text-align: center">신탁</div>
               </div>
@@ -107,53 +69,23 @@
               class="d-flex justify-content-center align-items-center"
               style="gap: 15px; flex-wrap: wrap"
             >
-              <div
-                class="d-flex flex-column align-items-center"
-                style="width: 70px"
-              >
-                <div
-                  class="rounded-circle overflow-hidden"
-                  style="width: 70px; height: 70px"
-                >
-                  <img
-                    src="../../assets/images/auction.png"
-                    alt="경매개시결정"
-                    class="img-fluid"
-                  />
+              <div class="d-flex flex-column align-items-center" style="width: 70px">
+                <div class="rounded-circle overflow-hidden" style="width: 70px; height: 70px">
+                  <img src="../../assets/images/auction.png" alt="경매개시결정" class="img-fluid" />
                 </div>
                 <div style="margin-top: 5px; text-align: center">경매</div>
               </div>
 
-              <div
-                class="d-flex flex-column align-items-center"
-                style="width: 70px"
-              >
-                <div
-                  class="rounded-circle overflow-hidden"
-                  style="width: 70px; height: 70px"
-                >
-                  <img
-                    src="../../assets/images/leaseAmount.png"
-                    alt="전세권"
-                    class="img-fluid"
-                  />
+              <div class="d-flex flex-column align-items-center" style="width: 70px">
+                <div class="rounded-circle overflow-hidden" style="width: 70px; height: 70px">
+                  <img src="../../assets/images/leaseAmount.png" alt="전세권" class="img-fluid" />
                 </div>
                 <div style="margin-top: 5px; text-align: center">전세권</div>
               </div>
 
-              <div
-                class="d-flex flex-column align-items-center"
-                style="width: 70px"
-              >
-                <div
-                  class="rounded-circle overflow-hidden"
-                  style="width: 70px; height: 70px"
-                >
-                  <img
-                    src="../../assets/images/loan.png"
-                    alt="근저당"
-                    class="img-fluid"
-                  />
+              <div class="d-flex flex-column align-items-center" style="width: 70px">
+                <div class="rounded-circle overflow-hidden" style="width: 70px; height: 70px">
+                  <img src="../../assets/images/loan.png" alt="근저당" class="img-fluid" />
                 </div>
                 <div style="margin-top: 5px; text-align: center">근저당</div>
               </div>
@@ -176,11 +108,7 @@
             <h5>부동산 매물? 한번 더 확인해요!</h5>
           </div>
           <div class="center">
-            <img
-              class="hugdesc"
-              src="../../assets/images/hugInfo.png"
-              alt="허그인증"
-            />
+            <img class="hugdesc" src="../../assets/images/hugInfo.png" alt="허그인증" />
           </div>
           <div class="pt-4" style="text-align: center">
             집킴이는 자세한 매물 정보를 제공해요! <br />
@@ -188,13 +116,13 @@
           </div>
           <div class="textBox" style="text-align: left">
             HUG 인증번호란? <br />
-            주택도시보증공사에서 임대인에게 부여하는 번호로, 전세보증가입이
-            가능한 임대인임을 인증하는 번호에요
+            주택도시보증공사에서 임대인에게 부여하는 번호로, 전세보증가입이 가능한 임대인임을
+            인증하는 번호에요
           </div>
           <div class="textBox mt-3" style="text-align: left">
             HUG 인증번호 검증방법 <br />
             HUG 안심전세어플 > 안심조회 > 임대인 정보 조회 >
-            <br />안심 임대인 조회 > 안심임대인 인증서 조회
+            <br />안심 임대인 조회 > 안심 임대인 인증서 조회
           </div>
         </div>
         <div class="footer">
