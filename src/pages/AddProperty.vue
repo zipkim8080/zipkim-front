@@ -270,8 +270,28 @@ const register = async () => {
   try {
     await propertyApi.create(property); // 매물 등록
     router.push({ name: 'Main' }); // 매물 등록 성공
+    router.afterEach((to, from) => {
+      if (to.name === 'Main' && from.name !== 'Main') {
+        toast('매물을 등록하였습니다.', {
+          theme: 'auto',
+          type: 'success',
+          position: 'top-center',
+          pauseOnHover: false,
+          autoClose: 1000,
+          hideProgressBar: true,
+        });
+      }
+    });
     console.log(property);
   } catch (e) {
+    toast('매물 등록에 실패하였습니다.', {
+      theme: 'auto',
+      type: 'error',
+      position: 'top-center',
+      pauseOnHover: false,
+      autoClose: 1000,
+      hideProgressBar: true,
+    });
     console.log(property);
     console.error(e);
   }
@@ -404,7 +424,7 @@ const close = () => {
             @input="onAmountInput"
             :value="property.amount ? formatNumber(property.amount) : ''"
           />
-          <span class="ms-1 me-4" style="font-size: larger">(만원)</span
+          <span class="ms-1 me-4" style="font-size: larger">만원</span
           ><input
             type="text"
             style="display: inline"
@@ -415,7 +435,7 @@ const close = () => {
             @input="onDepositInput"
             :value="property.deposit ? formatNumber(property.deposit) : ''"
           />
-          <span class="ms-1" style="font-size: larger">(만원)</span>
+          <span class="ms-1" style="font-size: larger">만원</span>
         </div>
         <!--  -->
         <div class="cover twoText mb-3">
