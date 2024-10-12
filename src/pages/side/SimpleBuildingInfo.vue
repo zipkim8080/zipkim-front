@@ -82,11 +82,10 @@ const handlePageChange = async (pageNum, event) => {
 async function fetchPropertyData(complexId) {
   try {
     const data = (
-      await axios.get(`/api/complex/summary?complexId=${complexId}`)
+      await axios.get(`https://zipkimserver.store/api/complex/summary?complexId=${complexId}`)
     ).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=${
-        pageRequest.page - 1
+      `/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1
       }&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
@@ -144,13 +143,13 @@ async function fetchChartData(areaId) {
   try {
     // 매매 가져오기
     const saleResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=SALE`
+      `https://zipkimserver.store/api/price?areaId=${areaId}&type=SALE`
     );
     const saleData = saleResponse.data.content;
 
     // 전세 가져오기
     const leaseResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=LEASE`
+      `https://zipkimserver.store/api/price?areaId=${areaId}&type=LEASE`
     );
     const leaseData = leaseResponse.data.content;
 
@@ -195,12 +194,7 @@ async function fetchChartData(areaId) {
           </button>
         </div>
         <div v-if="complexInfo.type == 'opi' || complexInfo.type == 'apt'">
-          <img
-            width="424px"
-            height="200px"
-            :src="complexInfo.img"
-            style="border-radius: 7px; margin-bottom: 20px"
-          />
+          <img width="424px" height="200px" :src="complexInfo.img" style="border-radius: 7px; margin-bottom: 20px" />
           <br />
           <h5 style="font-weight: bold">주소</h5>
           <div>도로명 주소: {{ complexInfo.roadName }}</div>
@@ -213,52 +207,31 @@ async function fetchChartData(areaId) {
           <div>
             전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원
           </div>
-          <hr
-            style="
+          <hr style="
               width: 100%;
               height: 10px;
               background-color: #ccc;
               border: none;
-            "
-          />
-          <PriceChart
-            v-if="priceChart"
-            :priceChart="priceChart"
-            :areaIdToPyeongName="areaIdToPyeongName"
-          />
+            " />
+          <PriceChart v-if="priceChart" :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
         </div>
-        <hr
-          style="
+        <hr style="
             width: 100%;
             height: 10px;
             background-color: #ccc;
             border: none;
-          "
-        />
+          " />
         <PropertyList :propList="propList" />
 
         <template v-if="propList.totalElements > 0">
           <div class="paginate">
-            <vue-awesome-paginate
-              :total-items="propList.totalElements"
-              :items-per-page="propList.pageable.pageSize"
-              :max-pages-shown="propList.totalPages"
-              :show-ending-buttons="false"
-              v-model="pageRequest.page"
-              @click="handlePageChange"
-            >
-              <template #first-page-button
-                ><i class="fa-solid fa-backward-fast"></i
-              ></template>
-              <template #prev-button
-                ><i class="fa-solid fa-caret-left"></i
-              ></template>
-              <template #next-button
-                ><i class="fa-solid fa-caret-right"></i
-              ></template>
-              <template #last-page-button
-                ><i class="fa-solid fa-forward-fast"></i
-              ></template>
+            <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
+              :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
+              @click="handlePageChange">
+              <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
+              <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
+              <template #next-button><i class="fa-solid fa-caret-right"></i></template>
+              <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
             </vue-awesome-paginate>
           </div>
         </template>
