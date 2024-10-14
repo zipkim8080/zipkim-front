@@ -158,7 +158,7 @@ onMounted(() => {
           <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
           <!-- <div class="where">{{ property.location }}</div> -->
           <div class="where">
-            {{ property.complexName }}<span class="info m-1"> {{ property.floor }}층</span>
+            {{ property.complexName ? property.complexName + ' ' : '' }}{{ property.floor }}층
           </div>
         </div>
         <!-- 개별 매물에 대한 메뉴 및 삭제 버튼 -->
