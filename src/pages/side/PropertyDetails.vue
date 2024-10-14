@@ -45,6 +45,7 @@ const check = async () => {
 const propInfo = reactive({
   id: '',
   address: '',
+  type: '',
   roadName: '',
   complexName: '',
   detailAddress: '',
@@ -97,6 +98,7 @@ async function fetchPropertyData(propId) {
     // console.log(response);
     const data = response.data;
     propInfo.id = data.id;
+    propInfo.type = data.type;
     propInfo.address = data.address;
     propInfo.roadName = data.roadName;
     propInfo.complexName = data.complexName;
