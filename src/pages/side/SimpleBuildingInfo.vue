@@ -13,17 +13,17 @@ const router = useRouter();
 const route = useRoute();
 const basePath = '/images/';
 const images = [
-  'building1.jpeg',
-  'building2.jpeg',
-  'building3.jpeg',
-  'building4.jpeg',
-  'building5.jpeg',
-  'building6.jpeg',
-  'building7.jpeg',
-  'building8.jpeg',
-  'building9.jpeg',
-  'building10.jpeg',
-  'building11.jpg',
+  'building1.png',
+  'building2.png',
+  'building3.png',
+  'building4.png',
+  'building5.png',
+  'building6.png',
+  'building7.png',
+  'building8.png',
+  'building9.png',
+  'building10.png',
+  'building11.png',
 ];
 onMounted(() => {
   const id = route.params.complexId; // 'id' 파라미터를 가져옵니다.
