@@ -40,10 +40,7 @@ const loadProperties = async () => {
         amount: property.amount,
         deposit: property.deposit,
         floor: property.complexName + property.floor,
-        image:
-          property.images && property.images.length > 0
-            ? property.images[0].imageUrl
-            : '',
+        image: property.images && property.images.length > 0 ? property.images[0].imageUrl : '',
       };
     });
 
@@ -109,43 +106,26 @@ defineExpose({ loadProperties });
       >
         <div class="img">
           <img
-            style="
-              width: 200px;
-              height: 130px;
-              border-radius: 5px;
-              margin-right: 15px;
-            "
+            style="width: 200px; height: 130px; border-radius: 5px; margin-right: 15px"
             :src="property.image"
           />
         </div>
         <div class="content">
           <div class="type">
             {{ 'apt' }}
-            <img
-              class="check"
-              src="@/assets/images/check.png"
-              alt="체크 이미지"
-            />
+            <img class="check" src="@/assets/images/check.png" alt="체크 이미지" />
             <div v-if="isModalOpen" class="modal">
-              <PropertyDetails
-                :propId="selectedPropertyId"
-                @close="isModalOpen = false"
-              />
+              <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false" />
             </div>
           </div>
-          <div class="price">
-            전세 {{ property.deposit.toLocaleString() }} 만원
-          </div>
-          <div class="price">
-            매매 {{ property.amount.toLocaleString() }} 만원
-          </div>
+          <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
+          <div class="price">매매 {{ property.amount.toLocaleString() }} 만원</div>
           <div class="where">{{ property.floor }} 층</div>
         </div>
       </div>
     </div>
     <p v-if="displayedProperties.length === 0">저장된 매물이 없습니다.</p>
   </div>
-  <button @click="reset">초기화</button>
 </template>
 
 <style scoped>

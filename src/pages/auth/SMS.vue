@@ -24,7 +24,7 @@ const token = LoginStore.getToken();
 const requestVerificationCode = async () => {
   try {
     // 전화번호를 포함하여 백엔드의 /auth/send API 호출
-    const response = await axios.post('/api/sms/send', {
+    const response = await axios.post('https://zipkimserver.store/api/sms/send', {
       phoneNumber: phoneNumber.value,
     });
     generatedCode.value = response.data.split(': ')[1];
@@ -51,7 +51,7 @@ const verifyCode = async () => {
       hideProgressBar: true, //로딩바제거
     });
     try {
-      await axios.post('http://localhost:8080/api/phone', {
+      await axios.post('https://zipkimserver.store/api/phone', {
         phoneNumber: phoneNumber.value,
       });
       console.log('DB 성공');

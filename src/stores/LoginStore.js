@@ -10,6 +10,7 @@ export const useLoginStore = defineStore('auth', {
     email: null,
     name: null,
     role: null,
+    username: null,
   }),
   actions: {
     // 토큰을 상태에 저장하는 액션
@@ -22,10 +23,11 @@ export const useLoginStore = defineStore('auth', {
       this.refreshToken = token;
     },
 
-    setEmailAndNameAndRole(email, name, role) {
+    setEmailAndNameAndRole(email, name, role, username) {
       this.email = email;
       this.name = name;
       this.role = role;
+      this.username = username;
       // console.log('이메일과 이름 ', email, name);
     },
 
@@ -42,10 +44,10 @@ export const useLoginStore = defineStore('auth', {
         this.setAccessToken(token); // 토큰을 상태에 저장
         const payload = jwtDecode(token);
 
-        this.setEmailAndNameAndRole(payload.email, payload.name, payload.role);
+        this.setEmailAndNameAndRole(payload.email, payload.name, payload.role, payload.username);
 
         // console.log('토큰이 저장되었습니다:', token);
-        // console.log(payload);
+        console.log(payload);
       } else {
         console.error('쿠키에서 토큰을 찾을 수 없습니다.');
       }
@@ -79,6 +81,7 @@ export const useLoginStore = defineStore('auth', {
       this.name = null;
       this.email = null;
       this.role = null;
+      this.username = null;
       Cookies.remove('Authorization');
       Cookies.remove('Refresh');
       console.log('토큰이 삭제되었습니다.');
