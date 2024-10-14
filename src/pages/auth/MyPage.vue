@@ -15,7 +15,7 @@ const showBrokerModal = ref(false);
 
 const getPhoneNumber = async () => {
   try {
-    const response = await axios.get('/api/users/phone');
+    const response = await axios.get('https://zipkimserver.store/api/users/phone');
     phoneNumber.value = response.data.phoneNumber;
     brokerNumber.value = response.data.brokerNumber;
   } catch (error) {
@@ -25,7 +25,7 @@ const getPhoneNumber = async () => {
 
 const getRole = async () => {
   try {
-    const response = await axios.get('/api/role');
+    const response = await axios.get('https://zipkimserver.store/api/role');
     role.value = response.data;
     console.log(role.value);
   } catch (error) {

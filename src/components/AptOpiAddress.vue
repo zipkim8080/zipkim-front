@@ -2,48 +2,23 @@
   <div>
     <div class="width1">주소 검색</div>
     <div class="cover mb-1">
-      <select
-        name="si"
-        id="si"
-        class="form-control firstLine"
-        v-model="selectedSi"
-      >
+      <select name="si" id="si" class="form-control firstLine" v-model="selectedSi">
         <option>시/도</option>
         <option>서울특별시</option>
       </select>
       <!--  -->
-      <select
-        name="gu"
-        id="gu"
-        class="form-control firstLine"
-        v-model="selectedGu"
-        @change="selectedDong = '읍/면/동'"
-        :disabled="isSiDisabled"
-      >
+      <select name="gu" id="gu" class="form-control firstLine" v-model="selectedGu" @change="selectedDong = '읍/면/동'"
+        :disabled="isSiDisabled">
         <option disabled>시/군/구</option>
-        <option
-          v-for="sgg in sggList"
-          :key="sgg.cortarNo"
-          :value="sgg.cortarNo"
-        >
+        <option v-for="sgg in sggList" :key="sgg.cortarNo" :value="sgg.cortarNo">
           {{ sgg.cortarName }}
         </option>
       </select>
       <!--  -->
-      <select
-        name="dong"
-        id="dong"
-        class="form-control"
-        v-model="selectedDong"
-        :disabled="isUmdDisabled"
-        @change="getComplexesApi"
-      >
+      <select name="dong" id="dong" class="form-control" v-model="selectedDong" :disabled="isUmdDisabled"
+        @change="getComplexesApi">
         <option disabled>읍/면/동</option>
-        <option
-          v-for="umd in filteredUmdList"
-          :key="umd.cortarNo"
-          :value="umd.cortarNo"
-        >
+        <option v-for="umd in filteredUmdList" :key="umd.cortarNo" :value="umd.cortarNo">
           {{ umd.cortarName }}
         </option>
       </select>
@@ -51,21 +26,12 @@
     <!--  -->
     <div ref="autocompleteWrapper">
       <div class="autocomplete-wrapper">
-        <input
-          type="text"
-          class="form-control mb-1"
-          placeholder="단지검색"
-          v-model="searchQuery"
-          :disabled="isSearchDisabled"
-        />
+        <input type="text" class="form-control mb-1" placeholder="단지검색" v-model="searchQuery"
+          :disabled="isSearchDisabled" />
         <div class="complexSuggestion2" v-if="showDropdown">
           <ul>
-            <li
-              v-for="a in filteredData"
-              :key="a.complexId"
-              :value="a.complexId"
-              @click="selectItem(a.complexId, a.name)"
-            >
+            <li v-for="a in filteredData" :key="a.complexId" :value="a.complexId"
+              @click="selectItem(a.complexId, a.name)">
               <div class="suggestion-content">
                 <p style="font-size: 16px; font-weight: 500">
                   {{ a.name }}
@@ -77,15 +43,8 @@
       </div>
     </div>
     <!--  -->
-    <input
-      type="text"
-      class="form-control"
-      id="detailAddress"
-      name="detailAddress"
-      v-model="detailAddress"
-      @input="emitAddressData"
-      placeholder="상세주소"
-    />
+    <input type="text" class="form-control" id="detailAddress" name="detailAddress" v-model="detailAddress"
+      @input="emitAddressData" placeholder="상세주소" />
   </div>
 </template>
 <script setup>
@@ -143,7 +102,7 @@ const isSearchDisabled = computed(() => selectedDong.value === '읍/면/동');
 
 // 단지 api
 const getComplexesApi = async () => {
-  const url = `/api/select-info?bgdCd=${selectedDong.value}`;
+  const url = `https://zipkimserver.store/api/select-info?bgdCd=${selectedDong.value}`;
   try {
     const response = await axios.get(url);
     apiData.value = response.data.map((item) => ({
@@ -198,7 +157,7 @@ const selectItem = async (item, itemName) => {
   longitude.value = selectedComplex?.longitude || null;
   latitude.value = selectedComplex?.latitude || null;
 
-  const url = `/api/complex/summary?complexId=${item}`;
+  const url = `https://zipkimserver.store/api/complex/summary?complexId=${item}`;
   try {
     const response = await axios.get(url);
     simpleApi.value = response.data; // 데이터를 상태에 저장
@@ -235,18 +194,23 @@ onMounted(() => {
 .cover {
   display: flex;
 }
+
 .width1 {
   width: 479px;
 }
+
 .firstLine {
   margin-right: 4px;
 }
+
 .autocomplete-wrapper {
   position: relative;
 }
+
 .complexSuggestion2 {
   position: absolute;
-  top: 100%; /* 검색창 바로 아래에 위치 */
+  top: 100%;
+  /* 검색창 바로 아래에 위치 */
   left: 0;
   background-color: white;
   border: 1px solid #f3b706;

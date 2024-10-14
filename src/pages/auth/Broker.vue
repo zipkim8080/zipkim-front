@@ -59,7 +59,7 @@ const checkBrokerNumber = async () => {
     });
   } else {
     try {
-      const response = await axios.post('/api/broker', {
+      const response = await axios.post('https://zipkimserver.store/api/broker', {
         brokerNumber: brokerNumber.value,
         name: loginStore.name,
       });
@@ -228,21 +228,11 @@ const verifyCode = async () => {
 
       <div v-if="brokerInfo">
         <div class="input-group">
-          <input
-            v-model="phoneNumber"
-            @input="onPhoneNumberInput"
-            type="text"
-            placeholder="휴대폰 번호 입력 ('-' 제외)"
-          />
+          <input v-model="phoneNumber" @input="onPhoneNumberInput" type="text" placeholder="휴대폰 번호 입력 ('-' 제외)" />
           <button class="send-code-btn" @click="requestVerificationCode">인증번호 발송</button>
         </div>
-        <input
-          v-model="verificationCode"
-          @input="onVerificationCodeInput"
-          type="text"
-          placeholder="인증번호를 입력하세요"
-          class="verification-input"
-        />
+        <input v-model="verificationCode" @input="onVerificationCodeInput" type="text" placeholder="인증번호를 입력하세요"
+          class="verification-input" />
       </div>
       <button class="verify-btn" @click="verifyCode">확인</button>
     </div>
@@ -259,6 +249,7 @@ const verifyCode = async () => {
   margin-top: 5px;
   margin-bottom: 10px;
 }
+
 .info {
   display: flex;
   justify-content: space-between;
@@ -267,6 +258,7 @@ const verifyCode = async () => {
 .info-title {
   font-weight: bold;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -290,7 +282,8 @@ const verifyCode = async () => {
   height: auto;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   position: fixed;
-  top: 50%; /* 화면의 약간 아래에서 시작 */
+  top: 50%;
+  /* 화면의 약간 아래에서 시작 */
   left: 50%;
   transform: translate(-50%, -30%);
   overflow-y: auto;
@@ -310,7 +303,8 @@ const verifyCode = async () => {
 }
 
 .input-group {
-  position: relative; /* 입력란과 버튼을 감싸는 컨테이너 */
+  position: relative;
+  /* 입력란과 버튼을 감싸는 컨테이너 */
   display: flex;
   margin-bottom: 10px;
 }
@@ -321,12 +315,14 @@ input[type='text'] {
   padding: 10px 15px;
   width: 100%;
   font-size: 14px;
-  padding-right: 100px; /* 버튼이 겹치지 않도록 오른쪽 여백 설정 */
+  padding-right: 100px;
+  /* 버튼이 겹치지 않도록 오른쪽 여백 설정 */
   box-sizing: border-box;
 }
 
 .send-code-btn {
-  position: absolute; /* 버튼을 입력란 내부에 배치 */
+  position: absolute;
+  /* 버튼을 입력란 내부에 배치 */
   top: 50%;
   right: 5px;
   transform: translateY(-50%);

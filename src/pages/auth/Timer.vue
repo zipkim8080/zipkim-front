@@ -54,7 +54,7 @@ const logout = async () => {
 // 로그인 연장 요청 함수
 const extendSession = async () => {
   try {
-    const response = await axios.post('/api/reissue');
+    const response = await axios.post('https://zipkimserver.store/api/reissue');
 
     const { access, refresh } = response.data;
 
@@ -136,12 +136,14 @@ onBeforeUnmount(() => {
   width: 260px;
   display: flex;
 }
+
 .button {
   border-radius: 0px 10px 10px 0px;
   font-size: 22px;
   padding: 7px 13px 5px 13px;
   /* font-weight: bold; */
 }
+
 .time {
   background: #fff;
   text-align: center;

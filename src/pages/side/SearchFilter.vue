@@ -1,75 +1,32 @@
 <template>
   <div ref="autocompleteWrapper" class="input-group mb-3">
-    <img
-      @click="resetSearch"
-      src="@\assets\images\zipkimLogo.png"
-      class="imgSize"
-    />
+    <img @click="resetSearch" src="@\assets\images\zipkimLogo.png" class="imgSize" />
 
-    <input
-      type="text"
-      v-model="searchTerm"
-      class="searchBox"
-      placeholder="아파트 또는 지역명으로 검색"
-      @input="onInputChange"
-      aria-label="Recipient's username"
-      aria-describedby="button-addon2"
-    />
+    <input type="text" v-model="searchTerm" class="searchBox" placeholder="아파트 또는 지역명으로 검색" @input="onInputChange"
+      aria-label="Recipient's username" aria-describedby="button-addon2" />
     <button class="kb_btn2" type="button" id="button-addon2">
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
   </div>
   <div>
-    <button
-      class="kb_btn"
-      :class="{ active: selectedValue === 'apt' }"
-      @click="selectType('apt')"
-    >
-      아파트</button
-    ><button
-      class="kb_btn"
-      :class="{ active: selectedValue === 'opi' }"
-      @click="selectType('opi')"
-    >
-      오피스텔</button
-    ><button
-      class="kb_btn"
-      :class="{ active: selectedValue === 'dd' }"
-      @click="selectType('dd')"
-    >
-      단독다가구</button
-    ><button
-      class="kb_btn2"
-      :class="{ active: selectedValue === 'yr' }"
-      @click="selectType('yr')"
-    >
+    <button class="kb_btn" :class="{ active: selectedValue === 'apt' }" @click="selectType('apt')">
+      아파트</button><button class="kb_btn" :class="{ active: selectedValue === 'opi' }" @click="selectType('opi')">
+      오피스텔</button><button class="kb_btn" :class="{ active: selectedValue === 'dd' }" @click="selectType('dd')">
+      단독다가구</button><button class="kb_btn2" :class="{ active: selectedValue === 'yr' }" @click="selectType('yr')">
       연립다세대
     </button>
   </div>
-  <div
-    class="complexSuggestion"
-    v-if="complexSuggestion?.length > 0 && showDropdown"
-  >
+  <div class="complexSuggestion" v-if="complexSuggestion?.length > 0 && showDropdown">
     <h1>단지</h1>
     <ul>
-      <li
-        @click="selectItem(suggestion)"
-        v-for="(suggestion, index) in complexSuggestion"
-        :key="suggestion.complexId"
-      >
+      <li @click="selectItem(suggestion)" v-for="(suggestion, index) in complexSuggestion" :key="suggestion.complexId">
         <div class="suggestion-content">
           <div class="icon">
             <i class="fa-solid fa-location-dot"></i>
           </div>
           <div>
-            <p
-              style="font-size: 20px; font-family: -apple-system"
-              v-html="highlight(suggestion.name)"
-            ></p>
-            <p
-              style="font-size: 15px; color: #666; font-weight: 500"
-              v-html="highlight(suggestion.addressName)"
-            ></p>
+            <p style="font-size: 20px; font-family: -apple-system" v-html="highlight(suggestion.name)"></p>
+            <p style="font-size: 15px; color: #666; font-weight: 500" v-html="highlight(suggestion.addressName)"></p>
           </div>
         </div>
       </li>
@@ -155,7 +112,7 @@ const onInputChange = async (e) => {
 
 const fetchcomplexSuggestion = async (query) => {
   try {
-    const response = await axios.get(`/api/search?keyword=${query}&size=20`);
+    const response = await axios.get(`https://zipkimserver.store/api/search?keyword=${query}&size=20`);
     return response.data.content;
   } catch (error) {
     console.error('Error fetching complexSuggestion:', error);

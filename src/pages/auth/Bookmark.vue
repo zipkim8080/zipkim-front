@@ -3,7 +3,7 @@ import { defineEmits } from 'vue';
 import { ref, onMounted, reactive } from 'vue';
 import axios from 'axios';
 import { useLoginStore } from '@/stores/LoginStore.js';
-import PropertyDetails from "@/pages/side/PropertyDetails.vue";
+import PropertyDetails from '@/pages/side/PropertyDetails.vue';
 import PropertyList from '@/components/detail/PropertyList.vue';
 
 const LoginStore = useLoginStore();
@@ -17,7 +17,7 @@ const props = defineProps({
 const openModal = (propertyId) => {
   selectedPropertyId.value = propertyId;
   isModalOpen.value = true;
-}
+};
 
 const propList = reactive({
   items: [],
@@ -35,27 +35,25 @@ const pageRequest = reactive({
   page: propList.pageable.pageNumber || 1,
 });
 
-
-
 const emit = defineEmits(['close']);
 
 const fetchBookMarks = async () => {
   try {
-    const props = await axios.get(`/api/bookmark/list?page=${pageRequest.page - 1
-      }&size=2`)
+    const props = await axios.get(
+      `https://zipkimserver.store/api/bookmark/list?page=${
+        pageRequest.page - 1
+      }&size=2`
+    );
     propList.items = props.data.content;
     propList.pageable = props.data.pageable;
     propList.totalElements = props.data.totalElements;
     propList.totalPages = props.data.totalPages;
     propList.numberOfElements = props.data.numberOfElements;
-    console.log(props)
-  } catch (error) {
-
-  }
+    console.log(props);
+  } catch (error) {}
 };
 
 defineExpose({ fetchBookMarks });
-
 
 const handleClose = () => {
   emit('close');
@@ -72,17 +70,27 @@ onMounted(() => {
 </script>
 
 <template>
-
   <PropertyList :propList="propList" />
   <template v-if="propList.totalElements > 0">
     <div class="paginate">
-      <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
-        :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
-        @click="handlePageChange">
-        <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
+      <vue-awesome-paginate
+        :total-items="propList.totalElements"
+        :items-per-page="propList.pageable.pageSize"
+        :max-pages-shown="propList.totalPages"
+        :show-ending-buttons="false"
+        v-model="pageRequest.page"
+        @click="handlePageChange"
+      >
+        <template #first-page-button
+          ><i class="fa-solid fa-backward-fast"></i
+        ></template>
         <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
-        <template #next-button><i class="fa-solid fa-caret-right"></i></template>
-        <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+        <template #next-button
+          ><i class="fa-solid fa-caret-right"></i
+        ></template>
+        <template #last-page-button
+          ><i class="fa-solid fa-forward-fast"></i
+        ></template>
       </vue-awesome-paginate>
     </div>
   </template>
