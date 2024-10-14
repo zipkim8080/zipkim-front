@@ -82,10 +82,12 @@ const handlePageChange = async (pageNum, event) => {
 async function fetchPropertyData(complexId) {
   try {
     const data = (
-      await axios.get(`/api/complex/summary?complexId=${complexId}`)
+      await axios.get(
+        `https://zipkimserver.store/api/complex/summary?complexId=${complexId}`
+      )
     ).data; // API 호출
     const props = await axios.get(
-      `/api/prop-list?complexId=${complexId}&page=${
+      `https://zipkimserver.store/api/prop-list?complexId=${complexId}&page=${
         pageRequest.page - 1
       }&size=2`
     );
@@ -144,13 +146,13 @@ async function fetchChartData(areaId) {
   try {
     // 매매 가져오기
     const saleResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=SALE`
+      `https://zipkimserver.store/api/price?areaId=${areaId}&type=SALE`
     );
     const saleData = saleResponse.data.content;
 
     // 전세 가져오기
     const leaseResponse = await axios.get(
-      `/api/price?areaId=${areaId}&type=LEASE`
+      `https://zipkimserver.store/api/price?areaId=${areaId}&type=LEASE`
     );
     const leaseData = leaseResponse.data.content;
 
