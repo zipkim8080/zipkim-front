@@ -42,7 +42,7 @@ const getRole = async () => {
 const regi = () => {
   console.log(role);
 
-  if (!loginStore.isAuthenticated()) {
+  if (!loginStore.isAuthenticated) {
     openLoginModal();
   } else {
     if (role.value !== 'ROLE_BROKER') {
@@ -93,7 +93,11 @@ onMounted(() => {
 </script>
 <template>
   <div class="search-overlay">
-    <SearchFilter :startModal="startModal" :closeStartModal="closeStartModal" :showStartModal="showStartModal" />
+    <SearchFilter
+      :startModal="startModal"
+      :closeStartModal="closeStartModal"
+      :showStartModal="showStartModal"
+    />
   </div>
   <StartInfoPage v-if="startModal" />
   <Timer />
@@ -102,12 +106,24 @@ onMounted(() => {
   <XXDongButton />
   <!-- 매물 등록 버튼 -->
   <div class="register-overlay">
-    <input v-if="role === 'ROLE_BROKER'" class="kb_btn" type="button" value="매물 등록" @click="regi" />
+    <input
+      v-if="role === 'ROLE_BROKER'"
+      class="kb_btn"
+      type="button"
+      value="매물 등록"
+      @click="regi"
+    />
     <input v-else class="not-login" type="button" value="매물 등록" @click="regi" />
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
-    <input v-if="loginStore.isAuthenticated" class="kb_btn" type="button" value="등기 확인" @click="dgCheck" />
+    <input
+      v-if="loginStore.isAuthenticated"
+      class="kb_btn"
+      type="button"
+      value="등기 확인"
+      @click="dgCheck"
+    />
     <input v-else class="not-login" type="button" value="등기 확인" @click="dgCheck" />
   </div>
 
@@ -228,8 +244,7 @@ onMounted(() => {
   --bs-btn-border-width: var(--bs-border-width);
   --bs-btn-border-color: transparent;
   --bs-btn-hover-border-color: transparent;
-  --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 1px 1px rgba(0, 0, 0, 0.075);
+  --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
   --bs-btn-disabled-opacity: 0.65;
   --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), 0.5);
   display: inline-block;
