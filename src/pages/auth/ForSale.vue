@@ -3,6 +3,8 @@ import { ref, reactive, onMounted } from 'vue';
 import axios from '@/api/index';
 import { useLoginStore } from '@/stores/LoginStore.js';
 import PropertyDetails from '@/pages/side/PropertyDetails.vue';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const loginStore = useLoginStore();
 const isModalOpen = ref(false);
@@ -33,12 +35,19 @@ function toggleMenu(property) {
 async function deleteItem(property) {
   try {
     await axios.post(`https://zipkimserver.store/api/delete/prop/${property.id}`);
+    // await axios.post(`http://localhost:8080/api/delete/prop/${property.id}`);
     // propList에서 해당 매물을 제거
     propList.items = propList.items.filter((item) => item.id !== property.id);
-    alert('매물이 성공적으로 삭제되었습니다.');
+    toast('매물이 삭제되었습니다!', {
+      theme: 'auto', // 테마(auto, light, dark, colored)
+      type: 'success', // 타입(info, success, warning, error, default)
+      position: 'top-center', //토스트 생성위치
+      pauseOnHover: false, //마우스오버시 멈춤 제거
+      autoClose: 1000, //자동닫기
+      hideProgressBar: true, //로딩바제거
+    });
   } catch (error) {
     console.error('Failed to delete property:', error);
-    alert('매물 삭제에 실패했습니다.');
   }
 }
 
@@ -55,6 +64,7 @@ const fetchProperties = async () => {
       `https://zipkimserver.store/api/myprops/${loginStore.username}?page=${
         pageRequest.page - 1
       }&size=10`
+      // `http://localhost:8080/api/myprops/${loginStore.username}?page=${pageRequest.page - 1}&size=1`
     );
     console.log(response);
 
@@ -84,12 +94,14 @@ async function bookMark(property) {
     if (property.isFavorite) {
       // 즐겨찾기 상태일 경우 해제 요청
       await axios.post(`https://zipkimserver.store/api/bookmark/delete`, {
+        // await axios.post(`http://localhost:8080/api/bookmark/delete`, {
         propertyId: property.id,
       });
       property.isFavorite = false;
     } else {
       // 즐겨찾기 상태가 아닐 경우 추가 요청
       await axios.post(`https://zipkimserver.store/api/bookmark/add`, { propertyId: property.id });
+      // await axios.post(`http://localhost:8080/api/bookmark/add`, { propertyId: property.id });
       property.isFavorite = true;
     }
   } catch (error) {
@@ -144,8 +156,10 @@ onMounted(() => {
           </div>
           <div class="price">매매 {{ property.amount.toLocaleString() }} 만원</div>
           <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
-          <div class="where">{{ property.location }}</div>
-          <p class="details">{{ property.description }}</p>
+          <!-- <div class="where">{{ property.location }}</div> -->
+          <div class="where">
+            {{ property.complexName }}<span class="info m-1"> {{ property.floor }}층</span>
+          </div>
         </div>
         <!-- 개별 매물에 대한 메뉴 및 삭제 버튼 -->
         <button class="menu" @click="toggleMenu(property)">
@@ -171,7 +185,7 @@ onMounted(() => {
       <vue-awesome-paginate
         :total-items="propList.totalElements"
         :items-per-page="propList.pageable.pageSize"
-        :max-pages-shown="propList.totalPages"
+        :max-pages-shown="5"
         :show-ending-buttons="false"
         v-model="pageRequest.page"
         @click="handlePageChange"
@@ -186,6 +200,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.paginate {
+  margin-bottom: 13.5px;
+}
+
 .property-list {
   display: flex;
   flex-direction: column;
@@ -216,6 +234,10 @@ onMounted(() => {
 
 .image-box {
   position: relative;
+}
+
+.check {
+  height: 17px;
 }
 
 .mark-checked {
