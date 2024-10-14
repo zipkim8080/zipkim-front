@@ -43,14 +43,14 @@ const handleBookMarkEvent = ({ id, isFavorite }) => {
 async function bookMark(property) {
   //이미 즐겨찾기 되있으면 해제
   if (property.isFavorite) {
-    await axios.post('/api/bookmark/delete', {
+    await axios.post('https://zipkimserver.store/api/bookmark/delete', {
       propertyId: property.id,
     });
     property.isFavorite = false;
     // status = false;
   } //즐겨찾기 안되잇으면 즐찾
   else {
-    await axios.post('/api/bookmark/add', {
+    await axios.post('https://zipkimserver.store/api/bookmark/add', {
       propertyId: property.id,
     });
     property.isFavorite = true;
