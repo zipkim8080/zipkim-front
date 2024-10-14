@@ -53,7 +53,8 @@ const loadProperties = async (complexId) => {
         propId: property.propId,
         amount: property.amount,
         deposit: property.deposit,
-        floor: property.complexName + ' ' + property.floor,
+        complexName: property.complexName,
+        floor: property.floor,
         image: property.images && property.images.length > 0 ? property.images[0].imageUrl : '',
         hugNumber: property.hugNumber,
         type: property.type,
@@ -106,7 +107,9 @@ defineExpose({ loadProperties });
           </div>
           <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
           <div class="price">매매 {{ property.amount.toLocaleString() }} 만원</div>
-          <div class="where">{{ property.floor }}층</div>
+          <div class="where">
+            {{ property.complexName ? property.complexName + ' ' : '' }}{{ property.floor }}층
+          </div>
         </div>
       </div>
     </div>
