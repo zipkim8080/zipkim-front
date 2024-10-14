@@ -150,12 +150,12 @@ onMounted(() => {
 
 .price {
   /* font-size: 1.5rem; */
-  font-size: 23px;
+  font-size: 18px;
   font-weight: bold;
 }
 
 .where {
-  font-size: 19px;
+  font-size: 16px;
 }
 
 .word {

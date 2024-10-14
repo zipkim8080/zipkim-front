@@ -45,6 +45,7 @@ const check = async () => {
 const propInfo = reactive({
   id: '',
   address: '',
+  type: '',
   roadName: '',
   complexName: '',
   detailAddress: '',
@@ -97,6 +98,7 @@ async function fetchPropertyData(propId) {
     // console.log(response);
     const data = response.data;
     propInfo.id = data.id;
+    propInfo.type = data.type;
     propInfo.address = data.address;
     propInfo.roadName = data.roadName;
     propInfo.complexName = data.complexName;
@@ -130,8 +132,7 @@ async function fetchPropertyData(propId) {
     propInfo.loan = data.register.loan;
     propInfo.images = data.images;
     propInfo.register[0].openDate = data.register.openDate;
-    console.log(propInfo);
-    saveProperty(propInfo, propId);
+    saveProperty(propInfo, propId, data.type);
 
     // console.log(propInfo);
   } catch (error) {
@@ -139,12 +140,13 @@ async function fetchPropertyData(propId) {
   }
 }
 
-const saveProperty = (newPropInfo, propId) => {
+const saveProperty = (newPropInfo, propId, type) => {
   let existingProperties = JSON.parse(localStorage.getItem('propInfo')) || [];
   if (!Array.isArray(existingProperties)) {
     existingProperties = [];
   }
   newPropInfo.propId = propId;
+  newPropInfo.type = type;
 
   let index = -1;
   for (let i = 0; i < existingProperties.length; i++) {
@@ -226,8 +228,6 @@ const formattedOpenDate = computed(() => {
                 <i :class="isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
               </button>
             </h4>
-            <!-- <i class="fa-solid fa-hashtag mb-2"></i> &nbsp; 매물
-              번호&nbsp;&nbsp; {{ propInfo.id }} -->
             <br />
             <br />
             <!-- 이미지 슬라이드 -->
