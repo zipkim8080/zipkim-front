@@ -13,15 +13,18 @@ const infoModalOpen = () => {
 };
 
 const naverLogin = async () => {
-  window.location.href = 'https://zipkimserver.store/oauth2/authorization/naver';
+  window.location.href =
+    'https://zipkimserver.store/oauth2/authorization/naver';
   // window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
 };
 const googleLogin = () => {
-  window.location.href = 'https://zipkimserver.store/oauth2/authorization/google';
+  window.location.href =
+    'https://zipkimserver.store/oauth2/authorization/google';
   // window.location.href = 'http://localhost:8080/oauth2/authorization/google';
 };
 const kakaoLogin = () => {
-  window.location.href = 'https://zipkimserver.store/oauth2/authorization/kakao';
+  window.location.href =
+    'https://zipkimserver.store/oauth2/authorization/kakao';
   // window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
 };
 

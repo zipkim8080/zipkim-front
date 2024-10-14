@@ -1,9 +1,9 @@
-//git
 <script setup>
 import { onMounted, ref } from 'vue';
 import { defineEmits } from 'vue';
 import axios from 'axios';
 import PropertyDetails from '@/pages/side/PropertyDetails.vue';
+import propertyRegiAPI from '@/api/PropertyRegiAPI.js';
 
 const emit = defineEmits(['close']);
 const properties = ref([]);
@@ -15,6 +15,20 @@ const props = defineProps({
   propList: Object,
 });
 
+function invertToKR(type) {
+  let kr = type;
+  if (kr === 'apt') {
+    kr = '아파트';
+  } else if (kr === 'opi') {
+    kr = '오피스텔';
+  } else if (kr === 'dd') {
+    kr = '단독다가구';
+  } else if (kr === 'yr') {
+    kr = '연립다세대';
+  }
+  return kr;
+}
+
 const reset = () => {
   localStorage.clear();
 };
@@ -25,7 +39,7 @@ const openModal = (propertyId) => {
   isModalOpen.value = true;
 };
 
-const loadProperties = async () => {
+const loadProperties = async (complexId) => {
   const storedProperties = localStorage.getItem('propInfo');
   if (storedProperties) {
     let propertiesData = JSON.parse(storedProperties);
@@ -39,8 +53,10 @@ const loadProperties = async () => {
         propId: property.propId,
         amount: property.amount,
         deposit: property.deposit,
-        floor: property.complexName + property.floor,
+        floor: property.complexName + ' ' + property.floor,
         image: property.images && property.images.length > 0 ? property.images[0].imageUrl : '',
+        hugNumber: property.hugNumber,
+        type: property.type,
       };
     });
 
@@ -56,33 +72,6 @@ const loadProperties = async () => {
 onMounted(() => {
   loadProperties();
 });
-
-/*const saveToLocalStorage = (propertyName) => {
-  // 중복 확인: 이미 저장된 매물이라면 저장하지 않음
-
-  if (properties.value.includes(propertyName)) {
-    const index = properties.value.indexOf(propertyName);
-
-    if (index !== properties.value.length - 1) {
-      // 매물이 마지막이 아니면 제거하고 다시 추가
-      properties.value.splice(index, 1);
-      properties.value.push(propertyName);
-    }
-  } else {
-    // 중복되지 않은 경우 + 5개 이상의 매물이 저장되어 있으면 가장 오래된 매물 삭제
-    if (properties.value.length >= 5) {
-      properties.value.shift(); // 배열의 첫 번째 요소 삭제
-    }
-
-    properties.value.push(propertyName); // 새로운 매물 추가
-  }
-
-  // 로컬스토리지에 매물 목록 저장
-  localStorage.setItem('properties', JSON.stringify(properties.value));
-
-  // 저장된 매물 확인을 위한 콘솔 출력 (필요 시 삭제)
-  console.log('저장된 매물:', properties.value);
-};*/
 
 const clear = () => {
   localStorage.clear();
@@ -112,23 +101,46 @@ defineExpose({ loadProperties });
         </div>
         <div class="content">
           <div class="type">
-            {{ 'apt' }}
-            <img class="check" src="@/assets/images/check.png" alt="체크 이미지" />
-            <div v-if="isModalOpen" class="modal">
-              <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false" />
-            </div>
+            {{ invertToKR(property.type) }}
+            <img v-if="property.hugNumber" class="check" src="@/assets/images/check.png" />
           </div>
           <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
           <div class="price">매매 {{ property.amount.toLocaleString() }} 만원</div>
-          <div class="where">{{ property.floor }} 층</div>
+          <div class="where">{{ property.floor }}층</div>
         </div>
       </div>
     </div>
     <p v-if="displayedProperties.length === 0">저장된 매물이 없습니다.</p>
+
+    <div v-if="isModalOpen" class="modal-background" @click="isModalOpen = false"></div>
+    <div v-if="isModalOpen" class="modal">
+      <PropertyDetails :propId="selectedPropertyId" @close="isModalOpen = false" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  z-index: 10;
+  border-radius: 8px;
+}
+
 .title {
   display: flex;
   justify-content: space-between;
@@ -150,7 +162,7 @@ defineExpose({ loadProperties });
 
 .price {
   /* font-size: 1.5rem; */
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
 }
 

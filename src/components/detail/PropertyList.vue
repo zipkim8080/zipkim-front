@@ -62,21 +62,35 @@ async function bookMark(property) {
 
 <template>
   <div class="list">
-    <div class="content-box" v-for="(property, index) in propList.items" :key="property.id">
+    <div
+      class="content-box"
+      v-for="(property, index) in propList.items"
+      :key="property.id"
+    >
       <div class="image-box">
         <div class="img">
-          <img style="width: 200px; height: 130px; border-radius: 5px" :src="property.imageUrl" />
+          <img
+            style="width: 200px; height: 130px; border-radius: 5px"
+            :src="property.imageUrl"
+          />
         </div>
         <button @click="bookMark(property)" class="mark-checked">
-          <i :class="property.isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'
-            "></i>
+          <i
+            :class="
+              property.isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'
+            "
+          ></i>
         </button>
       </div>
 
       <div class="content" @click="openModal(property.id)">
         <div class="type">
           {{ invertToKR(property.type) }}
-          <img v-if="property.hugNumber" class="check" src="@/assets/images/check.png" />
+          <img
+            v-if="property.hugNumber"
+            class="check"
+            src="@/assets/images/check.png"
+          />
         </div>
         <div class="price">
           매매 {{ property.amount.toLocaleString() }} 만원
@@ -92,7 +106,11 @@ async function bookMark(property) {
     </div>
   </div>
   <div v-if="isModalOpen" @close="isModalOpen = false">
-    <PropertyDetails @bookMark="handleBookMarkEvent" :propId="selectedPropertyId" @close="isModalOpen = false" />
+    <PropertyDetails
+      @bookMark="handleBookMarkEvent"
+      :propId="selectedPropertyId"
+      @close="isModalOpen = false"
+    />
   </div>
 </template>
 

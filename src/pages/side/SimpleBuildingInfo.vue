@@ -13,17 +13,17 @@ const router = useRouter();
 const route = useRoute();
 const basePath = '/images/';
 const images = [
-  'building1.jpeg',
-  'building2.jpeg',
-  'building3.jpeg',
-  'building4.jpeg',
-  'building5.jpeg',
-  'building6.jpeg',
-  'building7.jpeg',
-  'building8.jpeg',
-  'building9.jpeg',
-  'building10.jpeg',
-  'building11.jpg',
+  'building1.png',
+  'building2.png',
+  'building3.png',
+  'building4.png',
+  'building5.png',
+  'building6.png',
+  'building7.png',
+  'building8.png',
+  'building9.png',
+  'building10.png',
+  'building11.png',
 ];
 onMounted(() => {
   const id = route.params.complexId; // 'id' 파라미터를 가져옵니다.
@@ -82,10 +82,13 @@ const handlePageChange = async (pageNum, event) => {
 async function fetchPropertyData(complexId) {
   try {
     const data = (
-      await axios.get(`https://zipkimserver.store/api/complex/summary?complexId=${complexId}`)
+      await axios.get(
+        `https://zipkimserver.store/api/complex/summary?complexId=${complexId}`
+      )
     ).data; // API 호출
     const props = await axios.get(
-      `https://zipkimserver.store/api/prop-list?complexId=${complexId}&page=${pageRequest.page - 1
+      `https://zipkimserver.store/api/prop-list?complexId=${complexId}&page=${
+        pageRequest.page - 1
       }&size=2`
     );
     const areaIds = data.areas.map((area) => area.id);
@@ -194,7 +197,12 @@ async function fetchChartData(areaId) {
           </button>
         </div>
         <div v-if="complexInfo.type == 'opi' || complexInfo.type == 'apt'">
-          <img width="424px" height="200px" :src="complexInfo.img" style="border-radius: 7px; margin-bottom: 20px" />
+          <img
+            width="424px"
+            height="200px"
+            :src="complexInfo.img"
+            style="border-radius: 7px; margin-bottom: 20px"
+          />
           <br />
           <h5 style="font-weight: bold">주소</h5>
           <div>도로명 주소: {{ complexInfo.roadName }}</div>
@@ -207,31 +215,52 @@ async function fetchChartData(areaId) {
           <div>
             전세가: {{ complexInfo.recentDeposit.toLocaleString() }} 만원
           </div>
-          <hr style="
+          <hr
+            style="
               width: 100%;
               height: 10px;
               background-color: #ccc;
               border: none;
-            " />
-          <PriceChart v-if="priceChart" :priceChart="priceChart" :areaIdToPyeongName="areaIdToPyeongName" />
+            "
+          />
+          <PriceChart
+            v-if="priceChart"
+            :priceChart="priceChart"
+            :areaIdToPyeongName="areaIdToPyeongName"
+          />
         </div>
-        <hr style="
+        <hr
+          style="
             width: 100%;
             height: 10px;
             background-color: #ccc;
             border: none;
-          " />
+          "
+        />
         <PropertyList :propList="propList" />
 
         <template v-if="propList.totalElements > 0">
           <div class="paginate">
-            <vue-awesome-paginate :total-items="propList.totalElements" :items-per-page="propList.pageable.pageSize"
-              :max-pages-shown="propList.totalPages" :show-ending-buttons="false" v-model="pageRequest.page"
-              @click="handlePageChange">
-              <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
-              <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
-              <template #next-button><i class="fa-solid fa-caret-right"></i></template>
-              <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+            <vue-awesome-paginate
+              :total-items="propList.totalElements"
+              :items-per-page="propList.pageable.pageSize"
+              :max-pages-shown="propList.totalPages"
+              :show-ending-buttons="false"
+              v-model="pageRequest.page"
+              @click="handlePageChange"
+            >
+              <template #first-page-button
+                ><i class="fa-solid fa-backward-fast"></i
+              ></template>
+              <template #prev-button
+                ><i class="fa-solid fa-caret-left"></i
+              ></template>
+              <template #next-button
+                ><i class="fa-solid fa-caret-right"></i
+              ></template>
+              <template #last-page-button
+                ><i class="fa-solid fa-forward-fast"></i
+              ></template>
             </vue-awesome-paginate>
           </div>
         </template>
