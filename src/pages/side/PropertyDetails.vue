@@ -31,7 +31,7 @@ onMounted(async () => {
 
 const check = async () => {
   try {
-    const response = await axios.get(`https://zipkimserver.store/api/bookmark/${props.propId}`);
+    const response = await axios.get(`/api/bookmark/${props.propId}`);
     if (response.data == true) {
       isFavorite.value = true;
       console.log('즐겨찾기가 있습니다.');
@@ -39,7 +39,7 @@ const check = async () => {
       isFavorite.value = false;
       console.log('즐겨찾기가 없습니다.');
     }
-  } catch (error) { }
+  } catch (error) {}
 };
 
 const propInfo = reactive({
@@ -132,8 +132,7 @@ async function fetchPropertyData(propId) {
     propInfo.loan = data.register.loan;
     propInfo.images = data.images;
     propInfo.register[0].openDate = data.register.openDate;
-    console.log(propInfo);
-    saveProperty(propInfo, propId);
+    saveProperty(propInfo, propId, data.type);
 
     // console.log(propInfo);
   } catch (error) {
@@ -141,12 +140,13 @@ async function fetchPropertyData(propId) {
   }
 }
 
-const saveProperty = (newPropInfo, propId) => {
+const saveProperty = (newPropInfo, propId, type) => {
   let existingProperties = JSON.parse(localStorage.getItem('propInfo')) || [];
   if (!Array.isArray(existingProperties)) {
     existingProperties = [];
   }
   newPropInfo.propId = propId;
+  newPropInfo.type = type;
 
   let index = -1;
   for (let i = 0; i < existingProperties.length; i++) {
@@ -170,13 +170,13 @@ const saveProperty = (newPropInfo, propId) => {
 async function bookMark(id) {
   //이미 즐겨찾기 되있으면 해제
   if (isFavorite.value) {
-    await axios.post('https://zipkimserver.store/api/bookmark/delete', {
+    await axios.post('/api/bookmark/delete', {
       propertyId: id,
     });
     isFavorite.value = false;
   } //즐겨찾기 안되잇으면 즐찾
   else {
-    await axios.post('https://zipkimserver.store/api/bookmark/add', {
+    await axios.post('/api/bookmark/add', {
       propertyId: id,
     });
     isFavorite.value = true;
@@ -191,7 +191,7 @@ async function brokerData() {
       name: propInfo.name,
       brokerNumber: propInfo.brokerNo,
     };
-    const response = await axios.post('https://zipkimserver.store/api/broker', requestBody);
+    const response = await axios.post('/api/broker', requestBody);
     const data = response.data;
     propInfo.companyName = data.companyName;
     propInfo.brokerNo = data.brokerNo;
@@ -228,8 +228,6 @@ const formattedOpenDate = computed(() => {
                 <i :class="isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
               </button>
             </h4>
-            <!-- <i class="fa-solid fa-hashtag mb-2"></i> &nbsp; 매물
-              번호&nbsp;&nbsp; {{ propInfo.id }} -->
             <br />
             <br />
             <!-- 이미지 슬라이드 -->
@@ -250,26 +248,30 @@ const formattedOpenDate = computed(() => {
             <!-- 가격 -->
             <div style="display: flex">
               <div class="status-icon larger-text">매매</div>
-              <div style="
+              <div
+                style="
                   font-weight: bold;
                   width: 168px;
                   text-align: right;
                   font-size: 21px;
                   padding-top: 4.5px;
-                ">
+                "
+              >
                 {{ propInfo.amount.toLocaleString() }} 만원
               </div>
             </div>
             <!--  -->
             <div style="display: flex">
               <div class="status-icon larger-text" style="font-weight: bold">전세</div>
-              <div style="
+              <div
+                style="
                   font-weight: bold;
                   width: 168px;
                   text-align: right;
                   font-size: 21px;
                   padding-top: 4.5px;
-                ">
+                "
+              >
                 {{ propInfo.deposit.toLocaleString() }} 만원
               </div>
             </div>
@@ -352,8 +354,12 @@ const formattedOpenDate = computed(() => {
               <div class="prop-left">등기현황</div>
               <div class="info-container">
                 <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
-                <span class="status-item">가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span>
-                <span class="status-item">경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span>
+                <span class="status-item"
+                  >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
+                >
+                <span class="status-item"
+                  >경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span
+                >
                 <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
               </div>
             </div>

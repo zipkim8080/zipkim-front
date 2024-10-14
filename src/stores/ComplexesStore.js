@@ -85,7 +85,7 @@ export const useComplexesStore = defineStore('map', {
       }
     },
     async getApi() {
-      const url = `https://zipkimserver.store/api/map/${this.type}?lat=${this.lat}&lon=${this.lon}&radius=${this.radius}`;
+      const url = `/api/map/${this.type}?lat=${this.lat}&lon=${this.lon}&radius=${this.radius}`;
       try {
         const response = await axios.get(url);
         if (response && response.data && response.data.data.length > 0) {
