@@ -42,7 +42,7 @@ const getRole = async () => {
 const regi = () => {
   console.log(role);
 
-  if (!loginStore.isAuthenticated()) {
+  if (!loginStore.isAuthenticated) {
     openLoginModal();
   } else {
     if (role.value !== 'ROLE_BROKER') {
@@ -113,13 +113,7 @@ onMounted(() => {
       value="매물 등록"
       @click="regi"
     />
-    <input
-      v-else
-      class="not-login"
-      type="button"
-      value="매물 등록"
-      @click="regi"
-    />
+    <input v-else class="not-login" type="button" value="매물 등록" @click="regi" />
   </div>
   <!-- 등기 확인 버튼 -->
   <div class="register-overlay2">
@@ -130,13 +124,7 @@ onMounted(() => {
       value="등기 확인"
       @click="dgCheck"
     />
-    <input
-      v-else
-      class="not-login"
-      type="button"
-      value="등기 확인"
-      @click="dgCheck"
-    />
+    <input v-else class="not-login" type="button" value="등기 확인" @click="dgCheck" />
   </div>
 
   <transition name="fade">
@@ -148,11 +136,7 @@ onMounted(() => {
   </transition>
 
   <transition name="fade">
-    <div
-      v-if="sidebarModal"
-      class="side-modal-wrap"
-      @click.self="sidebarModal = false"
-    >
+    <div v-if="sidebarModal" class="side-modal-wrap" @click.self="sidebarModal = false">
       <div>
         <Sidebar class="sidebar" />
       </div>
@@ -163,11 +147,7 @@ onMounted(() => {
 
   <!-- CheckMyDoc 모달 -->
   <transition name="fade">
-    <CheckMyDoc
-      v-if="showModal"
-      @ocrCompleted="handleOcrCompleted"
-      @close="showModal = false"
-    />
+    <CheckMyDoc v-if="showModal" @ocrCompleted="handleOcrCompleted" @close="showModal = false" />
   </transition>
   <!-- MyDocResultPage 모달 -->
   <MyDocResultPage v-if="ocrData" :ocrData="ocrData" @close="ocrData = null" />
@@ -264,11 +244,9 @@ onMounted(() => {
   --bs-btn-border-width: var(--bs-border-width);
   --bs-btn-border-color: transparent;
   --bs-btn-hover-border-color: transparent;
-  --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 1px 1px rgba(0, 0, 0, 0.075);
+  --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
   --bs-btn-disabled-opacity: 0.65;
-  --bs-btn-focus-box-shadow: 0 0 0 0.25rem
-    rgba(var(--bs-btn-focus-shadow-rgb), 0.5);
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), 0.5);
   display: inline-block;
   padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
   font-family: var(--bs-btn-font-family);

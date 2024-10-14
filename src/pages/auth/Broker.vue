@@ -115,7 +115,7 @@ const requestVerificationCode = async () => {
   } else {
     try {
       // 전화번호를 포함하여 백엔드의 /auth/send API 호출
-      const response = await axios.post('/api/sms/send', {
+      const response = await axios.post('https://zipkimserver.store/api/sms/send', {
         phoneNumber: phoneNumber.value,
       });
 
@@ -168,7 +168,7 @@ const verifyCode = async () => {
         hideProgressBar: true, //로딩바제거
       });
       try {
-        await axios.post('/api/users/phone', {
+        await axios.post('https://zipkimserver.store/api/users/phone', {
           phoneNumber: phoneNumber.value,
           brokerNumber: brokerInfo.value.brokerNo,
           companyName: brokerInfo.value.companyName,
@@ -228,11 +228,21 @@ const verifyCode = async () => {
 
       <div v-if="brokerInfo">
         <div class="input-group">
-          <input v-model="phoneNumber" @input="onPhoneNumberInput" type="text" placeholder="휴대폰 번호 입력 ('-' 제외)" />
+          <input
+            v-model="phoneNumber"
+            @input="onPhoneNumberInput"
+            type="text"
+            placeholder="휴대폰 번호 입력 ('-' 제외)"
+          />
           <button class="send-code-btn" @click="requestVerificationCode">인증번호 발송</button>
         </div>
-        <input v-model="verificationCode" @input="onVerificationCodeInput" type="text" placeholder="인증번호를 입력하세요"
-          class="verification-input" />
+        <input
+          v-model="verificationCode"
+          @input="onVerificationCodeInput"
+          type="text"
+          placeholder="인증번호를 입력하세요"
+          class="verification-input"
+        />
       </div>
       <button class="verify-btn" @click="verifyCode">확인</button>
     </div>
