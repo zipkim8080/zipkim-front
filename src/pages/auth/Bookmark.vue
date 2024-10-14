@@ -40,7 +40,9 @@ const emit = defineEmits(['close']);
 const fetchBookMarks = async () => {
   try {
     const props = await axios.get(
-      `https://zipkimserver.store/api/bookmark/list?page=${pageRequest.page - 1}&size=2`
+      `https://zipkimserver.store/api/bookmark/list?page=${
+        pageRequest.page - 1
+      }&size=2`
     );
     propList.items = props.data.content;
     propList.pageable = props.data.pageable;
@@ -79,10 +81,16 @@ onMounted(() => {
         v-model="pageRequest.page"
         @click="handlePageChange"
       >
-        <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
+        <template #first-page-button
+          ><i class="fa-solid fa-backward-fast"></i
+        ></template>
         <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
-        <template #next-button><i class="fa-solid fa-caret-right"></i></template>
-        <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+        <template #next-button
+          ><i class="fa-solid fa-caret-right"></i
+        ></template>
+        <template #last-page-button
+          ><i class="fa-solid fa-forward-fast"></i
+        ></template>
       </vue-awesome-paginate>
     </div>
   </template>

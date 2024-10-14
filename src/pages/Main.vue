@@ -62,7 +62,7 @@ const regi = () => {
 };
 
 const dgCheck = () => {
-  if (!loginStore.isAuthenticated) {
+  if (!loginStore.isAuthenticated()) {
     openLoginModal();
   } else {
     showModal.value = true;

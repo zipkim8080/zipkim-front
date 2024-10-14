@@ -31,7 +31,9 @@ onMounted(async () => {
 
 const check = async () => {
   try {
-    const response = await axios.get(`https://zipkimserver.store/api/bookmark/${props.propId}`);
+    const response = await axios.get(
+      `https://zipkimserver.store/api/bookmark/${props.propId}`
+    );
     if (response.data == true) {
       isFavorite.value = true;
       console.log('즐겨찾기가 있습니다.');
@@ -94,7 +96,9 @@ const propInfo = reactive({
 
 async function fetchPropertyData(propId) {
   try {
-    const response = await axios.get(`https://zipkimserver.store/api/prop/${propId}`);
+    const response = await axios.get(
+      `https://zipkimserver.store/api/prop/${propId}`
+    );
     // console.log(response);
     const data = response.data;
     propInfo.id = data.id;
@@ -191,7 +195,10 @@ async function brokerData() {
       name: propInfo.name,
       brokerNumber: propInfo.brokerNo,
     };
-    const response = await axios.post('https://zipkimserver.store/api/broker', requestBody);
+    const response = await axios.post(
+      'https://zipkimserver.store/api/broker',
+      requestBody
+    );
     const data = response.data;
     propInfo.companyName = data.companyName;
     propInfo.brokerNo = data.brokerNo;
@@ -221,11 +228,22 @@ const formattedOpenDate = computed(() => {
             </button>
             <!--  -->
 
-            <h4 style="font-weight: bold; text-align: center; margin-left: 6px; margin-top: 50px">
+            <h4
+              style="
+                font-weight: bold;
+                text-align: center;
+                margin-left: 6px;
+                margin-top: 50px;
+              "
+            >
               {{ propInfo.roadName }}
               {{ propInfo.detailAddress }}
               <button @click="bookMark(propInfo.id)" class="bookMark-detail">
-                <i :class="isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+                <i
+                  :class="
+                    isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'
+                  "
+                ></i>
               </button>
             </h4>
             <br />
@@ -235,7 +253,12 @@ const formattedOpenDate = computed(() => {
               <Carousel :autoplay="3000" :wrap-around="true">
                 <Slide v-for="(image, index) in propInfo.images" :key="index">
                   <div class="carousel__item">
-                    <img class="slideImg" :src="image.imageUrl" width="600px" height="400px" />
+                    <img
+                      class="slideImg"
+                      :src="image.imageUrl"
+                      width="600px"
+                      height="400px"
+                    />
                   </div>
                 </Slide>
                 <template #addons>
@@ -262,7 +285,9 @@ const formattedOpenDate = computed(() => {
             </div>
             <!--  -->
             <div style="display: flex">
-              <div class="status-icon larger-text" style="font-weight: bold">전세</div>
+              <div class="status-icon larger-text" style="font-weight: bold">
+                전세
+              </div>
               <div
                 style="
                   font-weight: bold;
@@ -289,12 +314,16 @@ const formattedOpenDate = computed(() => {
             <hr style="width: 100%; height: 3px; background-color: black" />
             <div class="info-container">
               <div class="prop-left">해당층 / 전체층</div>
-              <div class="prop-right">{{ propInfo.floor }} / {{ propInfo.totalFloor }}</div>
+              <div class="prop-right">
+                {{ propInfo.floor }} / {{ propInfo.totalFloor }}
+              </div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
               <div class="prop-left">방 / 욕실</div>
-              <div class="prop-right">{{ propInfo.roomNo }} / {{ propInfo.bathNo }}</div>
+              <div class="prop-right">
+                {{ propInfo.roomNo }} / {{ propInfo.bathNo }}
+              </div>
             </div>
             <hr class="section-divider" />
             <div class="info-container">
@@ -353,14 +382,19 @@ const formattedOpenDate = computed(() => {
             <div class="info-container">
               <div class="prop-left">등기현황</div>
               <div class="info-container">
-                <span class="status-item">압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span>
+                <span class="status-item"
+                  >압류&nbsp; {{ propInfo.attachMent1 ? '⭕' : '❌' }}</span
+                >
                 <span class="status-item"
                   >가압류&nbsp; {{ propInfo.attachMent2 ? '⭕️' : '❌' }}</span
                 >
                 <span class="status-item"
-                  >경매개시결정&nbsp; {{ propInfo.auction ? '⭕️' : '❌' }}</span
+                  >경매개시결정&nbsp;
+                  {{ propInfo.auction ? '⭕️' : '❌' }}</span
                 >
-                <span class="status-item">신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span>
+                <span class="status-item"
+                  >신탁&nbsp; {{ propInfo.trust ? '⭕️' : '❌' }}</span
+                >
               </div>
             </div>
             <hr class="section-divider" />
@@ -374,7 +408,12 @@ const formattedOpenDate = computed(() => {
             <div class="info-container">
               <div class="prop-left">전세권(총액)</div>
               <div class="prop-right">
-                {{ propInfo.leaseAmount > 0 ? propInfo.leaseAmount.toLocaleString() : 0 }} 원
+                {{
+                  propInfo.leaseAmount > 0
+                    ? propInfo.leaseAmount.toLocaleString()
+                    : 0
+                }}
+                원
               </div>
             </div>
             <hr class="section-divider" />
@@ -406,7 +445,10 @@ const formattedOpenDate = computed(() => {
               <div class="prop-right">
                 {{
                   propInfo.phoneNumber
-                    ? propInfo.phoneNumber.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+                    ? propInfo.phoneNumber.replace(
+                        /(\d{3})(\d{4})(\d{4})/,
+                        '$1-$2-$3'
+                      )
                     : '-'
                 }}
               </div>
