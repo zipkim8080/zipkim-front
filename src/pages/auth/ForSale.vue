@@ -34,7 +34,9 @@ function toggleMenu(property) {
 // 삭제 기능 함수
 async function deleteItem(property) {
   try {
-    await axios.post(`https://zipkimserver.store/api/delete/prop/${property.id}`);
+    await axios.post(
+      `https://zipkimserver.store/api/delete/prop/${property.id}`
+    );
     // await axios.post(`http://localhost:8080/api/delete/prop/${property.id}`);
     // propList에서 해당 매물을 제거
     propList.items = propList.items.filter((item) => item.id !== property.id);
@@ -68,7 +70,10 @@ const fetchProperties = async () => {
     );
     console.log(response);
 
-    propList.items = response.data.content.map((item) => ({ ...item, menuDisplay: false })); // 각 매물에 menuDisplay 속성 추가
+    propList.items = response.data.content.map((item) => ({
+      ...item,
+      menuDisplay: false,
+    })); // 각 매물에 menuDisplay 속성 추가
     propList.totalElements = response.data.totalElements;
     propList.totalPages = response.data.totalPages;
     propList.pageable = response.data.pageable;
@@ -100,7 +105,9 @@ async function bookMark(property) {
       property.isFavorite = false;
     } else {
       // 즐겨찾기 상태가 아닐 경우 추가 요청
-      await axios.post(`https://zipkimserver.store/api/bookmark/add`, { propertyId: property.id });
+      await axios.post(`https://zipkimserver.store/api/bookmark/add`, {
+        propertyId: property.id,
+      });
       // await axios.post(`http://localhost:8080/api/bookmark/add`, { propertyId: property.id });
       property.isFavorite = true;
     }
@@ -139,33 +146,57 @@ onMounted(() => {
 <template>
   <div class="property-list">
     <!-- 매물 목록을 세로로 나열 -->
-    <div v-for="property in propList.items" :key="property.id" class="content-box">
+    <div
+      v-for="property in propList.items"
+      :key="property.id"
+      class="content-box"
+    >
       <div class="image-box">
         <div class="img">
-          <img style="width: 200px; height: 130px; border-radius: 5px" :src="property.imageUrl" />
+          <img
+            style="width: 200px; height: 130px; border-radius: 5px"
+            :src="property.imageUrl"
+          />
         </div>
         <button @click="bookMark(property)" class="mark-checked">
-          <i :class="property.isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+          <i
+            :class="
+              property.isFavorite ? 'fa-solid fa-heart' : 'fa-regular fa-heart'
+            "
+          ></i>
         </button>
       </div>
       <div class="Box">
         <div class="content" @click="openModal(property.id)">
           <div class="type">
             {{ invertToKR(property.type) }}
-            <img v-if="property.hugNumber" class="check" src="@/assets/images/check.png" />
+            <img
+              v-if="property.hugNumber"
+              class="check"
+              src="@/assets/images/check.png"
+            />
           </div>
-          <div class="price">매매 {{ property.amount.toLocaleString() }} 만원</div>
-          <div class="price">전세 {{ property.deposit.toLocaleString() }} 만원</div>
+          <div class="price">
+            매매 {{ property.amount.toLocaleString() }} 만원
+          </div>
+          <div class="price">
+            전세 {{ property.deposit.toLocaleString() }} 만원
+          </div>
           <!-- <div class="where">{{ property.location }}</div> -->
           <div class="where">
-            {{ property.complexName ? property.complexName + ' ' : '' }}{{ property.floor }}층
+            {{ property.complexName ? property.complexName + ' ' : ''
+            }}{{ property.floor }}층
           </div>
         </div>
         <!-- 개별 매물에 대한 메뉴 및 삭제 버튼 -->
         <button class="menu" @click="toggleMenu(property)">
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>
-        <button v-show="property.menuDisplay" class="delete-button" @click="deleteItem(property)">
+        <button
+          v-show="property.menuDisplay"
+          class="delete-button"
+          @click="deleteItem(property)"
+        >
           삭제
         </button>
       </div>
@@ -190,10 +221,16 @@ onMounted(() => {
         v-model="pageRequest.page"
         @click="handlePageChange"
       >
-        <template #first-page-button><i class="fa-solid fa-backward-fast"></i></template>
+        <template #first-page-button
+          ><i class="fa-solid fa-backward-fast"></i
+        ></template>
         <template #prev-button><i class="fa-solid fa-caret-left"></i></template>
-        <template #next-button><i class="fa-solid fa-caret-right"></i></template>
-        <template #last-page-button><i class="fa-solid fa-forward-fast"></i></template>
+        <template #next-button
+          ><i class="fa-solid fa-caret-right"></i
+        ></template>
+        <template #last-page-button
+          ><i class="fa-solid fa-forward-fast"></i
+        ></template>
       </vue-awesome-paginate>
     </div>
   </template>
@@ -202,6 +239,7 @@ onMounted(() => {
 <style scoped>
 .paginate {
   margin-bottom: 13.5px;
+  margin-left: -5px;
 }
 
 .property-list {

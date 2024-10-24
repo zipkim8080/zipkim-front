@@ -80,18 +80,6 @@ onMounted(() => {
   background-color: #f2d383;
 }
 
-/* .fade-enter-active {
-  transition: all 0.5s;
-}
-
-.fade-enter-from {
-  opacity: 0;
-}
-
-.fade-enter-to {
-  opacity: 1;
-} */
-
 .modal-wrap {
   position: fixed;
   left: 0;
@@ -125,20 +113,6 @@ onMounted(() => {
   box-sizing: border-box;
   z-index: 1000;
 }
-
-/* .modal-container-mypage {
-  position: fixed;
-  top: 53%;
-  right: 15px;
-  transform: translate(-2.5%, -55%);
-  width: 450px;
-  height: 80%;
-  background: #fff;
-  border-radius: 10px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  z-index: 10;
-} */
 
 .login-overlay {
   position: absolute;
