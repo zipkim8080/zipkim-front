@@ -19,7 +19,6 @@ const currentDong = computed(() => complexesStore.dong);
 function xxDongClick() {
   kakaoMapStore.xxDongEvent();
   isClicked.value = true;
-  // complexesStore.clusterRemove();
 }
 </script>
 

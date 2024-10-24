@@ -127,7 +127,6 @@ async function bookMark(property) {
 }
 
 .price {
-  /* font-size: 1.5rem; */
   font-size: 18px;
   font-weight: bold;
 }

@@ -1,6 +1,14 @@
 <script setup>
 import axios from 'axios';
-import { ref, reactive, defineProps, onMounted, watch, onUpdated, nextTick } from 'vue';
+import {
+  ref,
+  reactive,
+  defineProps,
+  onMounted,
+  watch,
+  onUpdated,
+  nextTick,
+} from 'vue';
 import Chart from 'chart.js/auto';
 import SimpleBuildingInfo from '@/pages/side/SimpleBuildingInfo.vue';
 
@@ -43,9 +51,13 @@ const calculateAverageLeaseRate = (targetAreaId) => {
   });
 
   const averageLease =
-    leasePrices.length > 0 ? leasePrices.reduce((a, b) => a + b, 0) / leasePrices.length : 0;
+    leasePrices.length > 0
+      ? leasePrices.reduce((a, b) => a + b, 0) / leasePrices.length
+      : 0;
   const averageSale =
-    salePrices.length > 0 ? salePrices.reduce((a, b) => a + b, 0) / salePrices.length : 0;
+    salePrices.length > 0
+      ? salePrices.reduce((a, b) => a + b, 0) / salePrices.length
+      : 0;
 
   if (averageSale > 0) {
     return (averageLease / averageSale) * 100;
@@ -77,11 +89,15 @@ const drawChart = (targetAreaId) => {
   const labels = Object.keys(yearlyData);
   const saleData = labels.map((year) => {
     const sales = yearlyData[year].sales;
-    return sales.length ? sales.reduce((a, b) => a + b, 0) / sales.length : null; // 평균 계산
+    return sales.length
+      ? sales.reduce((a, b) => a + b, 0) / sales.length
+      : null; // 평균 계산
   });
   const leaseData = labels.map((year) => {
     const leases = yearlyData[year].leases;
-    return leases.length ? leases.reduce((a, b) => a + b, 0) / leases.length : null; // 평균 계산
+    return leases.length
+      ? leases.reduce((a, b) => a + b, 0) / leases.length
+      : null; // 평균 계산
   });
 
   const ctx = document.getElementById('myChart')?.getContext('2d');
@@ -169,13 +185,22 @@ watch(
       <div class="average-section">
         <h5 style="font-weight: bold">평균 전세가율</h5>
         <h5 style="color: #f3b706">
-          {{ state.averageLeaseRate ? state.averageLeaseRate.toFixed(2) + '%' : '-' }}
+          {{
+            state.averageLeaseRate
+              ? state.averageLeaseRate.toFixed(2) + '%'
+              : '-'
+          }}
         </h5>
       </div>
       <div class="dropdown-section">
         <h5 style="font-weight: bold">타입 선택</h5>
         <select v-model="state.selectedItem" @change="change">
-          <option v-for="each in state.items" :key="each" v-text="each" :value="each"></option>
+          <option
+            v-for="each in state.items"
+            :key="each"
+            v-text="each"
+            :value="each"
+          ></option>
         </select>
       </div>
     </div>
@@ -208,7 +233,6 @@ canvas {
 .header {
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
   width: 100%;
   padding: 0 8px;
   margin-top: 10px;
@@ -224,6 +248,5 @@ canvas {
 
 select {
   width: 75px;
-  /* height: 30px; */
 }
 </style>

@@ -110,16 +110,6 @@ const myPageModalOpen = () => {
   gap: 10px;
 }
 
-/* .menu-item {
-  display: flex;
-  align-items: center;
-  padding: 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  color: #333;
-  transition: background-color 0.3s ease, color 0.3s ease;
-} */
-
 .menu-item {
   background-color: #fff;
   border: #fff;
